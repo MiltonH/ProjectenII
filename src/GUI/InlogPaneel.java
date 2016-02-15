@@ -35,7 +35,6 @@ public class InlogPaneel extends VBox {
         naam.setMinSize(200, 40);
         Label name = new Label("Naam: ");
         TextField invulName = new TextField();
-        invulName.setAlignment(Pos.CENTER_RIGHT);
         naam.getChildren().addAll(name, invulName);
 
         //nummer
@@ -43,7 +42,6 @@ public class InlogPaneel extends VBox {
         nummer.setMinSize(200, 40);
         Label number = new Label("Inschrijvingsnummer: ");
         TextField invulNumber = new TextField();
-        invulNumber.setAlignment(Pos.BOTTOM_RIGHT);
         nummer.getChildren().addAll(number, invulNumber);
 
         //knoppen
@@ -52,6 +50,7 @@ public class InlogPaneel extends VBox {
         Button nieuw = new Button("nieuw");
         knoppen.setHgrow(zoek, Priority.ALWAYS);
         knoppen.setHgrow(nieuw, Priority.ALWAYS);
+        knoppen.setAlignment(Pos.CENTER);
         zoek.setMaxWidth(100);
         nieuw.setMaxWidth(100);
         knoppen.setSpacing(50);
