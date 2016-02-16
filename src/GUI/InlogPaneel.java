@@ -1,15 +1,22 @@
 package GUI;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 
 public class InlogPaneel extends VBox {
 
@@ -27,8 +34,7 @@ public class InlogPaneel extends VBox {
         VBox naamNummer = new VBox();
 
         //afbeelding
-//        ImageView afbeelding = new ImageView(new Image(getClass().getResourceAsStream("images/TestAfbeelding.jpg")));
-        ImageView afbeelding = new ImageView();
+        ImageView afbeelding = new ImageView(new Image("Images/TestAfbeelding.jpg", 100, 100, true, true));
 
         //naam
         HBox naam = new HBox();
@@ -56,7 +62,27 @@ public class InlogPaneel extends VBox {
         knoppen.setSpacing(50);
         knoppen.setPadding(new Insets(0, 20, 10, 20));
         knoppen.getChildren().addAll(zoek, nieuw);
-
+        
+        //ListView
+        ObservableList<String> items = FXCollections.observableArrayList();;  
+        items.addAll("Dries", "Milton", "Robin", "Cedric");  
+        ListView<String> zoekView = new ListView<String>(items); 
+        zoekView.setPrefWidth(100);
+        zoekView.setPrefHeight(70);
+        zoekView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {  
+                    @Override  
+                    public ListCell<String> call(ListView<String> list) {  
+                        return new ZoekCell();  
+                    }  
+                });  
+    
+        zoek.setOnAction(new EventHandler<ActionEvent>() {  
+            @Override  
+            public void handle(ActionEvent arg0) {  
+                knoppen.getChildren().add(zoekView);
+            }  
+        });  
+        
         //boxen
         naamNummer.getChildren().addAll(naam, nummer);
         informatie.getChildren().addAll(naamNummer, afbeelding);
@@ -64,5 +90,26 @@ public class InlogPaneel extends VBox {
         informatie.setPadding(new Insets(0, 20, 10, 20));
         getChildren().addAll(informatie, knoppen);
     }
+    
+    static class ZoekCell extends ListCell<String> {  
+  
+        @Override  
+        public void updateItem(final String item, boolean empty) {  
+            super.updateItem(item, empty);  
+  
+            if (item != null) {  
+                Button button = new Button(item);  
+                button.setOnAction(new EventHandler<ActionEvent>() {  
+  
+                    @Override  
+                    public void handle(ActionEvent arg0) {  
+                        System.out.println(item);  
+                    }  
+                });  
+  
+                setGraphic(button);  
+            }  
+        }  
+    }  
 
 }
