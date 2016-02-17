@@ -12,7 +12,8 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) {
         StackPane root = new StackPane();
-        InlogPaneel inlog = new InlogPaneel();
+//        InlogPaneel inlog = new InlogPaneel();
+        HoofdPaneel inlog = new HoofdPaneel();
         Scene scene = new Scene(root, 1000, 1000);
         root.setStyle("-fx-background-color: #336699;");
         root.getChildren().addAll(inlog);
