@@ -43,6 +43,7 @@ public class InlogPaneel extends VBox {
         naam.setMinSize(200, 40);
         Label name = new Label("Naam: ");
         TextField invulName = new TextField();
+        invulName.setPromptText("Voeg de naam in");
         naam.add(name, 1, 1);
         naam.add(invulName, 1, 2);
 
@@ -51,6 +52,7 @@ public class InlogPaneel extends VBox {
         nummer.setMinSize(200, 40);
         Label number = new Label("Inschrijvingsnummer: ");
         TextField invulNumber = new TextField();
+        invulNumber.setPromptText("Voeg het nummer in");
         nummer.add(number, 1, 1);
         nummer.add(invulNumber, 1, 2);
 
@@ -116,22 +118,26 @@ public class InlogPaneel extends VBox {
         Button nieuw = new Button("Nieuw");
         Button kies = new Button("Kies");
         Button voegToe = new Button("Voeg toe");
+        Button voegAfbeeldingToe = new Button("Voeg afbeelding in");
         Button terugNieuw = new Button("Terug");
         Button terugZoek = new Button("Terug");
+        Button open = new Button("Open");
         knoppen.setHgrow(zoek, Priority.ALWAYS);
         knoppen.setHgrow(nieuw, Priority.ALWAYS);
         knoppen.setAlignment(Pos.CENTER);
-        zoek.setMaxWidth(100);
-        nieuw.setMaxWidth(100);
-        kies.setMaxWidth(100);
         knoppen.setSpacing(50);
         knoppen.setPadding(new Insets(0, 20, 10, 20));
-        knoppen.getChildren().addAll(zoek, nieuw);
+        knoppen.getChildren().addAll(zoek, nieuw, open);
 
-        //vbox
+        //vboxVoorNieuw(knoppen)
         HBox knoppenInVoegToe = new HBox();
         knoppenInVoegToe.setSpacing(10);
         knoppenInVoegToe.getChildren().addAll(voegToe, terugNieuw);
+        
+        //testbox afbeelding
+        GridPane afbeeldingske = new GridPane();
+        afbeeldingske.setVgap(10); 
+        afbeeldingske.add(afbeelding, 1, 1);
 
         //ListView zoekknop
         ObservableList<String> namen = FXCollections.observableArrayList();;
@@ -143,7 +149,7 @@ public class InlogPaneel extends VBox {
         zoek.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                knoppen.getChildren().removeAll(zoek, nieuw);
+                knoppen.getChildren().removeAll(zoek, nieuw, open);
                 knoppen.getChildren().addAll(zoekView, kies, terugZoek);
                 setMaxSize(400, 300);
             }
@@ -153,7 +159,8 @@ public class InlogPaneel extends VBox {
         nieuw.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                knoppen.getChildren().removeAll(zoek, nieuw);
+                knoppen.getChildren().removeAll(zoek, nieuw, open);
+                afbeeldingske.add(voegAfbeeldingToe, 1, 2);
                 naamNummer.getChildren().removeAll(naam, nummer);
                 naamNummer.getChildren().addAll(naamFormulier, nummerFormulier, geboortedatum, woonplaats, straat, huisnummer, geslacht, knoppenInVoegToe);
                 setMaxSize(400, 300);
@@ -164,9 +171,10 @@ public class InlogPaneel extends VBox {
         terugNieuw.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
+                afbeeldingske.getChildren().remove(voegAfbeeldingToe);
                 naamNummer.getChildren().removeAll(naamFormulier, nummerFormulier, geboortedatum, woonplaats, straat, huisnummer, geslacht, knoppenInVoegToe);
                 naamNummer.getChildren().addAll(naam, nummer);
-                knoppen.getChildren().addAll(zoek, nieuw);
+                knoppen.getChildren().addAll(zoek, nieuw, open);
                 setMaxSize(400, 100);
             }
         });
@@ -175,14 +183,14 @@ public class InlogPaneel extends VBox {
             @Override
             public void handle(ActionEvent arg0) {
                 knoppen.getChildren().removeAll(zoekView, kies, terugZoek);
-                knoppen.getChildren().addAll(zoek, nieuw);
+                knoppen.getChildren().addAll(zoek, nieuw, open);
                 setMaxSize(400, 100);
             }
         });
 
         //boxen
         naamNummer.getChildren().addAll(naam, nummer);
-        informatie.getChildren().addAll(naamNummer, afbeelding);
+        informatie.getChildren().addAll(naamNummer, afbeeldingske);
         informatie.setSpacing(10);
         informatie.setPadding(new Insets(0, 20, 10, 20));
         getChildren().addAll(informatie, knoppen);
