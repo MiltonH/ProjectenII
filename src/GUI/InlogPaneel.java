@@ -4,11 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -17,7 +17,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 
 public class InlogPaneel extends VBox {
 
@@ -61,6 +60,7 @@ public class InlogPaneel extends VBox {
         naamFormulier.setMinSize(200, 40);
         Label nameFormulier = new Label("Naam: ");
         TextField invulNameFormulier = new TextField();
+        invulNameFormulier.setPromptText("Voeg de naam in");
         naamFormulier.add(nameFormulier, 1, 1);
         naamFormulier.add(invulNameFormulier, 1, 2);
 
@@ -69,6 +69,7 @@ public class InlogPaneel extends VBox {
         nummerFormulier.setMinSize(200, 40);
         Label numberFormulier = new Label("Inschrijvingsnummer: ");
         TextField invulNumberFormulier = new TextField();
+        invulNumberFormulier.setPromptText("Voeg het nummer in");
         nummerFormulier.add(numberFormulier, 1, 1);
         nummerFormulier.add(invulNumberFormulier, 1, 2);
 
@@ -76,7 +77,9 @@ public class InlogPaneel extends VBox {
         GridPane geboortedatum = new GridPane();
         geboortedatum.setMinSize(200, 40);
         Label geboortedate = new Label("Geboortedatum: ");
+        invulNumber.setPromptText("Voeg het nummer in");
         TextField invulGeboortedate = new TextField();
+        invulGeboortedate.setPromptText("Voeg de geboortedatum in");
         geboortedatum.add(geboortedate, 1, 1);
         geboortedatum.add(invulGeboortedate, 1, 2);
 
@@ -85,6 +88,7 @@ public class InlogPaneel extends VBox {
         woonplaats.setMinSize(200, 40);
         Label woonplaatsje = new Label("Woonplaats: ");
         TextField invulWoonplaatsje = new TextField();
+        invulWoonplaatsje.setPromptText("Voeg de woonplaats in");
         woonplaats.add(woonplaatsje, 1, 1);
         woonplaats.add(invulWoonplaatsje, 1, 2);
 
@@ -93,6 +97,7 @@ public class InlogPaneel extends VBox {
         straat.setMinSize(200, 40);
         Label street = new Label("Straat: ");
         TextField invulStreet = new TextField();
+        invulStreet.setPromptText("Voeg de straat in");
         straat.add(street, 1, 1);
         straat.add(invulStreet, 1, 2);
 
@@ -101,6 +106,7 @@ public class InlogPaneel extends VBox {
         huisnummer.setMinSize(200, 40);
         Label huisnummertje = new Label("Huisnummer: ");
         TextField invulHuisnummertje = new TextField();
+        invulHuisnummertje.setPromptText("Voeg het huisnummer in");
         huisnummer.add(huisnummertje, 1, 1);
         huisnummer.add(invulHuisnummertje, 1, 2);
 
@@ -109,6 +115,7 @@ public class InlogPaneel extends VBox {
         geslacht.setMinSize(200, 40);
         Label geslachtje = new Label("Geslacht: ");
         TextField invulGeslachtje = new TextField();
+        invulGeslachtje.setPromptText("Voeg het geslacht in");
         geslacht.add(geslachtje, 1, 1);
         geslacht.add(invulGeslachtje, 1, 2);
 
@@ -133,10 +140,10 @@ public class InlogPaneel extends VBox {
         HBox knoppenInVoegToe = new HBox();
         knoppenInVoegToe.setSpacing(10);
         knoppenInVoegToe.getChildren().addAll(voegToe, terugNieuw);
-        
+
         //testbox afbeelding
         GridPane afbeeldingske = new GridPane();
-        afbeeldingske.setVgap(10); 
+        afbeeldingske.setVgap(10);
         afbeeldingske.add(afbeelding, 1, 1);
 
         //ListView zoekknop
@@ -146,6 +153,13 @@ public class InlogPaneel extends VBox {
         zoekView.setPrefWidth(100);
         zoekView.setPrefHeight(200);
 
+        kies.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                invulName.setText(zoekView.getSelectionModel().getSelectedItem());
+            }
+        });
+        
         zoek.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
@@ -178,7 +192,7 @@ public class InlogPaneel extends VBox {
                 setMaxSize(400, 100);
             }
         });
-        
+
         terugZoek.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
