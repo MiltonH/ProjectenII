@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -21,25 +20,21 @@ import javafx.scene.layout.VBox;
 public class InlogPaneel extends VBox {
 
     public InlogPaneel() {
-        setMaxSize(400, 100);
-        setStyle("-fx-padding: 10;"
-                + "-fx-border-style: solid inside;"
-                + "-fx-border-width: 2;"
-                + "-fx-border-insets: 5;"
-                + "-fx-border-radius: 5;"
-                + "-fx-border-color: blue;"
-                + "-fx-background-color: FFFFFF;");
+        setMaxSize(800, 400);
+        
         //informatie
         HBox informatie = new HBox();
+        informatie.setMinHeight(150);
         VBox naamNummer = new VBox();
-        naamNummer.setSpacing(10);
+        naamNummer.setMinHeight(150);
+        naamNummer.setSpacing(20);
 
         //afbeelding
         ImageView afbeelding = new ImageView(new Image("Images/unknown-user.png", 100, 100, true, true));
 
         //naam
         GridPane naam = new GridPane();
-        naam.setMinSize(200, 40);
+        naam.setMinSize(400, 40);
         Label name = new Label("Naam: ");
         TextField invulName = new TextField();
         invulName.setPromptText("Voeg de naam in");
@@ -48,7 +43,7 @@ public class InlogPaneel extends VBox {
 
         //nummer
         GridPane nummer = new GridPane();
-        nummer.setMinSize(200, 40);
+        nummer.setMinSize(400, 40);
         Label number = new Label("Inschrijvingsnummer: ");
         TextField invulNumber = new TextField();
         invulNumber.setPromptText("Voeg het nummer in");
@@ -57,7 +52,7 @@ public class InlogPaneel extends VBox {
 
         //naamFormulier
         GridPane naamFormulier = new GridPane();
-        naamFormulier.setMinSize(200, 40);
+        naamFormulier.setMinSize(400, 40);
         Label nameFormulier = new Label("Naam: ");
         TextField invulNameFormulier = new TextField();
         invulNameFormulier.setPromptText("Voeg de naam in");
@@ -66,7 +61,7 @@ public class InlogPaneel extends VBox {
 
         //nummerFormulier
         GridPane nummerFormulier = new GridPane();
-        nummerFormulier.setMinSize(200, 40);
+        nummerFormulier.setMinSize(400, 40);
         Label numberFormulier = new Label("Inschrijvingsnummer: ");
         TextField invulNumberFormulier = new TextField();
         invulNumberFormulier.setPromptText("Voeg het nummer in");
@@ -75,7 +70,7 @@ public class InlogPaneel extends VBox {
 
         //geboortedatum
         GridPane geboortedatum = new GridPane();
-        geboortedatum.setMinSize(200, 40);
+        geboortedatum.setMinSize(400, 40);
         Label geboortedate = new Label("Geboortedatum: ");
         invulNumber.setPromptText("Voeg het nummer in");
         TextField invulGeboortedate = new TextField();
@@ -85,7 +80,7 @@ public class InlogPaneel extends VBox {
 
         //woonplaats
         GridPane woonplaats = new GridPane();
-        woonplaats.setMinSize(200, 40);
+        woonplaats.setMinSize(400, 40);
         Label woonplaatsje = new Label("Woonplaats: ");
         TextField invulWoonplaatsje = new TextField();
         invulWoonplaatsje.setPromptText("Voeg de woonplaats in");
@@ -94,7 +89,7 @@ public class InlogPaneel extends VBox {
 
         //straat
         GridPane straat = new GridPane();
-        straat.setMinSize(200, 40);
+        straat.setMinSize(400, 40);
         Label street = new Label("Straat: ");
         TextField invulStreet = new TextField();
         invulStreet.setPromptText("Voeg de straat in");
@@ -103,7 +98,7 @@ public class InlogPaneel extends VBox {
 
         //huisnummer
         GridPane huisnummer = new GridPane();
-        huisnummer.setMinSize(200, 40);
+        huisnummer.setMinSize(400, 40);
         Label huisnummertje = new Label("Huisnummer: ");
         TextField invulHuisnummertje = new TextField();
         invulHuisnummertje.setPromptText("Voeg het huisnummer in");
@@ -112,7 +107,7 @@ public class InlogPaneel extends VBox {
 
         //geslacht
         GridPane geslacht = new GridPane();
-        geslacht.setMinSize(200, 40);
+        geslacht.setMinSize(400, 40);
         Label geslachtje = new Label("Geslacht: ");
         TextField invulGeslachtje = new TextField();
         invulGeslachtje.setPromptText("Voeg het geslacht in");
@@ -129,11 +124,10 @@ public class InlogPaneel extends VBox {
         Button terugNieuw = new Button("Terug");
         Button terugZoek = new Button("Terug");
         Button open = new Button("Open");
-        knoppen.setHgrow(zoek, Priority.ALWAYS);
-        knoppen.setHgrow(nieuw, Priority.ALWAYS);
         knoppen.setAlignment(Pos.CENTER);
         knoppen.setSpacing(50);
         knoppen.setPadding(new Insets(0, 20, 10, 20));
+        knoppen.setMinHeight(200);
         knoppen.getChildren().addAll(zoek, nieuw, open);
 
         //vboxVoorNieuw(knoppen)
@@ -143,6 +137,8 @@ public class InlogPaneel extends VBox {
 
         //testbox afbeelding
         GridPane afbeeldingske = new GridPane();
+        afbeeldingske.setMinWidth(400);
+        afbeeldingske.setAlignment(Pos.CENTER);
         afbeeldingske.setVgap(10);
         afbeeldingske.add(afbeelding, 1, 1);
 
@@ -165,7 +161,7 @@ public class InlogPaneel extends VBox {
             public void handle(ActionEvent arg0) {
                 knoppen.getChildren().removeAll(zoek, nieuw, open);
                 knoppen.getChildren().addAll(zoekView, kies, terugZoek);
-                setMaxSize(400, 300);
+                setMaxSize(800, 400);
             }
         });
 
@@ -177,7 +173,9 @@ public class InlogPaneel extends VBox {
                 afbeeldingske.add(voegAfbeeldingToe, 1, 2);
                 naamNummer.getChildren().removeAll(naam, nummer);
                 naamNummer.getChildren().addAll(naamFormulier, nummerFormulier, geboortedatum, woonplaats, straat, huisnummer, geslacht, knoppenInVoegToe);
-                setMaxSize(400, 300);
+                naamNummer.setMinHeight(550);
+                informatie.setMinHeight(550);
+                setMinHeight(600);
             }
         });
 
@@ -189,7 +187,9 @@ public class InlogPaneel extends VBox {
                 naamNummer.getChildren().removeAll(naamFormulier, nummerFormulier, geboortedatum, woonplaats, straat, huisnummer, geslacht, knoppenInVoegToe);
                 naamNummer.getChildren().addAll(naam, nummer);
                 knoppen.getChildren().addAll(zoek, nieuw, open);
-                setMaxSize(400, 100);
+                informatie.setMinHeight(150);
+                naamNummer.setMinHeight(150);
+                setMinSize(800, 400);
             }
         });
 
@@ -198,7 +198,9 @@ public class InlogPaneel extends VBox {
             public void handle(ActionEvent arg0) {
                 knoppen.getChildren().removeAll(zoekView, kies, terugZoek);
                 knoppen.getChildren().addAll(zoek, nieuw, open);
-                setMaxSize(400, 100);
+                informatie.setMinHeight(150);
+                naamNummer.setMinHeight(150);
+                setMaxSize(800, 400);
             }
         });
 
