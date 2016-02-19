@@ -19,7 +19,7 @@ public class Main extends Application
         primaryStage.setTitle("Rijschool Applicatie");
         primaryStage.setScene(scene);
         primaryStage.show();
-        ScenicView.show(scene);
+//        ScenicView.show(scene);
     }
     
     public static void main(String[] args) {

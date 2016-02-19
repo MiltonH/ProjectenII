@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,13 +15,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class InlogPaneel extends VBox {
 
     public InlogPaneel() {
         setMaxSize(800, 400);
+        Label toegevoegd = new Label("Persoon is toegevoegd");
+        toegevoegd.setId("speciaalLabel");
         
         //informatie
         HBox informatie = new HBox();
@@ -161,16 +163,28 @@ public class InlogPaneel extends VBox {
             public void handle(ActionEvent arg0) {
                 knoppen.getChildren().removeAll(zoek, nieuw, open);
                 knoppen.getChildren().addAll(zoekView, kies, terugZoek);
-                setMaxSize(800, 400);
+                setPrefSize(800, 400);
             }
         });
 
+        //voegToeknop 
+        voegToe.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                namen.add(invulNameFormulier.getText());
+                invulName.setText(invulNameFormulier.getText());
+                afbeeldingske.add(toegevoegd, 1, 3);
+                afbeeldingske.setHalignment(toegevoegd, HPos.CENTER);
+            }
+        });
+        
         //Formulier nieuwknop
         nieuw.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
                 knoppen.getChildren().removeAll(zoek, nieuw, open);
                 afbeeldingske.add(voegAfbeeldingToe, 1, 2);
+                afbeeldingske.setHalignment(afbeelding, HPos.CENTER);
                 naamNummer.getChildren().removeAll(naam, nummer);
                 naamNummer.getChildren().addAll(naamFormulier, nummerFormulier, geboortedatum, woonplaats, straat, huisnummer, geslacht, knoppenInVoegToe);
                 naamNummer.setMinHeight(550);
@@ -183,10 +197,11 @@ public class InlogPaneel extends VBox {
         terugNieuw.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                afbeeldingske.getChildren().remove(voegAfbeeldingToe);
+                afbeeldingske.getChildren().removeAll(voegAfbeeldingToe, toegevoegd);
                 naamNummer.getChildren().removeAll(naamFormulier, nummerFormulier, geboortedatum, woonplaats, straat, huisnummer, geslacht, knoppenInVoegToe);
                 naamNummer.getChildren().addAll(naam, nummer);
                 knoppen.getChildren().addAll(zoek, nieuw, open);
+                afbeeldingske.setMinWidth(325);
                 informatie.setMinHeight(150);
                 naamNummer.setMinHeight(150);
                 setMinSize(800, 400);
