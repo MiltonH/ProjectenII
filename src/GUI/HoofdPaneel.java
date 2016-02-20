@@ -18,6 +18,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.SVGPath;
@@ -131,8 +132,8 @@ public class HoofdPaneel extends GridPane
 //        add(wijzerplaat2View, 7, 3, 2, 2);
 //        
 
-
-    //maingrid indelen
+        //maingrid indelen
+        setId("hoofdPaneelBG");
         gridLinesVisibleProperty().set(true);
 
         ColumnConstraints kolom0 = new ColumnConstraints();
@@ -145,9 +146,9 @@ public class HoofdPaneel extends GridPane
         kolom3.setPercentWidth(26);
         ColumnConstraints kolom4 = new ColumnConstraints();
         kolom4.setPercentWidth(17);
-        
+
         getColumnConstraints().addAll(kolom0, kolom1, kolom2, kolom3, kolom4);
-        
+
         RowConstraints rij0 = new RowConstraints();
         rij0.setPercentHeight(15);
         RowConstraints rij1 = new RowConstraints();
@@ -157,21 +158,78 @@ public class HoofdPaneel extends GridPane
         RowConstraints rij3 = new RowConstraints();
         rij3.setPercentHeight(20);
 
-        getRowConstraints().addAll(rij0, rij1, rij2, rij3);    
-        
+        getRowConstraints().addAll(rij0, rij1, rij2, rij3);
+
         //einde grid indeling
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
-        
+
         //wijzerplaaten
-        Image wijzerplaat = new Image("Images/Wijzerplaat.png",Math.ceil(schermformaat.getWidth()*0.26), USE_PREF_SIZE, true, true);
-        ImageView wijzerplaat1View = new ImageView(wijzerplaat);  
+        StackPane wijzerplaat1Stack = new StackPane();
+        StackPane wijzerplaat2Stack = new StackPane();
+
+        Image wijzerplaat = new Image("Images/Wijzerplaat.png", Math.ceil(schermformaat.getWidth() * 0.26), USE_PREF_SIZE, true, true);
+        Image wijzerStand1 = new Image("Images/WijzerStand1.png", Math.ceil(schermformaat.getWidth() * 0.26), USE_PREF_SIZE, true, true);
+        Image wijzerStand2 = new Image("Images/WijzerStand2.png", Math.ceil(schermformaat.getWidth() * 0.26), USE_PREF_SIZE, true, true);
+        Image wijzerStand3 = new Image("Images/WijzerStand3.png", Math.ceil(schermformaat.getWidth() * 0.26), USE_PREF_SIZE, true, true);
+        ImageView wijzeplaat1Stand = new ImageView(wijzerStand1);
+        ImageView wijzeplaat2Stand = new ImageView(wijzerStand1);
+        ImageView wijzerplaat1View = new ImageView(wijzerplaat);
         ImageView wijzerplaat2View = new ImageView(wijzerplaat);
-        add(wijzerplaat1View, 1, 2);
-        add(wijzerplaat2View,3,2);
         
-       //eind wijzerplaaten
-       //
+        wijzerplaat1Stack.getChildren().addAll(wijzerplaat1View,wijzeplaat1Stand);
+        wijzerplaat2Stack.getChildren().addAll(wijzerplaat2View,wijzeplaat2Stand);
+        add(wijzerplaat1Stack, 1, 2);
+        add(wijzerplaat2Stack, 3, 2);
+
+        //eind wijzerplaaten
+        //CenterTopBalk
+        HBox centerTopBox = new HBox();
+        centerTopBox.setAlignment(Pos.CENTER);
+        Image centerTopImg = new Image("Images/CenterTop.png", Math.ceil(schermformaat.getWidth() * 0.40), USE_PREF_SIZE, true, true);
+        ImageView centerTopView = new ImageView(centerTopImg);
+        centerTopBox.getChildren().add(centerTopView);
+
+        add(centerTopBox, 1, 1, 3, 1);
+        //einde CenterTopBalk
         
+        //BottomBox
+        HBox bottomBox = new HBox();
+        StackPane bottomStack = new StackPane();
+        bottomStack.setAlignment(Pos.CENTER);
+        bottomBox.setAlignment(Pos.CENTER);
+        Image bottomBoxImg = new Image("Images/BottomBox.png", Math.ceil(schermformaat.getWidth() * 0.40), USE_PREF_SIZE, true, true);
+        ImageView bottomBoxView = new ImageView(bottomBoxImg);
+        bottomBox.getChildren().add(bottomStack);
+
+        Image bottomTest = new Image("Images/BottomTest.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        ImageView bottomTest1View = new ImageView(bottomTest);
+//        bottomTest1View.setOnMouseClicked(event -> {
+//            wijzeplaat1Stand.setImage(wijzerStand2);
+//        });
+        ImageView bottomTest2View = new ImageView(bottomTest);
+        ImageView bottomTest3View = new ImageView(bottomTest);
+
+        GridPane bottomBoxGrid = new GridPane();
+        bottomBoxGrid.setAlignment(Pos.CENTER);
+        bottomBoxGrid.gridLinesVisibleProperty().set(true);
+
+        RowConstraints bottomRij0 = new RowConstraints();
+        bottomRij0.setMaxHeight(schermformaat.getHeight() * 0.08);
+
+        RowConstraints bottomRij1 = new RowConstraints();
+        bottomRij1.setPrefHeight(schermformaat.getHeight() * 0.12);
+        bottomBoxGrid.getRowConstraints().addAll(bottomRij0, bottomRij1);
+        HBox TestKnoppen = new HBox();
+        TestKnoppen.setSpacing(Math.ceil(schermformaat.getWidth() * 0.03));
+
+        TestKnoppen.getChildren().addAll(bottomTest1View, bottomTest2View, bottomTest3View);
+
+        bottomBoxGrid.add(TestKnoppen, 0, 0);
+
+        bottomStack.getChildren().addAll(bottomBoxView, bottomBoxGrid);
+
+        add(bottomBox, 1, 3, 3, 1);
+        //einde BottomBox
     }
 
 }
