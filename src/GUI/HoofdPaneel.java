@@ -6,6 +6,8 @@
 package GUI;
 
 import com.sun.glass.ui.Window;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -14,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -30,6 +33,8 @@ import javafx.stage.Screen;
  */
 public class HoofdPaneel extends GridPane
 {
+
+    int niveau = 1;//dit is testcode
 
     public HoofdPaneel() {
 //        setId("hoofdPaneelBG");
@@ -171,9 +176,13 @@ public class HoofdPaneel extends GridPane
         Image centerKnopImg = new Image("Images/centerKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView centerKnopView = new ImageView(centerKnopImg);
         centerBox.setAlignment(Pos.CENTER);
-        centerStack.getChildren().addAll(centerView,centerKnopView);
+        centerStack.getChildren().addAll(centerView, centerKnopView);
         centerBox.getChildren().addAll(centerStack);
         add(centerBox, 1, 2, 3, 1);
+
+        centerKnopView.setOnMouseClicked(event -> {
+            System.out.println("middel");
+        });//debug
         //einde centerBox
 
         //wijzerplaaten
@@ -193,6 +202,12 @@ public class HoofdPaneel extends GridPane
         wijzerplaat2Stack.getChildren().addAll(wijzerplaat2View, wijzeplaat2Stand);
         add(wijzerplaat1Stack, 1, 2);
         add(wijzerplaat2Stack, 3, 2);
+        wijzerplaat1View.setOnMouseClicked(event -> {
+            System.out.println("links");
+        });//debug
+        wijzerplaat2View.setOnMouseClicked(event -> {
+            System.out.println("rechts");
+        });//debug
 
         //eind wijzerplaaten
         //CenterTopBalk
@@ -216,11 +231,17 @@ public class HoofdPaneel extends GridPane
 
         Image bottomTest = new Image("Images/BottomTest.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
         ImageView bottomTest1View = new ImageView(bottomTest);
-//        bottomTest1View.setOnMouseClicked(event -> {
-//            wijzeplaat1Stand.setImage(wijzerStand2);
-//        });
+        bottomTest1View.setOnMouseClicked(event -> {
+            wijzeplaat1Stand.setImage(wijzerStand2);
+        });
         ImageView bottomTest2View = new ImageView(bottomTest);
+        bottomTest2View.setOnMouseClicked(event -> {
+            wijzeplaat1Stand.setImage(wijzerStand3);
+        });
         ImageView bottomTest3View = new ImageView(bottomTest);
+        bottomTest3View.setOnMouseClicked(event -> {
+            wijzeplaat1Stand.setImage(wijzerStand1);
+        });
 
         GridPane bottomBoxGrid = new GridPane();
         bottomBoxGrid.setAlignment(Pos.CENTER);
@@ -233,16 +254,68 @@ public class HoofdPaneel extends GridPane
         bottomRij1.setPrefHeight(schermformaat.getHeight() * 0.12);
         bottomBoxGrid.getRowConstraints().addAll(bottomRij0, bottomRij1);
         HBox TestKnoppen = new HBox();
+        TestKnoppen.setAlignment(Pos.CENTER);
         TestKnoppen.setSpacing(Math.ceil(schermformaat.getWidth() * 0.03));
 
         TestKnoppen.getChildren().addAll(bottomTest1View, bottomTest2View, bottomTest3View);
 
         bottomBoxGrid.add(TestKnoppen, 0, 0);
+        //niveau
 
+        Image niveauBoxImg = new Image("Images/niveauBox.png", Math.ceil(schermformaat.getWidth() * 0.24), USE_PREF_SIZE, true, true);
+        ImageView niveauBoxView = new ImageView(niveauBoxImg);
+
+        StackPane niveauStack = new StackPane();
+        HBox niveauHbox = new HBox();
+        niveauHbox.setAlignment(Pos.CENTER);
+        niveauHbox.setSpacing(Math.ceil(schermformaat.getWidth() * 0.01));
+
+        Image niveauMinImg = new Image("Images/niveaumin.png", Math.ceil(schermformaat.getWidth() * 0.02), USE_PREF_SIZE, true, true);
+        ImageView niveauMinView = new ImageView(niveauMinImg);
+
+        Image niveauPlusImg = new Image("Images/niveauplus.png", Math.ceil(schermformaat.getWidth() * 0.02), USE_PREF_SIZE, true, true);
+        ImageView niveauPlusView = new ImageView(niveauPlusImg);
+        List<Image> niveauImages = new ArrayList<>();
+        niveauImages.add(new Image("Images/niveau1.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
+        niveauImages.add(new Image("Images/niveau2.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
+        niveauImages.add(new Image("Images/niveau3.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
+        niveauImages.add(new Image("Images/niveau4.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
+        niveauImages.add(new Image("Images/niveau5.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
+        niveauImages.add(new Image("Images/niveau6.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
+        niveauImages.add(new Image("Images/niveau7.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
+        ImageView niveauCenterView = new ImageView(niveauImages.get(niveau - 1));
+
+        niveauHbox.getChildren().addAll(niveauMinView, niveauCenterView, niveauPlusView);
+
+        niveauStack.getChildren().addAll(niveauBoxView, niveauHbox);
+        bottomBoxGrid.add(niveauStack, 0, 1);
+
+        niveauMinView.setOnMouseClicked(event -> {
+            niveauMin();
+            niveauCenterView.setImage(niveauImages.get(niveau - 1));
+
+        });
+        niveauPlusView.setOnMouseClicked(event -> {
+            niveauPlus();
+            niveauCenterView.setImage(niveauImages.get(niveau - 1));
+        });
+        //eind niveau
         bottomStack.getChildren().addAll(bottomBoxView, bottomBoxGrid);
 
         add(bottomBox, 1, 3, 3, 1);
         //einde BottomBox
+    }
+
+    private void niveauMin() {
+        if (niveau > 1) {
+            niveau -= 1;
+        }
+    }
+
+    private void niveauPlus() {
+        if (niveau < 7) {
+            niveau += 1;
+        }
     }
 
 }
