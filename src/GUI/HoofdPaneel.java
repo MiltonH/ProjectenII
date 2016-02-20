@@ -163,6 +163,19 @@ public class HoofdPaneel extends GridPane
         //einde grid indeling
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
 
+        //centerBox
+        HBox centerBox = new HBox();
+        StackPane centerStack = new StackPane();
+        Image centerImg = new Image("Images/center2.png", Math.ceil(schermformaat.getWidth() * 0.24), USE_PREF_SIZE, true, true);
+        ImageView centerView = new ImageView(centerImg);
+        Image centerKnopImg = new Image("Images/centerKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
+        ImageView centerKnopView = new ImageView(centerKnopImg);
+        centerBox.setAlignment(Pos.CENTER);
+        centerStack.getChildren().addAll(centerView,centerKnopView);
+        centerBox.getChildren().addAll(centerStack);
+        add(centerBox, 1, 2, 3, 1);
+        //einde centerBox
+
         //wijzerplaaten
         StackPane wijzerplaat1Stack = new StackPane();
         StackPane wijzerplaat2Stack = new StackPane();
@@ -175,9 +188,9 @@ public class HoofdPaneel extends GridPane
         ImageView wijzeplaat2Stand = new ImageView(wijzerStand1);
         ImageView wijzerplaat1View = new ImageView(wijzerplaat);
         ImageView wijzerplaat2View = new ImageView(wijzerplaat);
-        
-        wijzerplaat1Stack.getChildren().addAll(wijzerplaat1View,wijzeplaat1Stand);
-        wijzerplaat2Stack.getChildren().addAll(wijzerplaat2View,wijzeplaat2Stand);
+
+        wijzerplaat1Stack.getChildren().addAll(wijzerplaat1View, wijzeplaat1Stand);
+        wijzerplaat2Stack.getChildren().addAll(wijzerplaat2View, wijzeplaat2Stand);
         add(wijzerplaat1Stack, 1, 2);
         add(wijzerplaat2Stack, 3, 2);
 
@@ -191,7 +204,7 @@ public class HoofdPaneel extends GridPane
 
         add(centerTopBox, 1, 1, 3, 1);
         //einde CenterTopBalk
-        
+
         //BottomBox
         HBox bottomBox = new HBox();
         StackPane bottomStack = new StackPane();

@@ -17,12 +17,13 @@ public class Main extends Application
         HoofdPaneel inlog = new HoofdPaneel();
         Scene scene = new Scene(root, 1366, 768);
         scene.getStylesheets().add("StyleSheets/Style.css");
-        ScenicView.show(scene);
+//        ScenicView.show(scene);
         root.setStyle("-fx-background-color: #336699;");
         root.getChildren().addAll(inlog);
         primaryStage.setTitle("Rijschool Applicatie");
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setFullScreen(true);
         
     }
     
