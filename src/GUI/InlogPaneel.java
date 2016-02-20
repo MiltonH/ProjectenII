@@ -7,12 +7,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,7 +25,7 @@ public class InlogPaneel extends VBox {
         setMaxSize(800, 400);
         Label toegevoegd = new Label("Persoon is toegevoegd");
         toegevoegd.setId("speciaalLabel");
-        
+
         //informatie
         HBox informatie = new HBox();
         informatie.setMinHeight(150);
@@ -151,13 +153,31 @@ public class InlogPaneel extends VBox {
         zoekView.setPrefWidth(100);
         zoekView.setPrefHeight(200);
 
+        //ListView Kiesknop
         kies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
                 invulName.setText(zoekView.getSelectionModel().getSelectedItem());
             }
         });
+
+        kies.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        kies.setCursor(Cursor.HAND);
+                    }
+                });
+
+        kies.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        kies.setEffect(null);
+                    }
+                });
         
+        //zoekKnop
         zoek.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
@@ -166,6 +186,22 @@ public class InlogPaneel extends VBox {
                 setPrefSize(800, 400);
             }
         });
+        
+        zoek.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        zoek.setCursor(Cursor.HAND);
+                    }
+                });
+
+        zoek.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        zoek.setEffect(null);
+                    }
+                });
 
         //voegToeknop 
         voegToe.setOnAction(new EventHandler<ActionEvent>() {
@@ -178,6 +214,22 @@ public class InlogPaneel extends VBox {
             }
         });
         
+        voegToe.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        voegToe.setCursor(Cursor.HAND);
+                    }
+                });
+
+        voegToe.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        voegToe.setEffect(null);
+                    }
+                });
+
         //Formulier nieuwknop
         nieuw.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -192,6 +244,22 @@ public class InlogPaneel extends VBox {
                 setMinHeight(600);
             }
         });
+        
+        nieuw.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        nieuw.setCursor(Cursor.HAND);
+                    }
+                });
+
+        nieuw.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        nieuw.setEffect(null);
+                    }
+                });
 
         //TerugKnop
         terugNieuw.setOnAction(new EventHandler<ActionEvent>() {
@@ -207,6 +275,22 @@ public class InlogPaneel extends VBox {
                 setMinSize(800, 400);
             }
         });
+        
+        terugNieuw.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        terugNieuw.setCursor(Cursor.HAND);
+                    }
+                });
+
+        terugNieuw.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        terugNieuw.setEffect(null);
+                    }
+                });
 
         terugZoek.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -218,6 +302,56 @@ public class InlogPaneel extends VBox {
                 setMaxSize(800, 400);
             }
         });
+        
+        terugZoek.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        terugZoek.setCursor(Cursor.HAND);
+                    }
+                });
+
+        terugZoek.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        terugZoek.setEffect(null);
+                    }
+                });
+        
+        //knopOpen
+        open.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        open.setCursor(Cursor.HAND);
+                    }
+                });
+
+        open.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        open.setEffect(null);
+                    }
+                });
+        
+        //knopVoegAfbeeldingToe
+        voegAfbeeldingToe.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        voegAfbeeldingToe.setCursor(Cursor.HAND);
+                    }
+                });
+
+        voegAfbeeldingToe.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        voegAfbeeldingToe.setEffect(null);
+                    }
+                });
 
         //boxen
         naamNummer.getChildren().addAll(naam, nummer);
