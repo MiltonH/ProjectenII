@@ -5,28 +5,19 @@
  */
 package GUI;
 
-import com.sun.glass.ui.Window;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.SVGPath;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 /**
@@ -41,7 +32,7 @@ public class HoofdPaneel extends GridPane
     public HoofdPaneel() {
         //maingrid indelen
         setId("hoofdPaneelBG");
-        gridLinesVisibleProperty().set(true);
+//        gridLinesVisibleProperty().set(true);
 
         ColumnConstraints kolom0 = new ColumnConstraints();
         kolom0.setPercentWidth(17);
@@ -133,47 +124,47 @@ public class HoofdPaneel extends GridPane
         StackPane centerTopStack = new StackPane();
         centerTopBox.setAlignment(Pos.CENTER);
         Image centerTopImg = new Image("Images/CenterTop.png", Math.ceil(schermformaat.getWidth() * 0.40), USE_PREF_SIZE, true, true);
-        ImageView centerTopView = new ImageView(centerTopImg);      
-        
+        ImageView centerTopView = new ImageView(centerTopImg);
+
         HBox centerTopKnoppen = new HBox();
         centerTopKnoppen.setAlignment(Pos.CENTER);
         centerTopKnoppen.setSpacing(Math.ceil(schermformaat.getWidth() * 0.02));
-        
+
         Image rijstrokenImg = new Image("Images/rijstrokenIcoon.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true);
         ImageView rijstrokenView = new ImageView(rijstrokenImg);
-        
+
         rijstrokenView.setOnMouseClicked(event -> {
             System.out.println("rijstroken");
         });//debug
-        
+
         Image rotondeImg = new Image("Images/rotondeIcoon.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true);
         ImageView rotondeView = new ImageView(rotondeImg);
-        
+
         rotondeView.setOnMouseClicked(event -> {
             System.out.println("rotonde");
         });//debug
-        
+
         Image snelwegImg = new Image("Images/snelwegIcoon.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true);
         ImageView snelwegView = new ImageView(snelwegImg);
-        
+
         snelwegView.setOnMouseClicked(event -> {
             System.out.println("snelweg");
         });//debug
-        
+
         Image stadImg = new Image("Images/stadIcoon.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true);
         ImageView stadView = new ImageView(stadImg);
-        
+
         stadView.setOnMouseClicked(event -> {
             System.out.println("stad");
         });//debug
-        
-        centerTopKnoppen.getChildren().addAll(rotondeView,rijstrokenView,stadView,snelwegView);
-        centerTopStack.getChildren().addAll(centerTopView,centerTopKnoppen);
+
+        centerTopKnoppen.getChildren().addAll(rotondeView, rijstrokenView, stadView, snelwegView);
+        centerTopStack.getChildren().addAll(centerTopView, centerTopKnoppen);
         centerTopBox.getChildren().add(centerTopStack);
-        
-        add(centerTopBox, 1, 1, 3, 1);        
+
+        add(centerTopBox, 1, 1, 3, 1);
         //einde CenterTopBalk
-      
+
         //BottomBox
         HBox bottomBox = new HBox();
         StackPane bottomStack = new StackPane();
@@ -258,28 +249,135 @@ public class HoofdPaneel extends GridPane
 
         add(bottomBox, 1, 3, 3, 1);
         //einde BottomBox
+
         //hoeklinks
-        StackPane linksStack = new StackPane();            
+        GridPane linksKnoppenGrid = new GridPane();
+        linksKnoppenGrid.setAlignment(Pos.CENTER);
+//        linksKnoppenGrid.gridLinesVisibleProperty().setValue(Boolean.TRUE);
+
+        RowConstraints linksRij0 = new RowConstraints();
+        linksRij0.setPrefHeight(schermformaat.getHeight() * 0.03);
+        RowConstraints linksRij1 = new RowConstraints();
+        linksRij1.setPrefHeight(schermformaat.getHeight() * 0.04);
+        RowConstraints linksRij2 = new RowConstraints();
+        linksRij2.setPrefHeight(schermformaat.getHeight() * 0.05);
+        RowConstraints linksRij3 = new RowConstraints();
+        linksRij3.setPrefHeight(schermformaat.getHeight() * 0.04);
+        RowConstraints linksRij4 = new RowConstraints();
+        linksRij4.setPrefHeight(schermformaat.getHeight() * 0.05);
+        RowConstraints linksRij5 = new RowConstraints();
+        linksRij5.setPrefHeight(schermformaat.getHeight() * 0.04);
+        RowConstraints linksRij6 = new RowConstraints();
+        linksRij6.setPrefHeight(schermformaat.getHeight() * 0.03);
+
+        linksKnoppenGrid.getRowConstraints().addAll(linksRij0, linksRij1, linksRij2, linksRij3, linksRij4, linksRij5, linksRij6);
+
+        ColumnConstraints linksKolom0 = new ColumnConstraints();
+        linksKolom0.setPrefWidth(schermformaat.getWidth() * 0.05);
+        ColumnConstraints linksKolom1 = new ColumnConstraints();
+        linksKolom1.setPrefWidth(schermformaat.getWidth() * 0.01);
+        ColumnConstraints linksKolom2 = new ColumnConstraints();
+        linksKolom2.setPrefWidth(schermformaat.getWidth() * 0.02);
+        ColumnConstraints linksKolom3 = new ColumnConstraints();
+        linksKolom3.setPrefWidth(schermformaat.getWidth() * 0.02);
+        linksKnoppenGrid.getColumnConstraints().addAll(linksKolom0, linksKolom1, linksKolom2, linksKolom3);
+
+        StackPane linksStack = new StackPane();
         Image linksImg = new Image("Images/links.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView linksView = new ImageView(linksImg);
-        linksStack.getChildren().addAll(linksView);
+
+        Image lampImg = new Image("Images/lampIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        ImageView lampView = new ImageView(lampImg);
+
+        lampView.setOnMouseClicked(event -> {
+            System.out.println("lamp");
+        });//debug
+        linksKnoppenGrid.add(lampView, 2, 1, 2, 1);
+
+        Image druppelImg = new Image("Images/druppelIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        ImageView druppelView = new ImageView(druppelImg);
+        druppelView.setOnMouseClicked(event -> {
+            System.out.println("druppel");
+        });//debug
+        linksKnoppenGrid.add(druppelView, 1, 3, 2, 1);
+
+        Image bandImg = new Image("Images/bandIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        ImageView bandView = new ImageView(bandImg);
+        bandView.setOnMouseClicked(event -> {
+            System.out.println("band");
+        });//debug
+        linksKnoppenGrid.add(bandView, 2, 5, 2, 1);
+
+        linksStack.getChildren().addAll(linksView, linksKnoppenGrid);
         linksStack.setAlignment(Pos.CENTER_RIGHT);
+
         add(linksStack, 0, 2);
+
         linksView.setOnMouseClicked(event -> {
             System.out.println("linkshoek");
         });//debug
         //einde links
 
         //hoek rechts
-        StackPane rechtsStack = new StackPane();            
+        GridPane rechtsKnoppenGrid = new GridPane();
+        rechtsKnoppenGrid.setAlignment(Pos.CENTER);
+//        rechtsKnoppenGrid.gridLinesVisibleProperty().setValue(Boolean.TRUE);
+
+        RowConstraints rechtsRij0 = new RowConstraints();
+        rechtsRij0.setPrefHeight(schermformaat.getHeight() * 0.03);
+        RowConstraints rechtsRij1 = new RowConstraints();
+        rechtsRij1.setPrefHeight(schermformaat.getHeight() * 0.04);
+        RowConstraints rechtsRij2 = new RowConstraints();
+        rechtsRij2.setPrefHeight(schermformaat.getHeight() * 0.05);
+        RowConstraints rechtsRij3 = new RowConstraints();
+        rechtsRij3.setPrefHeight(schermformaat.getHeight() * 0.04);
+        RowConstraints rechtsRij4 = new RowConstraints();
+        rechtsRij4.setPrefHeight(schermformaat.getHeight() * 0.05);
+        RowConstraints rechtsRij5 = new RowConstraints();
+        rechtsRij5.setPrefHeight(schermformaat.getHeight() * 0.04);
+        RowConstraints rechtsRij6 = new RowConstraints();
+        rechtsRij6.setPrefHeight(schermformaat.getHeight() * 0.03);
+
+        rechtsKnoppenGrid.getRowConstraints().addAll(rechtsRij0, rechtsRij1, rechtsRij2, rechtsRij3, rechtsRij4, rechtsRij5, rechtsRij6);
+
+        ColumnConstraints rechtsKolom1 = new ColumnConstraints();
+        rechtsKolom1.setPrefWidth(schermformaat.getWidth() * 0.01);
+        ColumnConstraints rechtsKolom2 = new ColumnConstraints();
+        rechtsKolom2.setPrefWidth(schermformaat.getWidth() * 0.02);
+        ColumnConstraints rechtsKolom3 = new ColumnConstraints();
+        rechtsKolom3.setPrefWidth(schermformaat.getWidth() * 0.05);
+        rechtsKnoppenGrid.getColumnConstraints().addAll(rechtsKolom1, rechtsKolom2, rechtsKolom3);
+
+        Image tankImg = new Image("Images/tankIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        ImageView tankView = new ImageView(tankImg);
+        tankView.setOnMouseClicked(event -> {
+            System.out.println("tank");
+        });//debug
+
+        rechtsKnoppenGrid.add(tankView, 0, 1, 2, 1);
+
+        Image gpsImg = new Image("Images/gpsIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        ImageView gpsView = new ImageView(gpsImg);
+        gpsView.setOnMouseClicked(event -> {
+            System.out.println("gps");
+        });//debug
+        
+        rechtsKnoppenGrid.add(gpsView, 1, 3, 2, 1);
+
+        Image stopImg = new Image("Images/stopIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        ImageView stopView = new ImageView(stopImg);
+        stopView.setOnMouseClicked(event -> {
+            System.out.println("stop");
+        });//debug
+        rechtsKnoppenGrid.add(stopView, 0, 5, 2, 1);
+
+        StackPane rechtsStack = new StackPane();
         Image rechtsImg = new Image("Images/rechts.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView rechtsView = new ImageView(rechtsImg);
-        rechtsStack.getChildren().addAll(rechtsView);
+        rechtsStack.getChildren().addAll(rechtsView, rechtsKnoppenGrid);
         rechtsStack.setAlignment(Pos.CENTER_LEFT);
         add(rechtsStack, 4, 2);
-        rechtsView.setOnMouseClicked(event -> {
-            System.out.println("rechtshoek");
-        });//debug
+        
         //einde rechts
         //home en opmerkingen
         HBox homeBox = new HBox();
@@ -287,16 +385,16 @@ public class HoofdPaneel extends GridPane
         Image homeKnopImg = new Image("Images/homeKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView homeKnopView = new ImageView(homeKnopImg);
         homeBox.getChildren().addAll(homeKnopView);
-        add(homeBox,4,3);
-        
+        add(homeBox, 4, 3);
+
         HBox opmerkingBox = new HBox();
         opmerkingBox.setAlignment(Pos.CENTER);
         Image opmerkingKnopImg = new Image("Images/opmerkingenKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView opmerkingKnopView = new ImageView(opmerkingKnopImg);
         opmerkingBox.getChildren().addAll(opmerkingKnopView);
-        add(opmerkingBox,0,3);
+        add(opmerkingBox, 0, 3);
         //einde home en opmerkingen
-        
+
     }
 
     private void niveauMin() {
