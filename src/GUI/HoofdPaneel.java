@@ -9,6 +9,7 @@ import com.sun.glass.ui.Window;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -20,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -168,6 +170,22 @@ public class HoofdPaneel extends GridPane
         //einde grid indeling
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
 
+        //kap
+        HBox kapBox = new HBox();
+        StackPane kapStack = new StackPane();
+        Image kapImg = new Image("Images/kap.png", Math.ceil(schermformaat.getWidth()), USE_PREF_SIZE, true, true);
+        ImageView kapView = new ImageView(kapImg);
+        kapBox.setAlignment(Pos.TOP_CENTER);
+        kapStack.setAlignment(Pos.TOP_CENTER);
+        kapStack.getChildren().addAll(kapView);
+        kapBox.getChildren().addAll(kapStack);
+
+        add(kapBox, 0, 0, 5, 3);
+
+        kapView.setOnMouseClicked(event -> {
+            System.out.println("kap");
+        });//debug
+        //einde kap       
         //centerBox
         HBox centerBox = new HBox();
         StackPane centerStack = new StackPane();
@@ -218,8 +236,11 @@ public class HoofdPaneel extends GridPane
         centerTopBox.getChildren().add(centerTopView);
 
         add(centerTopBox, 1, 1, 3, 1);
+        centerTopView.setOnMouseClicked(event -> {
+            System.out.println("centerTop");
+        });//debug
         //einde CenterTopBalk
-
+      
         //BottomBox
         HBox bottomBox = new HBox();
         StackPane bottomStack = new StackPane();
@@ -304,6 +325,29 @@ public class HoofdPaneel extends GridPane
 
         add(bottomBox, 1, 3, 3, 1);
         //einde BottomBox
+        //hoeklinks
+        StackPane linksStack = new StackPane();            
+        Image linksImg = new Image("Images/links.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
+        ImageView linksView = new ImageView(linksImg);
+        linksStack.getChildren().addAll(linksView);
+        linksStack.setAlignment(Pos.CENTER_RIGHT);
+        add(linksStack, 0, 2);
+        linksView.setOnMouseClicked(event -> {
+            System.out.println("linkshoek");
+        });//debug
+        //einde links
+
+        //hoek rechts
+        StackPane rechtsStack = new StackPane();            
+        Image rechtsImg = new Image("Images/rechts.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
+        ImageView rechtsView = new ImageView(rechtsImg);
+        rechtsStack.getChildren().addAll(rechtsView);
+        rechtsStack.setAlignment(Pos.CENTER_LEFT);
+        add(rechtsStack, 4, 2);
+        rechtsView.setOnMouseClicked(event -> {
+            System.out.println("rechtshoek");
+        });//debug
+        //einde recht
     }
 
     private void niveauMin() {
