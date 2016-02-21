@@ -160,22 +160,6 @@ public class InlogPaneel extends VBox {
                 invulName.setText(zoekView.getSelectionModel().getSelectedItem());
             }
         });
-
-        kies.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        kies.setCursor(Cursor.HAND);
-                    }
-                });
-
-        kies.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        kies.setEffect(null);
-                    }
-                });
         
         //zoekKnop
         zoek.setOnAction(new EventHandler<ActionEvent>() {
@@ -185,23 +169,7 @@ public class InlogPaneel extends VBox {
                 knoppen.getChildren().addAll(zoekView, kies, terugZoek);
                 setPrefSize(800, 400);
             }
-        });
-        
-        zoek.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        zoek.setCursor(Cursor.HAND);
-                    }
-                });
-
-        zoek.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        zoek.setEffect(null);
-                    }
-                });
+        });     
 
         //voegToeknop 
         voegToe.setOnAction(new EventHandler<ActionEvent>() {
@@ -214,22 +182,6 @@ public class InlogPaneel extends VBox {
             }
         });
         
-        voegToe.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        voegToe.setCursor(Cursor.HAND);
-                    }
-                });
-
-        voegToe.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        voegToe.setEffect(null);
-                    }
-                });
-
         //Formulier nieuwknop
         nieuw.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -245,21 +197,6 @@ public class InlogPaneel extends VBox {
             }
         });
         
-        nieuw.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        nieuw.setCursor(Cursor.HAND);
-                    }
-                });
-
-        nieuw.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        nieuw.setEffect(null);
-                    }
-                });
 
         //TerugKnop
         terugNieuw.setOnAction(new EventHandler<ActionEvent>() {
@@ -275,22 +212,6 @@ public class InlogPaneel extends VBox {
                 setMinSize(800, 400);
             }
         });
-        
-        terugNieuw.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        terugNieuw.setCursor(Cursor.HAND);
-                    }
-                });
-
-        terugNieuw.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        terugNieuw.setEffect(null);
-                    }
-                });
 
         terugZoek.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -303,55 +224,9 @@ public class InlogPaneel extends VBox {
             }
         });
         
-        terugZoek.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        terugZoek.setCursor(Cursor.HAND);
-                    }
-                });
-
-        terugZoek.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        terugZoek.setEffect(null);
-                    }
-                });
-        
         //knopOpen
-        open.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        open.setCursor(Cursor.HAND);
-                    }
-                });
-
-        open.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        open.setEffect(null);
-                    }
-                });
         
         //knopVoegAfbeeldingToe
-        voegAfbeeldingToe.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        voegAfbeeldingToe.setCursor(Cursor.HAND);
-                    }
-                });
-
-        voegAfbeeldingToe.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        voegAfbeeldingToe.setEffect(null);
-                    }
-                });
 
         //boxen
         naamNummer.getChildren().addAll(naam, nummer);
