@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -17,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 /**
@@ -361,7 +359,7 @@ public class HoofdPaneel extends GridPane
         gpsView.setOnMouseClicked(event -> {
             System.out.println("gps");
         });//debug
-        
+
         rechtsKnoppenGrid.add(gpsView, 1, 3, 2, 1);
 
         Image stopImg = new Image("Images/stopIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
@@ -377,7 +375,7 @@ public class HoofdPaneel extends GridPane
         rechtsStack.getChildren().addAll(rechtsView, rechtsKnoppenGrid);
         rechtsStack.setAlignment(Pos.CENTER_LEFT);
         add(rechtsStack, 4, 2);
-        
+
         //einde rechts
         //home en opmerkingen
         HBox homeBox = new HBox();

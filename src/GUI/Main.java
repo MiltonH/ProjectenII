@@ -3,9 +3,7 @@ package GUI;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.scenicview.ScenicView;
 
 public class Main extends Application
 {
