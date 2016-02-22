@@ -1,0 +1,8 @@
+#hoofdPaneelBG{
+    -fx-background-image: url("../Images/BG.png");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: auto;
+}
+
+
