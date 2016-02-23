@@ -7,20 +7,21 @@ import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class InlogPaneel extends VBox {
 
+    Main main = new Main();
+    
     public InlogPaneel() {
         setMaxSize(800, 400);
         Label toegevoegd = new Label("Persoon is toegevoegd");
@@ -113,10 +114,20 @@ public class InlogPaneel extends VBox {
         GridPane geslacht = new GridPane();
         geslacht.setMinSize(400, 40);
         Label geslachtje = new Label("Geslacht: ");
-        TextField invulGeslachtje = new TextField();
-        invulGeslachtje.setPromptText("Voeg het geslacht in");
+        HBox geslachten = new HBox();
+        CheckBox geslachtenMan = new CheckBox();
+        geslachtenMan.setSelected(true);
+        geslachtenMan.setText("Man  ");
+        CheckBox geslachtenVrouw = new CheckBox();
+        geslachtenVrouw.setText("Vrouw");
+        geslachten.getChildren().addAll(geslachtenMan, geslachtenVrouw);
         geslacht.add(geslachtje, 1, 1);
-        geslacht.add(invulGeslachtje, 1, 2);
+        geslacht.add(geslachten, 1, 2);
+        if(geslachtenMan.isSelected() == true){
+            geslachtenVrouw.setSelected(false);
+        } else if(geslachtenVrouw.isSelected() == true){
+            geslachtenMan.setSelected(false);
+        }
 
         //knoppen
         HBox knoppen = new HBox();
@@ -225,6 +236,13 @@ public class InlogPaneel extends VBox {
         });
         
         //knopOpen
+        open.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                main.setScene("HOOFD");
+            }
+        });
+        
         
         //knopVoegAfbeeldingToe
 
