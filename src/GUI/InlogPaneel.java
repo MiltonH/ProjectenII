@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -22,9 +23,9 @@ import javafx.stage.Stage;
 
 public class InlogPaneel extends VBox
 {
-
+    
     Scene scene;
-
+    
     public InlogPaneel() {
         setMaxSize(800, 400);
         Label toegevoegd = new Label("Persoon is toegevoegd");
@@ -114,23 +115,15 @@ public class InlogPaneel extends VBox
         huisnummer.add(invulHuisnummertje, 1, 2);
 
         //geslacht
-        GridPane geslacht = new GridPane();
-        geslacht.setMinSize(400, 40);
         Label geslachtje = new Label("Geslacht: ");
-        HBox geslachten = new HBox();
-        CheckBox geslachtenMan = new CheckBox();
-        geslachtenMan.setSelected(true);
-        geslachtenMan.setText("Man  ");
-        CheckBox geslachtenVrouw = new CheckBox();
-        geslachtenVrouw.setText("Vrouw");
-        geslachten.getChildren().addAll(geslachtenMan, geslachtenVrouw);
-        geslacht.add(geslachtje, 1, 1);
-        geslacht.add(geslachten, 1, 2);
-        if (geslachtenMan.isSelected() == true) {
-            geslachtenVrouw.setSelected(false);
-        } else if (geslachtenVrouw.isSelected() == true) {
-            geslachtenMan.setSelected(false);
-        }
+        VBox geslacht = new VBox();
+        geslacht.setMinSize(400, 40);
+        ChoiceBox geslachtChoiceBox = new ChoiceBox(FXCollections.observableArrayList(
+                "Man", "Vrouw")
+        );
+        geslachtChoiceBox.setPrefWidth(150);
+        geslachtChoiceBox.getSelectionModel().selectFirst();
+        geslacht.getChildren().addAll(geslachtje, geslachtChoiceBox);
 
         //knoppen
         HBox knoppen = new HBox();
@@ -230,7 +223,7 @@ public class InlogPaneel extends VBox
                 setMinSize(800, 400);
             }
         });
-
+        
         terugZoek.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
@@ -248,7 +241,7 @@ public class InlogPaneel extends VBox
         {
             @Override
             public void handle(ActionEvent arg0) {
-                HoofdPaneel hoofdPanel = new HoofdPaneel();
+                HoofdPaneel hoofdPanel = new HoofdPaneel(invulName.getText());
                 scene.setRoot(hoofdPanel);
             }
         });
@@ -261,7 +254,7 @@ public class InlogPaneel extends VBox
         informatie.setPadding(new Insets(0, 20, 10, 20));
         getChildren().addAll(informatie, knoppen);
     }
-
+    
     public void setScene(Scene scene) {
         this.scene = scene;
     }
