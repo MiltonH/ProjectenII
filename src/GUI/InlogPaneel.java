@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -17,11 +18,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class InlogPaneel extends VBox {
+public class InlogPaneel extends VBox
+{
 
-    Main main = new Main();
-    
+    Scene scene;
+
     public InlogPaneel() {
         setMaxSize(800, 400);
         Label toegevoegd = new Label("Persoon is toegevoegd");
@@ -123,9 +126,9 @@ public class InlogPaneel extends VBox {
         geslachten.getChildren().addAll(geslachtenMan, geslachtenVrouw);
         geslacht.add(geslachtje, 1, 1);
         geslacht.add(geslachten, 1, 2);
-        if(geslachtenMan.isSelected() == true){
+        if (geslachtenMan.isSelected() == true) {
             geslachtenVrouw.setSelected(false);
-        } else if(geslachtenVrouw.isSelected() == true){
+        } else if (geslachtenVrouw.isSelected() == true) {
             geslachtenMan.setSelected(false);
         }
 
@@ -165,25 +168,28 @@ public class InlogPaneel extends VBox {
         zoekView.setPrefHeight(200);
 
         //ListView Kiesknop
-        kies.setOnAction(new EventHandler<ActionEvent>() {
+        kies.setOnAction(new EventHandler<ActionEvent>()
+        {
             @Override
             public void handle(ActionEvent arg0) {
                 invulName.setText(zoekView.getSelectionModel().getSelectedItem());
             }
         });
-        
+
         //zoekKnop
-        zoek.setOnAction(new EventHandler<ActionEvent>() {
+        zoek.setOnAction(new EventHandler<ActionEvent>()
+        {
             @Override
             public void handle(ActionEvent arg0) {
                 knoppen.getChildren().removeAll(zoek, nieuw, open);
                 knoppen.getChildren().addAll(zoekView, kies, terugZoek);
                 setPrefSize(800, 400);
             }
-        });     
+        });
 
         //voegToeknop 
-        voegToe.setOnAction(new EventHandler<ActionEvent>() {
+        voegToe.setOnAction(new EventHandler<ActionEvent>()
+        {
             @Override
             public void handle(ActionEvent arg0) {
                 namen.add(invulNameFormulier.getText());
@@ -192,9 +198,10 @@ public class InlogPaneel extends VBox {
                 afbeeldingske.setHalignment(toegevoegd, HPos.CENTER);
             }
         });
-        
+
         //Formulier nieuwknop
-        nieuw.setOnAction(new EventHandler<ActionEvent>() {
+        nieuw.setOnAction(new EventHandler<ActionEvent>()
+        {
             @Override
             public void handle(ActionEvent arg0) {
                 knoppen.getChildren().removeAll(zoek, nieuw, open);
@@ -207,10 +214,10 @@ public class InlogPaneel extends VBox {
                 setMinHeight(600);
             }
         });
-        
 
         //TerugKnop
-        terugNieuw.setOnAction(new EventHandler<ActionEvent>() {
+        terugNieuw.setOnAction(new EventHandler<ActionEvent>()
+        {
             @Override
             public void handle(ActionEvent arg0) {
                 afbeeldingske.getChildren().removeAll(voegAfbeeldingToe, toegevoegd);
@@ -224,7 +231,8 @@ public class InlogPaneel extends VBox {
             }
         });
 
-        terugZoek.setOnAction(new EventHandler<ActionEvent>() {
+        terugZoek.setOnAction(new EventHandler<ActionEvent>()
+        {
             @Override
             public void handle(ActionEvent arg0) {
                 knoppen.getChildren().removeAll(zoekView, kies, terugZoek);
@@ -234,23 +242,27 @@ public class InlogPaneel extends VBox {
                 setMaxSize(800, 400);
             }
         });
-        
+
         //knopOpen
-        open.setOnAction(new EventHandler<ActionEvent>() {
+        open.setOnAction(new EventHandler<ActionEvent>()
+        {
             @Override
             public void handle(ActionEvent arg0) {
-                main.setScene("HOOFD");
+                HoofdPaneel hoofdPanel = new HoofdPaneel();
+                scene.setRoot(hoofdPanel);
             }
         });
-        
-        
-        //knopVoegAfbeeldingToe
 
+        //knopVoegAfbeeldingToe
         //boxen
         naamNummer.getChildren().addAll(naam, nummer);
         informatie.getChildren().addAll(naamNummer, afbeeldingske);
         informatie.setSpacing(10);
         informatie.setPadding(new Insets(0, 20, 10, 20));
         getChildren().addAll(informatie, knoppen);
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
     }
 }
