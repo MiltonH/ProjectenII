@@ -69,3 +69,7 @@ InlogPaneel{
 .button:hover{
     -fx-cursor: hand;
 }
+#naamLabel{
+    -fx-font-size: 20;
+    -fx-text-fill: #e6e6e6;
+}

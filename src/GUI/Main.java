@@ -14,10 +14,7 @@ public class Main extends Application
 
     @Override
     public void start(Stage primaryStage) {
-
-
         StackPane root = new StackPane();
-
         InlogPaneel inlog = new InlogPaneel();
         root.getChildren().add(inlog);
         primaryStage.setTitle("Rijschool Applicatie");
