@@ -31,7 +31,7 @@ public class HoofdPaneel extends GridPane
     public HoofdPaneel(String studNaam) {
         //maingrid indelen
         setId("hoofdPaneelBG");
-        gridLinesVisibleProperty().set(true);
+        gridLinesVisibleProperty().set(false);
 
         ColumnConstraints kolom0 = new ColumnConstraints();
         kolom0.setPercentWidth(17);
