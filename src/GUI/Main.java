@@ -14,18 +14,15 @@ public class Main extends Application
 
     @Override
     public void start(Stage primaryStage) {
-        StackPane root = new StackPane();
         InlogPaneel inlog = new InlogPaneel();
-        root.getChildren().add(inlog);
         primaryStage.setTitle("Rijschool Applicatie");
 
-        Scene scene = new Scene(root, 1000, 1000);
+        Scene scene = new Scene(inlog, 1000, 1000);
         scene.getStylesheets().add("StyleSheets/Style.css");
         inlog.setScene(scene);
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setFullScreen(true);
-
     }
 
 }
