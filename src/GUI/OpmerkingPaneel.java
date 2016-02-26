@@ -8,7 +8,7 @@ import javafx.scene.layout.RowConstraints;
 public class OpmerkingPaneel extends GridPane{
     Scene scene;
     public OpmerkingPaneel() {
-        gridLinesVisibleProperty().set(false);
+        gridLinesVisibleProperty().set(true);
 
         ColumnConstraints kolom0 = new ColumnConstraints();
         kolom0.setPercentWidth(25);

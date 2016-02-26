@@ -1,8 +1,6 @@
 package GUI;
 
-import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -103,6 +101,8 @@ public class InlogPaneel extends GridPane {
         kolom1ListViewGrid.setHalignment(HPos.CENTER);
         listViewGrid.getColumnConstraints().addAll(kolom0ListViewGrid, kolom1ListViewGrid);
 
+        InlogSchermPane.add(listViewGrid, 1, 1);
+
         //aanmaak naamLabel
         Label naamLabel = new Label("Naam: ");
         naamLabel.setId("inlognaamNummerLabel");
@@ -124,20 +124,19 @@ public class InlogPaneel extends GridPane {
         nummerTextField.setId("inlogTexfield");
         nummerTextField.setPromptText("Voeg het nummer in");
         naamNummerPane.add(nummerTextField, 1, 1);
-
-        //knop zoek 
-        Button zoekKnop = new Button("Zoek");
-        zoekKnop.setId("inlogButtons");
-        InlogSchermPane.add(zoekKnop, 0, 1);
+        naamTextField.setOnMousePressed(event -> {
+            nummerTextField.clear();
+        });
 
         //knop open
         Button openKnop = new Button("Open");
         openKnop.setId("inlogButtons");
         InlogSchermPane.add(openKnop, 1, 1);
 
-        //knop kies
-        Button kiesKnop = new Button("Kies");
-        kiesKnop.setId("inlogButtons");
+        //knop VoegToe
+        Button voegToeKnop = new Button("Voeg Toe");
+        voegToeKnop.setId("inlogButtons");
+        InlogSchermPane.add(voegToeKnop, 0, 1);
 
         //afbeelding
         ImageView gebruikersImage = new ImageView(new Image("Images/unknown-user.png", Math.ceil(schermformaat.getWidth() * 0.12), USE_PREF_SIZE, true, true));
@@ -148,28 +147,24 @@ public class InlogPaneel extends GridPane {
         namen.addAll("Dries", "Milton", "Robin", "Cedric");
         Collections.sort(namen);
         ListView<String> zoekView = new ListView<String>(namen);
+        listViewGrid.add(zoekView, 0, 0);
+        listViewGrid.add(openKnop, 1, 0);
 
         //knoppen
-        zoekKnop.setOnMouseClicked(event -> {
-            InlogSchermPane.getChildren().remove(zoekKnop);
-            InlogSchermPane.add(listViewGrid, 0, 1);
-            listViewGrid.add(zoekView, 0, 0);
-            listViewGrid.add(kiesKnop, 1, 0);
-        });
-
         openKnop.setOnMouseClicked(event -> {
-            HoofdPaneel hoofdPanel = new HoofdPaneel(naamTextField.getText());
+            HoofdPaneel hoofdPanel = new HoofdPaneel(zoekView.getSelectionModel().getSelectedItem());
             hoofdPanel.setScene(scene);
             scene.setRoot(hoofdPanel);
         });
 
-        kiesKnop.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                naamTextField.setText(zoekView.getSelectionModel().getSelectedItem());
-                nummerTextField.setText(String.valueOf(zoekView.getSelectionModel().getSelectedIndex() + 1));
-                nummerTextField.setEditable(false);
-            }
+        zoekView.setOnMouseClicked(even -> {
+            naamTextField.setText(zoekView.getSelectionModel().getSelectedItem());
+            nummerTextField.setText(String.valueOf(zoekView.getSelectionModel().getSelectedIndex() + 1));
+            nummerTextField.setEditable(false);
+        });
+
+        voegToeKnop.setOnMouseClicked(event -> {
+            namen.add(naamTextField.getText());
         });
     }
 
