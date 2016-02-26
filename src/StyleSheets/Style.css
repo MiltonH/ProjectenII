@@ -74,5 +74,13 @@
     -fx-font-size: 25;
 }
 
+#attitudeListView{
+     -fx-max-width: 300;
+}
+
+#attitudeTextField{
+     -fx-max-width: 350;
+     -fx-min-height: 40;
+}
 
 

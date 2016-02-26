@@ -4,6 +4,7 @@ import java.util.Collections;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,10 +15,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
-public class AttitudePaneel extends GridPane{
+public class AttitudePaneel extends GridPane {
+
     Scene scene;
-    
-    public AttitudePaneel(HoofdPaneel hoofdPanel){
+
+    public AttitudePaneel(HoofdPaneel hoofdPanel) {
         setId("inlogPaneelBG");
         //aanmaak grid
         gridLinesVisibleProperty().set(false);
@@ -58,7 +60,7 @@ public class AttitudePaneel extends GridPane{
         AttitudePane.getRowConstraints().addAll(rij0AttitudePane);
 
         add(AttitudePane, 1, 1);
-        
+
         //aanmaak invulSchermen
         GridPane invulSchermenPane = new GridPane();
         invulSchermenPane.gridLinesVisibleProperty().set(false);
@@ -77,7 +79,7 @@ public class AttitudePaneel extends GridPane{
         invulSchermenPane.getRowConstraints().addAll(rij0invulSchermenPane, rij1invulSchermenPane, rij2invulSchermenPane);
 
         AttitudePane.add(invulSchermenPane, 0, 0);
-        
+
         //aanmaak textAreaPane
         GridPane textAreaPane = new GridPane();
         textAreaPane.gridLinesVisibleProperty().set(false);
@@ -95,11 +97,11 @@ public class AttitudePaneel extends GridPane{
         textAreaPane.getRowConstraints().addAll(rij0listViewPane, rij1listViewPane, rij2listViewPane);
 
         AttitudePane.add(textAreaPane, 1, 0);
-        
+
         //aanmaak KnopGrid
         GridPane knopPane = new GridPane();
         knopPane.gridLinesVisibleProperty().set(false);
-        
+
         ColumnConstraints kolom0KnopPane = new ColumnConstraints();
         kolom0KnopPane.setPercentWidth(50);
         kolom0KnopPane.setHalignment(HPos.CENTER);
@@ -107,65 +109,83 @@ public class AttitudePaneel extends GridPane{
         kolom1KnopPane.setPercentWidth(50);
         kolom1KnopPane.setHalignment(HPos.CENTER);
         knopPane.getColumnConstraints().addAll(kolom0KnopPane, kolom1KnopPane);
-        
+
         RowConstraints rij0KnopPane = new RowConstraints();
         rij0KnopPane.setPercentHeight(100);
         knopPane.getRowConstraints().addAll(rij0KnopPane);
-        
+
         textAreaPane.add(knopPane, 0, 2);
-        
+
         //ListView
         ObservableList<String> opmerkingen = FXCollections.observableArrayList();;
-        opmerkingen.addAll("Zenuwachtig", "Concentratie", "Schrik", "Asociaal", "Verkeersgevaarlijk", "Ongeduldig", "Agressief rijgedrag" , "Inzet", "Verstrooid", "Eigenwijs");
+        opmerkingen.addAll("Zenuwachtig", "Concentratie", "Schrik", "Asociaal", "Verkeersgevaarlijk", "Ongeduldig", "Agressief rijgedrag", "Inzet", "Verstrooid", "Eigenwijs");
         Collections.sort(opmerkingen);
-        ListView<String> zoekView = new ListView<String>(opmerkingen);
-        invulSchermenPane.add(zoekView, 0, 0);
-        
+        ListView<String> opmerkingenView = new ListView<String>(opmerkingen);
+        opmerkingenView.setId("attitudeListView");
+        invulSchermenPane.add(opmerkingenView, 0, 0);
+
         //TextField
         TextField invulTextField = new TextField();
         invulTextField.setId("inlogTexfield");
         invulTextField.setPromptText("Geef een opmerking");
+        invulTextField.setId("attitudeTextField");
         invulSchermenPane.add(invulTextField, 0, 1);
-        
+
         //Label
         Label attitudeLabel = new Label("Attitude");
         attitudeLabel.setId("inlognaamNummerLabel");
         textAreaPane.add(attitudeLabel, 0, 0);
-        
+
         //TextArea
-        TextArea opmerkingenArea = new TextArea();
-        opmerkingenArea.setId("opmerkingenTexfield");
-        textAreaPane.add(opmerkingenArea, 0, 1);
-        
+//        TextArea opmerkingenArea = new TextArea();
+//        opmerkingenArea.setId("opmerkingenTexfield");
+//        textAreaPane.add(opmerkingenArea, 0, 1);
+
+        ObservableList<String> opmerkingenText = FXCollections.observableArrayList();;
+        Collections.sort(opmerkingenText);
+        ListView<String> opmerkingenTextView = new ListView<String>(opmerkingenText);
+        opmerkingenTextView.setId("attitudeListView");
+        textAreaPane.add(opmerkingenTextView, 0, 1);
+
         //Knoppen
         Button voegToe = new Button("Voeg Toe");
         voegToe.setId("inlogButtons");
         invulSchermenPane.add(voegToe, 0, 2);
-        
+
         voegToe.setOnMouseClicked(event -> {
-            
+            if (invulTextField.getText().trim().isEmpty() == false) {
+                opmerkingenView.getSelectionModel().clearSelection();
+                opmerkingenText.add(invulTextField.getText() + "\n");
+//                opmerkingenText.appendText(invulTextField.getText() + "\n");
+                invulTextField.clear();
+            } else if (opmerkingenView.getSelectionModel().getSelectedItem() != null) {
+                opmerkingenText.add(opmerkingenView.getSelectionModel().getSelectedItem() + "\n");
+//                opmerkingenText.appendText(opmerkingenView.getSelectionModel().getSelectedItem() + "\n");
+                opmerkingenView.getSelectionModel().clearSelection();
+            }
         });
-        
+
         //
         Button verwijder = new Button("Verwijder");
         verwijder.setId("inlogButtons");
         knopPane.add(verwijder, 0, 0);
-        
+
         verwijder.setOnMouseClicked(event -> {
-            
+            opmerkingenText.remove(opmerkingenTextView.getSelectionModel().getSelectedItem());
+//            opmerkingenArea.clear();
         });
-        
+
         //
         Button terug = new Button("Terug");
         terug.setId("inlogButtons");
         knopPane.add(terug, 1, 0);
-        
+
         terug.setOnMouseClicked(event -> {
             scene.setRoot(hoofdPanel);
         });
-        
+
     }
-    
+
     public void setScene(Scene scene) {
         this.scene = scene;
     }
