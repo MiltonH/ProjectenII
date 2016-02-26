@@ -87,7 +87,9 @@ public class HoofdPaneel extends GridPane
         add(centerBox, 1, 2, 3, 1);
 
         centerKnopView.setOnMouseClicked(event -> {
-            System.out.println("middel");
+            AttitudePaneel attitudePaneel = new AttitudePaneel();
+            attitudePaneel.setScene(scene);
+            scene.setRoot(attitudePaneel);
         });//debug
         //einde centerBox
 
