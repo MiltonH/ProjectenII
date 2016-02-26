@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,7 +17,7 @@ import javafx.stage.Screen;
 
 public class HoofdPaneel extends GridPane
 {
-
+    Scene scene;
     int niveau = 1;//dit is testcode
 
     public HoofdPaneel(String studNaam) {
@@ -417,6 +418,9 @@ public class HoofdPaneel extends GridPane
         add(homeBox, 4, 3);
         homeKnopView.setOnMouseClicked(event -> {
             System.exit(0);
+//            InlogPaneel inlog = new InlogPaneel();
+//            inlog.setScene(scene);
+//            scene.setRoot(inlog);
         });
 
         HBox opmerkingBox = new HBox();
@@ -425,8 +429,13 @@ public class HoofdPaneel extends GridPane
         ImageView opmerkingKnopView = new ImageView(opmerkingKnopImg);
         opmerkingBox.getChildren().addAll(opmerkingKnopView);
         add(opmerkingBox, 0, 3);
+        opmerkingKnopView.setOnMouseClicked(event -> {
+            OpmerkingPaneel opmerkingPaneel = new OpmerkingPaneel(this);
+            opmerkingPaneel.setScene(scene);
+            scene.setRoot(opmerkingPaneel);
+        });
         //einde home en opmerkingen
-
+        
     }
 
     private void niveauMin() {
@@ -451,5 +460,8 @@ public class HoofdPaneel extends GridPane
             view.setImage(imgList.get(1));
         }
     }
-
+    
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
 }
