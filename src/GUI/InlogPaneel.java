@@ -159,6 +159,7 @@ public class InlogPaneel extends GridPane {
 
         openKnop.setOnMouseClicked(event -> {
             HoofdPaneel hoofdPanel = new HoofdPaneel(naamTextField.getText());
+            hoofdPanel.setScene(scene);
             scene.setRoot(hoofdPanel);
         });
 
