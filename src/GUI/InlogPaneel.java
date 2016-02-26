@@ -1,6 +1,5 @@
 package GUI;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
@@ -150,10 +149,6 @@ public class InlogPaneel extends GridPane {
         Collections.sort(namen);
         ListView<String> zoekView = new ListView<String>(namen);
 
-        //DatumVoorIndex
-        Date date = new Date();
-        SimpleDateFormat datum = new SimpleDateFormat("yyyy");
-
         //knoppen
         zoekKnop.setOnMouseClicked(event -> {
             InlogSchermPane.getChildren().remove(zoekKnop);
@@ -171,7 +166,8 @@ public class InlogPaneel extends GridPane {
             @Override
             public void handle(ActionEvent arg0) {
                 naamTextField.setText(zoekView.getSelectionModel().getSelectedItem());
-                nummerTextField.setText(datum.format(date) + "/" + String.valueOf(zoekView.getSelectionModel().getSelectedIndex() + 1));
+                nummerTextField.setText(String.valueOf(zoekView.getSelectionModel().getSelectedIndex() + 1));
+                nummerTextField.setEditable(false);
             }
         });
     }
