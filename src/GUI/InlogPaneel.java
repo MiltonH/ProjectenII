@@ -1,260 +1,177 @@
 package GUI;
 
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.RowConstraints;
+import javafx.stage.Screen;
 
-public class InlogPaneel extends VBox
-{
-    
+public class InlogPaneel extends GridPane {
+
     Scene scene;
-    
-    public InlogPaneel() {
-        setMaxSize(800, 400);
-        Label toegevoegd = new Label("Persoon is toegevoegd");
-        toegevoegd.setId("speciaalLabel");
 
-        //informatie
-        HBox informatie = new HBox();
-        informatie.setMinHeight(150);
-        VBox naamNummer = new VBox();
-        naamNummer.setMinHeight(150);
-        naamNummer.setSpacing(20);
+    public InlogPaneel() {
+        setId("inlogPaneelBG");
+        //schermformaat
+        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+
+        //aanmaak grid
+        gridLinesVisibleProperty().set(false);
+
+        ColumnConstraints kolom0 = new ColumnConstraints();
+        kolom0.setPercentWidth(25);
+        ColumnConstraints kolom1 = new ColumnConstraints();
+        kolom1.setPercentWidth(50);
+        ColumnConstraints kolom2 = new ColumnConstraints();
+        kolom2.setPercentWidth(25);
+
+        getColumnConstraints().addAll(kolom0, kolom1, kolom2);
+
+        RowConstraints rij0 = new RowConstraints();
+        rij0.setPercentHeight(25);
+        RowConstraints rij1 = new RowConstraints();
+        rij1.setPercentHeight(50);
+        RowConstraints rij2 = new RowConstraints();
+        rij2.setPercentHeight(25);
+
+        getRowConstraints().addAll(rij0, rij1, rij2);
+
+        //aanmaak InlogSchermPane 
+        GridPane InlogSchermPane = new GridPane();
+        InlogSchermPane.setId("inlogPaneel");
+        InlogSchermPane.gridLinesVisibleProperty().set(false);
+
+        ColumnConstraints kolom0InlogSchermPane = new ColumnConstraints();
+        kolom0InlogSchermPane.setPercentWidth(50);
+        kolom0InlogSchermPane.setHalignment(HPos.CENTER);
+        ColumnConstraints kolom1InlogSchermPane = new ColumnConstraints();
+        kolom1InlogSchermPane.setPercentWidth(50);
+        kolom1InlogSchermPane.setHalignment(HPos.CENTER);
+        InlogSchermPane.getColumnConstraints().addAll(kolom0InlogSchermPane, kolom1InlogSchermPane);
+
+        RowConstraints rij0InlogSchermPane = new RowConstraints();
+        rij0InlogSchermPane.setPercentHeight(50);
+        RowConstraints rij1InlogSchermPane = new RowConstraints();
+        rij1InlogSchermPane.setPercentHeight(50);
+        InlogSchermPane.getRowConstraints().addAll(rij0InlogSchermPane, rij1InlogSchermPane);
+
+        add(InlogSchermPane, 1, 1);
+
+        //aanmaak naamNummerPane
+        GridPane naamNummerPane = new GridPane();
+        naamNummerPane.gridLinesVisibleProperty().set(false);
+
+        ColumnConstraints kolom0NaamNummerPane = new ColumnConstraints();
+        kolom0NaamNummerPane.setPercentWidth(50);
+        kolom0NaamNummerPane.setHalignment(HPos.RIGHT);
+        ColumnConstraints kolom1NaamNummerPane = new ColumnConstraints();
+        kolom1NaamNummerPane.setPercentWidth(50);
+        kolom1NaamNummerPane.setHalignment(HPos.RIGHT);
+        naamNummerPane.getColumnConstraints().addAll(kolom0NaamNummerPane, kolom1NaamNummerPane);
+
+        RowConstraints rij0NaamNummerPane = new RowConstraints();
+        rij0NaamNummerPane.setPercentHeight(50);
+        RowConstraints rij1NaamNummerPane = new RowConstraints();
+        rij1NaamNummerPane.setPercentHeight(50);
+        naamNummerPane.getRowConstraints().addAll(rij0NaamNummerPane, rij1NaamNummerPane);
+
+        InlogSchermPane.add(naamNummerPane, 0, 0);
+
+        //aanmaak listViewGrid
+        GridPane listViewGrid = new GridPane();
+        listViewGrid.gridLinesVisibleProperty().set(false);
+
+        ColumnConstraints kolom0ListViewGrid = new ColumnConstraints();
+        kolom0ListViewGrid.setPercentWidth(50);
+        ColumnConstraints kolom1ListViewGrid = new ColumnConstraints();
+        kolom1ListViewGrid.setPercentWidth(50);
+        kolom1ListViewGrid.setHalignment(HPos.CENTER);
+        listViewGrid.getColumnConstraints().addAll(kolom0ListViewGrid, kolom1ListViewGrid);
+
+        //aanmaak naamLabel
+        Label naamLabel = new Label("Naam: ");
+        naamLabel.setId("inlognaamNummerLabel");
+        naamNummerPane.add(naamLabel, 0, 0);
+
+        //aanmaak nummerLabel
+        Label nummerLabel = new Label("Nummer: ");
+        nummerLabel.setId("inlognaamNummerLabel");
+        naamNummerPane.add(nummerLabel, 0, 1);
+
+        //aanmaak tekstfieldNaam
+        TextField naamTextField = new TextField();
+        naamTextField.setId("inlogTexfield");
+        naamTextField.setPromptText("Voeg de naam in");
+        naamNummerPane.add(naamTextField, 1, 0);
+
+        //aanmaak tekstfieldNummer
+        TextField nummerTextField = new TextField();
+        nummerTextField.setId("inlogTexfield");
+        nummerTextField.setPromptText("Voeg het nummer in");
+        naamNummerPane.add(nummerTextField, 1, 1);
+
+        //knop zoek 
+        Button zoekKnop = new Button("Zoek");
+        zoekKnop.setId("inlogButtons");
+        InlogSchermPane.add(zoekKnop, 0, 1);
+
+        //knop open
+        Button openKnop = new Button("Open");
+        openKnop.setId("inlogButtons");
+        InlogSchermPane.add(openKnop, 1, 1);
+
+        //knop kies
+        Button kiesKnop = new Button("Kies");
+        kiesKnop.setId("inlogButtons");
 
         //afbeelding
-        ImageView afbeelding = new ImageView(new Image("Images/unknown-user.png", 100, 100, true, true));
+        ImageView gebruikersImage = new ImageView(new Image("Images/unknown-user.png", Math.ceil(schermformaat.getWidth() * 0.12), USE_PREF_SIZE, true, true));
+        InlogSchermPane.add(gebruikersImage, 1, 0);
 
-        //naam
-        GridPane naam = new GridPane();
-        naam.setMinSize(400, 40);
-        Label name = new Label("Naam: ");
-        TextField invulName = new TextField();
-        invulName.setPromptText("Voeg de naam in");
-        naam.add(name, 1, 1);
-        naam.add(invulName, 1, 2);
-
-        //nummer
-        GridPane nummer = new GridPane();
-        nummer.setMinSize(400, 40);
-        Label number = new Label("Inschrijvingsnummer: ");
-        TextField invulNumber = new TextField();
-        invulNumber.setPromptText("Voeg het nummer in");
-        nummer.add(number, 1, 1);
-        nummer.add(invulNumber, 1, 2);
-
-        //naamFormulier
-        GridPane naamFormulier = new GridPane();
-        naamFormulier.setMinSize(400, 40);
-        Label nameFormulier = new Label("Naam: ");
-        TextField invulNameFormulier = new TextField();
-        invulNameFormulier.setPromptText("Voeg de naam in");
-        naamFormulier.add(nameFormulier, 1, 1);
-        naamFormulier.add(invulNameFormulier, 1, 2);
-
-        //nummerFormulier
-        GridPane nummerFormulier = new GridPane();
-        nummerFormulier.setMinSize(400, 40);
-        Label numberFormulier = new Label("Inschrijvingsnummer: ");
-        TextField invulNumberFormulier = new TextField();
-        invulNumberFormulier.setPromptText("Voeg het nummer in");
-        nummerFormulier.add(numberFormulier, 1, 1);
-        nummerFormulier.add(invulNumberFormulier, 1, 2);
-
-        //geboortedatum
-        GridPane geboortedatum = new GridPane();
-        geboortedatum.setMinSize(400, 40);
-        Label geboortedate = new Label("Geboortedatum: ");
-        invulNumber.setPromptText("Voeg het nummer in");
-        TextField invulGeboortedate = new TextField();
-        invulGeboortedate.setPromptText("Voeg de geboortedatum in");
-        geboortedatum.add(geboortedate, 1, 1);
-        geboortedatum.add(invulGeboortedate, 1, 2);
-
-        //woonplaats
-        GridPane woonplaats = new GridPane();
-        woonplaats.setMinSize(400, 40);
-        Label woonplaatsje = new Label("Woonplaats: ");
-        TextField invulWoonplaatsje = new TextField();
-        invulWoonplaatsje.setPromptText("Voeg de woonplaats in");
-        woonplaats.add(woonplaatsje, 1, 1);
-        woonplaats.add(invulWoonplaatsje, 1, 2);
-
-        //straat
-        GridPane straat = new GridPane();
-        straat.setMinSize(400, 40);
-        Label street = new Label("Straat: ");
-        TextField invulStreet = new TextField();
-        invulStreet.setPromptText("Voeg de straat in");
-        straat.add(street, 1, 1);
-        straat.add(invulStreet, 1, 2);
-
-        //huisnummer
-        GridPane huisnummer = new GridPane();
-        huisnummer.setMinSize(400, 40);
-        Label huisnummertje = new Label("Huisnummer: ");
-        TextField invulHuisnummertje = new TextField();
-        invulHuisnummertje.setPromptText("Voeg het huisnummer in");
-        huisnummer.add(huisnummertje, 1, 1);
-        huisnummer.add(invulHuisnummertje, 1, 2);
-
-        //geslacht
-        Label geslachtje = new Label("Geslacht: ");
-        VBox geslacht = new VBox();
-        geslacht.setMinSize(400, 40);
-        ChoiceBox geslachtChoiceBox = new ChoiceBox(FXCollections.observableArrayList(
-                "Man", "Vrouw")
-        );
-        geslachtChoiceBox.setPrefWidth(150);
-        geslachtChoiceBox.getSelectionModel().selectFirst();
-        geslacht.getChildren().addAll(geslachtje, geslachtChoiceBox);
-
-        //knoppen
-        HBox knoppen = new HBox();
-        Button zoek = new Button("Zoek");
-        Button nieuw = new Button("Nieuw");
-        Button kies = new Button("Kies");
-        Button voegToe = new Button("Voeg toe");
-        Button voegAfbeeldingToe = new Button("Voeg afbeelding in");
-        Button terugNieuw = new Button("Terug");
-        Button terugZoek = new Button("Terug");
-        Button open = new Button("Open");
-        knoppen.setAlignment(Pos.CENTER);
-        knoppen.setSpacing(50);
-        knoppen.setPadding(new Insets(0, 20, 10, 20));
-        knoppen.setMinHeight(200);
-        knoppen.getChildren().addAll(zoek, nieuw, open);
-
-        //vboxVoorNieuw(knoppen)
-        HBox knoppenInVoegToe = new HBox();
-        knoppenInVoegToe.setSpacing(10);
-        knoppenInVoegToe.getChildren().addAll(voegToe, terugNieuw);
-
-        //testbox afbeelding
-        GridPane afbeeldingske = new GridPane();
-        afbeeldingske.setMinWidth(400);
-        afbeeldingske.setAlignment(Pos.CENTER);
-        afbeeldingske.setVgap(10);
-        afbeeldingske.add(afbeelding, 1, 1);
-
-        //ListView zoekknop
+        //ListView
         ObservableList<String> namen = FXCollections.observableArrayList();;
         namen.addAll("Dries", "Milton", "Robin", "Cedric");
+        Collections.sort(namen);
         ListView<String> zoekView = new ListView<String>(namen);
-        zoekView.setPrefWidth(100);
-        zoekView.setPrefHeight(200);
 
-        //ListView Kiesknop
-        kies.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent arg0) {
-                invulName.setText(zoekView.getSelectionModel().getSelectedItem());
-            }
+        //knoppen
+        zoekKnop.setOnMouseClicked(event -> {
+            InlogSchermPane.getChildren().remove(zoekKnop);
+            InlogSchermPane.add(listViewGrid, 0, 1);
+            listViewGrid.add(zoekView, 0, 0);
+            listViewGrid.add(kiesKnop, 1, 0);
         });
 
-        //zoekKnop
-        zoek.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent arg0) {
-                knoppen.getChildren().removeAll(zoek, nieuw, open);
-                knoppen.getChildren().addAll(zoekView, kies, terugZoek);
-                setPrefSize(800, 400);
-            }
+        openKnop.setOnMouseClicked(event -> {
+            HoofdPaneel hoofdPanel = new HoofdPaneel(naamTextField.getText());
+            scene.setRoot(hoofdPanel);
         });
 
-        //voegToeknop 
-        voegToe.setOnAction(new EventHandler<ActionEvent>()
-        {
+        kiesKnop.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                namen.add(invulNameFormulier.getText());
-                invulName.setText(invulNameFormulier.getText());
-                afbeeldingske.add(toegevoegd, 1, 3);
-                afbeeldingske.setHalignment(toegevoegd, HPos.CENTER);
+                naamTextField.setText(zoekView.getSelectionModel().getSelectedItem());
+                nummerTextField.setText(String.valueOf(zoekView.getSelectionModel().getSelectedIndex() + 1));
+                nummerTextField.setEditable(false);
             }
         });
-
-        //Formulier nieuwknop
-        nieuw.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent arg0) {
-                knoppen.getChildren().removeAll(zoek, nieuw, open);
-                afbeeldingske.add(voegAfbeeldingToe, 1, 2);
-                afbeeldingske.setHalignment(afbeelding, HPos.CENTER);
-                naamNummer.getChildren().removeAll(naam, nummer);
-                naamNummer.getChildren().addAll(naamFormulier, nummerFormulier, geboortedatum, woonplaats, straat, huisnummer, geslacht, knoppenInVoegToe);
-                naamNummer.setMinHeight(550);
-                informatie.setMinHeight(550);
-                setMinHeight(600);
-            }
-        });
-
-        //TerugKnop
-        terugNieuw.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent arg0) {
-                afbeeldingske.getChildren().removeAll(voegAfbeeldingToe, toegevoegd);
-                naamNummer.getChildren().removeAll(naamFormulier, nummerFormulier, geboortedatum, woonplaats, straat, huisnummer, geslacht, knoppenInVoegToe);
-                naamNummer.getChildren().addAll(naam, nummer);
-                knoppen.getChildren().addAll(zoek, nieuw, open);
-                afbeeldingske.setMinWidth(325);
-                informatie.setMinHeight(150);
-                naamNummer.setMinHeight(150);
-                setMinSize(800, 400);
-            }
-        });
-        
-        terugZoek.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent arg0) {
-                knoppen.getChildren().removeAll(zoekView, kies, terugZoek);
-                knoppen.getChildren().addAll(zoek, nieuw, open);
-                informatie.setMinHeight(150);
-                naamNummer.setMinHeight(150);
-                setMaxSize(800, 400);
-            }
-        });
-
-        //knopOpen
-        open.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent arg0) {
-                HoofdPaneel hoofdPanel = new HoofdPaneel(invulName.getText());
-                scene.setRoot(hoofdPanel);
-            }
-        });
-
-        //knopVoegAfbeeldingToe
-        //boxen
-        naamNummer.getChildren().addAll(naam, nummer);
-        informatie.getChildren().addAll(naamNummer, afbeeldingske);
-        informatie.setSpacing(10);
-        informatie.setPadding(new Insets(0, 20, 10, 20));
-        getChildren().addAll(informatie, knoppen);
     }
-    
+
     public void setScene(Scene scene) {
         this.scene = scene;
     }
