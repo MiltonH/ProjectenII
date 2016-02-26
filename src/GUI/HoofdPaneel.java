@@ -430,7 +430,7 @@ public class HoofdPaneel extends GridPane
         opmerkingBox.getChildren().addAll(opmerkingKnopView);
         add(opmerkingBox, 0, 3);
         opmerkingKnopView.setOnMouseClicked(event -> {
-            OpmerkingPaneel opmerkingPaneel = new OpmerkingPaneel();
+            OpmerkingPaneel opmerkingPaneel = new OpmerkingPaneel(this);
             opmerkingPaneel.setScene(scene);
             scene.setRoot(opmerkingPaneel);
         });

@@ -3,8 +3,6 @@ package GUI;
 import java.util.Collections;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -152,12 +150,17 @@ public class InlogPaneel extends GridPane {
 
         //knoppen
         openKnop.setOnMouseClicked(event -> {
+            if(naamTextField.getText().isEmpty()){
+                naamTextField.setPromptText("Geen naam ingevult");
+                naamTextField.setId("inlogGeenNaamIngevult");
+            } else {
             HoofdPaneel hoofdPanel = new HoofdPaneel(zoekView.getSelectionModel().getSelectedItem());
             hoofdPanel.setScene(scene);
             scene.setRoot(hoofdPanel);
+            }
         });
 
-        zoekView.setOnMouseClicked(even -> {
+        zoekView.setOnMouseClicked(event -> {
             naamTextField.setText(zoekView.getSelectionModel().getSelectedItem());
             nummerTextField.setText(String.valueOf(zoekView.getSelectionModel().getSelectedIndex() + 1));
             nummerTextField.setEditable(false);
