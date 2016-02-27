@@ -1,10 +1,13 @@
 package GUI;
 
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Rectangle2D;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -120,6 +123,25 @@ public class AttitudePaneel extends GridPane {
         knopPane.getRowConstraints().addAll(rij0KnopPane);
 
         textAreaPane.add(knopPane, 0, 2);
+        
+        //aanmaak FoutLabelPane
+        GridPane foutLabelPane = new GridPane();
+        foutLabelPane.gridLinesVisibleProperty().set(false);
+        
+        ColumnConstraints kolom0FoutLabelPane = new ColumnConstraints();
+        kolom0FoutLabelPane.setPercentWidth(100);
+        kolom0FoutLabelPane.setHalignment(HPos.CENTER);
+        foutLabelPane.getColumnConstraints().addAll(kolom0FoutLabelPane);
+        
+        RowConstraints rij0FoutLabelPane = new RowConstraints();
+        rij0FoutLabelPane.setPercentHeight(50);
+        rij0FoutLabelPane.setValignment(VPos.BOTTOM);
+        RowConstraints rij1FoutLabelPane = new RowConstraints();
+        rij1FoutLabelPane.setPercentHeight(50);
+        rij1FoutLabelPane.setValignment(VPos.CENTER);
+        foutLabelPane.getRowConstraints().addAll(rij0FoutLabelPane, rij1FoutLabelPane);
+        
+        invulSchermenPane.add(foutLabelPane, 0, 1);
 
         //ListView
         ObservableList<String> opmerkingen = FXCollections.observableArrayList();;
@@ -134,13 +156,17 @@ public class AttitudePaneel extends GridPane {
         invulTextField.setId("inlogTexfield");
         invulTextField.setPromptText("Geef een opmerking");
         invulTextField.setId("attitudeTextField");
-        invulSchermenPane.add(invulTextField, 0, 1);
+        foutLabelPane.add(invulTextField, 0, 0);
 
-        //Label
+        //AttitudeLabel
         Label attitudeLabel = new Label("Attitude");
-        attitudeLabel.setId("inlognaamNummerLabel");
         attitudeLabel.setId("attitudeLabel");
         textAreaPane.add(attitudeLabel, 0, 0);
+        
+        //FoutLabel
+        Label foutLabel = new Label();
+        foutLabel.setId("attitudeFout");
+        foutLabelPane.add(foutLabel, 0, 1);
 
         //TextArea ListView
         ObservableList<String> opmerkingenText = FXCollections.observableArrayList();;
@@ -162,9 +188,14 @@ public class AttitudePaneel extends GridPane {
 
         voegToe.setOnMouseClicked(event -> {
             if (invulTextField.getText().trim().isEmpty() == false) {
+                if(invulTextField.getText().indexOf("!") == -1){
                 opmerkingenView.getSelectionModel().clearSelection();
                 opmerkingenText.add(invulTextField.getText());
                 invulTextField.clear();
+                foutLabel.setText("");
+                } else {
+                    foutLabel.setText("Een uitroepingsteken mag niet worden toegevoegd!");
+                }
             } else if (opmerkingenView.getSelectionModel().getSelectedItem() != null) {
                 opmerkingenText.add(opmerkingenView.getSelectionModel().getSelectedItem());
                 opmerkingenView.getSelectionModel().clearSelection();
@@ -197,9 +228,13 @@ public class AttitudePaneel extends GridPane {
 
         aandacht.setOnMouseClicked(event -> {
             opmerkingenDoorgeef.add(opmerkingenTextView.getSelectionModel().getSelectedItem());
+            if (opmerkingenTextView.getSelectionModel().getSelectedItem().indexOf('!') == -1){
             Collections.replaceAll(opmerkingenText, opmerkingenTextView.getSelectionModel().getSelectedItem(), opmerkingenTextView.getSelectionModel().getSelectedItem() + "!");
+            } else {
+                foutLabel.setText("U heeft meermaals aandacht aangedrukt!");
+                //moet nog verdwijnen na 2 seconden
+            }
         });
-
     }
 
     public void setScene(Scene scene) {

@@ -108,3 +108,7 @@
     -fx-text-fill: darkslategray;
 }
 
+#attitudeFout{
+    -fx-font-size: 16;
+    -fx-text-fill: red;
+}
