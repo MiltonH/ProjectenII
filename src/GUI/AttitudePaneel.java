@@ -9,13 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Screen;
 
@@ -148,10 +144,12 @@ public class AttitudePaneel extends GridPane {
 
         //TextArea ListView
         ObservableList<String> opmerkingenText = FXCollections.observableArrayList();;
-        Collections.sort(opmerkingenText);
         ListView<String> opmerkingenTextView = new ListView<String>(opmerkingenText);
         opmerkingenTextView.setId("attitudeListViewOpmerkingen");
         textAreaPane.add(opmerkingenTextView, 0, 1);
+        
+        //List voor opmerkingen
+        ObservableList<String> opmerkingenDoorgeef = FXCollections.observableArrayList();;
         
         //image uitroepingsteken
 //        Image uitroepingstekenImg = new Image("Images/uitroepingsteken.png.png", Math.ceil(schermformaat.getWidth()*0.03), USE_PREF_SIZE, true, true);
@@ -165,11 +163,12 @@ public class AttitudePaneel extends GridPane {
         voegToe.setOnMouseClicked(event -> {
             if (invulTextField.getText().trim().isEmpty() == false) {
                 opmerkingenView.getSelectionModel().clearSelection();
-                opmerkingenText.add(invulTextField.getText() + "\n");
+                opmerkingenText.add(invulTextField.getText());
                 invulTextField.clear();
             } else if (opmerkingenView.getSelectionModel().getSelectedItem() != null) {
-                opmerkingenText.add(opmerkingenView.getSelectionModel().getSelectedItem() + "\n");
+                opmerkingenText.add(opmerkingenView.getSelectionModel().getSelectedItem());
                 opmerkingenView.getSelectionModel().clearSelection();
+                //Toevoegen dat geen 2 dezelfde woorden kunnen ingevoegd worden
             }
         });
 
@@ -197,10 +196,8 @@ public class AttitudePaneel extends GridPane {
         knopPane.add(aandacht, 1, 0);
 
         aandacht.setOnMouseClicked(event -> {
-//            Collections.replaceAll(opmerkingenText, opmerkingenTextView.getSelectionModel().getSelectedItem(), opmerkingenTextView.getSelectionModel().getSelectedItem() + "!");
-//            String item = opmerkingenTextView.getSelectionModel().getSelectedItem();
-//            opmerkingenText.remove(opmerkingenTextView.getSelectionModel().getSelectedItem());
-//            opmerkingenText.add(item + "!" + "\n");
+            opmerkingenDoorgeef.add(opmerkingenTextView.getSelectionModel().getSelectedItem());
+            Collections.replaceAll(opmerkingenText, opmerkingenTextView.getSelectionModel().getSelectedItem(), opmerkingenTextView.getSelectionModel().getSelectedItem() + "!");
         });
 
     }

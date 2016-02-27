@@ -87,6 +87,14 @@
     -fx-background-color: #d6d6d6;
 }
 
+#attitudeListViewOpmerkingenPressed{
+    .list-cell{
+        -fx-max-width: 800;
+        -fx-max-height: 500;
+        -fx-text-fill: aquamarine;
+    } 
+}
+
 #attitudeTextField{
     -fx-max-width: 350;
     -fx-min-height: 40;
