@@ -79,7 +79,7 @@ public class HoofdPaneel extends GridPane
         StackPane centerStack = new StackPane();
         Image centerImg = new Image("Images/center2.png", Math.ceil(schermformaat.getWidth() * 0.24), USE_PREF_SIZE, true, true);
         ImageView centerView = new ImageView(centerImg);
-        Image centerKnopImg = new Image("Images/centerKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
+        Image centerKnopImg = new Image("Images/centerKnop2.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView centerKnopView = new ImageView(centerKnopImg);
         centerBox.setAlignment(Pos.CENTER);
         centerStack.getChildren().addAll(centerView, centerKnopView);
@@ -109,7 +109,8 @@ public class HoofdPaneel extends GridPane
         add(wijzerplaat1Stack, 1, 2);
         add(wijzerplaat2Stack, 3, 2);
         wijzerplaat1View.setOnMouseClicked(event -> {
-            System.out.println("links");
+            RijechniekenBase rijechniekenBase = new RijechniekenBase(this);
+            scene.setRoot(rijechniekenBase);
         });//debug
         wijzerplaat2View.setOnMouseClicked(event -> {
             System.out.println("rechts");
