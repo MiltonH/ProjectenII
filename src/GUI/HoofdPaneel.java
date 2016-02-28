@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -17,8 +18,8 @@ import javafx.stage.Screen;
 
 public class HoofdPaneel extends GridPane
 {
-    Scene scene;
-    int niveau = 1;//dit is testcode
+    private Scene scene;
+    private int niveau = 1;//dit is testcode
 
     public HoofdPaneel(String studNaam) {
         //maingrid indelen
@@ -109,11 +110,12 @@ public class HoofdPaneel extends GridPane
         add(wijzerplaat1Stack, 1, 2);
         add(wijzerplaat2Stack, 3, 2);
         wijzerplaat1View.setOnMouseClicked(event -> {
-            RijechniekenBase rijechniekenBase = new RijechniekenBase(this);
-            scene.setRoot(rijechniekenBase);
+            RijTechniekBase rijtechniekenBase = new RijTechniekBase(this);
+            scene.setRoot(rijtechniekenBase);
         });//debug
         wijzerplaat2View.setOnMouseClicked(event -> {
-            System.out.println("rechts");
+            VerkeersTechniekBase verkeersTechniekBase = new VerkeersTechniekBase(this);
+            scene.setRoot(verkeersTechniekBase);
         });//debug
 
         //eind wijzerplaaten
@@ -464,5 +466,8 @@ public class HoofdPaneel extends GridPane
     
     public void setScene(Scene scene) {
         this.scene = scene;
+    }
+    public void setSceneRoot(Parent par){
+        this.scene.setRoot(par);
     }
 }
