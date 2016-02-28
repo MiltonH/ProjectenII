@@ -26,7 +26,7 @@ public class AttitudePaneel extends GridPane {
         setId("inlogPaneelBG");
         //schermformaat
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
-        
+
         //aanmaak grid
         gridLinesVisibleProperty().set(false);
 
@@ -123,16 +123,16 @@ public class AttitudePaneel extends GridPane {
         knopPane.getRowConstraints().addAll(rij0KnopPane);
 
         textAreaPane.add(knopPane, 0, 2);
-        
+
         //aanmaak FoutLabelPane
         GridPane foutLabelPane = new GridPane();
         foutLabelPane.gridLinesVisibleProperty().set(false);
-        
+
         ColumnConstraints kolom0FoutLabelPane = new ColumnConstraints();
         kolom0FoutLabelPane.setPercentWidth(100);
         kolom0FoutLabelPane.setHalignment(HPos.CENTER);
         foutLabelPane.getColumnConstraints().addAll(kolom0FoutLabelPane);
-        
+
         RowConstraints rij0FoutLabelPane = new RowConstraints();
         rij0FoutLabelPane.setPercentHeight(50);
         rij0FoutLabelPane.setValignment(VPos.BOTTOM);
@@ -140,14 +140,14 @@ public class AttitudePaneel extends GridPane {
         rij1FoutLabelPane.setPercentHeight(50);
         rij1FoutLabelPane.setValignment(VPos.CENTER);
         foutLabelPane.getRowConstraints().addAll(rij0FoutLabelPane, rij1FoutLabelPane);
-        
+
         invulSchermenPane.add(foutLabelPane, 0, 1);
 
         //ListView
-        ObservableList<String> opmerkingen = FXCollections.observableArrayList();;
-        opmerkingen.addAll("Zenuwachtig", "Concentratie", "Schrik", "Asociaal", "Verkeersgevaarlijk", "Ongeduldig", "Agressief rijgedrag", "Inzet", "Verstrooid", "Eigenwijs");
-        Collections.sort(opmerkingen);
-        ListView<String> opmerkingenView = new ListView<String>(opmerkingen);
+        ObservableList<String> opmerkingenList = FXCollections.observableArrayList();;
+        opmerkingenList.addAll("Zenuwachtig", "Concentratie", "Schrik", "Asociaal", "Verkeersgevaarlijk", "Ongeduldig", "Agressief rijgedrag", "Inzet", "Verstrooid", "Eigenwijs");
+        Collections.sort(opmerkingenList);
+        ListView<String> opmerkingenView = new ListView<String>(opmerkingenList);
         opmerkingenView.setId("attitudeListView");
         invulSchermenPane.add(opmerkingenView, 0, 0);
 
@@ -162,25 +162,25 @@ public class AttitudePaneel extends GridPane {
         Label attitudeLabel = new Label("Attitude");
         attitudeLabel.setId("attitudeLabel");
         textAreaPane.add(attitudeLabel, 0, 0);
-        
+
         //FoutLabel
         Label foutLabel = new Label();
         foutLabel.setId("attitudeFout");
         foutLabelPane.add(foutLabel, 0, 1);
 
         //TextArea ListView
-        ObservableList<String> opmerkingenText = FXCollections.observableArrayList();;
-        ListView<String> opmerkingenTextView = new ListView<String>(opmerkingenText);
-        opmerkingenTextView.setId("attitudeListViewOpmerkingen");
-        textAreaPane.add(opmerkingenTextView, 0, 1);
-        
+        ObservableList<String> opmerkingenTextAreaList = FXCollections.observableArrayList();;
+        ListView<String> opmerkingenTextAreaView = new ListView<String>(opmerkingenTextAreaList);
+        opmerkingenTextAreaView.setId("attitudeListViewOpmerkingen");
+        textAreaPane.add(opmerkingenTextAreaView, 0, 1);
+
         //List voor opmerkingen
-        ObservableList<String> opmerkingenDoorgeef = FXCollections.observableArrayList();;
-        
+        ObservableList<String> opmerkingenDoorgeefList = FXCollections.observableArrayList();;
+
         //image uitroepingsteken
 //        Image uitroepingstekenImg = new Image("Images/uitroepingsteken.png.png", Math.ceil(schermformaat.getWidth()*0.03), USE_PREF_SIZE, true, true);
 //        ImageView uitroepingstekenView = new ImageView(uitroepingstekenImg);
-        
+
         //Knoppen
         Button voegToe = new Button("Voeg Toe");
         voegToe.setId("inlogButtons");
@@ -188,18 +188,24 @@ public class AttitudePaneel extends GridPane {
 
         voegToe.setOnMouseClicked(event -> {
             if (invulTextField.getText().trim().isEmpty() == false) {
-                if(invulTextField.getText().indexOf("!") == -1){
-                opmerkingenView.getSelectionModel().clearSelection();
-                opmerkingenText.add(invulTextField.getText());
-                invulTextField.clear();
-                foutLabel.setText("");
+                if (opmerkingenTextAreaList.contains(invulTextField.getText().substring(0, 1).toUpperCase() + invulTextField.getText().substring(1)) || opmerkingenTextAreaList.contains(invulTextField.getText().substring(0, 1).toUpperCase() + invulTextField.getText().substring(1) + "!")) {
+                    foutLabel.setText("Deze opmerking is al toegevoegd");
+                } else if (invulTextField.getText().indexOf("!") == -1) {
+                    opmerkingenView.getSelectionModel().clearSelection();
+                    opmerkingenTextAreaList.add(invulTextField.getText().substring(0, 1).toUpperCase() + invulTextField.getText().substring(1));
+                    invulTextField.clear();
+                    foutLabel.setText("");
                 } else {
-                    foutLabel.setText("Een uitroepingsteken mag niet worden toegevoegd!");
+                    foutLabel.setText("Een uitroepingsteken mag niet worden toegevoegd");
                 }
             } else if (opmerkingenView.getSelectionModel().getSelectedItem() != null) {
-                opmerkingenText.add(opmerkingenView.getSelectionModel().getSelectedItem());
-                opmerkingenView.getSelectionModel().clearSelection();
-                //Toevoegen dat geen 2 dezelfde woorden kunnen ingevoegd worden
+                if (opmerkingenTextAreaList.contains(opmerkingenView.getSelectionModel().getSelectedItem()) || opmerkingenTextAreaList.contains(opmerkingenView.getSelectionModel().getSelectedItem() + "!")) {
+                    foutLabel.setText("Deze opmerking is al toegevoegd");
+                } else {
+                    opmerkingenTextAreaList.add(opmerkingenView.getSelectionModel().getSelectedItem());
+                    opmerkingenView.getSelectionModel().clearSelection();
+                    foutLabel.setText("");
+                }
             }
         });
 
@@ -209,7 +215,7 @@ public class AttitudePaneel extends GridPane {
         knopPane.add(verwijder, 0, 0);
 
         verwijder.setOnMouseClicked(event -> {
-            opmerkingenText.remove(opmerkingenTextView.getSelectionModel().getSelectedItem());
+            opmerkingenTextAreaList.remove(opmerkingenTextAreaView.getSelectionModel().getSelectedItem());
         });
 
         //
@@ -220,19 +226,19 @@ public class AttitudePaneel extends GridPane {
         terug.setOnMouseClicked(event -> {
             scene.setRoot(hoofdPanel);
         });
-        
+
         //
         Button aandacht = new Button("Aandacht");
         aandacht.setId("inlogButtons");
         knopPane.add(aandacht, 1, 0);
 
         aandacht.setOnMouseClicked(event -> {
-            opmerkingenDoorgeef.add(opmerkingenTextView.getSelectionModel().getSelectedItem());
-            if (opmerkingenTextView.getSelectionModel().getSelectedItem().indexOf('!') == -1){
-            Collections.replaceAll(opmerkingenText, opmerkingenTextView.getSelectionModel().getSelectedItem(), opmerkingenTextView.getSelectionModel().getSelectedItem() + "!");
+            if (opmerkingenTextAreaView.getSelectionModel().getSelectedItem().indexOf('!') == -1) {
+                opmerkingenDoorgeefList.add(opmerkingenTextAreaView.getSelectionModel().getSelectedItem());
+                Collections.replaceAll(opmerkingenTextAreaList, opmerkingenTextAreaView.getSelectionModel().getSelectedItem(), opmerkingenTextAreaView.getSelectionModel().getSelectedItem() + "!");
+                foutLabel.setText("");
             } else {
-                foutLabel.setText("U heeft meermaals aandacht aangedrukt!");
-                //moet nog verdwijnen na 2 seconden
+                foutLabel.setText("U heeft meermaals aandacht aangedrukt");
             }
         });
     }
