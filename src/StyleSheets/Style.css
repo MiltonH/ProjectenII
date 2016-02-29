@@ -27,6 +27,7 @@
 #inlogTexfield{
     -fx-text-fill: dimgray; 
     -fx-font-size: 16;
+    -fx-bordor-color: #d6d6d6;
 }
 
 #inlogButtons{
@@ -37,8 +38,8 @@
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
-    -fx-font-size: 25;
-    -fx-padding: 30 60 30 60;
+    -fx-font-size: 20;
+    -fx-min-padding: 30 60 30 60;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
@@ -74,5 +75,40 @@
     -fx-font-size: 25;
 }
 
+#attitudeListView{
+    -fx-max-width: 300;
+    -fx-max-height: 402;
+    -fx-background-color: #d6d6d6;
+}
 
+#attitudeListViewOpmerkingen{
+    -fx-max-width: 800;
+    -fx-max-height: 500;
+    -fx-background-color: #d6d6d6;
+}
 
+#attitudeListViewOpmerkingenPressed{
+    .list-cell{
+        -fx-max-width: 800;
+        -fx-max-height: 500;
+        -fx-text-fill: aquamarine;
+    } 
+}
+
+#attitudeTextField{
+    -fx-max-width: 350;
+    -fx-min-height: 40;
+    -fx-text-fill: dimgray; 
+    -fx-font-size: 16;
+    -fx-bordor-color: #d6d6d6;
+}
+
+#attitudeLabel{
+    -fx-font-size: 50;
+    -fx-text-fill: darkslategray;
+}
+
+#attitudeFout{
+    -fx-font-size: 16;
+    -fx-text-fill: red;
+}
