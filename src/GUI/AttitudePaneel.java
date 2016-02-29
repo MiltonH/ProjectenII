@@ -1,8 +1,6 @@
 package GUI;
 
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -80,10 +78,14 @@ public class AttitudePaneel extends GridPane {
         RowConstraints rij0invulSchermenPane = new RowConstraints();
         rij0invulSchermenPane.setPercentHeight(60);
         RowConstraints rij1invulSchermenPane = new RowConstraints();
-        rij1invulSchermenPane.setPercentHeight(20);
+        rij1invulSchermenPane.setPercentHeight(10);
+        rij1invulSchermenPane.setValignment(VPos.BOTTOM);
         RowConstraints rij2invulSchermenPane = new RowConstraints();
-        rij2invulSchermenPane.setPercentHeight(20);
-        invulSchermenPane.getRowConstraints().addAll(rij0invulSchermenPane, rij1invulSchermenPane, rij2invulSchermenPane);
+        rij2invulSchermenPane.setPercentHeight(10);
+        rij2invulSchermenPane.setValignment(VPos.CENTER);
+        RowConstraints rij3invulSchermenPane = new RowConstraints();
+        rij3invulSchermenPane.setPercentHeight(20);
+        invulSchermenPane.getRowConstraints().addAll(rij0invulSchermenPane, rij1invulSchermenPane, rij2invulSchermenPane, rij3invulSchermenPane);
 
         AttitudePane.add(invulSchermenPane, 0, 0);
 
@@ -124,25 +126,6 @@ public class AttitudePaneel extends GridPane {
 
         textAreaPane.add(knopPane, 0, 2);
 
-        //aanmaak FoutLabelPane
-        GridPane foutLabelPane = new GridPane();
-        foutLabelPane.gridLinesVisibleProperty().set(false);
-
-        ColumnConstraints kolom0FoutLabelPane = new ColumnConstraints();
-        kolom0FoutLabelPane.setPercentWidth(100);
-        kolom0FoutLabelPane.setHalignment(HPos.CENTER);
-        foutLabelPane.getColumnConstraints().addAll(kolom0FoutLabelPane);
-
-        RowConstraints rij0FoutLabelPane = new RowConstraints();
-        rij0FoutLabelPane.setPercentHeight(50);
-        rij0FoutLabelPane.setValignment(VPos.BOTTOM);
-        RowConstraints rij1FoutLabelPane = new RowConstraints();
-        rij1FoutLabelPane.setPercentHeight(50);
-        rij1FoutLabelPane.setValignment(VPos.CENTER);
-        foutLabelPane.getRowConstraints().addAll(rij0FoutLabelPane, rij1FoutLabelPane);
-
-        invulSchermenPane.add(foutLabelPane, 0, 1);
-
         //ListView
         ObservableList<String> opmerkingenList = FXCollections.observableArrayList();;
         opmerkingenList.addAll("Zenuwachtig", "Concentratie", "Schrik", "Asociaal", "Verkeersgevaarlijk", "Ongeduldig", "Agressief rijgedrag", "Inzet", "Verstrooid", "Eigenwijs");
@@ -156,7 +139,7 @@ public class AttitudePaneel extends GridPane {
         invulTextField.setId("inlogTexfield");
         invulTextField.setPromptText("Geef een opmerking");
         invulTextField.setId("attitudeTextField");
-        foutLabelPane.add(invulTextField, 0, 0);
+        invulSchermenPane.add(invulTextField, 0, 1);
 
         //AttitudeLabel
         Label attitudeLabel = new Label("Attitude");
@@ -166,7 +149,7 @@ public class AttitudePaneel extends GridPane {
         //FoutLabel
         Label foutLabel = new Label();
         foutLabel.setId("attitudeFout");
-        foutLabelPane.add(foutLabel, 0, 1);
+        invulSchermenPane.add(foutLabel, 0, 2);
 
         //TextArea ListView
         ObservableList<String> opmerkingenTextAreaList = FXCollections.observableArrayList();;
@@ -177,14 +160,10 @@ public class AttitudePaneel extends GridPane {
         //List voor opmerkingen
         ObservableList<String> opmerkingenDoorgeefList = FXCollections.observableArrayList();;
 
-        //image uitroepingsteken
-//        Image uitroepingstekenImg = new Image("Images/uitroepingsteken.png.png", Math.ceil(schermformaat.getWidth()*0.03), USE_PREF_SIZE, true, true);
-//        ImageView uitroepingstekenView = new ImageView(uitroepingstekenImg);
-
-        //Knoppen
+        //Knoppen   
         Button voegToe = new Button("Voeg Toe");
         voegToe.setId("inlogButtons");
-        invulSchermenPane.add(voegToe, 0, 2);
+        invulSchermenPane.add(voegToe, 0, 3);
 
         voegToe.setOnMouseClicked(event -> {
             if (invulTextField.getText().trim().isEmpty() == false) {

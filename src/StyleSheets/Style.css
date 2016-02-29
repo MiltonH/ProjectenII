@@ -38,8 +38,8 @@
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
-    -fx-font-size: 25;
-    -fx-padding: 30 60 30 60;
+    -fx-font-size: 20;
+    -fx-min-padding: 30 60 30 60;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
