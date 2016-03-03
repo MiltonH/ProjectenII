@@ -25,7 +25,7 @@ import javafx.stage.Screen;
 public class RijTechniekBase extends GridPane
 {
 
-    HBox contentBox;
+    StackPane contentBox;
 
     public RijTechniekBase(HoofdPaneel hoofdPanel) {
         //grid indeling
@@ -53,8 +53,7 @@ public class RijTechniekBase extends GridPane
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
 
         //contentBox
-        contentBox = new HBox();
-        contentBox.setId("test");
+        contentBox = new StackPane();
         contentBox.setMaxSize(Math.ceil(schermformaat.getWidth() * 0.62), Math.ceil(schermformaat.getHeight() * 0.8));
         add(contentBox, 0, 0, 1, 3);
         //einde contentBox
@@ -62,7 +61,7 @@ public class RijTechniekBase extends GridPane
         //box met knoppen
         HBox topKnoppenBox = new HBox();
         topKnoppenBox.setSpacing(Math.ceil(schermformaat.getWidth() * 0.02));
-        topKnoppenBox.setAlignment(Pos.TOP_RIGHT);
+        topKnoppenBox.setAlignment(Pos.TOP_CENTER);
         Image verkeerTechImg = new Image("Images/verkeersTechKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView verkeerTechKnopView = new ImageView(verkeerTechImg);
         Image attitudeKnopImg = new Image("Images/attitudeKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
@@ -86,7 +85,7 @@ public class RijTechniekBase extends GridPane
         //einde center wijzerplaat
         HBox bottomKnoppenBox = new HBox();
         bottomKnoppenBox.setSpacing(Math.ceil(schermformaat.getWidth() * 0.02));
-        bottomKnoppenBox.setAlignment(Pos.BOTTOM_RIGHT);
+        bottomKnoppenBox.setAlignment(Pos.BOTTOM_CENTER);
         Image homeKnopImg = new Image("Images/homeKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView homeKnopView = new ImageView(homeKnopImg);
         Image returnKnopImg = new Image("Images/returnKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);

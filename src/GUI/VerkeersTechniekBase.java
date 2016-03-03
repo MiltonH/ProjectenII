@@ -54,7 +54,7 @@ public class VerkeersTechniekBase extends GridPane
 
         //contentBox
         contentBox = new HBox();
-        contentBox.setId("test");
+        contentBox.setId("contentBox");
         contentBox.setMaxSize(Math.ceil(schermformaat.getWidth() * 0.62), Math.ceil(schermformaat.getHeight() * 0.8));
         add(contentBox, 1, 0, 1, 3);
         //einde contentBox
@@ -62,7 +62,7 @@ public class VerkeersTechniekBase extends GridPane
         //box met knoppen
         HBox topKnoppenBox = new HBox();
         topKnoppenBox.setSpacing(Math.ceil(schermformaat.getWidth() * 0.02));
-        topKnoppenBox.setAlignment(Pos.TOP_LEFT);
+        topKnoppenBox.setAlignment(Pos.TOP_CENTER);
         Image rijTechImg = new Image("Images/rijTechKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView rijTechKnopView = new ImageView(rijTechImg);
         Image attitudeKnopImg = new Image("Images/attitudeKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
@@ -86,7 +86,7 @@ public class VerkeersTechniekBase extends GridPane
         //einde center wijzerplaat
         HBox bottomKnoppenBox = new HBox();
         bottomKnoppenBox.setSpacing(Math.ceil(schermformaat.getWidth() * 0.02));
-        bottomKnoppenBox.setAlignment(Pos.BOTTOM_LEFT);
+        bottomKnoppenBox.setAlignment(Pos.BOTTOM_CENTER);
         Image homeKnopImg = new Image("Images/homeKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView homeKnopView = new ImageView(homeKnopImg);
         Image returnKnopImg = new Image("Images/returnKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
