@@ -30,7 +30,7 @@ public class VerkeersTechniekBase extends GridPane
     public VerkeersTechniekBase(HoofdPaneel hoofdPanel) {
         //grid indeling
         setId("hoofdPaneelBG");
-        gridLinesVisibleProperty().set(true);
+        gridLinesVisibleProperty().set(false);
         
         ColumnConstraints kolom0 = new ColumnConstraints();
         kolom0.setPercentWidth(35);
