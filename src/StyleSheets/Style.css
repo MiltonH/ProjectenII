@@ -53,6 +53,11 @@
     -fx-background-repeat: no-repeat;
     -fx-background-size: auto;
 }
+#contentBox{
+    -fx-background-color: #262626;
+    -fx-background-radius: 10.0;
+    -fx-padding: 3;
+}
 
 #naamLabel{
     -fx-font-size: 20;
