@@ -4,7 +4,6 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -17,10 +16,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
 public class RijTechniekHoofdscherm extends GridPane {
+     RijTechniekBase base;
 
-    public RijTechniekHoofdscherm() {
+    public RijTechniekHoofdscherm(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");
-        
+        this.base=base;
         //einde grid indeling
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
         double maxWidth = schermformaat.getWidth() * 0.62;
@@ -76,14 +76,23 @@ public class RijTechniekHoofdscherm extends GridPane {
 
         //Knoppen boven 
         Image knopVierkant = new Image("Images/knopVierkant.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true);
+        
         ImageView remView = new ImageView(knopVierkant);
         add(remView, 1, 1);
 
         ImageView koppelingView = new ImageView(knopVierkant);
         add(koppelingView, 2, 1);
+        koppelingView.setOnMouseClicked(event -> {
+            RijTechniekKoppelingKnop rijTechniekKoppelingKnop = new RijTechniekKoppelingKnop();
+            base.setContent(rijTechniekKoppelingKnop);
+        });
 
         ImageView stuurView = new ImageView(knopVierkant);
         add(stuurView, 3, 1);
+        stuurView.setOnMouseClicked(event -> {
+            RijTechniekStuurKnop rijTechniekStuurKnop = new RijTechniekStuurKnop();
+            base.setContent(rijTechniekStuurKnop);
+        });
 
         ImageView versnellingView = new ImageView(knopVierkant);
         add(versnellingView, 4, 1);
@@ -115,16 +124,16 @@ public class RijTechniekHoofdscherm extends GridPane {
         
         
         //rect variable
-        double Grootte = Math.ceil(maxWidth * 0.03);
+        double grootte = Math.ceil(maxWidth * 0.03);
 
         //rectangles rem
         HBox remBox = new HBox();
         remBox.setAlignment(Pos.CENTER);
         remBox.setId("rijTechniekHoofdschermBox");
 
-        Rectangle rem1 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle rem2 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle rem3 = new Rectangle(Grootte, Grootte, Color.WHITE);
+        Rectangle rem1 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle rem2 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle rem3 = new Rectangle(grootte, grootte, Color.WHITE);
 
         remBox.getChildren().addAll(rem1, rem2, rem3);
         add(remBox, 1, 2);
@@ -134,9 +143,9 @@ public class RijTechniekHoofdscherm extends GridPane {
         koppelingBox.setAlignment(Pos.CENTER);
         koppelingBox.setId("rijTechniekHoofdschermBox");
 
-        Rectangle koppeling1 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle koppeling2 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle koppeling3 = new Rectangle(Grootte, Grootte, Color.WHITE);
+        Rectangle koppeling1 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle koppeling2 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle koppeling3 = new Rectangle(grootte, grootte, Color.WHITE);
 
         koppelingBox.getChildren().addAll(koppeling1, koppeling2, koppeling3);
         add(koppelingBox, 2, 2);
@@ -146,9 +155,9 @@ public class RijTechniekHoofdscherm extends GridPane {
         stuurBox.setAlignment(Pos.CENTER);
         stuurBox.setId("rijTechniekHoofdschermBox");
 
-        Rectangle stuur1 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle stuur2 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle stuur3 = new Rectangle(Grootte, Grootte, Color.WHITE);
+        Rectangle stuur1 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle stuur2 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle stuur3 = new Rectangle(grootte, grootte, Color.WHITE);
 
         stuurBox.getChildren().addAll(stuur1, stuur2, stuur3);
         add(stuurBox, 3, 2);
@@ -158,9 +167,9 @@ public class RijTechniekHoofdscherm extends GridPane {
         versnellingBox.setAlignment(Pos.CENTER);
         versnellingBox.setId("rijTechniekHoofdschermBox");
 
-        Rectangle versnelling1 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle versnelling2 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle versnelling3 = new Rectangle(Grootte, Grootte, Color.WHITE);
+        Rectangle versnelling1 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle versnelling2 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle versnelling3 = new Rectangle(grootte, grootte, Color.WHITE);
 
         versnellingBox.getChildren().addAll(versnelling1, versnelling2, versnelling3);
         add(versnellingBox, 4, 2);
@@ -170,9 +179,9 @@ public class RijTechniekHoofdscherm extends GridPane {
         kijkenBox.setAlignment(Pos.CENTER);
         kijkenBox.setId("rijTechniekHoofdschermBox");
 
-        Rectangle kijken1 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle kijken2 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle kijken3 = new Rectangle(Grootte, Grootte, Color.WHITE);
+        Rectangle kijken1 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle kijken2 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle kijken3 = new Rectangle(grootte, grootte, Color.WHITE);
 
         kijkenBox.getChildren().addAll(kijken1, kijken2, kijken3);
         add(kijkenBox, 5, 2);
@@ -182,9 +191,9 @@ public class RijTechniekHoofdscherm extends GridPane {
         pijltjeBox.setAlignment(Pos.CENTER);
         pijltjeBox.setId("rijTechniekHoofdschermBox");
 
-        Rectangle pijltje1 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle pijltje2 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle pijltje3 = new Rectangle(Grootte, Grootte, Color.WHITE);
+        Rectangle pijltje1 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle pijltje2 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle pijltje3 = new Rectangle(grootte, grootte, Color.WHITE);
 
         pijltjeBox.getChildren().addAll(pijltje1, pijltje2, pijltje3);
         add(pijltjeBox, 6, 2);
@@ -194,11 +203,12 @@ public class RijTechniekHoofdscherm extends GridPane {
         zitHoudingBox.setAlignment(Pos.CENTER);
         zitHoudingBox.setId("rijTechniekHoofdschermBox");
 
-        Rectangle zitHouding1 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle zitHouding2 = new Rectangle(Grootte, Grootte, Color.WHITE);
-        Rectangle zitHouding3 = new Rectangle(Grootte, Grootte, Color.WHITE);
+        Rectangle zitHouding1 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle zitHouding2 = new Rectangle(grootte, grootte, Color.WHITE);
+        Rectangle zitHouding3 = new Rectangle(grootte, grootte, Color.WHITE);
 
         zitHoudingBox.getChildren().addAll(zitHouding1, zitHouding2, zitHouding3);
         add(zitHoudingBox, 7, 2);
     }
+    
 }

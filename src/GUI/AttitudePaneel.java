@@ -3,6 +3,7 @@ package GUI;
 import java.util.Collections;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -11,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -218,6 +221,26 @@ public class AttitudePaneel extends GridPane {
                 foutLabel.setText("");
             } else {
                 foutLabel.setText("U heeft meermaals aandacht aangedrukt");
+            }
+        });
+        
+        invulTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    if (invulTextField.getText().trim().isEmpty() == false) {
+                        if (opmerkingenTextAreaList.contains(invulTextField.getText().substring(0, 1).toUpperCase() + invulTextField.getText().substring(1)) || opmerkingenTextAreaList.contains(invulTextField.getText().substring(0, 1).toUpperCase() + invulTextField.getText().substring(1) + "!")) {
+                            foutLabel.setText("Deze opmerking is al toegevoegd");
+                        } else if (invulTextField.getText().indexOf("!") == -1) {
+                            opmerkingenView.getSelectionModel().clearSelection();
+                            opmerkingenTextAreaList.add(invulTextField.getText().substring(0, 1).toUpperCase() + invulTextField.getText().substring(1));
+                            invulTextField.clear();
+                            foutLabel.setText("");
+                        } else {
+                            foutLabel.setText("Een uitroepingsteken mag niet worden toegevoegd");
+                        }
+                    }
+                }
             }
         });
     }

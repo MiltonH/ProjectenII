@@ -129,3 +129,33 @@
     -fx-background-repeat: no-repeat;
     -fx-background-size: auto;
 }
+
+#buttonKleurRood{
+    -fx-background-color: red;
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-font-size: 20;
+    -fx-padding: 30 60 30 60;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#buttonKleurOranje{
+    -fx-background-color: orange;
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-font-size: 20;
+    -fx-padding: 30 60 30 60;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#buttonKleurGroen{
+    -fx-background-color: greenyellow;
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-font-size: 20;
+    -fx-padding: 30 60 30 60;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}

@@ -106,7 +106,7 @@ public class RijTechniekBase extends GridPane
         attitudeKnopView.setOnMouseClicked(event -> {
         });
         //einde box met knoppen
-        setContent(new RijTechniekHoofdscherm());
+        setContent(new RijTechniekHoofdscherm(this));
     }
 
     public void setContent(GridPane grid) {
