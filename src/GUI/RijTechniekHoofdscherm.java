@@ -100,6 +100,10 @@ public class RijTechniekHoofdscherm extends GridPane {
 
         ImageView versnellingView = new ImageView(knopVierkant);
         add(versnellingView, 4, 1);
+        versnellingView.setOnMouseClicked(event -> {
+            RijTechniekVersnellingKnop rijTechniekversnellingKnop = new RijTechniekVersnellingKnop();
+            base.setContent(rijTechniekversnellingKnop);
+        });
 
         ImageView kijkenView = new ImageView(knopVierkant);
         add(kijkenView, 5, 1);
