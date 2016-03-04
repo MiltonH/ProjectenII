@@ -79,6 +79,10 @@ public class RijTechniekHoofdscherm extends GridPane {
         
         ImageView remView = new ImageView(knopVierkant);
         add(remView, 1, 1);
+        remView.setOnMouseClicked(event -> {
+            RijTechniekRemKnop rijTechniekRemKnop = new RijTechniekRemKnop();
+            base.setContent(rijTechniekRemKnop);
+        });
 
         ImageView koppelingView = new ImageView(knopVierkant);
         add(koppelingView, 2, 1);
