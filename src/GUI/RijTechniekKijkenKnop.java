@@ -25,9 +25,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
-public class RijTechniekVersnellingKnop extends GridPane {
+public class RijTechniekKijkenKnop extends GridPane {
 
-    public RijTechniekVersnellingKnop() {
+    public RijTechniekKijkenKnop() {
         setId("rijTechniekHoofdschermPaneel");
 
         //einde grid indeling
@@ -42,35 +42,35 @@ public class RijTechniekVersnellingKnop extends GridPane {
         ColumnConstraints kolom1 = new ColumnConstraints();
         kolom1.setPercentWidth(14);
         ColumnConstraints kolom2 = new ColumnConstraints();
-        kolom2.setPercentWidth(28);
+        kolom2.setPercentWidth(41);
         kolom2.setHalignment(HPos.CENTER);
         ColumnConstraints kolom3 = new ColumnConstraints();
-        kolom3.setPercentWidth(28);
+        kolom3.setPercentWidth(41);
         kolom3.setHalignment(HPos.CENTER);
         ColumnConstraints kolom4 = new ColumnConstraints();
-        kolom4.setPercentWidth(28);
-        ColumnConstraints kolom5 = new ColumnConstraints();
-        kolom5.setPercentWidth(2);
+        kolom4.setPercentWidth(2);
 
-        getColumnConstraints().addAll(kolom0, kolom1, kolom2, kolom3, kolom4, kolom5);
+        getColumnConstraints().addAll(kolom0, kolom1, kolom2, kolom3, kolom4);
 
         RowConstraints rij0 = new RowConstraints();
-        rij0.setPercentHeight(2);
+        rij0.setPercentHeight(3);
         RowConstraints rij1 = new RowConstraints();
         rij1.setPercentHeight(24);
         rij1.setValignment(VPos.BOTTOM);
         RowConstraints rij2 = new RowConstraints();
-        rij2.setPercentHeight(18);
+        rij2.setPercentHeight(14);
         RowConstraints rij3 = new RowConstraints();
-        rij3.setPercentHeight(18);
+        rij3.setPercentHeight(14);
         RowConstraints rij4 = new RowConstraints();
-        rij4.setPercentHeight(18);
+        rij4.setPercentHeight(14);
         RowConstraints rij5 = new RowConstraints();
-        rij5.setPercentHeight(18);
+        rij5.setPercentHeight(14);
         RowConstraints rij6 = new RowConstraints();
-        rij6.setPercentHeight(2);
+        rij6.setPercentHeight(14);
+        RowConstraints rij7 = new RowConstraints();
+        rij7.setPercentHeight(3);
 
-        getRowConstraints().addAll(rij0, rij1, rij2, rij3, rij4, rij5, rij6);
+        getRowConstraints().addAll(rij0, rij1, rij2, rij3, rij4, rij5, rij6, rij7);
 
         //gridKnop
         GridPane gridKnopPane = new GridPane();
@@ -128,61 +128,33 @@ public class RijTechniekVersnellingKnop extends GridPane {
             }
         });
 
-        //Listview
-        ObservableList<String> opmerkingenList2 = FXCollections.observableArrayList();;
-        Collections.sort(opmerkingenList2);
-        ListView<String> opmerkingenView2 = new ListView<String>(opmerkingenList2);
-
-        //Tekst
-        TextField invulTextField2 = new TextField();
-        invulTextField2.setId("inlogTexfield");
-        invulTextField2.setPromptText("Geef een opmerking");
-        invulTextField2.setId("attitudeTextField");
-        invulTextField2.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent ke) {
-                if (ke.getCode().equals(KeyCode.ENTER)) {
-                    opmerkingenList2.add(invulTextField2.getText());
-                    invulTextField2.clear();
-                }
-            }
-        });
-
         //knoppen
-        Button bediening = new Button("Bediening");
-        bediening.setId("inlogButtons");
-        add(bediening, 2, 1);
+        Button beterVergewissen = new Button("Beter Vergewissen");
+        beterVergewissen.setId("inlogButtons");
+        add(beterVergewissen, 2, 1);
 
-        Button gebruik = new Button("Gebruik");
-        gebruik.setId("inlogButtons");
-        add(gebruik, 2, 3);
+        Button spiegels = new Button("Spiegels");
+        spiegels.setId("inlogButtons");
+        add(spiegels, 2, 2);
 
-        Button dosering = new Button("Dosering");
-        dosering.setId("inlogButtons");
-        add(dosering, 3, 1);
+        Button dodeHoek = new Button("Dode Hoek");
+        dodeHoek.setId("inlogButtons");
+        add(dodeHoek, 2, 3);       
+
+        Button verGenoeg = new Button("Ver Genoeg");
+        verGenoeg.setId("inlogButtons");
+        add(verGenoeg, 2, 4);
+
+        Button selecteren = new Button("Selecteren");
+        selecteren.setId("inlogButtons");
+        add(selecteren, 2, 5);
         
         Button andere = new Button("Andere");
         andere.setId("inlogButtons");
-        add(andere, 3, 2); 
+        add(andere, 2, 6); 
         andere.setOnMouseClicked(event -> {
-            add(invulTextField, 4, 2);
-            add(opmerkingenView, 4, 1);
-        });
-
-        Button aangepast = new Button("Aangepast");
-        aangepast.setId("inlogButtons");
-        add(aangepast, 3, 3);
-
-        Button motorRem = new Button("Motorrem");
-        motorRem.setId("inlogButtons");
-        add(motorRem, 3, 4);
-
-        Button andere2 = new Button("Andere");
-        andere2.setId("inlogButtons");
-        add(andere2, 3, 5);
-        andere2.setOnMouseClicked(event -> {
-            add(invulTextField2, 4, 5);
-            add(opmerkingenView2, 4, 4);
+            add(invulTextField, 3, 6);
+            add(opmerkingenView, 3, 4, 1, 2);
         });
     }
 }

@@ -103,10 +103,10 @@ public class RijTechniekKoppelingKnop extends GridPane {
 
         add(gridKnopPane, 1, 1);
 
-        //rem
+        //koppeling
         Image knopVierkant = new Image("Images/knopVierkant.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true);
-        ImageView remView = new ImageView(knopVierkant);
-        gridKnopPane.add(remView, 0, 0);
+        ImageView koppelingView = new ImageView(knopVierkant);
+        gridKnopPane.add(koppelingView, 0, 0);
 
         HBox remBox = new HBox();
         remBox.setAlignment(Pos.CENTER);
