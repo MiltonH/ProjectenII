@@ -25,12 +25,12 @@ import javafx.stage.Screen;
 public class RijTechniekBase extends GridPane
 {
 
-    StackPane contentBox;
+    HBox contentBox;
 
     public RijTechniekBase(HoofdPaneel hoofdPanel) {
         //grid indeling
         setId("hoofdPaneelBG");
-        gridLinesVisibleProperty().set(true);
+        gridLinesVisibleProperty().set(false);
 
         ColumnConstraints kolom0 = new ColumnConstraints();
         kolom0.setPercentWidth(65);
@@ -53,7 +53,8 @@ public class RijTechniekBase extends GridPane
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
 
         //contentBox
-        contentBox = new StackPane();
+        contentBox = new HBox();
+        contentBox.setId("contentBox");
         contentBox.setMaxSize(Math.ceil(schermformaat.getWidth() * 0.62), Math.ceil(schermformaat.getHeight() * 0.8));
         add(contentBox, 0, 0, 1, 3);
         //einde contentBox
@@ -105,6 +106,7 @@ public class RijTechniekBase extends GridPane
         attitudeKnopView.setOnMouseClicked(event -> {
         });
         //einde box met knoppen
+        setContent(new RijTechniekHoofdscherm(this));
     }
 
     public void setContent(GridPane grid) {

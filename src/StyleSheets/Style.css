@@ -39,7 +39,7 @@
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
     -fx-font-size: 20;
-    -fx-min-padding: 30 60 30 60;
+    -fx-padding: 30 60 30 60;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
@@ -116,4 +116,46 @@
 #attitudeFout{
     -fx-font-size: 16;
     -fx-text-fill: red;
+}
+
+#rijTechniekHoofdschermBox{
+    -fx-spacing: 5;
+}
+
+#rijTechniekHoofdschermPaneel{
+    -fx-background-color: #696969;
+    -fx-background-radius: 5.0;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: auto;
+}
+
+#buttonKleurRood{
+    -fx-background-color: red;
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-font-size: 20;
+    -fx-padding: 30 60 30 60;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#buttonKleurOranje{
+    -fx-background-color: orange;
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-font-size: 20;
+    -fx-padding: 30 60 30 60;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#buttonKleurGroen{
+    -fx-background-color: greenyellow;
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-font-size: 20;
+    -fx-padding: 30 60 30 60;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
