@@ -5,12 +5,18 @@
  */
 package GUI;
 
+import java.util.ArrayList;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -85,32 +91,91 @@ public class verkeerstechniekHoofdscherm extends GridPane
 
         Image tijdelijkeKnop = new Image("Images/knopVierkant.png", Math.ceil(maxwidth * 0.14), USE_PREF_SIZE, true, true);
 
+        ObservableList<String> VTOpmerkingen = FXCollections.observableArrayList();
+        HBox opmerkingBox = new HBox();
+        opmerkingBox.setAlignment(Pos.CENTER);
+        opmerkingBox.setSpacing(20);
+        Label opmerkingLbl = new Label("voeg opmerking toe:");
+        opmerkingLbl.setId("opmerkingenLabel");
+        TextField opmerkingField = new TextField();
+        opmerkingField.setId("opmerkingenTexfield");
+        Button voegtoeBtn = new Button("Voeg toe");
+        voegtoeBtn.setId("inlogButtons");
+        voegtoeBtn.setOnAction(event -> {
+            VTOpmerkingen.add(opmerkingField.getText());
+            getChildren().remove(opmerkingBox);
+        });
+        VBox inputBox = new VBox();
+        ListView<String> opmerkingLView = new ListView<>();
+        opmerkingLView.setMaxHeight(maxHeight * 0.4);
+        opmerkingLView.setItems(VTOpmerkingen);
+        inputBox.setAlignment(Pos.CENTER_LEFT);
+        inputBox.setSpacing(20);
+        inputBox.getChildren().addAll(opmerkingLbl, opmerkingField, voegtoeBtn);
+        opmerkingBox.getChildren().addAll(inputBox, opmerkingLView);
+
         ImageView voorrangView = new ImageView(tijdelijkeKnop);
         add(voorrangView, 1, 1);
         //voorloping mousedragged voor demo , later touchstationairy of swipe voor tablet
         voorrangView.setOnMouseDragged(event -> {
-            Label derpLbl = new Label("derpy");
-            add(derpLbl,3,3);
+            getChildren().remove(opmerkingBox);
+            add(opmerkingBox, 1, 3, 5, 1);
         });
         ImageView verkeersTekensView = new ImageView(tijdelijkeKnop);
         add(verkeersTekensView, 2, 1);
+        verkeersTekensView.setOnMouseDragged(event -> {
+            getChildren().remove(opmerkingBox);
+            add(opmerkingBox, 1, 3, 5, 1);
+        });
         ImageView snelheidView = new ImageView(tijdelijkeKnop);
         add(snelheidView, 3, 1);
+        snelheidView.setOnMouseDragged(event -> {
+            getChildren().remove(opmerkingBox);
+            add(opmerkingBox, 1, 3, 5, 1);
+        });
         ImageView volgafstandView = new ImageView(tijdelijkeKnop);
         add(volgafstandView, 4, 1);
+        volgafstandView.setOnMouseDragged(event -> {
+            getChildren().remove(opmerkingBox);
+            add(opmerkingBox, 1, 3, 5, 1);
+        });
         ImageView inhaalView = new ImageView(tijdelijkeKnop);
         add(inhaalView, 5, 1);
+        inhaalView.setOnMouseDragged(event -> {
+            getChildren().remove(opmerkingBox);
+            add(opmerkingBox, 1, 3, 5, 1);
+        });
 
         ImageView kruisenView = new ImageView(tijdelijkeKnop);
         add(kruisenView, 1, 5);
+        kruisenView.setOnMouseDragged(event -> {
+            getChildren().remove(opmerkingBox);
+            add(opmerkingBox, 1, 3, 5, 1);
+        });
         ImageView linksafView = new ImageView(tijdelijkeKnop);
         add(linksafView, 2, 5);
+        linksafView.setOnMouseDragged(event -> {
+            getChildren().remove(opmerkingBox);
+            add(opmerkingBox, 1, 3, 5, 1);
+        });
         ImageView rechtsafView = new ImageView(tijdelijkeKnop);
         add(rechtsafView, 3, 5);
+        rechtsafView.setOnMouseDragged(event -> {
+            getChildren().remove(opmerkingBox);
+            add(opmerkingBox, 1, 3, 5, 1);
+        });
         ImageView richtingAanwView = new ImageView(tijdelijkeKnop);
         add(richtingAanwView, 4, 5);
+        richtingAanwView.setOnMouseDragged(event -> {
+            getChildren().remove(opmerkingBox);
+            add(opmerkingBox, 1, 3, 5, 1);
+        });
         ImageView plaatsView = new ImageView(tijdelijkeKnop);
         add(plaatsView, 5, 5);
+        plaatsView.setOnMouseDragged(event -> {
+            getChildren().remove(opmerkingBox);
+            add(opmerkingBox, 1, 3, 5, 1);
+        });
 
         HBox voorrangHBox = new HBox();
         voorrangHBox.setAlignment(Pos.CENTER);
@@ -231,7 +296,7 @@ public class verkeerstechniekHoofdscherm extends GridPane
         plaatsRec3.setId("verkeersRec");
         plaatsHBox.getChildren().addAll(plaatsRec1, plaatsRec2, plaatsRec3);
         add(plaatsHBox, 5, 4);
-        
+
     }
 
 }

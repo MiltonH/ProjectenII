@@ -127,7 +127,7 @@ public class AttitudePaneel extends GridPane {
         textAreaPane.add(knopPane, 0, 2);
 
         //ListView
-        ObservableList<String> opmerkingenList = FXCollections.observableArrayList();;
+        ObservableList<String> opmerkingenList = FXCollections.observableArrayList();
         opmerkingenList.addAll("Zenuwachtig", "Concentratie", "Schrik", "Asociaal", "Verkeersgevaarlijk", "Ongeduldig", "Agressief rijgedrag", "Inzet", "Verstrooid", "Eigenwijs");
         Collections.sort(opmerkingenList);
         ListView<String> opmerkingenView = new ListView<String>(opmerkingenList);
