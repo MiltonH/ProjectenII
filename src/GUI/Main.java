@@ -17,7 +17,7 @@ public class Main extends Application
         InlogPaneel inlog = new InlogPaneel();
         primaryStage.setTitle("Rijschool Applicatie");
 
-        Scene scene = new Scene(inlog, 1280, 800);
+        Scene scene = new Scene(inlog, 1200, 900);
         scene.getStylesheets().add("StyleSheets/Style.css");
         inlog.setScene(scene);
         primaryStage.setScene(scene);

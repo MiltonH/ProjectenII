@@ -30,7 +30,7 @@ public class VerkeersTechniekBase extends GridPane
     public VerkeersTechniekBase(HoofdPaneel hoofdPanel) {
         //grid indeling
         setId("hoofdPaneelBG");
-        gridLinesVisibleProperty().set(true);
+        gridLinesVisibleProperty().set(false);
         
         ColumnConstraints kolom0 = new ColumnConstraints();
         kolom0.setPercentWidth(35);
@@ -89,23 +89,24 @@ public class VerkeersTechniekBase extends GridPane
         bottomKnoppenBox.setAlignment(Pos.BOTTOM_CENTER);
         Image homeKnopImg = new Image("Images/homeKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView homeKnopView = new ImageView(homeKnopImg);
-        Image returnKnopImg = new Image("Images/returnKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
-        ImageView returnKnopView = new ImageView(returnKnopImg);
-        bottomKnoppenBox.getChildren().addAll(homeKnopView, returnKnopView);
+//        Image returnKnopImg = new Image("Images/returnKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
+//        ImageView returnKnopView = new ImageView(returnKnopImg);
+        bottomKnoppenBox.getChildren().addAll(homeKnopView);
         add(bottomKnoppenBox, 0, 2);
         
         homeKnopView.setOnMouseClicked(event -> {
             hoofdPanel.setSceneRoot(hoofdPanel);
         });
         
-        returnKnopView.setOnMouseClicked(event -> {
-        });
+//        returnKnopView.setOnMouseClicked(event -> {
+//        });
         rijTechKnopView.setOnMouseClicked(event -> {
             hoofdPanel.setSceneRoot(new RijTechniekBase(hoofdPanel));
         });
         attitudeKnopView.setOnMouseClicked(event -> {
         });
         //einde box met knoppen
+        setContent(new verkeerstechniekHoofdscherm());
     }
     
     public void setContent(GridPane grid) {

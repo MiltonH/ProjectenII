@@ -18,6 +18,7 @@ import javafx.stage.Screen;
 
 public class HoofdPaneel extends GridPane
 {
+
     private Scene scene;
     private int niveau = 1;//dit is testcode
 
@@ -182,8 +183,8 @@ public class HoofdPaneel extends GridPane
         //BottomBox
         HBox bottomBox = new HBox();
         StackPane bottomStack = new StackPane();
-        bottomStack.setAlignment(Pos.CENTER);
-        bottomBox.setAlignment(Pos.CENTER);
+        bottomStack.setAlignment(Pos.BOTTOM_CENTER);
+        bottomBox.setAlignment(Pos.BOTTOM_CENTER);
         Image bottomBoxImg = new Image("Images/BottomBox.png", Math.ceil(schermformaat.getWidth() * 0.40), USE_PREF_SIZE, true, true);
         ImageView bottomBoxView = new ImageView(bottomBoxImg);
         bottomBox.getChildren().add(bottomStack);
@@ -206,7 +207,7 @@ public class HoofdPaneel extends GridPane
         });
 
         GridPane bottomBoxGrid = new GridPane();
-        bottomBoxGrid.setAlignment(Pos.CENTER);
+        bottomBoxGrid.setAlignment(Pos.BOTTOM_CENTER);
 //        bottomBoxGrid.gridLinesVisibleProperty().set(true);
 
         RowConstraints bottomRij0 = new RowConstraints();
@@ -267,6 +268,10 @@ public class HoofdPaneel extends GridPane
         add(bottomBox, 1, 3, 3, 1);
         //einde BottomBox
 
+        double HoekenratioFix = 0.05;
+        if (schermformaat.getWidth() / schermformaat.getHeight() < 1.77) {
+            HoekenratioFix = 0.03;
+        }
         //hoeklinks
         GridPane linksKnoppenGrid = new GridPane();
         linksKnoppenGrid.setAlignment(Pos.CENTER);
@@ -277,11 +282,11 @@ public class HoofdPaneel extends GridPane
         RowConstraints linksRij1 = new RowConstraints();
         linksRij1.setPrefHeight(schermformaat.getHeight() * 0.04);
         RowConstraints linksRij2 = new RowConstraints();
-        linksRij2.setPrefHeight(schermformaat.getHeight() * 0.05);
+        linksRij2.setPrefHeight(schermformaat.getHeight() * HoekenratioFix);
         RowConstraints linksRij3 = new RowConstraints();
         linksRij3.setPrefHeight(schermformaat.getHeight() * 0.04);
         RowConstraints linksRij4 = new RowConstraints();
-        linksRij4.setPrefHeight(schermformaat.getHeight() * 0.05);
+        linksRij4.setPrefHeight(schermformaat.getHeight() * HoekenratioFix);
         RowConstraints linksRij5 = new RowConstraints();
         linksRij5.setPrefHeight(schermformaat.getHeight() * 0.04);
         RowConstraints linksRij6 = new RowConstraints();
@@ -354,11 +359,11 @@ public class HoofdPaneel extends GridPane
         RowConstraints rechtsRij1 = new RowConstraints();
         rechtsRij1.setPrefHeight(schermformaat.getHeight() * 0.04);
         RowConstraints rechtsRij2 = new RowConstraints();
-        rechtsRij2.setPrefHeight(schermformaat.getHeight() * 0.05);
+        rechtsRij2.setPrefHeight(schermformaat.getHeight() * HoekenratioFix);
         RowConstraints rechtsRij3 = new RowConstraints();
         rechtsRij3.setPrefHeight(schermformaat.getHeight() * 0.04);
         RowConstraints rechtsRij4 = new RowConstraints();
-        rechtsRij4.setPrefHeight(schermformaat.getHeight() * 0.05);
+        rechtsRij4.setPrefHeight(schermformaat.getHeight() * HoekenratioFix);
         RowConstraints rechtsRij5 = new RowConstraints();
         rechtsRij5.setPrefHeight(schermformaat.getHeight() * 0.04);
         RowConstraints rechtsRij6 = new RowConstraints();
@@ -440,7 +445,7 @@ public class HoofdPaneel extends GridPane
             scene.setRoot(opmerkingPaneel);
         });
         //einde home en opmerkingen
-        
+
     }
 
     private void niveauMin() {
@@ -465,11 +470,12 @@ public class HoofdPaneel extends GridPane
             view.setImage(imgList.get(1));
         }
     }
-    
+
     public void setScene(Scene scene) {
         this.scene = scene;
     }
-    public void setSceneRoot(Parent par){
+
+    public void setSceneRoot(Parent par) {
         this.scene.setRoot(par);
     }
 }

@@ -54,7 +54,8 @@
     -fx-background-size: auto;
 }
 #contentBox{
-    -fx-background-color: #262626;
+    -fx-background-color: #696969;
+    /*#262626*/
     -fx-background-radius: 10.0;
     -fx-padding: 3;
 }
@@ -116,4 +117,8 @@
 #attitudeFout{
     -fx-font-size: 16;
     -fx-text-fill: red;
+}
+#verkeersRec{
+    -fx-stroke: black;
+    -fx-stroke-width: 2;
 }
