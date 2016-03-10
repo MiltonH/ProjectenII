@@ -206,7 +206,7 @@ public class AttitudePaneel extends GridPane {
         add(terug, 2, 2);
 
         terug.setOnMouseClicked(event -> {
-            scene.setRoot(hoofdPanel);
+            hoofdPanel.setSceneRoot(hoofdPanel);
         });
 
         //
