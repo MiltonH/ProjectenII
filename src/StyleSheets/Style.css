@@ -54,13 +54,14 @@
     -fx-background-size: auto;
 }
 #contentBox{
-    -fx-background-color: #262626;
+    -fx-background-color: #696969;
+    /*#262626*/
     -fx-background-radius: 10.0;
     -fx-padding: 3;
 }
 
 #naamLabel{
-    -fx-font-size: 20;
+    -fx-font-size: 30;
     -fx-text-fill: #e6e6e6;
 }
 
@@ -158,4 +159,9 @@
     -fx-font-size: 20;
     -fx-padding: 30 60 30 60;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#verkeersRec{
+    -fx-stroke: black;
+    -fx-stroke-width: 2;
 }
