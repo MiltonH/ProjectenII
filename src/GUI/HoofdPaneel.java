@@ -2,6 +2,7 @@ package GUI;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -73,6 +74,7 @@ public class HoofdPaneel extends GridPane
         //student naam
         Label studentNaam = new Label(studNaam);
         studentNaam.setId("naamLabel");
+        setHalignment(studentNaam, HPos.CENTER);
         add(studentNaam, 4, 0);
         //einde studnet naam
         //einde kap       
