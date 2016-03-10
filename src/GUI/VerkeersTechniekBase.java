@@ -104,6 +104,7 @@ public class VerkeersTechniekBase extends GridPane
             hoofdPanel.setSceneRoot(new RijTechniekBase(hoofdPanel));
         });
         attitudeKnopView.setOnMouseClicked(event -> {
+            hoofdPanel.setSceneRoot(new AttitudePaneel(hoofdPanel));
         });
         //einde box met knoppen
         setContent(new verkeerstechniekHoofdscherm());

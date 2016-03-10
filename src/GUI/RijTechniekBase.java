@@ -99,12 +99,17 @@ public class RijTechniekBase extends GridPane
         });
         
         returnKnopView.setOnMouseClicked(event -> {
+            setContent(new RijTechniekHoofdscherm(this));
         });
+        
         verkeerTechKnopView.setOnMouseClicked(event -> {
             hoofdPanel.setSceneRoot(new VerkeersTechniekBase(hoofdPanel));
         });
+        
         attitudeKnopView.setOnMouseClicked(event -> {
+            hoofdPanel.setSceneRoot(new AttitudePaneel(hoofdPanel));
         });
+        
         //einde box met knoppen
         setContent(new RijTechniekHoofdscherm(this));
     }
