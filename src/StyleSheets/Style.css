@@ -152,7 +152,7 @@
 }
 
 #buttonKleurGroen{
-    -fx-background-color: greenyellow;
+    -fx-background-color: limegreen;
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;

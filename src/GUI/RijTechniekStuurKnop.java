@@ -190,7 +190,7 @@ public class RijTechniekStuurKnop extends GridPane {
         } else if (vakInt == 4 || vakInt == 5) {
             rect.setFill(Color.ORANGE);
         } else if (vakInt == 6) {
-            rect.setFill(Color.GREENYELLOW);
+            rect.setFill(Color.LIMEGREEN);
         }
     }
 }

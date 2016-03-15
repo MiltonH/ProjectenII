@@ -312,8 +312,8 @@ public class HoofdPaneel extends GridPane
 
         List<Image> lampImages = new ArrayList<>();
         lampImages.add(new Image("Images/lampIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        lampImages.add(new Image("Images/lampRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         lampImages.add(new Image("Images/lampGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
+        lampImages.add(new Image("Images/lampIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         ImageView lampView = new ImageView(lampImages.get(0));
 
         lampView.setOnMouseClicked(event -> {
