@@ -3,9 +3,12 @@ package GUI;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -18,11 +21,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
 public class RijTechniekHoofdscherm extends GridPane {
-     RijTechniekBase base;
+
+    RijTechniekBase base;
+    int integer = 0;
 
     public RijTechniekHoofdscherm(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");
-        this.base=base;
+        this.base = base;
         //einde grid indeling
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
         double maxWidth = schermformaat.getWidth() * 0.62;
@@ -85,17 +90,16 @@ public class RijTechniekHoofdscherm extends GridPane {
         Image afbKijken = new Image("Images/Kijken.png", Math.ceil(maxWidth * 0.09), USE_PREF_SIZE, true, true);
         Image afbPijl = new Image("Images/pijl.png", Math.ceil(maxWidth * 0.09), USE_PREF_SIZE, true, true);
         Image afbZithouding = new Image("Images/zithouding.png", Math.ceil(maxWidth * 0.08), USE_PREF_SIZE, true, true);
-        
-        
+
         ImageView remView = new ImageView(knopVierkant);
         ImageView afbRemView = new ImageView(afbRem);
         add(remView, 1, 1);
         add(afbRemView, 1, 1);
-        afbRemView.setOnMouseClicked(event -> {
+        afbRemView.setOnMouseDragged(event -> {
             RijTechniekRemKnop rijTechniekRemKnop = new RijTechniekRemKnop();
             base.setContent(rijTechniekRemKnop);
         });
-        remView.setOnMouseClicked(event -> {
+        remView.setOnMouseDragged(event -> {
             RijTechniekRemKnop rijTechniekRemKnop = new RijTechniekRemKnop();
             base.setContent(rijTechniekRemKnop);
         });
@@ -104,11 +108,11 @@ public class RijTechniekHoofdscherm extends GridPane {
         ImageView afbKoppelingView = new ImageView(afbKoppeling);
         add(koppelingView, 2, 1);
         add(afbKoppelingView, 2, 1);
-        koppelingView.setOnMouseClicked(event -> {
+        koppelingView.setOnMouseDragged(event -> {
             RijTechniekKoppelingKnop rijTechniekKoppelingKnop = new RijTechniekKoppelingKnop();
             base.setContent(rijTechniekKoppelingKnop);
         });
-        afbKoppelingView.setOnMouseClicked(event -> {
+        afbKoppelingView.setOnMouseDragged(event -> {
             RijTechniekKoppelingKnop rijTechniekKoppelingKnop = new RijTechniekKoppelingKnop();
             base.setContent(rijTechniekKoppelingKnop);
         });
@@ -117,11 +121,11 @@ public class RijTechniekHoofdscherm extends GridPane {
         ImageView afbStuurView = new ImageView(afbStuur);
         add(stuurView, 3, 1);
         add(afbStuurView, 3, 1);
-        stuurView.setOnMouseClicked(event -> {
+        stuurView.setOnMouseDragged(event -> {
             RijTechniekStuurKnop rijTechniekStuurKnop = new RijTechniekStuurKnop();
             base.setContent(rijTechniekStuurKnop);
         });
-        afbStuurView.setOnMouseClicked(event -> {
+        afbStuurView.setOnMouseDragged(event -> {
             RijTechniekStuurKnop rijTechniekStuurKnop = new RijTechniekStuurKnop();
             base.setContent(rijTechniekStuurKnop);
         });
@@ -130,11 +134,11 @@ public class RijTechniekHoofdscherm extends GridPane {
         ImageView afbVersnellingView = new ImageView(afbVersnelling);
         add(versnellingView, 4, 1);
         add(afbVersnellingView, 4, 1);
-        versnellingView.setOnMouseClicked(event -> {
+        versnellingView.setOnMouseDragged(event -> {
             RijTechniekVersnellingKnop rijTechniekversnellingKnop = new RijTechniekVersnellingKnop();
             base.setContent(rijTechniekversnellingKnop);
         });
-        afbVersnellingView.setOnMouseClicked(event -> {
+        afbVersnellingView.setOnMouseDragged(event -> {
             RijTechniekVersnellingKnop rijTechniekversnellingKnop = new RijTechniekVersnellingKnop();
             base.setContent(rijTechniekversnellingKnop);
         });
@@ -143,11 +147,11 @@ public class RijTechniekHoofdscherm extends GridPane {
         ImageView afbKijkenView = new ImageView(afbKijken);
         add(kijkenView, 5, 1);
         add(afbKijkenView, 5, 1);
-        kijkenView.setOnMouseClicked(event -> {
+        kijkenView.setOnMouseDragged(event -> {
             RijTechniekKijkenKnop rijTechniekKijkenKnop = new RijTechniekKijkenKnop();
             base.setContent(rijTechniekKijkenKnop);
         });
-        afbKijkenView.setOnMouseClicked(event -> {
+        afbKijkenView.setOnMouseDragged(event -> {
             RijTechniekKijkenKnop rijTechniekKijkenKnop = new RijTechniekKijkenKnop();
             base.setContent(rijTechniekKijkenKnop);
         });
@@ -157,15 +161,34 @@ public class RijTechniekHoofdscherm extends GridPane {
         add(pijltjeView, 6, 1);
         add(afbPijltjeView, 6, 1);
 
-        ImageView zitHoudingView = new ImageView(knopVierkant);
-        ImageView afbZitHoudingView = new ImageView(afbZithouding);
-        add(zitHoudingView, 7, 1);
-        add(afbZitHoudingView, 7, 1);
-        
+        List<Image> zithoudingImages = new ArrayList<>();
+        zithoudingImages.add(new Image("Images/zithouding.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
+        zithoudingImages.add(new Image("Images/zithoudingR.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
+        zithoudingImages.add(new Image("Images/zithoudingO.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
+        zithoudingImages.add(new Image("Images/zithoudingG.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
+        ImageView zithoudingView = new ImageView(knopVierkant);
+        ImageView afbZithoudingView = new ImageView(zithoudingImages.get(0));
+        add(zithoudingView, 7, 1);
+        add(afbZithoudingView, 7, 1);
+        zithoudingView.setOnMouseClicked(event -> {
+            toggleImgTop(afbZithoudingView, zithoudingImages);
+        });
+        afbZithoudingView.setOnMouseClicked(event -> {
+            toggleImgTop(afbZithoudingView, zithoudingImages);
+        });
+        zithoudingView.setOnMouseDragged(event -> {
+            RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop();
+            base.setContent(rijTechniekZithoudingKnop);
+        });
+        afbZithoudingView.setOnMouseDragged(event -> {
+            RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop();
+            base.setContent(rijTechniekZithoudingKnop);
+        });
+
         //knoppen onder
         List<Image> achtImages = new ArrayList<>();
         achtImages.add(new Image("Images/achtje.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true));
-        achtImages.add(new Image("Images/achtjeR.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true));
+//        achtImages.add(new Image("Images/achtjeR.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true));
         achtImages.add(new Image("Images/achtjeO.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true));
         achtImages.add(new Image("Images/achtjeG.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true));
         ImageView achtView = new ImageView(knopVierkant);
@@ -181,7 +204,7 @@ public class RijTechniekHoofdscherm extends GridPane {
 
         List<Image> reverseImages = new ArrayList<>();
         reverseImages.add(new Image("Images/achteruitrijden.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        reverseImages.add(new Image("Images/achteruitrijdenR.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
+//        reverseImages.add(new Image("Images/achteruitrijdenR.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         reverseImages.add(new Image("Images/achteruitrijdenO.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         reverseImages.add(new Image("Images/achteruitrijdenG.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         ImageView reverseView = new ImageView(knopVierkant);
@@ -197,7 +220,7 @@ public class RijTechniekHoofdscherm extends GridPane {
 
         List<Image> garageImages = new ArrayList<>();
         garageImages.add(new Image("Images/garage.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        garageImages.add(new Image("Images/GarageR.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
+//        garageImages.add(new Image("Images/GarageR.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         garageImages.add(new Image("Images/GarageO.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         garageImages.add(new Image("Images/GarageG.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         ImageView garageView = new ImageView(knopVierkant);
@@ -213,7 +236,7 @@ public class RijTechniekHoofdscherm extends GridPane {
 
         List<Image> draaiPijltjeImages = new ArrayList<>();
         draaiPijltjeImages.add(new Image("Images/draaipijl.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        draaiPijltjeImages.add(new Image("Images/draaipijlR.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
+//        draaiPijltjeImages.add(new Image("Images/draaipijlR.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         draaiPijltjeImages.add(new Image("Images/draaipijlO.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         draaiPijltjeImages.add(new Image("Images/draaipijlG.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         ImageView draaiPijltjeView = new ImageView(knopVierkant);
@@ -229,7 +252,7 @@ public class RijTechniekHoofdscherm extends GridPane {
 
         List<Image> parkerenImages = new ArrayList<>();
         parkerenImages.add(new Image("Images/parkeren.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
-        parkerenImages.add(new Image("Images/parkerenR.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
+//        parkerenImages.add(new Image("Images/parkerenR.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
         parkerenImages.add(new Image("Images/parkerenO.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
         parkerenImages.add(new Image("Images/parkerenG.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
         ImageView parkerenView = new ImageView(knopVierkant);
@@ -242,7 +265,7 @@ public class RijTechniekHoofdscherm extends GridPane {
         afbParkerenView.setOnMouseClicked(event -> {
             toggleImg(afbParkerenView, parkerenImages);
         });
-        
+
         //rect variable
         double grootte = Math.ceil(maxWidth * 0.03);
 
@@ -269,7 +292,7 @@ public class RijTechniekHoofdscherm extends GridPane {
 
         koppelingBox.getChildren().addAll(koppeling1, koppeling2, koppeling3);
         add(koppelingBox, 2, 2);
-        
+
         //rectangles stuur
         HBox stuurBox = new HBox();
         stuurBox.setAlignment(Pos.CENTER);
@@ -306,17 +329,45 @@ public class RijTechniekHoofdscherm extends GridPane {
         kijkenBox.getChildren().addAll(kijken1, kijken2, kijken3);
         add(kijkenBox, 5, 2);
 
-        //rectangles rem
+        //rectangles pijltje
         HBox pijltjeBox = new HBox();
         pijltjeBox.setAlignment(Pos.CENTER);
         pijltjeBox.setId("rijTechniekHoofdschermBox");
 
-        Rectangle pijltje1 = new Rectangle(grootte, grootte, Color.WHITE);
-        Rectangle pijltje2 = new Rectangle(grootte, grootte, Color.WHITE);
-        Rectangle pijltje3 = new Rectangle(grootte, grootte, Color.WHITE);
+        List<Rectangle> rectangles = new ArrayList<>();
+        rectangles.add(new Rectangle(grootte, grootte, Color.WHITE));
+        rectangles.add(new Rectangle(grootte, grootte, Color.WHITE));
+        rectangles.add(new Rectangle(grootte, grootte, Color.WHITE));
 
-        pijltjeBox.getChildren().addAll(pijltje1, pijltje2, pijltje3);
+        pijltjeBox.getChildren().addAll(rectangles.get(0), rectangles.get(1), rectangles.get(2));
         add(pijltjeBox, 6, 2);
+
+        HBox letterBox = new HBox();
+        letterBox.setAlignment(Pos.CENTER);
+        letterBox.setId("rijTechniekHoofdschermBox");
+        Label v = new Label("V");
+        v.setId("inlognaamNummerLabel");
+        v.setPadding(new Insets(0, 15, 0, 5));
+        Label h = new Label("H");
+        h.setId("inlognaamNummerLabel");
+        h.setPadding(new Insets(0, 18, 0, 0));
+        Label b = new Label("B");
+        b.setId("inlognaamNummerLabel");
+        add(letterBox, 6, 2);
+
+        letterBox.setOnMouseClicked(event -> {
+            integer++;
+            if (integer == 1) {
+                letterBox.getChildren().add(v);
+            } else if (integer == 2) {
+                letterBox.getChildren().add(h);
+            } else if (integer == 3) {
+                letterBox.getChildren().add(b);
+            } else if (integer == 4) {
+                integer = 0;
+                letterBox.getChildren().removeAll(v, h, b);
+            }
+        });
 
         //rectangles zitHouding
         HBox zitHoudingBox = new HBox();
@@ -330,8 +381,19 @@ public class RijTechniekHoofdscherm extends GridPane {
         zitHoudingBox.getChildren().addAll(zitHouding1, zitHouding2, zitHouding3);
         add(zitHoudingBox, 7, 2);
     }
-    
+
     private void toggleImg(ImageView view, List<Image> imgList) {
+        int currentIndex = imgList.indexOf(view.getImage());
+        if (currentIndex == 0) {
+            view.setImage(imgList.get(1));
+        } else if (currentIndex == 1) {
+            view.setImage(imgList.get(2));
+        } else if (currentIndex == 2) {
+            view.setImage(imgList.get(0));
+        }
+    }
+    
+    private void toggleImgTop(ImageView view, List<Image> imgList) {
         int currentIndex = imgList.indexOf(view.getImage());
         if (currentIndex == 0) {
             view.setImage(imgList.get(1));
