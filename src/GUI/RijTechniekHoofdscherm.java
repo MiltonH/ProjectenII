@@ -64,18 +64,18 @@ public class RijTechniekHoofdscherm extends GridPane {
         getColumnConstraints().addAll(kolom0, kolom1, kolom2, kolom3, kolom4, kolom5, kolom6, kolom7, kolom8);
 
         RowConstraints rij0 = new RowConstraints();
-        rij0.setPercentHeight(1);
+        rij0.setPercentHeight(20);
         RowConstraints rij1 = new RowConstraints();
         rij1.setPercentHeight(20);
         RowConstraints rij2 = new RowConstraints();
         rij2.setPercentHeight(6);
         rij2.setValignment(VPos.CENTER);
         RowConstraints rij3 = new RowConstraints();
-        rij3.setPercentHeight(52);
+        rij3.setPercentHeight(14);
         RowConstraints rij4 = new RowConstraints();
         rij4.setPercentHeight(20);
         RowConstraints rij5 = new RowConstraints();
-        rij5.setPercentHeight(1);
+        rij5.setPercentHeight(20);
 
         getRowConstraints().addAll(rij0, rij1, rij2, rij3, rij4, rij5);
 

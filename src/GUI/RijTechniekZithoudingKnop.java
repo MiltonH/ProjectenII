@@ -43,7 +43,7 @@ public class RijTechniekZithoudingKnop extends GridPane{
         double maxWidth = schermformaat.getWidth() * 0.62;
 
         //grid
-        gridLinesVisibleProperty().set(true);
+        gridLinesVisibleProperty().set(false);
 
         ColumnConstraints kolom0 = new ColumnConstraints();
         kolom0.setPercentWidth(2);
@@ -63,20 +63,22 @@ public class RijTechniekZithoudingKnop extends GridPane{
         getColumnConstraints().addAll(kolom0, kolom1, kolom2, kolom3, kolom4, kolom5);
 
         RowConstraints rij0 = new RowConstraints();
-        rij0.setPercentHeight(1);
+        rij0.setPercentHeight(2);
         RowConstraints rij1 = new RowConstraints();
         rij1.setPercentHeight(23);
         rij1.setValignment(VPos.BOTTOM);
         RowConstraints rij2 = new RowConstraints();
-        rij2.setPercentHeight(25);
+        rij2.setPercentHeight(18);
         RowConstraints rij3 = new RowConstraints();
-        rij3.setPercentHeight(25);
+        rij3.setPercentHeight(18);
         RowConstraints rij4 = new RowConstraints();
-        rij4.setPercentHeight(25);
+        rij4.setPercentHeight(18);
         RowConstraints rij5 = new RowConstraints();
-        rij5.setPercentHeight(1);
+        rij5.setPercentHeight(18);
+        RowConstraints rij6 = new RowConstraints();
+        rij6.setPercentHeight(3);
 
-        getRowConstraints().addAll(rij0, rij1, rij2, rij3, rij4, rij5);
+        getRowConstraints().addAll(rij0, rij1, rij2, rij3, rij4, rij5, rij6);
 
         //gridKnop
         GridPane gridKnopPane = new GridPane();
@@ -155,32 +157,44 @@ public class RijTechniekZithoudingKnop extends GridPane{
         });
 
         //knoppen
-        Button bediening = new Button("Bediening");
-        bediening.setId("inlogButtons");
-        add(bediening, 2, 1);
+        Button zithouding = new Button("Zithouding");
+        zithouding.setId("inlogButtons");
+        add(zithouding, 2, 1);
+        zithouding.setOnMouseDragged(event -> {
+            add(invulTextField, 3, 1);
+            add(opmerkingenView, 4, 2, 1, 3);
+        });
 
-        Button gebruik = new Button("Gebruik");
-        gebruik.setId("inlogButtons");
-        add(gebruik, 2, 3);
+        Button gordel = new Button("Gordel");
+        gordel.setId("inlogButtons");
+        add(gordel, 2, 2);
+        gordel.setOnMouseDragged(event -> {
+            add(invulTextField, 3, 2);
+            add(opmerkingenView, 4, 2, 1, 3);
+        });
 
-        Button dosering = new Button("Dosering");
-        dosering.setId("inlogButtons");
-        add(dosering, 3, 1);
+        Button spiegels = new Button("Spiegels");
+        spiegels.setId("inlogButtons");
+        add(spiegels, 2, 3);
+        spiegels.setOnMouseDragged(event -> {
+            add(invulTextField, 3, 3);
+            add(opmerkingenView, 4, 2, 1, 3);
+        });
 
-        Button volgorde = new Button("Volledig");
-        volgorde.setId("inlogButtons");
-        add(volgorde, 3, 2);
-
-        Button teLaat = new Button("Te laat");
-        teLaat.setId("inlogButtons");
-        add(teLaat, 3, 3);
+        Button handrem = new Button("Handrem");
+        handrem.setId("inlogButtons");
+        add(handrem, 2, 4);
+        handrem.setOnMouseDragged(event -> {
+            add(invulTextField, 3, 4);
+            add(opmerkingenView, 4, 2, 1, 3);
+        });
 
         Button andere = new Button("Andere");
         andere.setId("inlogButtons");
-        add(andere, 3, 4); 
+        add(andere, 2, 5); 
         andere.setOnMouseClicked(event -> {
-            add(invulTextField, 4, 4);
-            add(opmerkingenView, 4, 3);
+            add(invulTextField, 3, 5);
+            add(opmerkingenView, 4, 2, 1, 3);
         });
     }
 }
