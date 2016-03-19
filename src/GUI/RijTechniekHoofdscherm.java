@@ -2,16 +2,14 @@ package GUI;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -232,6 +230,36 @@ public class RijTechniekHoofdscherm extends GridPane {
         pijltjeBox.getChildren().addAll(stackB, stackV, stackH);
         add(pijltjeBox, 6, 2);
         
+        stackB.setOnMouseClicked(event -> {
+                if (integer != 3) {
+                    integer++;
+                    toggleColor(rectangles.get(0), integer);
+                } else {
+                    integer = 0;
+                    toggleColor(rectangles.get(0), integer);
+                }
+        });
+        
+        stackV.setOnMouseClicked(event -> {
+                if (integer != 3) {
+                    integer++;
+                    toggleColor(rectangles.get(1), integer);
+                } else {
+                    integer = 0;
+                    toggleColor(rectangles.get(1), integer);
+                }
+        });
+        
+        stackH.setOnMouseClicked(event -> {
+                if (integer != 3) {
+                    integer++;
+                    toggleColor(rectangles.get(2), integer);
+                } else {
+                    integer = 0;
+                    toggleColor(rectangles.get(2), integer);
+                }
+        });
+        
 
         //rectangles zitHouding
         HBox zitHoudingBox = new HBox();
@@ -309,5 +337,17 @@ public class RijTechniekHoofdscherm extends GridPane {
         afbView.setOnMouseClicked(event -> {
             toggleImg(afbView, Images);
         });
+    }
+    
+    private void toggleColor(Rectangle rect, int integer) {
+        if (integer == 1) {
+            rect.setFill(Color.RED);
+        } else if (integer == 2) {
+            rect.setFill(Color.ORANGE);
+        } else if (integer == 3) {
+            rect.setFill(Color.GREEN);
+        } else if (integer == 0) {
+            rect.setFill(Color.WHITE);
+        }
     }
 }
