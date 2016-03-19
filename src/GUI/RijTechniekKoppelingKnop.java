@@ -162,15 +162,15 @@ public class RijTechniekKoppelingKnop extends GridPane {
 
         //knoppen
         Button bediening = new Button("Bediening");
-        bediening.setId("inlogButtons");
+        bediening.setId("buttons");
         add(bediening, 2, 1);
 
         Button gebruik = new Button("Gebruik");
-        gebruik.setId("inlogButtons");
+        gebruik.setId("buttons");
         add(gebruik, 2, 5);
 
         Button dosering = new Button("Dosering");
-        dosering.setId("inlogButtons");
+        dosering.setId("buttons");
         add(dosering, 3, 1);
         dosering.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -187,7 +187,7 @@ public class RijTechniekKoppelingKnop extends GridPane {
         });
 
         Button volledig = new Button("Volledig");
-        volledig.setId("inlogButtons");
+        volledig.setId("buttons");
         add(volledig, 3, 2);
         volledig.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -204,7 +204,7 @@ public class RijTechniekKoppelingKnop extends GridPane {
         });
 
         Button voetAf = new Button("Voet af");
-        voetAf.setId("inlogButtons");
+        voetAf.setId("buttons");
         add(voetAf, 3, 3);
         voetAf.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -221,7 +221,7 @@ public class RijTechniekKoppelingKnop extends GridPane {
         });
 
         Button andere1 = new Button("Andere");
-        andere1.setId("inlogButtons");
+        andere1.setId("buttons");
         add(andere1, 3, 4);
         andere1.setOnMouseClicked(event -> {
             add(invulTextField, 4, 4);
@@ -229,7 +229,7 @@ public class RijTechniekKoppelingKnop extends GridPane {
         });
 
         Button onNodig = new Button("Onnodig");
-        onNodig.setId("inlogButtons");
+        onNodig.setId("buttons");
         add(onNodig, 3, 5);
         onNodig.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -246,7 +246,7 @@ public class RijTechniekKoppelingKnop extends GridPane {
         });
 
         Button Bocht = new Button("Bocht");
-        Bocht.setId("inlogButtons");
+        Bocht.setId("buttons");
         add(Bocht, 3, 6);
         Bocht.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -263,7 +263,7 @@ public class RijTechniekKoppelingKnop extends GridPane {
         });
 
         Button andere2 = new Button("Andere");
-        andere2.setId("inlogButtons");
+        andere2.setId("buttons");
         add(andere2, 3, 7);
         andere2.setOnMouseClicked(event -> {
             add(invulTextField2, 4, 7);
@@ -290,14 +290,14 @@ public class RijTechniekKoppelingKnop extends GridPane {
         } else if (integer == 3) {
             button.setId("buttonKleurGroen");
         } else if (integer == 0) {
-            button.setId("inlogButtons");
+            button.setId("buttons");
         }
     }
     
     private void kleurtjesGebruik(Button button, int integer) {
         int buttonInt = onnodigInt + bochtInt;
         if (onnodigInt == 0 || bochtInt == 0) {
-            button.setId("inlogButtons");
+            button.setId("buttons");
             integer = 0;
         } else if (buttonInt == 2 || buttonInt == 3) {
             button.setId("buttonKleurRood");
@@ -314,7 +314,7 @@ public class RijTechniekKoppelingKnop extends GridPane {
     private void kleurtjesBediening(Button button, int integer) {
         int buttonInt = doseringInt + volledigInt + voetAfInt;
         if (doseringInt == 0 || volledigInt == 0 || voetAfInt == 0) {
-            button.setId("inlogButtons");
+            button.setId("buttons");
             integer = 0;
         } else if (buttonInt == 3 || buttonInt == 4 || buttonInt == 5) {
             button.setId("buttonKleurRood");

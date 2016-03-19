@@ -150,19 +150,19 @@ public class RijTechniekVersnellingKnop extends GridPane {
 
         //knoppen
         Button bediening = new Button("Bediening");
-        bediening.setId("inlogButtons");
+        bediening.setId("buttons");
         add(bediening, 2, 1);
 
         Button gebruik = new Button("Gebruik");
-        gebruik.setId("inlogButtons");
+        gebruik.setId("buttons");
         add(gebruik, 2, 3);
 
         Button dosering = new Button("Dosering");
-        dosering.setId("inlogButtons");
+        dosering.setId("buttons");
         add(dosering, 3, 1);
         
         Button andere = new Button("Andere");
-        andere.setId("inlogButtons");
+        andere.setId("buttons");
         add(andere, 3, 2); 
         andere.setOnMouseClicked(event -> {
             add(invulTextField, 4, 2);
@@ -170,15 +170,15 @@ public class RijTechniekVersnellingKnop extends GridPane {
         });
 
         Button aangepast = new Button("Aangepast");
-        aangepast.setId("inlogButtons");
+        aangepast.setId("buttons");
         add(aangepast, 3, 3);
 
         Button motorRem = new Button("Motorrem");
-        motorRem.setId("inlogButtons");
+        motorRem.setId("buttons");
         add(motorRem, 3, 4);
 
         Button andere2 = new Button("Andere");
-        andere2.setId("inlogButtons");
+        andere2.setId("buttons");
         add(andere2, 3, 5);
         andere2.setOnMouseClicked(event -> {
             add(invulTextField2, 4, 5);

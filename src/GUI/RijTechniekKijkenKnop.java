@@ -130,27 +130,27 @@ public class RijTechniekKijkenKnop extends GridPane {
 
         //knoppen
         Button beterVergewissen = new Button("Beter Vergewissen");
-        beterVergewissen.setId("inlogButtons");
+        beterVergewissen.setId("buttons");
         add(beterVergewissen, 2, 1);
 
         Button spiegels = new Button("Spiegels");
-        spiegels.setId("inlogButtons");
+        spiegels.setId("buttons");
         add(spiegels, 2, 2);
 
         Button dodeHoek = new Button("Dode Hoek");
-        dodeHoek.setId("inlogButtons");
+        dodeHoek.setId("buttons");
         add(dodeHoek, 2, 3);       
 
         Button verGenoeg = new Button("Ver Genoeg");
-        verGenoeg.setId("inlogButtons");
+        verGenoeg.setId("buttons");
         add(verGenoeg, 2, 4);
 
         Button selecteren = new Button("Selecteren");
-        selecteren.setId("inlogButtons");
+        selecteren.setId("buttons");
         add(selecteren, 2, 5);
         
         Button andere = new Button("Andere");
-        andere.setId("inlogButtons");
+        andere.setId("buttons");
         add(andere, 2, 6); 
         andere.setOnMouseClicked(event -> {
             add(invulTextField, 3, 6);

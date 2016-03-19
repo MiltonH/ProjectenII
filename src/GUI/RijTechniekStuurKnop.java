@@ -127,7 +127,7 @@ public class RijTechniekStuurKnop extends GridPane {
 
         //knoppen
         Button dosering = new Button("Dosering");
-        dosering.setId("inlogButtons");
+        dosering.setId("buttons");
         add(dosering, 2, 1);
         dosering.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -144,7 +144,7 @@ public class RijTechniekStuurKnop extends GridPane {
         });
 
         Button houding = new Button("Houding");
-        houding.setId("inlogButtons");
+        houding.setId("buttons");
         add(houding, 2, 2);
         houding.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -161,7 +161,7 @@ public class RijTechniekStuurKnop extends GridPane {
         });
 
         Button andere = new Button("Andere");
-        andere.setId("inlogButtons");
+        andere.setId("buttons");
         add(andere, 2, 3);
         andere.setOnMouseClicked(event -> {
             add(invulTextField, 3, 3);
@@ -177,7 +177,7 @@ public class RijTechniekStuurKnop extends GridPane {
         } else if (integer == 3) {
             button.setId("buttonKleurGroen");
         } else if (integer == 0) {
-            button.setId("inlogButtons");
+            button.setId("buttons");
         }
     }
 
