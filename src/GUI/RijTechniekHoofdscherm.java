@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
@@ -24,13 +25,15 @@ public class RijTechniekHoofdscherm extends GridPane {
 
     RijTechniekBase base;
     int integer = 0;
+    Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+    double maxWidth = schermformaat.getWidth() * 0.62;
 
     public RijTechniekHoofdscherm(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");
         this.base = base;
         //einde grid indeling
-        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
-        double maxWidth = schermformaat.getWidth() * 0.62;
+//        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+//        double maxWidth = schermformaat.getWidth() * 0.62;
 
         //GridPane
         gridLinesVisibleProperty().set(false);
@@ -80,7 +83,7 @@ public class RijTechniekHoofdscherm extends GridPane {
         getRowConstraints().addAll(rij0, rij1, rij2, rij3, rij4, rij5);
 
         setAlignment(Pos.CENTER);
-        
+
         //aanmaak Box helling 
         GridPane hellingBox = new GridPane();
         hellingBox.gridLinesVisibleProperty().set(false);
@@ -109,199 +112,63 @@ public class RijTechniekHoofdscherm extends GridPane {
 
         //Knoppen boven 
         Image knopVierkant = new Image("Images/knopVierkant.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true);
-        Image afbRem = new Image("Images/rem.png", Math.ceil(maxWidth * 0.11), USE_PREF_SIZE, true, true);
-        Image afbKoppeling = new Image("Images/koppeling.png", Math.ceil(maxWidth * 0.11), USE_PREF_SIZE, true, true);
-        Image afbStuur = new Image("Images/Stuur.png", Math.ceil(maxWidth * 0.11), USE_PREF_SIZE, true, true);
-        Image afbVersnelling = new Image("Images/pook_1.png", Math.ceil(maxWidth * 0.11), USE_PREF_SIZE, true, true);
+        Image afbRem = new Image("Images/rem.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        Image afbKoppeling = new Image("Images/koppeling.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        Image afbStuur = new Image("Images/Stuur.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        Image afbVersnelling = new Image("Images/pook_1.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
         Image afbKijken = new Image("Images/Kijken.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
-        Image afbPijl = new Image("Images/pijl.png", Math.ceil(maxWidth * 0.09), USE_PREF_SIZE, true, true);
-        Image afbZithouding = new Image("Images/zithouding.png", Math.ceil(maxWidth * 0.08), USE_PREF_SIZE, true, true);
+        Image afbPijl = new Image("Images/pijl.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        Image afbZithouding = new Image("Images/zithouding.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        
+        //rem ----
+        RijTechniekRemKnop rijTechniekRemKnop = new RijTechniekRemKnop();
+        imageDropperBoven(afbRem, 1, 1, rijTechniekRemKnop);
 
-        ImageView remView = new ImageView(knopVierkant);
-        ImageView afbRemView = new ImageView(afbRem);
-        add(remView, 1, 1);
-        add(afbRemView, 1, 1);
-        afbRemView.setOnMouseDragged(event -> {
-            RijTechniekRemKnop rijTechniekRemKnop = new RijTechniekRemKnop();
-            base.setContent(rijTechniekRemKnop);
-        });
-        remView.setOnMouseDragged(event -> {
-            RijTechniekRemKnop rijTechniekRemKnop = new RijTechniekRemKnop();
-            base.setContent(rijTechniekRemKnop);
-        });
+        //koppeling ----
+        RijTechniekKoppelingKnop rijTechniekKoppelingKnop = new RijTechniekKoppelingKnop();
+        imageDropperBoven(afbKoppeling, 2, 1, rijTechniekKoppelingKnop);
 
-        ImageView koppelingView = new ImageView(knopVierkant);
-        ImageView afbKoppelingView = new ImageView(afbKoppeling);
-        add(koppelingView, 2, 1);
-        add(afbKoppelingView, 2, 1);
-        koppelingView.setOnMouseDragged(event -> {
-            RijTechniekKoppelingKnop rijTechniekKoppelingKnop = new RijTechniekKoppelingKnop();
-            base.setContent(rijTechniekKoppelingKnop);
-        });
-        afbKoppelingView.setOnMouseDragged(event -> {
-            RijTechniekKoppelingKnop rijTechniekKoppelingKnop = new RijTechniekKoppelingKnop();
-            base.setContent(rijTechniekKoppelingKnop);
-        });
+        //stuur ----
+        RijTechniekStuurKnop rijTechniekStuurKnop = new RijTechniekStuurKnop();
+        imageDropperBoven(afbStuur, 3, 1, rijTechniekStuurKnop);
 
-        ImageView stuurView = new ImageView(knopVierkant);
-        ImageView afbStuurView = new ImageView(afbStuur);
-        add(stuurView, 3, 1);
-        add(afbStuurView, 3, 1);
-        stuurView.setOnMouseDragged(event -> {
-            RijTechniekStuurKnop rijTechniekStuurKnop = new RijTechniekStuurKnop();
-            base.setContent(rijTechniekStuurKnop);
-        });
-        afbStuurView.setOnMouseDragged(event -> {
-            RijTechniekStuurKnop rijTechniekStuurKnop = new RijTechniekStuurKnop();
-            base.setContent(rijTechniekStuurKnop);
-        });
+        //versnelling ----
+        RijTechniekVersnellingKnop rijTechniekVersnellingKnop = new RijTechniekVersnellingKnop();
+        imageDropperBoven(afbVersnelling, 4, 1, rijTechniekVersnellingKnop);
+        
 
-        ImageView versnellingView = new ImageView(knopVierkant);
-        ImageView afbVersnellingView = new ImageView(afbVersnelling);
-        add(versnellingView, 4, 1);
-        add(afbVersnellingView, 4, 1);
-        versnellingView.setOnMouseDragged(event -> {
-            RijTechniekVersnellingKnop rijTechniekversnellingKnop = new RijTechniekVersnellingKnop();
-            base.setContent(rijTechniekversnellingKnop);
-        });
-        afbVersnellingView.setOnMouseDragged(event -> {
-            RijTechniekVersnellingKnop rijTechniekversnellingKnop = new RijTechniekVersnellingKnop();
-            base.setContent(rijTechniekversnellingKnop);
-        });
+        //kijken ----
+        RijTechniekKijkenKnop rijTechniekKijkenKnop = new RijTechniekKijkenKnop();
+        imageDropperBoven(afbKijken, 5, 1, rijTechniekKijkenKnop);
 
-        List<Image> kijkenImages = new ArrayList<>();
-        kijkenImages.add(new Image("Images/knopVierkantW.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
-        kijkenImages.add(new Image("Images/knopVierkantR.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
-        kijkenImages.add(new Image("Images/knopVierkantO.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
-        kijkenImages.add(new Image("Images/knopVierkantG.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
-        ImageView kijkenView = new ImageView(afbKijken);
-        ImageView afbKijkenView = new ImageView(kijkenImages.get(0));
-        add(afbKijkenView, 5, 1);
-        add(kijkenView, 5, 1);
-        kijkenView.setOnMouseClicked(event -> {
-            toggleImgTop(afbKijkenView, kijkenImages);
-        });
-        afbKijkenView.setOnMouseClicked(event -> {
-            toggleImgTop(afbKijkenView, kijkenImages);
-        });
-        kijkenView.setOnMouseDragged(event -> {
-            RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop();
-            base.setContent(rijTechniekZithoudingKnop);
-        });
-        afbKijkenView.setOnMouseDragged(event -> {
-            RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop();
-            base.setContent(rijTechniekZithoudingKnop);
-        });
+        //helling ----
+        imageDropperBoven(afbPijl, 6, 1, this);
 
-        ImageView pijltjeView = new ImageView(knopVierkant);
-        ImageView afbPijltjeView = new ImageView(afbPijl);
-        add(pijltjeView, 6, 1);
-        add(afbPijltjeView, 6, 1);
-
-        List<Image> zithoudingImages = new ArrayList<>();
-        zithoudingImages.add(new Image("Images/zithouding.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
-        zithoudingImages.add(new Image("Images/zithoudingR.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
-        zithoudingImages.add(new Image("Images/zithoudingO.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
-        zithoudingImages.add(new Image("Images/zithoudingG.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
-        ImageView zithoudingView = new ImageView(knopVierkant);
-        ImageView afbZithoudingView = new ImageView(zithoudingImages.get(0));
-        add(zithoudingView, 7, 1);
-        add(afbZithoudingView, 7, 1);
-        zithoudingView.setOnMouseClicked(event -> {
-            toggleImgTop(afbZithoudingView, zithoudingImages);
-        });
-        afbZithoudingView.setOnMouseClicked(event -> {
-            toggleImgTop(afbZithoudingView, zithoudingImages);
-        });
-        zithoudingView.setOnMouseDragged(event -> {
-            RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop();
-            base.setContent(rijTechniekZithoudingKnop);
-        });
-        afbZithoudingView.setOnMouseDragged(event -> {
-            RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop();
-            base.setContent(rijTechniekZithoudingKnop);
-        });
+        //zithouding ----
+        RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop();
+        imageDropperBoven(afbZithouding, 7, 1, rijTechniekZithoudingKnop);
 
         //knoppen onder
-        List<Image> achtImages = new ArrayList<>();
-        achtImages.add(new Image("Images/achtje.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true));
-//        achtImages.add(new Image("Images/achtjeR.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true));
-        achtImages.add(new Image("Images/achtjeO.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true));
-        achtImages.add(new Image("Images/achtjeG.png", Math.ceil(schermformaat.getWidth() * 0.04), USE_PREF_SIZE, true, true));
-        ImageView achtView = new ImageView(knopVierkant);
-        ImageView afbAchtView = new ImageView(achtImages.get(0));
-        add(achtView, 2, 4);
-        add(afbAchtView, 2, 4);
-        achtView.setOnMouseClicked(event -> {
-            toggleImg(afbAchtView, achtImages);
-        });
-        afbAchtView.setOnMouseClicked(event -> {
-            toggleImg(afbAchtView, achtImages);
-        });
-
-        List<Image> reverseImages = new ArrayList<>();
-        reverseImages.add(new Image("Images/achteruitrijden.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-//        reverseImages.add(new Image("Images/achteruitrijdenR.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        reverseImages.add(new Image("Images/achteruitrijdenO.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        reverseImages.add(new Image("Images/achteruitrijdenG.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        ImageView reverseView = new ImageView(knopVierkant);
-        ImageView afbReverseView = new ImageView(reverseImages.get(0));
-        add(reverseView, 3, 4);
-        add(afbReverseView, 3, 4);
-        reverseView.setOnMouseClicked(event -> {
-            toggleImg(afbReverseView, reverseImages);
-        });
-        afbReverseView.setOnMouseClicked(event -> {
-            toggleImg(afbReverseView, reverseImages);
-        });
-
-        List<Image> garageImages = new ArrayList<>();
-        garageImages.add(new Image("Images/garage.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-//        garageImages.add(new Image("Images/GarageR.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        garageImages.add(new Image("Images/GarageO.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        garageImages.add(new Image("Images/GarageG.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        ImageView garageView = new ImageView(knopVierkant);
-        ImageView afbGarageView = new ImageView(garageImages.get(0));
-        add(garageView, 4, 4);
-        add(afbGarageView, 4, 4);
-        garageView.setOnMouseClicked(event -> {
-            toggleImg(afbGarageView, garageImages);
-        });
-        afbGarageView.setOnMouseClicked(event -> {
-            toggleImg(afbGarageView, garageImages);
-        });
-
-        List<Image> draaiPijltjeImages = new ArrayList<>();
-        draaiPijltjeImages.add(new Image("Images/draaipijl.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-//        draaiPijltjeImages.add(new Image("Images/draaipijlR.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        draaiPijltjeImages.add(new Image("Images/draaipijlO.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        draaiPijltjeImages.add(new Image("Images/draaipijlG.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
-        ImageView draaiPijltjeView = new ImageView(knopVierkant);
-        ImageView afbDraaiPijltjeView = new ImageView(draaiPijltjeImages.get(0));
-        add(draaiPijltjeView, 5, 4);
-        add(afbDraaiPijltjeView, 5, 4);
-        draaiPijltjeView.setOnMouseClicked(event -> {
-            toggleImg(afbDraaiPijltjeView, draaiPijltjeImages);
-        });
-        afbDraaiPijltjeView.setOnMouseClicked(event -> {
-            toggleImg(afbDraaiPijltjeView, draaiPijltjeImages);
-        });
-
-        List<Image> parkerenImages = new ArrayList<>();
-        parkerenImages.add(new Image("Images/parkeren.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
-//        parkerenImages.add(new Image("Images/parkerenR.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
-        parkerenImages.add(new Image("Images/parkerenO.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
-        parkerenImages.add(new Image("Images/parkerenG.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
-        ImageView parkerenView = new ImageView(knopVierkant);
-        ImageView afbParkerenView = new ImageView(parkerenImages.get(0));
-        add(parkerenView, 6, 4);
-        add(afbParkerenView, 6, 4);
-        parkerenView.setOnMouseClicked(event -> {
-            toggleImg(afbParkerenView, parkerenImages);
-        });
-        afbParkerenView.setOnMouseClicked(event -> {
-            toggleImg(afbParkerenView, parkerenImages);
-        });
+        Image afbAcht = new Image("Images/achtje.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        Image afbReverse = new Image("Images/achteruitrijden.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        Image afbGarage = new Image("Images/garage.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        Image afbDraaiPijltje = new Image("Images/draaipijl.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        Image afbParkeren = new Image("Images/parkeren.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        
+        //acht ----
+        imageDropperOnder(afbAcht, 2, 4);
+        
+        //reverse ----
+        imageDropperOnder(afbReverse, 3, 4);
+        
+        //garage ----
+        imageDropperOnder(afbGarage, 4, 4);
+        
+        //draaipijltje ----
+        imageDropperOnder(afbDraaiPijltje, 5, 4);
+        
+        //parkeren ----
+        imageDropperOnder(afbParkeren, 6, 4);
 
         //rect variable
         double grootte = Math.ceil(maxWidth * 0.03);
@@ -378,8 +245,6 @@ public class RijTechniekHoofdscherm extends GridPane {
 
         pijltjeBox.getChildren().addAll(rectangles.get(0), rectangles.get(1), rectangles.get(2));
         add(pijltjeBox, 6, 2);
-        
-        
 
         Label v = new Label("V");
         v.setId("inlognaamNummerLabel");
@@ -390,7 +255,7 @@ public class RijTechniekHoofdscherm extends GridPane {
         Label b = new Label("B");
         b.setId("inlognaamNummerLabel");
         add(hellingBox, 6, 2);
-        
+
         hellingBox.setOnMouseClicked(event -> {
             integer++;
             if (integer == 1) {
@@ -428,7 +293,7 @@ public class RijTechniekHoofdscherm extends GridPane {
             view.setImage(imgList.get(0));
         }
     }
-    
+
     private void toggleImgTop(ImageView view, List<Image> imgList) {
         int currentIndex = imgList.indexOf(view.getImage());
         if (currentIndex == 0) {
@@ -440,5 +305,46 @@ public class RijTechniekHoofdscherm extends GridPane {
         } else if (currentIndex == 3) {
             view.setImage(imgList.get(0));
         }
+    }
+    
+    private void imageDropperBoven(Image img, int kolom, int rij, GridPane pane){
+        List<Image> Images = new ArrayList<>();
+        Images.add(new Image("Images/knopVierkantW.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        Images.add(new Image("Images/knopVierkantR.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        Images.add(new Image("Images/knopVierkantO.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        Images.add(new Image("Images/knopVierkantG.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        ImageView View = new ImageView(img);
+        ImageView afbView = new ImageView(Images.get(0));
+        add(afbView, kolom, rij);
+        add(View, kolom, rij);
+        View.setOnMouseClicked(event -> {
+            toggleImgTop(afbView, Images);
+        });
+        afbView.setOnMouseClicked(event -> {
+            toggleImgTop(afbView, Images);
+        });
+        View.setOnMouseDragged(event -> {
+            base.setContent(pane);
+        });
+        afbView.setOnMouseDragged(event -> {
+            base.setContent(pane);
+        });
+    }
+    
+    private void imageDropperOnder(Image img, int kolom, int rij){
+        List<Image> Images = new ArrayList<>();
+        Images.add(new Image("Images/knopVierkantW.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        Images.add(new Image("Images/knopVierkantO.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        Images.add(new Image("Images/knopVierkantG.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        ImageView View = new ImageView(img);
+        ImageView afbView = new ImageView(Images.get(0));
+        add(afbView, kolom, rij);
+        add(View, kolom, rij);
+        View.setOnMouseClicked(event -> {
+            toggleImg(afbView, Images);
+        });
+        afbView.setOnMouseClicked(event -> {
+            toggleImg(afbView, Images);
+        });
     }
 }
