@@ -80,6 +80,32 @@ public class RijTechniekHoofdscherm extends GridPane {
         getRowConstraints().addAll(rij0, rij1, rij2, rij3, rij4, rij5);
 
         setAlignment(Pos.CENTER);
+        
+        //aanmaak Box helling 
+        GridPane hellingBox = new GridPane();
+        hellingBox.gridLinesVisibleProperty().set(false);
+
+        ColumnConstraints kolom0hellingBox = new ColumnConstraints();
+        kolom0hellingBox.setPercentWidth(14);
+        kolom0hellingBox.setHalignment(HPos.CENTER);
+        ColumnConstraints kolom1hellingBox = new ColumnConstraints();
+        kolom1hellingBox.setPercentWidth(24);
+        kolom1hellingBox.setHalignment(HPos.CENTER);
+        ColumnConstraints kolom2hellingBox = new ColumnConstraints();
+        kolom2hellingBox.setPercentWidth(24);
+        kolom2hellingBox.setHalignment(HPos.CENTER);
+        ColumnConstraints kolom3hellingBox = new ColumnConstraints();
+        kolom3hellingBox.setPercentWidth(24);
+        kolom3hellingBox.setHalignment(HPos.CENTER);
+        ColumnConstraints kolom4hellingBox = new ColumnConstraints();
+        kolom4hellingBox.setPercentWidth(14);
+        kolom4hellingBox.setHalignment(HPos.CENTER);
+        hellingBox.getColumnConstraints().addAll(kolom0hellingBox, kolom1hellingBox, kolom2hellingBox, kolom3hellingBox, kolom4hellingBox);
+
+        RowConstraints rij0hellingBox = new RowConstraints();
+        rij0hellingBox.setPercentHeight(100);
+        rij0hellingBox.setValignment(VPos.CENTER);
+        hellingBox.getRowConstraints().addAll(rij0hellingBox);
 
         //Knoppen boven 
         Image knopVierkant = new Image("Images/knopVierkant.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true);
@@ -87,7 +113,7 @@ public class RijTechniekHoofdscherm extends GridPane {
         Image afbKoppeling = new Image("Images/koppeling.png", Math.ceil(maxWidth * 0.11), USE_PREF_SIZE, true, true);
         Image afbStuur = new Image("Images/Stuur.png", Math.ceil(maxWidth * 0.11), USE_PREF_SIZE, true, true);
         Image afbVersnelling = new Image("Images/pook_1.png", Math.ceil(maxWidth * 0.11), USE_PREF_SIZE, true, true);
-        Image afbKijken = new Image("Images/Kijken.png", Math.ceil(maxWidth * 0.09), USE_PREF_SIZE, true, true);
+        Image afbKijken = new Image("Images/Kijken.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
         Image afbPijl = new Image("Images/pijl.png", Math.ceil(maxWidth * 0.09), USE_PREF_SIZE, true, true);
         Image afbZithouding = new Image("Images/zithouding.png", Math.ceil(maxWidth * 0.08), USE_PREF_SIZE, true, true);
 
@@ -143,17 +169,28 @@ public class RijTechniekHoofdscherm extends GridPane {
             base.setContent(rijTechniekversnellingKnop);
         });
 
-        ImageView kijkenView = new ImageView(knopVierkant);
-        ImageView afbKijkenView = new ImageView(afbKijken);
-        add(kijkenView, 5, 1);
+        List<Image> kijkenImages = new ArrayList<>();
+        kijkenImages.add(new Image("Images/knopVierkantW.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        kijkenImages.add(new Image("Images/knopVierkantR.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        kijkenImages.add(new Image("Images/knopVierkantO.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        kijkenImages.add(new Image("Images/knopVierkantG.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        ImageView kijkenView = new ImageView(afbKijken);
+        ImageView afbKijkenView = new ImageView(kijkenImages.get(0));
         add(afbKijkenView, 5, 1);
+        add(kijkenView, 5, 1);
+        kijkenView.setOnMouseClicked(event -> {
+            toggleImgTop(afbKijkenView, kijkenImages);
+        });
+        afbKijkenView.setOnMouseClicked(event -> {
+            toggleImgTop(afbKijkenView, kijkenImages);
+        });
         kijkenView.setOnMouseDragged(event -> {
-            RijTechniekKijkenKnop rijTechniekKijkenKnop = new RijTechniekKijkenKnop();
-            base.setContent(rijTechniekKijkenKnop);
+            RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop();
+            base.setContent(rijTechniekZithoudingKnop);
         });
         afbKijkenView.setOnMouseDragged(event -> {
-            RijTechniekKijkenKnop rijTechniekKijkenKnop = new RijTechniekKijkenKnop();
-            base.setContent(rijTechniekKijkenKnop);
+            RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop();
+            base.setContent(rijTechniekZithoudingKnop);
         });
 
         ImageView pijltjeView = new ImageView(knopVierkant);
@@ -341,10 +378,9 @@ public class RijTechniekHoofdscherm extends GridPane {
 
         pijltjeBox.getChildren().addAll(rectangles.get(0), rectangles.get(1), rectangles.get(2));
         add(pijltjeBox, 6, 2);
+        
+        
 
-        HBox letterBox = new HBox();
-        letterBox.setAlignment(Pos.CENTER);
-        letterBox.setId("rijTechniekHoofdschermBox");
         Label v = new Label("V");
         v.setId("inlognaamNummerLabel");
         v.setPadding(new Insets(0, 15, 0, 5));
@@ -353,19 +389,19 @@ public class RijTechniekHoofdscherm extends GridPane {
         h.setPadding(new Insets(0, 18, 0, 0));
         Label b = new Label("B");
         b.setId("inlognaamNummerLabel");
-        add(letterBox, 6, 2);
-
-        letterBox.setOnMouseClicked(event -> {
+        add(hellingBox, 6, 2);
+        
+        hellingBox.setOnMouseClicked(event -> {
             integer++;
             if (integer == 1) {
-                letterBox.getChildren().add(v);
+                hellingBox.add(v, 1, 0);
             } else if (integer == 2) {
-                letterBox.getChildren().add(h);
+                hellingBox.add(h, 2, 0);
             } else if (integer == 3) {
-                letterBox.getChildren().add(b);
+                hellingBox.add(b, 3, 0);
             } else if (integer == 4) {
                 integer = 0;
-                letterBox.getChildren().removeAll(v, h, b);
+                hellingBox.getChildren().removeAll(v, h, b);
             }
         });
 

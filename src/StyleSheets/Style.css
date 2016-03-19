@@ -124,7 +124,7 @@
 }
 
 #rijTechniekHoofdschermPaneel{
-    -fx-background-color: #696969;
+    -fx-background-image: url("../Images/AchtergrondVaardigheden.png");
     -fx-background-radius: 5.0;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
