@@ -1,5 +1,6 @@
 package GUI;
 
+import domain.Leerling;
 import java.util.Collections;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,9 +18,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Screen;
 
-public class InlogPaneel extends GridPane {
+public class InlogPaneel extends GridPane
+{
 
     Scene scene;
+
+    Leerling TestLeerling = new Leerling("Hooft", "Milton", "rij0001");
 
     public InlogPaneel() {
         setId("inlogPaneelBG");
@@ -150,13 +154,13 @@ public class InlogPaneel extends GridPane {
 
         //knoppen
         openKnop.setOnMouseClicked(event -> {
-            if(naamTextField.getText().isEmpty()){
+            if (naamTextField.getText().isEmpty()) {
                 naamTextField.setPromptText("Geen naam ingevult");
                 naamTextField.setId("inlogGeenNaamIngevult");
             } else {
-            HoofdPaneel hoofdPanel = new HoofdPaneel(zoekView.getSelectionModel().getSelectedItem());
-            hoofdPanel.setScene(scene);
-            scene.setRoot(hoofdPanel);
+                HoofdPaneel hoofdPanel = new HoofdPaneel(TestLeerling); //HoofdPaneel(zoekView.getSelectionModel().getSelectedItem());
+                hoofdPanel.setScene(scene);
+                scene.setRoot(hoofdPanel);
             }
         });
 

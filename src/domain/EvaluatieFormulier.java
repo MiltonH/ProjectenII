@@ -5,6 +5,7 @@
  */
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,84 @@ import java.util.List;
  */
 public class EvaluatieFormulier
 {
+
+    private Leerling leerling;
+
+    public EvaluatieFormulier(Leerling leerling) {
+        this.leerling = leerling;
+        this.achteruit = Evaluatie.WIT;
+        this.attitude = new ArrayList<>();
+        this.autosnelweg = Evaluatie.WIT;
+        this.banden = Evaluatie.WIT;;
+        this.garageAchterwaarts = Evaluatie.WIT;
+        this.garageDrie = Evaluatie.WIT;;
+        this.garageEen = Evaluatie.WIT;;
+        this.gps = Evaluatie.WIT;;
+        this.helling = Evaluatie.WIT;
+        this.inhalen= Evaluatie.WIT;
+        this.inhalenAndere = new ArrayList<>();
+        this.keren= Evaluatie.WIT;
+        this.kijkAndere = new ArrayList<>();
+        this.kijkDodeHoek= Evaluatie.WIT;
+        this.kijkSelecteren= Evaluatie.WIT;
+        this.kijkVer= Evaluatie.WIT;
+        this.kijkVergewis= Evaluatie.WIT;
+        this.kijksSpiegels= Evaluatie.WIT;
+        this.koppelingBedieningAndere = new ArrayList<>();
+        this.koppelingBocht= Evaluatie.WIT;
+        this.koppelingDosering= Evaluatie.WIT;
+        this.koppelingGebruikAndere = new ArrayList<>();
+        this.koppelingOnnodig= Evaluatie.WIT;
+        this.koppelingVoetaf= Evaluatie.WIT;
+        this.koppelingVolledig= Evaluatie.WIT;
+        this.kruisen= Evaluatie.WIT;
+        this.kruisenAndere = new ArrayList<>();
+        this.linksaf= Evaluatie.WIT;
+        this.linksafAndere = new ArrayList<>();
+        this.niveau = 0;
+        this.openbareWeg= Evaluatie.WIT;
+        this.openbareWegAndere = new ArrayList<>();
+        this.opmerkingen = new ArrayList<>();
+        this.parkerenAchter= Evaluatie.WIT;
+        this.parkerenLinks= Evaluatie.WIT;
+        this.parkerenTussen= Evaluatie.WIT;
+        this.rechtsaf= Evaluatie.WIT;
+        this.rechtsafAndere = new ArrayList<>();
+        this.remDosering= Evaluatie.WIT;
+        this.remGebruikAndere = new ArrayList<>();
+        this.remTeLaat= Evaluatie.WIT;
+        this.remVolgorde= Evaluatie.WIT;
+        this.richtingAanwijzers= Evaluatie.WIT;
+        this.richtingAanwijzersAndere = new ArrayList<>();
+        this.rotonde= Evaluatie.WIT;
+        this.schakelAangepast = Evaluatie.WIT;
+        this.schakelBedieningAndere = new ArrayList<>();
+        this.schakelDosering = Evaluatie.WIT;
+        this.schakelGebruikAndere = new ArrayList<>();
+        this.schakelMotorRem= Evaluatie.WIT;
+        this.schakelaars= Evaluatie.WIT;
+        this.snelheid= Evaluatie.WIT;
+        this.snelheidAndere = new ArrayList<>();
+        this.stad= Evaluatie.WIT;
+        this.stop= Evaluatie.WIT;
+        this.stuurAndere = new ArrayList<>();
+        this.stuurDosering= Evaluatie.WIT;
+        this.stuurHouding= Evaluatie.WIT;
+        this.stuurOefeningen= Evaluatie.WIT;
+        this.tanken= Evaluatie.WIT;
+        this.verkeerstekens= Evaluatie.WIT;
+        this.verkeerstekensAndere = new ArrayList<>();
+        this.vloeistoffen= Evaluatie.WIT;
+        this.volgafstand= Evaluatie.WIT;
+        this.volgafstandAndere = new ArrayList<>();
+        this.voorrang= Evaluatie.WIT;
+        this.voorrangAndere = new ArrayList<>();
+        this.zithoudingAndere = new ArrayList<>();
+        this.zithoudingGordel= Evaluatie.WIT;
+        this.zithoudingHandrem= Evaluatie.WIT;
+        this.zithoudingSpiegels= Evaluatie.WIT;
+        this.zithoudingZithouding= Evaluatie.WIT;
+    }
 
     private int evaluatieId;
 
@@ -617,6 +696,7 @@ public class EvaluatieFormulier
 
     public void setRijstroken(Evaluatie rijstroken) {
         this.rijstroken = rijstroken;
+        leerling.notifyViews();
     }
 
     public Evaluatie getStad() {
