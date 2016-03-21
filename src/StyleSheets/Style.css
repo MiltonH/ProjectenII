@@ -6,6 +6,7 @@
 }
 
 #inlogPaneel{
+    -fx-background-image: url("../Images/AchtergrondVaardigheden.png");
     -fx-background-color: white;
     -fx-background-radius: 5.0;
     -fx-background-insets: 0.0 5.0 0.0 5.0;
@@ -67,12 +68,8 @@
     -fx-text-fill: #e6e6e6;
 }
 
-#opmerkingenLabel{
-    -fx-font-size: 40;
-    -fx-text-fill: lightslategrey;
-}
-
 #opmerkingenPaneel{
+    -fx-background-image: url("../Images/AchtergrondVaardigheden.png");
     -fx-background-color: white;
     -fx-background-radius: 5.0;
     -fx-background-insets: 0.0 5.0 0.0 5.0;
@@ -87,12 +84,14 @@
     -fx-max-width: 300;
     -fx-max-height: 402;
     -fx-background-color: #d6d6d6;
+    -fx-background-radius: 5.0;
 }
 
 #attitudeListViewOpmerkingen{
     -fx-max-width: 800;
     -fx-max-height: 500;
     -fx-background-color: #d6d6d6;
+    -fx-background-radius: 5.0;
 }
 
 #attitudeListViewOpmerkingenPressed{
@@ -109,6 +108,7 @@
     -fx-text-fill: dimgray; 
     -fx-font-size: 16;
     -fx-bordor-color: #d6d6d6;
+    -fx-background-radius: 5.0;
 }
 
 #attitudeLabel{

@@ -98,8 +98,8 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         HBox opmerkingBox = new HBox();
         opmerkingBox.setAlignment(Pos.CENTER);
         opmerkingBox.setSpacing(20);
-        Label opmerkingLbl = new Label("voeg opmerking toe:");
-        opmerkingLbl.setId("opmerkingenLabel");
+        Label opmerkingLbl = new Label("Voeg opmerking toe:");
+        opmerkingLbl.setId("naamLabel");
         TextField opmerkingField = new TextField();
         opmerkingField.setId("opmerkingenTexfield");
         Button voegtoeBtn = new Button("Voeg toe");

@@ -55,7 +55,7 @@ public class OpmerkingPaneel extends GridPane{
         
         //label opmerkingen
         Label opmerkingenLabel = new Label("Opmerkingen: ");
-        opmerkingenLabel.setId("opmerkingenLabel");
+        opmerkingenLabel.setId("naamLabel");
         labelTextAreaGrid.add(opmerkingenLabel, 0, 0);
         
         //textArea opmerkingen
