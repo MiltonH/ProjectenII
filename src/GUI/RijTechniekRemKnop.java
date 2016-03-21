@@ -148,27 +148,27 @@ public class RijTechniekRemKnop extends GridPane {
 
         //knoppen
         Button bediening = new Button("Bediening");
-        bediening.setId("inlogButtons");
+        bediening.setId("buttons");
         add(bediening, 2, 1);
 
         Button gebruik = new Button("Gebruik");
-        gebruik.setId("inlogButtons");
+        gebruik.setId("buttons");
         add(gebruik, 2, 3);
 
         Button dosering = new Button("Dosering");
-        dosering.setId("inlogButtons");
+        dosering.setId("buttons");
         add(dosering, 3, 1);
 
         Button volgorde = new Button("Volledig");
-        volgorde.setId("inlogButtons");
+        volgorde.setId("buttons");
         add(volgorde, 3, 2);
 
         Button teLaat = new Button("Te laat");
-        teLaat.setId("inlogButtons");
+        teLaat.setId("buttons");
         add(teLaat, 3, 3);
 
         Button andere = new Button("Andere");
-        andere.setId("inlogButtons");
+        andere.setId("buttons");
         add(andere, 3, 4); 
         andere.setOnMouseClicked(event -> {
             add(invulTextField, 4, 4);

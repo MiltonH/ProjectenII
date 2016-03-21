@@ -1,9 +1,13 @@
- package GUI;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package GUI;
 
 import java.util.Collections;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -25,10 +29,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
-public class RijTechniekKijkenKnop extends GridPane {
+/**
+ *
+ * @author Dries Meert
+ */
+public class RijTechniekZithoudingKnop extends GridPane{
 
-    public RijTechniekKijkenKnop() {
-        setId("rijTechniekHoofdschermPaneel");
+    public RijTechniekZithoudingKnop() {
+    setId("rijTechniekHoofdschermPaneel");
 
         //einde grid indeling
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
@@ -42,10 +50,10 @@ public class RijTechniekKijkenKnop extends GridPane {
         ColumnConstraints kolom1 = new ColumnConstraints();
         kolom1.setPercentWidth(14);
         ColumnConstraints kolom2 = new ColumnConstraints();
-        kolom2.setPercentWidth(41);
+        kolom2.setPercentWidth(42);
         kolom2.setHalignment(HPos.CENTER);
         ColumnConstraints kolom3 = new ColumnConstraints();
-        kolom3.setPercentWidth(41);
+        kolom3.setPercentWidth(42);
         kolom3.setHalignment(HPos.CENTER);
         ColumnConstraints kolom4 = new ColumnConstraints();
         kolom4.setPercentWidth(2);
@@ -53,24 +61,22 @@ public class RijTechniekKijkenKnop extends GridPane {
         getColumnConstraints().addAll(kolom0, kolom1, kolom2, kolom3, kolom4);
 
         RowConstraints rij0 = new RowConstraints();
-        rij0.setPercentHeight(3);
+        rij0.setPercentHeight(2);
         RowConstraints rij1 = new RowConstraints();
-        rij1.setPercentHeight(24);
+        rij1.setPercentHeight(23);
         rij1.setValignment(VPos.BOTTOM);
         RowConstraints rij2 = new RowConstraints();
-        rij2.setPercentHeight(14);
+        rij2.setPercentHeight(18);
         RowConstraints rij3 = new RowConstraints();
-        rij3.setPercentHeight(14);
+        rij3.setPercentHeight(18);
         RowConstraints rij4 = new RowConstraints();
-        rij4.setPercentHeight(14);
+        rij4.setPercentHeight(18);
         RowConstraints rij5 = new RowConstraints();
-        rij5.setPercentHeight(14);
+        rij5.setPercentHeight(18);
         RowConstraints rij6 = new RowConstraints();
-        rij6.setPercentHeight(14);
-        RowConstraints rij7 = new RowConstraints();
-        rij7.setPercentHeight(3);
+        rij6.setPercentHeight(3);
 
-        getRowConstraints().addAll(rij0, rij1, rij2, rij3, rij4, rij5, rij6, rij7);
+        getRowConstraints().addAll(rij0, rij1, rij2, rij3, rij4, rij5, rij6);
 
         //gridKnop
         GridPane gridKnopPane = new GridPane();
@@ -91,10 +97,10 @@ public class RijTechniekKijkenKnop extends GridPane {
 
         add(gridKnopPane, 1, 1);
 
-        //versnelling
+        //rem
         Image knopVierkant = new Image("Images/knopVierkant.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true);
-        ImageView versnellingView = new ImageView(knopVierkant);
-        gridKnopPane.add(versnellingView, 0, 0);
+        ImageView remView = new ImageView(knopVierkant);
+        gridKnopPane.add(remView, 0, 0);
 
         HBox remBox = new HBox();
         remBox.setAlignment(Pos.CENTER);
@@ -115,7 +121,7 @@ public class RijTechniekKijkenKnop extends GridPane {
 
         //Tekst
         TextField invulTextField = new TextField();
-        invulTextField.setId("inlogTexfield");
+        invulTextField.setId("rijtechniekTexfield");
         invulTextField.setPromptText("Geef een opmerking");
         invulTextField.setId("attitudeTextField");
         invulTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -128,33 +134,49 @@ public class RijTechniekKijkenKnop extends GridPane {
             }
         });
 
+        //Listview
+        ObservableList<String> opmerkingenList2 = FXCollections.observableArrayList();;
+        Collections.sort(opmerkingenList2);
+        ListView<String> opmerkingenView2 = new ListView<String>(opmerkingenList2);
+
+        //Tekst
+        TextField invulTextField2 = new TextField();
+        invulTextField2.setId("rijtechniekTexfield");
+        invulTextField2.setPromptText("Geef een opmerking");
+        invulTextField2.setId("attitudeTextField");
+        invulTextField2.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    opmerkingenList2.add(invulTextField2.getText());
+                    invulTextField2.clear();
+                }
+            }
+        });
+
         //knoppen
-        Button beterVergewissen = new Button("Beter Vergewissen");
-        beterVergewissen.setId("buttons");
-        add(beterVergewissen, 2, 1);
+        Button zithouding = new Button("Zithouding");
+        zithouding.setId("buttons");
+        add(zithouding, 2, 1);
+
+        Button gordel = new Button("Gordel");
+        gordel.setId("buttons");
+        add(gordel, 2, 2);
 
         Button spiegels = new Button("Spiegels");
         spiegels.setId("buttons");
-        add(spiegels, 2, 2);
+        add(spiegels, 2, 3);
 
-        Button dodeHoek = new Button("Dode Hoek");
-        dodeHoek.setId("buttons");
-        add(dodeHoek, 2, 3);       
+        Button handrem = new Button("Handrem");
+        handrem.setId("buttons");
+        add(handrem, 2, 4);
 
-        Button verGenoeg = new Button("Ver Genoeg");
-        verGenoeg.setId("buttons");
-        add(verGenoeg, 2, 4);
-
-        Button selecteren = new Button("Selecteren");
-        selecteren.setId("buttons");
-        add(selecteren, 2, 5);
-        
         Button andere = new Button("Andere");
         andere.setId("buttons");
-        add(andere, 2, 6); 
+        add(andere, 2, 5); 
         andere.setOnMouseClicked(event -> {
-            add(invulTextField, 3, 6);
-            add(opmerkingenView, 3, 4, 1, 2);
+            add(invulTextField, 3, 5);
+            add(opmerkingenView, 3, 3, 1, 2);
         });
     }
 }
