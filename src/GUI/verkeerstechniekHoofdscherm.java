@@ -56,6 +56,11 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
     Hashtable<String, Rectangle[]> rectangles;
     Hashtable<String, ImageView> knopViews;
     Hashtable<String, EventHandler> eventToggles;
+    ObservableList<String> richtingAanwijzerOpmerkingen;
+    ObservableList<String> voorrangOpmerkingen;
+    ObservableList<String> verkeerstekensOpmerkingen;
+    ObservableList<String> snelheidOpmerkingen;
+    ObservableList<String> volgafstandOpmerkingen;
 
     List<Image> Images;
 
@@ -151,6 +156,183 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
 
         getRowConstraints().addAll(rij0, rij1, rij2, rij3, rij4, rij5, rij6);
 
+        //richtingAanw
+        richtingAanwijzerOpmerkingen = FXCollections.observableArrayList();
+        HBox richtingAanwijzeropmerkingBox = new HBox();
+        richtingAanwijzeropmerkingBox.setAlignment(Pos.CENTER);
+        richtingAanwijzeropmerkingBox.setSpacing(20);
+        Label richtingAanwijzerOpmerkingLbl = new Label("Voeg opmerking toe:");
+        richtingAanwijzerOpmerkingLbl.setId("naamLabel");
+        TextField richtingAanwijzerOpmerkingField = new TextField();
+        richtingAanwijzerOpmerkingField.setId("opmerkingenTexfield");
+        Button richtingAanwijzerVoegtoeBtn = new Button("Voeg toe");
+        richtingAanwijzerVoegtoeBtn.setId("inlogButtons");
+        richtingAanwijzerVoegtoeBtn.setOnAction(event -> {
+            huidigformulier.getRichtingAanwijzersAndere().add(richtingAanwijzerOpmerkingField.getText());
+            getChildren().remove(richtingAanwijzeropmerkingBox);
+            update();
+        });
+        VBox richtingAanwijzerinputBox = new VBox();
+        ListView<String> richtingAanwijzerOpmerkingLView = new ListView<>();
+        richtingAanwijzerOpmerkingLView.setMaxHeight(maxHeight * 0.4);
+        richtingAanwijzerOpmerkingLView.setItems(richtingAanwijzerOpmerkingen);
+        richtingAanwijzerinputBox.setAlignment(Pos.CENTER_LEFT);
+        richtingAanwijzerinputBox.setSpacing(20);
+        Button richtingAanwijzerCancelBtn = new Button("X");
+        richtingAanwijzerCancelBtn.setOnAction(event -> {
+            getChildren().remove(richtingAanwijzeropmerkingBox);
+        });
+        HBox richtingAanwijzerKnoppen = new HBox();
+        richtingAanwijzerKnoppen.getChildren().addAll(richtingAanwijzerVoegtoeBtn, richtingAanwijzerCancelBtn);
+        richtingAanwijzerKnoppen.setAlignment(Pos.CENTER_LEFT);
+        richtingAanwijzerKnoppen.setSpacing(20);
+        richtingAanwijzerinputBox.getChildren().addAll(richtingAanwijzerOpmerkingLbl, richtingAanwijzerKnoppen);
+        richtingAanwijzeropmerkingBox.getChildren().addAll(richtingAanwijzerinputBox, richtingAanwijzerOpmerkingLView);
+
+        //voorrang
+        voorrangOpmerkingen = FXCollections.observableArrayList();
+        HBox voorrangopmerkingBox = new HBox();
+        voorrangopmerkingBox.setAlignment(Pos.CENTER);
+        voorrangopmerkingBox.setSpacing(20);
+        Label voorrangOpmerkingLbl = new Label("Voeg opmerking toe:");
+        voorrangOpmerkingLbl.setId("naamLabel");
+        TextField voorrangOpmerkingField = new TextField();
+        voorrangOpmerkingField.setId("opmerkingenTexfield");
+        Button voorrangVoegtoeBtn = new Button("Voeg toe");
+        voorrangVoegtoeBtn.setId("inlogButtons");
+        voorrangVoegtoeBtn.setOnAction(event -> {
+            huidigformulier.getVoorrangAndere().add(voorrangOpmerkingField.getText());
+            getChildren().remove(voorrangopmerkingBox);
+            update();
+        });
+
+        Button voorrangCancelBtn = new Button("X");
+        voorrangCancelBtn.setId("inlogButtons");
+        voorrangCancelBtn.setOnAction(event -> {
+            getChildren().remove(voorrangopmerkingBox);
+        });
+        VBox voorranginputBox = new VBox();
+        HBox voorrangKnoppen = new HBox();
+        ListView<String> voorrangOpmerkingLView = new ListView<>();
+        voorrangOpmerkingLView.setMaxHeight(maxHeight * 0.4);
+        voorrangOpmerkingLView.setItems(voorrangOpmerkingen);
+        voorranginputBox.setAlignment(Pos.CENTER_LEFT);
+        voorranginputBox.setSpacing(20);
+        voorrangKnoppen.getChildren().addAll(voorrangVoegtoeBtn, voorrangCancelBtn);
+        voorrangKnoppen.setAlignment(Pos.CENTER_LEFT);
+        voorrangKnoppen.setSpacing(20);
+        voorranginputBox.getChildren().addAll(voorrangOpmerkingLbl, voorrangOpmerkingField, voorrangKnoppen);
+        voorrangopmerkingBox.getChildren().addAll(voorranginputBox, voorrangOpmerkingLView);
+
+        //verkeerstekens
+        verkeerstekensOpmerkingen = FXCollections.observableArrayList();
+        HBox verkeerstekensopmerkingBox = new HBox();
+        verkeerstekensopmerkingBox.setAlignment(Pos.CENTER);
+        verkeerstekensopmerkingBox.setSpacing(20);
+        Label verkeerstekensOpmerkingLbl = new Label("Voeg opmerking toe:");
+        verkeerstekensOpmerkingLbl.setId("naamLabel");
+        TextField verkeerstekensOpmerkingField = new TextField();
+        verkeerstekensOpmerkingField.setId("opmerkingenTexfield");
+        Button verkeerstekensVoegtoeBtn = new Button("Voeg toe");
+        verkeerstekensVoegtoeBtn.setId("inlogButtons");
+        verkeerstekensVoegtoeBtn.setOnAction(event -> {
+            huidigformulier.getVerkeerstekensAndere().add(verkeerstekensOpmerkingField.getText());
+            getChildren().remove(verkeerstekensopmerkingBox);
+            update();
+        });
+
+        Button verkeerstekensCancelBtn = new Button("X");
+        verkeerstekensCancelBtn.setId("inlogButtons");
+        verkeerstekensCancelBtn.setOnAction(event -> {
+            getChildren().remove(verkeerstekensopmerkingBox);
+        });
+        VBox verkeerstekensinputBox = new VBox();
+        HBox verkeerstekensKnoppen = new HBox();
+        ListView<String> verkeerstekensOpmerkingLView = new ListView<>();
+        verkeerstekensOpmerkingLView.setMaxHeight(maxHeight * 0.4);
+        verkeerstekensOpmerkingLView.setItems(verkeerstekensOpmerkingen);
+        verkeerstekensinputBox.setAlignment(Pos.CENTER_LEFT);
+        verkeerstekensinputBox.setSpacing(20);
+        verkeerstekensKnoppen.getChildren().addAll(verkeerstekensVoegtoeBtn, verkeerstekensCancelBtn);
+        verkeerstekensKnoppen.setAlignment(Pos.CENTER_LEFT);
+        verkeerstekensKnoppen.setSpacing(20);
+        verkeerstekensinputBox.getChildren().addAll(verkeerstekensOpmerkingLbl, verkeerstekensOpmerkingField, verkeerstekensKnoppen);
+        verkeerstekensopmerkingBox.getChildren().addAll(verkeerstekensinputBox, verkeerstekensOpmerkingLView);
+
+        //snelheid
+        snelheidOpmerkingen = FXCollections.observableArrayList();
+        HBox snelheidopmerkingBox = new HBox();
+        snelheidopmerkingBox.setAlignment(Pos.CENTER);
+        snelheidopmerkingBox.setSpacing(20);
+        Label snelheidOpmerkingLbl = new Label("Voeg opmerking toe:");
+        snelheidOpmerkingLbl.setId("naamLabel");
+        TextField snelheidOpmerkingField = new TextField();
+        snelheidOpmerkingField.setId("opmerkingenTexfield");
+        Button snelheidVoegtoeBtn = new Button("Voeg toe");
+        snelheidVoegtoeBtn.setId("inlogButtons");
+        snelheidVoegtoeBtn.setOnAction(event -> {
+            huidigformulier.getSnelheidAndere().add(snelheidOpmerkingField.getText());
+            getChildren().remove(snelheidopmerkingBox);
+            update();
+        });
+
+        Button snelheidCancelBtn = new Button("X");
+        snelheidCancelBtn.setId("inlogButtons");
+        snelheidCancelBtn.setOnAction(event -> {
+            getChildren().remove(snelheidopmerkingBox);
+        });
+        VBox snelheidinputBox = new VBox();
+        HBox snelheidKnoppen = new HBox();
+        ListView<String> snelheidOpmerkingLView = new ListView<>();
+        snelheidOpmerkingLView.setMaxHeight(maxHeight * 0.4);
+        snelheidOpmerkingLView.setItems(snelheidOpmerkingen);
+        snelheidinputBox.setAlignment(Pos.CENTER_LEFT);
+        snelheidinputBox.setSpacing(20);
+        snelheidKnoppen.getChildren().addAll(snelheidVoegtoeBtn, snelheidCancelBtn);
+        snelheidKnoppen.setAlignment(Pos.CENTER_LEFT);
+        snelheidKnoppen.setSpacing(20);
+        snelheidinputBox.getChildren().addAll(snelheidOpmerkingLbl, snelheidOpmerkingField, snelheidKnoppen);
+        snelheidopmerkingBox.getChildren().addAll(snelheidinputBox, snelheidOpmerkingLView);
+        //volgafstand
+        volgafstandOpmerkingen = FXCollections.observableArrayList();
+        HBox volgafstandopmerkingBox = new HBox();
+        volgafstandopmerkingBox.setAlignment(Pos.CENTER);
+        volgafstandopmerkingBox.setSpacing(20);
+        Label volgafstandOpmerkingLbl = new Label("Voeg opmerking toe:");
+        volgafstandOpmerkingLbl.setId("naamLabel");
+        TextField volgafstandOpmerkingField = new TextField();
+        volgafstandOpmerkingField.setId("opmerkingenTexfield");
+        Button volgafstandVoegtoeBtn = new Button("Voeg toe");
+        volgafstandVoegtoeBtn.setId("inlogButtons");
+        volgafstandVoegtoeBtn.setOnAction(event -> {
+            huidigformulier.getVolgafstandAndere().add(volgafstandOpmerkingField.getText());
+            getChildren().remove(volgafstandopmerkingBox);
+            update();
+        });
+
+        Button volgafstandCancelBtn = new Button("X");
+        volgafstandCancelBtn.setId("inlogButtons");
+        volgafstandCancelBtn.setOnAction(event -> {
+            getChildren().remove(volgafstandopmerkingBox);
+        });
+        VBox volgafstandinputBox = new VBox();
+        HBox volgafstandKnoppen = new HBox();
+        ListView<String> volgafstandOpmerkingLView = new ListView<>();
+        volgafstandOpmerkingLView.setMaxHeight(maxHeight * 0.4);
+        volgafstandOpmerkingLView.setItems(volgafstandOpmerkingen);
+        volgafstandinputBox.setAlignment(Pos.CENTER_LEFT);
+        volgafstandinputBox.setSpacing(20);
+        volgafstandKnoppen.getChildren().addAll(volgafstandVoegtoeBtn, volgafstandCancelBtn);
+        volgafstandKnoppen.setAlignment(Pos.CENTER_LEFT);
+        volgafstandKnoppen.setSpacing(20);
+        volgafstandinputBox.getChildren().addAll(volgafstandOpmerkingLbl, volgafstandOpmerkingField, volgafstandKnoppen);
+        volgafstandopmerkingBox.getChildren().addAll(volgafstandinputBox, volgafstandOpmerkingLView);
+        //inhaal
+        //kruisen
+        //linksaf
+        //rechtsaf
+        //plaats
+
         //box
         ObservableList<String> VTOpmerkingen = FXCollections.observableArrayList();
         HBox opmerkingBox = new HBox();
@@ -188,16 +370,16 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
         Image plaats = new Image("Images/Openenbareweg.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
 
         //voorrang ----
-        imageDropper(voorrang, 1, 1, opmerkingBox, "voorrang");
+        imageDropper(voorrang, 1, 1, volgafstandopmerkingBox, "voorrang");
 
         //verkeerstekens ----
-        imageDropper(verkeersTekens, 2, 1, opmerkingBox, "verkeerstekens");
+        imageDropper(verkeersTekens, 2, 1, volgafstandopmerkingBox, "verkeerstekens");
 
         //snelheid ----
-        imageDropper(snelheid, 3, 1, opmerkingBox, "snelheid");
+        imageDropper(snelheid, 3, 1, volgafstandopmerkingBox, "snelheid");
 
         //volgafstand ----
-        imageDropper(volgafstand, 4, 1, opmerkingBox, "volgafstand");
+        imageDropper(volgafstand, 4, 1, volgafstandopmerkingBox, "volgafstand");
 
         //inhaal ----
         imageDropper(inhaal, 5, 1, opmerkingBox, "inhaal");
@@ -212,7 +394,7 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
         imageDropper(rechtsAf, 3, 5, opmerkingBox, "rechtsaf");
 
         //richtingaanwijzer ----
-        imageDropper(richtingAanwijzer, 4, 5, opmerkingBox, "richtingaanwijzers");
+        imageDropper(richtingAanwijzer, 4, 5, volgafstandopmerkingBox, "richtingaanwijzers");
 
         //plaats ----
         imageDropper(plaats, 5, 5, opmerkingBox, "plaats");
@@ -484,15 +666,25 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
         EvaluatieFormulier formulierHuidig = leerling.getHuidigEvaluatieFormulier();
         //huidige
         PasKleurAan("verkeerstekens", formulierHuidig.getVerkeerstekens());
+        verkeerstekensOpmerkingen.clear();
+        verkeerstekensOpmerkingen.addAll(formulierHuidig.getVerkeerstekensAndere());
         PasKleurAan("snelheid", formulierHuidig.getSnelheid());
+        snelheidOpmerkingen.clear();
+        snelheidOpmerkingen.addAll(formulierHuidig.getSnelheidAndere());
         PasKleurAan("inhaal", formulierHuidig.getInhalen());
         PasKleurAan("volgafstand", formulierHuidig.getVolgafstand());
+        volgafstandOpmerkingen.clear();
+        volgafstandOpmerkingen.addAll(formulierHuidig.getVolgafstandAndere());
         PasKleurAan("kruisen", formulierHuidig.getKruisen());
         PasKleurAan("richtingaanwijzers", formulierHuidig.getRichtingAanwijzers());
+        richtingAanwijzerOpmerkingen.clear();
+        richtingAanwijzerOpmerkingen.addAll(formulierHuidig.getRichtingAanwijzersAndere());
         PasKleurAan("linksaf", formulierHuidig.getLinksaf());
         PasKleurAan("rechtsaf", formulierHuidig.getRechtsaf());
         PasKleurAan("plaats", formulierHuidig.getOpenbareWeg());
         PasKleurAan("voorrang", formulierHuidig.getVoorrang());
+        voorrangOpmerkingen.clear();
+        voorrangOpmerkingen.addAll(formulierHuidig.getVoorrangAndere());
 
         //rectangles
         //1e evaluatie
