@@ -50,7 +50,7 @@ public class Leerling
     }
 
     public String getFamilienaam() {
-        return familienaam;
+        return familienaam;        
     }
 
     public void setFamilienaam(String familienaam) {

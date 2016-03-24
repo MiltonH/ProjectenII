@@ -26,6 +26,7 @@ public class HoofdPaneel extends GridPane implements View
 {
 
     private Scene scene;
+    InlogPaneel inlogPaneel;
     private int niveau = 1;//dit is testcode
     private Leerling huidigeLeerling;
 
@@ -174,7 +175,7 @@ public class HoofdPaneel extends GridPane implements View
         imageListTable.put("rotonde", rotondeImages);
 
         rotondeView.setOnMouseClicked(event -> {
-            toggleImg(rotondeView, rotondeImages);
+            HuidigFormulier.setRotonde(toggleTopIcoon(HuidigFormulier.getRotonde()));
         });//debug
 
         List<Image> snelwegImages = new ArrayList<>();
@@ -186,7 +187,7 @@ public class HoofdPaneel extends GridPane implements View
         imageListTable.put("snelweg", snelwegImages);
 
         snelwegView.setOnMouseClicked(event -> {
-            toggleImg(snelwegView, snelwegImages);
+            HuidigFormulier.setAutosnelweg(toggleTopIcoon(HuidigFormulier.getAutosnelweg()));
         });//debug
 
         List<Image> stadImages = new ArrayList<>();
@@ -198,7 +199,7 @@ public class HoofdPaneel extends GridPane implements View
         imageListTable.put("stad", stadImages);
 
         stadView.setOnMouseClicked(event -> {
-            toggleImg(stadView, stadImages);
+            HuidigFormulier.setStad(toggleTopIcoon(HuidigFormulier.getStad()));
         });//debug
 
         centerTopKnoppen.getChildren().addAll(rotondeView, rijstrokenView, stadView, snelwegView);
@@ -283,12 +284,12 @@ public class HoofdPaneel extends GridPane implements View
 
         niveauMinView.setOnMouseClicked(event -> {
             niveauMin();
-            niveauCenterView.setImage(niveauImages.get(niveau - 1));
+//            niveauCenterView.setImage(niveauImages.get(niveau - 1));
 
         });
         niveauPlusView.setOnMouseClicked(event -> {
             niveauPlus();
-            niveauCenterView.setImage(niveauImages.get(niveau - 1));
+//            niveauCenterView.setImage(niveauImages.get(niveau - 1));
         });
         //eind niveau
         bottomStack.getChildren().addAll(bottomBoxView, bottomBoxGrid);
@@ -344,7 +345,7 @@ public class HoofdPaneel extends GridPane implements View
         imageListTable.put("lamp", lampImages);
 
         lampView.setOnMouseClicked(event -> {
-            toggleImgRand(lampView, lampImages);
+            HuidigFormulier.setSchakelaars(toggleRandIcoon(HuidigFormulier.getSchakelaars()));
         });//debug
         linksKnoppenGrid.add(lampView, 2, 1, 2, 1);
 
@@ -356,7 +357,7 @@ public class HoofdPaneel extends GridPane implements View
         imageListTable.put("druppel", druppelImages);
 
         druppelView.setOnMouseClicked(event -> {
-            toggleImgRand(druppelView, druppelImages);
+            HuidigFormulier.setVloeistoffen(toggleRandIcoon(HuidigFormulier.getVloeistoffen()));
         });//debug
         linksKnoppenGrid.add(druppelView, 1, 3, 2, 1);
 
@@ -368,7 +369,7 @@ public class HoofdPaneel extends GridPane implements View
         imageListTable.put("band", bandImages);
 
         bandView.setOnMouseClicked(event -> {
-            toggleImgRand(bandView, bandImages);
+            HuidigFormulier.setBanden(toggleRandIcoon(HuidigFormulier.getBanden()));
         });//debug
         linksKnoppenGrid.add(bandView, 2, 5, 2, 1);
 
@@ -420,7 +421,7 @@ public class HoofdPaneel extends GridPane implements View
         imageListTable.put("tank", tankImages);
 
         tankView.setOnMouseClicked(event -> {
-            toggleImgRand(tankView, tankImages);
+            HuidigFormulier.setTanken(toggleRandIcoon(HuidigFormulier.getTanken()));
         });//debug
 
         rechtsKnoppenGrid.add(tankView, 0, 1, 2, 1);
@@ -433,7 +434,7 @@ public class HoofdPaneel extends GridPane implements View
         imageListTable.put("gps", gpsImages);
 
         gpsView.setOnMouseClicked(event -> {
-            toggleImgRand(gpsView, gpsImages);
+            HuidigFormulier.setGps(toggleRandIcoon(HuidigFormulier.getGps()));
         });//debug
 
         rechtsKnoppenGrid.add(gpsView, 1, 3, 2, 1);
@@ -446,7 +447,7 @@ public class HoofdPaneel extends GridPane implements View
         imageListTable.put("stop", stopImages);
 
         stopView.setOnMouseClicked(event -> {
-            toggleImgRand(stopView, stopImages);
+            HuidigFormulier.setStop(toggleRandIcoon(HuidigFormulier.getStop()));
         });//debug
         rechtsKnoppenGrid.add(stopView, 0, 5, 2, 1);
 
@@ -467,9 +468,7 @@ public class HoofdPaneel extends GridPane implements View
         add(homeBox, 4, 3);
         homeKnopView.setOnMouseClicked(event -> {
 //            System.exit(0);
-            InlogPaneel inlog = new InlogPaneel();
-            inlog.setScene(scene);
-            scene.setRoot(inlog);
+            scene.setRoot(inlogPaneel);
         });
 
         HBox opmerkingBox = new HBox();
@@ -484,18 +483,24 @@ public class HoofdPaneel extends GridPane implements View
             scene.setRoot(opmerkingPaneel);
         });
         //einde home en opmerkingen
-
+        update();
     }
 
     private void niveauMin() {
-        if (niveau > 1) {
-            niveau -= 1;
+        EvaluatieFormulier HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
+        int huidigNiveau = HuidigFormulier.getNiveau();
+
+        if (huidigNiveau > 0) {
+            HuidigFormulier.setNiveau(huidigNiveau - 1);
         }
     }
 
     private void niveauPlus() {
-        if (niveau < 7) {
-            niveau += 1;
+        EvaluatieFormulier HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
+        int huidigNiveau = HuidigFormulier.getNiveau();
+
+        if (huidigNiveau < 6) {
+            HuidigFormulier.setNiveau(huidigNiveau + 1);
         }
     }
 
@@ -533,13 +538,13 @@ public class HoofdPaneel extends GridPane implements View
         } else if (Evaluatie.ROOD.equals(eval)) {
             return Evaluatie.GROEN;
         } else if (Evaluatie.GROEN.equals(eval)) {
-            return Evaluatie.ROOD;
+            return Evaluatie.WIT;
         } else {
             return Evaluatie.WIT;
         }
     }
 
-    private void PasKleurAan(String key, Evaluatie eval) {
+    private void PasTopKleurAan(String key, Evaluatie eval) {
         ImageView view = iconViewsTable.get(key);
         List<Image> lijst = imageListTable.get(key);
 
@@ -549,6 +554,17 @@ public class HoofdPaneel extends GridPane implements View
             view.setImage(lijst.get(1));
         } else if (Evaluatie.GROEN.equals(eval)) {
             view.setImage(lijst.get(2));
+        }
+    }
+
+    private void PasRandKleurAan(String key, Evaluatie eval) {
+        ImageView view = iconViewsTable.get(key);
+        List<Image> lijst = imageListTable.get(key);
+
+        if (Evaluatie.WIT.equals(eval)) {
+            view.setImage(lijst.get(0));
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            view.setImage(lijst.get(1));
         }
     }
 
@@ -564,20 +580,37 @@ public class HoofdPaneel extends GridPane implements View
     public void update() {
         EvaluatieFormulier formulier = huidigeLeerling.getHuidigEvaluatieFormulier();
         //top
-        PasKleurAan("stad", formulier.getStad());
-        PasKleurAan("rotonde", formulier.getRotonde());
-        PasKleurAan("rijstroken", formulier.getRijstroken());
-        PasKleurAan("snelweg", formulier.getAutosnelweg());
+        PasTopKleurAan("stad", formulier.getStad());
+        PasTopKleurAan("rotonde", formulier.getRotonde());
+        PasTopKleurAan("rijstroken", formulier.getRijstroken());
+        PasTopKleurAan("snelweg", formulier.getAutosnelweg());
         //links
-        PasKleurAan("lamp", formulier.getSchakelaars());
-        PasKleurAan("druppel", formulier.getVloeistoffen());
-        PasKleurAan("band", formulier.getBanden());
+        PasRandKleurAan("lamp", formulier.getSchakelaars());
+        PasRandKleurAan("druppel", formulier.getVloeistoffen());
+        PasRandKleurAan("band", formulier.getBanden());
 
         //rechts
-        PasKleurAan("gps", formulier.getGps());
-        PasKleurAan("stop", formulier.getStop());
-        PasKleurAan("tank", formulier.getTanken());
+        PasRandKleurAan("gps", formulier.getGps());
+        PasRandKleurAan("stop", formulier.getStop());
+        PasRandKleurAan("tank", formulier.getTanken());
         //niveau
         niveauCenterView.setImage(niveauImages.get(formulier.getNiveau()));
     }
+
+    public InlogPaneel getInlogPaneel() {
+        return inlogPaneel;
+    }
+
+    public void setInlogPaneel(InlogPaneel inlogPaneel) {
+        this.inlogPaneel = inlogPaneel;
+    }
+
+    public Leerling getHuidigeLeerling() {
+        return huidigeLeerling;
+    }
+
+    public void setHuidigeLeerling(Leerling huidigeLeerling) {
+        this.huidigeLeerling = huidigeLeerling;
+    }
+
 }

@@ -5,10 +5,17 @@
  */
 package GUI;
 
+import com.sun.javafx.font.freetype.HBGlyphLayout;
+import domain.Evaluatie;
+import domain.EvaluatieFormulier;
+import domain.Leerling;
+import domain.View;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -17,25 +24,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.SVGPath;
 import javafx.stage.Screen;
 
 /**
  *
  * @author Milton
  */
-public class verkeerstechniekHoofdscherm extends GridPane {
+public class verkeerstechniekHoofdscherm extends GridPane implements View
+{
 
     Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
     double maxWidth = schermformaat.getWidth() * 0.62;
@@ -43,8 +50,59 @@ public class verkeerstechniekHoofdscherm extends GridPane {
     int voorrang1Int = 0;
     int voorrang2Int = 0;
     int voorrang3Int = 0;
+    VerkeersTechniekBase base;
+    EvaluatieFormulier huidigformulier;
 
-    public verkeerstechniekHoofdscherm() {
+    Hashtable<String, Rectangle[]> rectangles;
+    Hashtable<String, ImageView> knopViews;
+    Hashtable<String, EventHandler> eventToggles;
+
+    List<Image> Images;
+
+    public verkeerstechniekHoofdscherm(VerkeersTechniekBase base) {
+        this.base = base;
+        base.getHoofdpanel().getHuidigeLeerling().addView(this);
+        Images = new ArrayList<>();
+        Images.add(new Image("Images/knopVierkantW.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        Images.add(new Image("Images/knopVierkantR.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        Images.add(new Image("Images/knopVierkantO.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        Images.add(new Image("Images/knopVierkantG.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+        huidigformulier = base.getHoofdpanel().getHuidigeLeerling().getHuidigEvaluatieFormulier();
+
+        rectangles = new Hashtable<>();
+        knopViews = new Hashtable<>();
+        eventToggles = new Hashtable<>();
+        eventToggles.put("verkeerstekens", event -> {
+            huidigformulier.setVerkeerstekens(toggleCirkel(huidigformulier.getVerkeerstekens()));
+        });
+        eventToggles.put("voorrang", event -> {
+            huidigformulier.setVoorrang(toggleCirkel(huidigformulier.getVoorrang()));
+        });
+        eventToggles.put("snelheid", event -> {
+            huidigformulier.setSnelheid(toggleCirkel(huidigformulier.getSnelheid()));
+        });
+        eventToggles.put("volgafstand", event -> {
+            huidigformulier.setVolgafstand(toggleCirkel(huidigformulier.getVolgafstand()));
+        });
+        eventToggles.put("inhaal", event -> {
+            huidigformulier.setInhalen(toggleCirkel(huidigformulier.getInhalen()));
+        });
+        eventToggles.put("kruisen", event -> {
+            huidigformulier.setKruisen(toggleCirkel(huidigformulier.getKruisen()));
+        });
+        eventToggles.put("linksaf", event -> {
+            huidigformulier.setLinksaf(toggleCirkel(huidigformulier.getLinksaf()));
+        });
+        eventToggles.put("rechtsaf", event -> {
+            huidigformulier.setRechtsaf(toggleCirkel(huidigformulier.getRechtsaf()));
+        });
+        eventToggles.put("plaats", event -> {
+            huidigformulier.setOpenbareWeg(toggleCirkel(huidigformulier.getOpenbareWeg()));
+        });
+        eventToggles.put("richtingaanwijzers", event -> {
+            huidigformulier.setRichtingAanwijzers(toggleCirkel(huidigformulier.getRichtingAanwijzers()));
+        });
+
         setId("rijTechniekHoofdschermPaneel");
         //GridPane
         gridLinesVisibleProperty().set(false);
@@ -130,34 +188,34 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         Image plaats = new Image("Images/Openenbareweg.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
 
         //voorrang ----
-        imageDropperTwee(voorrang, 1, 1, opmerkingBox);
+        imageDropper(voorrang, 1, 1, opmerkingBox, "voorrang");
 
         //verkeerstekens ----
-        imageDropperTwee(verkeersTekens, 2, 1, opmerkingBox);
+        imageDropper(verkeersTekens, 2, 1, opmerkingBox, "verkeerstekens");
 
         //snelheid ----
-        imageDropperTwee(snelheid, 3, 1, opmerkingBox);
+        imageDropper(snelheid, 3, 1, opmerkingBox, "snelheid");
 
         //volgafstand ----
-        imageDropperTwee(volgafstand, 4, 1, opmerkingBox);
+        imageDropper(volgafstand, 4, 1, opmerkingBox, "volgafstand");
 
         //inhaal ----
-        imageDropperTwee(inhaal, 5, 1, opmerkingBox);
+        imageDropper(inhaal, 5, 1, opmerkingBox, "inhaal");
 
         //kruisen ----
-        imageDropper(kruisen, 1, 5, opmerkingBox);
+        imageDropper(kruisen, 1, 5, opmerkingBox, "kruisen");
 
         //linksaf ----
-        imageDropper(linksAf, 2, 5, opmerkingBox);
+        imageDropper(linksAf, 2, 5, opmerkingBox, "linksaf");
 
         //rechtsaf ----
-        imageDropper(rechtsAf, 3, 5, opmerkingBox);
+        imageDropper(rechtsAf, 3, 5, opmerkingBox, "rechtsaf");
 
         //richtingaanwijzer ----
-        imageDropper(richtingAanwijzer, 4, 5, opmerkingBox);
+        imageDropper(richtingAanwijzer, 4, 5, opmerkingBox, "richtingaanwijzers");
 
         //plaats ----
-        imageDropper(plaats, 5, 5, opmerkingBox);
+        imageDropper(plaats, 5, 5, opmerkingBox, "plaats");
 
         //rectangles
         //voorrang ----
@@ -172,35 +230,8 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         voorangRec3.setId("verkeersRec");
         voorrangHBox.getChildren().addAll(voorangRec1, voorangRec2, voorangRec3);
         add(voorrangHBox, 1, 2);
-        voorangRec1.setOnMouseClicked(event -> {
-            if (voorrang1Int != 3) {
-                voorrang1Int++;
-                toggleColor(voorangRec1, voorrang1Int);
-            } else {
-                voorrang1Int = 0;
-                toggleColor(voorangRec1, voorrang1Int);
-            }
-        });
-        
-        voorangRec2.setOnMouseClicked(event -> {
-            if (voorrang2Int != 3) {
-                voorrang2Int++;
-                toggleColor(voorangRec2, voorrang2Int);
-            } else {
-                voorrang2Int = 0;
-                toggleColor(voorangRec2, voorrang2Int);
-            }
-        });
-        
-        voorangRec3.setOnMouseClicked(event -> {
-            if (voorrang3Int != 3) {
-                voorrang3Int++;
-                toggleColor(voorangRec3, voorrang3Int);
-            } else {
-                voorrang3Int = 0;
-                toggleColor(voorangRec3, voorrang3Int);
-            }
-        });
+        Rectangle[] voorrangRecs = {voorangRec1, voorangRec2, voorangRec3};
+        rectangles.put("voorrang", voorrangRecs);
 
         //verkeerstekens ----
         HBox verkTekensHBox = new HBox();
@@ -215,6 +246,9 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         verkTekensHBox.getChildren().addAll(verkTekensRec1, verkTekensRec2, verkTekensRec3);
         add(verkTekensHBox, 2, 2);
 
+        Rectangle[] verkeerstekensRecs = {verkTekensRec1, verkTekensRec2, verkTekensRec3};
+        rectangles.put("verkeerstekens", verkeerstekensRecs);
+
         //snelheid ----
         HBox snelheidHBox = new HBox();
         snelheidHBox.setAlignment(Pos.CENTER);
@@ -228,6 +262,8 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         snelheidHBox.getChildren().addAll(snelheidRec1, snelheidRec2, snelheidRec3);
         add(snelheidHBox, 3, 2);
 
+        Rectangle[] snelheidRecs = {snelheidRec1, snelheidRec2, snelheidRec3};
+        rectangles.put("snelheid", snelheidRecs);
         //volgafstand ----
         HBox volgafstandHBox = new HBox();
         volgafstandHBox.setAlignment(Pos.CENTER);
@@ -240,6 +276,9 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         volgafstandRec3.setId("verkeersRec");
         volgafstandHBox.getChildren().addAll(volgafstandRec1, volgafstandRec2, volgafstandRec3);
         add(volgafstandHBox, 4, 2);
+
+        Rectangle[] volgafstandRecs = {volgafstandRec1, volgafstandRec2, volgafstandRec3};
+        rectangles.put("volgafstand", volgafstandRecs);
 
         //inhaal ----
         HBox inhaalHBox = new HBox();
@@ -254,6 +293,9 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         inhaalHBox.getChildren().addAll(inhaalRec1, inhaalRec2, inhaalRec3);
         add(inhaalHBox, 5, 2);
 
+        Rectangle[] inhaalRecs = {inhaalRec1, inhaalRec2, inhaalRec3};
+        rectangles.put("inhaal", inhaalRecs);
+
         //kruisen ----
         HBox kruisenHBox = new HBox();
         kruisenHBox.setAlignment(Pos.CENTER);
@@ -266,6 +308,9 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         kruisenRec3.setId("verkeersRec");
         kruisenHBox.getChildren().addAll(kruisenRec1, kruisenRec2, kruisenRec3);
         add(kruisenHBox, 1, 4);
+
+        Rectangle[] kruisenRecs = {kruisenRec1, kruisenRec1, kruisenRec1};
+        rectangles.put("kruisen", kruisenRecs);
 
         //linksaf ----
         HBox linksafHBox = new HBox();
@@ -280,6 +325,9 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         linksafHBox.getChildren().addAll(linksafRec1, linksafRec2, linksafRec3);
         add(linksafHBox, 2, 4);
 
+        Rectangle[] linksafRecs = {linksafRec1, linksafRec2, linksafRec3};
+        rectangles.put("linksaf", linksafRecs);
+
         //rechtsaf ----
         HBox rechtsafHBox = new HBox();
         rechtsafHBox.setAlignment(Pos.CENTER);
@@ -292,6 +340,9 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         rechtsafRec3.setId("verkeersRec");
         rechtsafHBox.getChildren().addAll(rechtsafRec1, rechtsafRec2, rechtsafRec3);
         add(rechtsafHBox, 3, 4);
+
+        Rectangle[] rechtsafRecs = {rechtsafRec1, rechtsafRec1, rechtsafRec1};
+        rectangles.put("rechtsaf", rechtsafRecs);
 
         //richtingsaanwijzers ----
         HBox richtingAanwHBox = new HBox();
@@ -306,6 +357,9 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         richtingAanwHBox.getChildren().addAll(richtingAanwRec1, richtingAanwRec2, richtingAanwRec3);
         add(richtingAanwHBox, 4, 4);
 
+        Rectangle[] richtingsaanwijzersRecs = {richtingAanwRec1, richtingAanwRec2, richtingAanwRec3};
+        rectangles.put("richtingaanwijzers", richtingsaanwijzersRecs);
+
         //plaats
         HBox plaatsHBox = new HBox();
         plaatsHBox.setAlignment(Pos.CENTER);
@@ -319,24 +373,18 @@ public class verkeerstechniekHoofdscherm extends GridPane {
         plaatsHBox.getChildren().addAll(plaatsRec1, plaatsRec2, plaatsRec3);
         add(plaatsHBox, 5, 4);
 
+        Rectangle[] plaatsRecs = {plaatsRec1, plaatsRec2, plaatsRec3};
+        rectangles.put("plaats", plaatsRecs);
+        update();
     }
 
-    private void imageDropper(Image img, int kolom, int rij, HBox hbox) {
-        List<Image> Images = new ArrayList<>();
-        Images.add(new Image("Images/knopVierkantW.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
-        Images.add(new Image("Images/knopVierkantR.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
-        Images.add(new Image("Images/knopVierkantO.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
-        Images.add(new Image("Images/knopVierkantG.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+    private void imageDropper(Image img, int kolom, int rij, HBox hbox, String key) {
         ImageView View = new ImageView(img);
         ImageView afbView = new ImageView(Images.get(0));
         add(afbView, kolom, rij);
         add(View, kolom, rij);
-        View.setOnMouseClicked(event -> {
-            toggleImg(afbView, Images);
-        });
-        afbView.setOnMouseClicked(event -> {
-            toggleImg(afbView, Images);
-        });
+        View.setOnMouseClicked(eventToggles.get(key));
+        afbView.setOnMouseClicked(eventToggles.get(key));
         View.setOnMouseDragged(event -> {
             getChildren().remove(hbox);
             add(hbox, 1, 3, 5, 1);
@@ -345,45 +393,121 @@ public class verkeerstechniekHoofdscherm extends GridPane {
             getChildren().remove(hbox);
             add(hbox, 1, 3, 5, 1);
         });
+        knopViews.put(key, afbView);
     }
+//
+//    private void imageDropperTwee(Image img, int kolom, int rij, HBox hbox) {
+//        ImageView View = new ImageView(img);
+//        ImageView afbView = new ImageView((new Image("Images/knopVierkant.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true)));
+//        add(afbView, kolom, rij);
+//        add(View, kolom, rij);
+//        View.setOnMouseClicked(event -> {
+//            getChildren().remove(hbox);
+//            add(hbox, 1, 3, 5, 1);
+//        });
+//        afbView.setOnMouseClicked(event -> {
+//            getChildren().remove(hbox);
+//            add(hbox, 1, 3, 5, 1);
+//        });
+//    }
 
-    private void imageDropperTwee(Image img, int kolom, int rij, HBox hbox) {
-        ImageView View = new ImageView(img);
-        ImageView afbView = new ImageView((new Image("Images/knopVierkant.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true)));
-        add(afbView, kolom, rij);
-        add(View, kolom, rij);
-        View.setOnMouseClicked(event -> {
-            getChildren().remove(hbox);
-            add(hbox, 1, 3, 5, 1);
-        });
-        afbView.setOnMouseClicked(event -> {
-            getChildren().remove(hbox);
-            add(hbox, 1, 3, 5, 1);
-        });
-    }
-
-    private void toggleImg(ImageView view, List<Image> imgList) {
-        int currentIndex = imgList.indexOf(view.getImage());
-        if (currentIndex == 0) {
-            view.setImage(imgList.get(1));
-        } else if (currentIndex == 1) {
-            view.setImage(imgList.get(2));
-        } else if (currentIndex == 2) {
-            view.setImage(imgList.get(3));
-        } else if (currentIndex == 3) {
-            view.setImage(imgList.get(0));
+//    private void toggleImg(ImageView view, List<Image> imgList) {
+//        int currentIndex = imgList.indexOf(view.getImage());
+//        if (currentIndex == 0) {
+//            view.setImage(imgList.get(1));
+//        } else if (currentIndex == 1) {
+//            view.setImage(imgList.get(2));
+//        } else if (currentIndex == 2) {
+//            view.setImage(imgList.get(3));
+//        } else if (currentIndex == 3) {
+//            view.setImage(imgList.get(0));
+//        }
+//    }
+//
+//    private void toggleColor(Rectangle rect, int integer) {
+//        if (integer == 1) {
+//            rect.setFill(Color.RED);
+//        } else if (integer == 2) {
+//            rect.setFill(Color.ORANGE);
+//        } else if (integer == 3) {
+//            rect.setFill(Color.GREEN);
+//        } else if (integer == 0) {
+//            rect.setFill(Color.WHITE);
+//        }
+//    }
+    private Evaluatie toggleCirkel(Evaluatie eval) {
+        if (Evaluatie.WIT.equals(eval)) {
+            return Evaluatie.ROOD;
+        } else if (Evaluatie.ROOD.equals(eval)) {
+            return Evaluatie.ORANJE;
+        } else if (Evaluatie.ORANJE.equals(eval)) {
+            return Evaluatie.GROEN;
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            return Evaluatie.WIT;
+        } else {
+            return Evaluatie.WIT;
         }
     }
 
-    private void toggleColor(Rectangle rect, int integer) {
-        if (integer == 1) {
-            rect.setFill(Color.RED);
-        } else if (integer == 2) {
-            rect.setFill(Color.ORANGE);
-        } else if (integer == 3) {
-            rect.setFill(Color.GREEN);
-        } else if (integer == 0) {
-            rect.setFill(Color.WHITE);
+    private void PasKleurAan(String key, Evaluatie eval) {
+        ImageView view = knopViews.get(key);;
+
+        if (Evaluatie.WIT.equals(eval)) {
+            view.setImage(Images.get(0));
+        } else if (Evaluatie.ROOD.equals(eval)) {
+            view.setImage(Images.get(1));
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            view.setImage(Images.get(3));
+        } else if (Evaluatie.ORANJE.equals(eval)) {
+            view.setImage(Images.get(2));
         }
+    }
+
+    private void PasRecKleurAan(String key, Evaluatie eval, int evalNR) {
+        Rectangle rec = rectangles.get(key)[evalNR];
+
+        if (Evaluatie.WIT.equals(eval)) {
+            rec.setId("verkeersRec");
+        } else if (Evaluatie.ROOD.equals(eval)) {
+            rec.setId("verkeersRecROOD");
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            rec.setId("verkeersRecGROEN");
+        } else if (Evaluatie.ORANJE.equals(eval)) {
+            rec.setId("verkeersRecORANJE");
+        }
+    }
+
+    @Override
+    public void update() {
+        Leerling leerling = base.getHoofdpanel().getHuidigeLeerling();
+
+        EvaluatieFormulier formulierHuidig = leerling.getHuidigEvaluatieFormulier();
+        //huidige
+        PasKleurAan("verkeerstekens", formulierHuidig.getVerkeerstekens());
+        PasKleurAan("snelheid", formulierHuidig.getSnelheid());
+        PasKleurAan("inhaal", formulierHuidig.getInhalen());
+        PasKleurAan("volgafstand", formulierHuidig.getVolgafstand());
+        PasKleurAan("kruisen", formulierHuidig.getKruisen());
+        PasKleurAan("richtingaanwijzers", formulierHuidig.getRichtingAanwijzers());
+        PasKleurAan("linksaf", formulierHuidig.getLinksaf());
+        PasKleurAan("rechtsaf", formulierHuidig.getRechtsaf());
+        PasKleurAan("plaats", formulierHuidig.getOpenbareWeg());
+        PasKleurAan("voorrang", formulierHuidig.getVoorrang());
+
+        //rectangles
+        //1e evaluatie
+        EvaluatieFormulier formulier1 = leerling.getEvaluatieFormulieren().get(0);
+
+        PasRecKleurAan("verkeerstekens", formulier1.getVerkeerstekens(), 0);
+        PasRecKleurAan("snelheid", formulier1.getSnelheid(), 0);
+        PasRecKleurAan("inhaal", formulier1.getInhalen(), 0);
+        PasRecKleurAan("volgafstand", formulier1.getVolgafstand(), 0);
+        PasRecKleurAan("kruisen", formulier1.getKruisen(), 0);
+        PasRecKleurAan("richtingaanwijzers", formulier1.getRichtingAanwijzers(), 0);
+        PasRecKleurAan("linksaf", formulier1.getLinksaf(), 0);
+        PasRecKleurAan("rechtsaf", formulier1.getRechtsaf(), 0);
+        PasRecKleurAan("plaats", formulier1.getOpenbareWeg(), 0);
+        PasRecKleurAan("voorrang", formulier1.getVoorrang(), 0);
+
     }
 }

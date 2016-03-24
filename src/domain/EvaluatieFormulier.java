@@ -28,69 +28,69 @@ public class EvaluatieFormulier
         this.garageEen = Evaluatie.WIT;;
         this.gps = Evaluatie.WIT;;
         this.helling = Evaluatie.WIT;
-        this.inhalen= Evaluatie.WIT;
+        this.inhalen = Evaluatie.WIT;
         this.inhalenAndere = new ArrayList<>();
-        this.keren= Evaluatie.WIT;
+        this.keren = Evaluatie.WIT;
         this.kijkAndere = new ArrayList<>();
-        this.kijkDodeHoek= Evaluatie.WIT;
-        this.kijkSelecteren= Evaluatie.WIT;
-        this.kijkVer= Evaluatie.WIT;
-        this.kijkVergewis= Evaluatie.WIT;
-        this.kijksSpiegels= Evaluatie.WIT;
+        this.kijkDodeHoek = Evaluatie.WIT;
+        this.kijkSelecteren = Evaluatie.WIT;
+        this.kijkVer = Evaluatie.WIT;
+        this.kijkVergewis = Evaluatie.WIT;
+        this.kijksSpiegels = Evaluatie.WIT;
         this.koppelingBedieningAndere = new ArrayList<>();
-        this.koppelingBocht= Evaluatie.WIT;
-        this.koppelingDosering= Evaluatie.WIT;
+        this.koppelingBocht = Evaluatie.WIT;
+        this.koppelingDosering = Evaluatie.WIT;
         this.koppelingGebruikAndere = new ArrayList<>();
-        this.koppelingOnnodig= Evaluatie.WIT;
-        this.koppelingVoetaf= Evaluatie.WIT;
-        this.koppelingVolledig= Evaluatie.WIT;
-        this.kruisen= Evaluatie.WIT;
+        this.koppelingOnnodig = Evaluatie.WIT;
+        this.koppelingVoetaf = Evaluatie.WIT;
+        this.koppelingVolledig = Evaluatie.WIT;
+        this.kruisen = Evaluatie.WIT;
         this.kruisenAndere = new ArrayList<>();
-        this.linksaf= Evaluatie.WIT;
+        this.linksaf = Evaluatie.WIT;
         this.linksafAndere = new ArrayList<>();
         this.niveau = 0;
-        this.openbareWeg= Evaluatie.WIT;
+        this.openbareWeg = Evaluatie.WIT;
         this.openbareWegAndere = new ArrayList<>();
         this.opmerkingen = new ArrayList<>();
-        this.parkerenAchter= Evaluatie.WIT;
-        this.parkerenLinks= Evaluatie.WIT;
-        this.parkerenTussen= Evaluatie.WIT;
-        this.rechtsaf= Evaluatie.WIT;
+        this.parkerenAchter = Evaluatie.WIT;
+        this.parkerenLinks = Evaluatie.WIT;
+        this.parkerenTussen = Evaluatie.WIT;
+        this.rechtsaf = Evaluatie.WIT;
         this.rechtsafAndere = new ArrayList<>();
-        this.remDosering= Evaluatie.WIT;
+        this.remDosering = Evaluatie.WIT;
         this.remGebruikAndere = new ArrayList<>();
-        this.remTeLaat= Evaluatie.WIT;
-        this.remVolgorde= Evaluatie.WIT;
-        this.richtingAanwijzers= Evaluatie.WIT;
+        this.remTeLaat = Evaluatie.WIT;
+        this.remVolgorde = Evaluatie.WIT;
+        this.richtingAanwijzers = Evaluatie.WIT;
         this.richtingAanwijzersAndere = new ArrayList<>();
-        this.rotonde= Evaluatie.WIT;
+        this.rotonde = Evaluatie.WIT;
         this.schakelAangepast = Evaluatie.WIT;
         this.schakelBedieningAndere = new ArrayList<>();
         this.schakelDosering = Evaluatie.WIT;
         this.schakelGebruikAndere = new ArrayList<>();
-        this.schakelMotorRem= Evaluatie.WIT;
-        this.schakelaars= Evaluatie.WIT;
-        this.snelheid= Evaluatie.WIT;
+        this.schakelMotorRem = Evaluatie.WIT;
+        this.schakelaars = Evaluatie.WIT;
+        this.snelheid = Evaluatie.WIT;
         this.snelheidAndere = new ArrayList<>();
-        this.stad= Evaluatie.WIT;
-        this.stop= Evaluatie.WIT;
+        this.stad = Evaluatie.WIT;
+        this.stop = Evaluatie.WIT;
         this.stuurAndere = new ArrayList<>();
-        this.stuurDosering= Evaluatie.WIT;
-        this.stuurHouding= Evaluatie.WIT;
-        this.stuurOefeningen= Evaluatie.WIT;
-        this.tanken= Evaluatie.WIT;
-        this.verkeerstekens= Evaluatie.WIT;
+        this.stuurDosering = Evaluatie.WIT;
+        this.stuurHouding = Evaluatie.WIT;
+        this.stuurOefeningen = Evaluatie.WIT;
+        this.tanken = Evaluatie.WIT;
+        this.verkeerstekens = Evaluatie.WIT;
         this.verkeerstekensAndere = new ArrayList<>();
-        this.vloeistoffen= Evaluatie.WIT;
-        this.volgafstand= Evaluatie.WIT;
+        this.vloeistoffen = Evaluatie.WIT;
+        this.volgafstand = Evaluatie.WIT;
         this.volgafstandAndere = new ArrayList<>();
-        this.voorrang= Evaluatie.WIT;
+        this.voorrang = Evaluatie.WIT;
         this.voorrangAndere = new ArrayList<>();
         this.zithoudingAndere = new ArrayList<>();
-        this.zithoudingGordel= Evaluatie.WIT;
-        this.zithoudingHandrem= Evaluatie.WIT;
-        this.zithoudingSpiegels= Evaluatie.WIT;
-        this.zithoudingZithouding= Evaluatie.WIT;
+        this.zithoudingGordel = Evaluatie.WIT;
+        this.zithoudingHandrem = Evaluatie.WIT;
+        this.zithoudingSpiegels = Evaluatie.WIT;
+        this.zithoudingZithouding = Evaluatie.WIT;
     }
 
     private int evaluatieId;
@@ -200,6 +200,7 @@ public class EvaluatieFormulier
 
     public void setZithoudingZithouding(Evaluatie zithoudingZithouding) {
         this.zithoudingZithouding = zithoudingZithouding;
+        leerling.notifyViews();
     }
 
     public Evaluatie getZithoudingGordel() {
@@ -208,6 +209,7 @@ public class EvaluatieFormulier
 
     public void setZithoudingGordel(Evaluatie zithoudingGordel) {
         this.zithoudingGordel = zithoudingGordel;
+        leerling.notifyViews();
     }
 
     public Evaluatie getZithoudingSpiegels() {
@@ -216,6 +218,7 @@ public class EvaluatieFormulier
 
     public void setZithoudingSpiegels(Evaluatie zithoudingSpiegels) {
         this.zithoudingSpiegels = zithoudingSpiegels;
+        leerling.notifyViews();
     }
 
     public Evaluatie getZithoudingHandrem() {
@@ -224,6 +227,7 @@ public class EvaluatieFormulier
 
     public void setZithoudingHandrem(Evaluatie zithoudingHandrem) {
         this.zithoudingHandrem = zithoudingHandrem;
+        leerling.notifyViews();
     }
 
     public List<String> getZithoudingAndere() {
@@ -232,6 +236,7 @@ public class EvaluatieFormulier
 
     public void setZithoudingAndere(List<String> zithoudingAndere) {
         this.zithoudingAndere = zithoudingAndere;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKoppelingDosering() {
@@ -240,6 +245,7 @@ public class EvaluatieFormulier
 
     public void setKoppelingDosering(Evaluatie koppelingDosering) {
         this.koppelingDosering = koppelingDosering;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKoppelingVolledig() {
@@ -248,6 +254,7 @@ public class EvaluatieFormulier
 
     public void setKoppelingVolledig(Evaluatie koppelingVolledig) {
         this.koppelingVolledig = koppelingVolledig;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKoppelingVoetaf() {
@@ -256,6 +263,7 @@ public class EvaluatieFormulier
 
     public void setKoppelingVoetaf(Evaluatie koppelingVoetaf) {
         this.koppelingVoetaf = koppelingVoetaf;
+        leerling.notifyViews();
     }
 
     public List<String> getKoppelingBedieningAndere() {
@@ -264,6 +272,7 @@ public class EvaluatieFormulier
 
     public void setKoppelingBedieningAndere(List<String> koppelingBedieningAndere) {
         this.koppelingBedieningAndere = koppelingBedieningAndere;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKoppelingOnnodig() {
@@ -272,6 +281,7 @@ public class EvaluatieFormulier
 
     public void setKoppelingOnnodig(Evaluatie koppelingOnnodig) {
         this.koppelingOnnodig = koppelingOnnodig;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKoppelingBocht() {
@@ -280,6 +290,7 @@ public class EvaluatieFormulier
 
     public void setKoppelingBocht(Evaluatie koppelingBocht) {
         this.koppelingBocht = koppelingBocht;
+        leerling.notifyViews();
     }
 
     public List<String> getKoppelingGebruikAndere() {
@@ -288,6 +299,7 @@ public class EvaluatieFormulier
 
     public void setKoppelingGebruikAndere(List<String> koppelingGebruikAndere) {
         this.koppelingGebruikAndere = koppelingGebruikAndere;
+        leerling.notifyViews();
     }
 
     public Evaluatie getRemDosering() {
@@ -296,6 +308,7 @@ public class EvaluatieFormulier
 
     public void setRemDosering(Evaluatie remDosering) {
         this.remDosering = remDosering;
+        leerling.notifyViews();
     }
 
     public Evaluatie getRemVolgorde() {
@@ -304,6 +317,7 @@ public class EvaluatieFormulier
 
     public void setRemVolgorde(Evaluatie remVolgorde) {
         this.remVolgorde = remVolgorde;
+        leerling.notifyViews();
     }
 
     public Evaluatie getRemTeLaat() {
@@ -312,6 +326,7 @@ public class EvaluatieFormulier
 
     public void setRemTeLaat(Evaluatie remTeLaat) {
         this.remTeLaat = remTeLaat;
+        leerling.notifyViews();
     }
 
     public List<String> getRemGebruikAndere() {
@@ -320,6 +335,7 @@ public class EvaluatieFormulier
 
     public void setRemGebruikAndere(List<String> remGebruikAndere) {
         this.remGebruikAndere = remGebruikAndere;
+        leerling.notifyViews();
     }
 
     public Evaluatie getStuurDosering() {
@@ -328,6 +344,7 @@ public class EvaluatieFormulier
 
     public void setStuurDosering(Evaluatie stuurDosering) {
         this.stuurDosering = stuurDosering;
+        leerling.notifyViews();
     }
 
     public Evaluatie getStuurHouding() {
@@ -336,6 +353,7 @@ public class EvaluatieFormulier
 
     public void setStuurHouding(Evaluatie stuurHouding) {
         this.stuurHouding = stuurHouding;
+        leerling.notifyViews();
     }
 
     public List<String> getStuurAndere() {
@@ -344,6 +362,7 @@ public class EvaluatieFormulier
 
     public void setStuurAndere(List<String> stuurAndere) {
         this.stuurAndere = stuurAndere;
+        leerling.notifyViews();
     }
 
     public Evaluatie getSchakelDosering() {
@@ -352,6 +371,7 @@ public class EvaluatieFormulier
 
     public void setSchakelDosering(Evaluatie schakelDosering) {
         this.schakelDosering = schakelDosering;
+        leerling.notifyViews();
     }
 
     public List<String> getSchakelBedieningAndere() {
@@ -360,6 +380,7 @@ public class EvaluatieFormulier
 
     public void setSchakelBedieningAndere(List<String> schakelBedieningAndere) {
         this.schakelBedieningAndere = schakelBedieningAndere;
+        leerling.notifyViews();
     }
 
     public Evaluatie getSchakelAangepast() {
@@ -368,6 +389,7 @@ public class EvaluatieFormulier
 
     public void setSchakelAangepast(Evaluatie schakelAangepast) {
         this.schakelAangepast = schakelAangepast;
+        leerling.notifyViews();
     }
 
     public Evaluatie getSchakelMotorRem() {
@@ -376,6 +398,7 @@ public class EvaluatieFormulier
 
     public void setSchakelMotorRem(Evaluatie schakelMotorRem) {
         this.schakelMotorRem = schakelMotorRem;
+        leerling.notifyViews();
     }
 
     public List<String> getSchakelGebruikAndere() {
@@ -384,6 +407,7 @@ public class EvaluatieFormulier
 
     public void setSchakelGebruikAndere(List<String> schakelGebruikAndere) {
         this.schakelGebruikAndere = schakelGebruikAndere;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKijkVergewis() {
@@ -392,6 +416,7 @@ public class EvaluatieFormulier
 
     public void setKijkVergewis(Evaluatie kijkVergewis) {
         this.kijkVergewis = kijkVergewis;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKijksSpiegels() {
@@ -400,6 +425,7 @@ public class EvaluatieFormulier
 
     public void setKijksSpiegels(Evaluatie kijksSpiegels) {
         this.kijksSpiegels = kijksSpiegels;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKijkDodeHoek() {
@@ -408,6 +434,7 @@ public class EvaluatieFormulier
 
     public void setKijkDodeHoek(Evaluatie kijkDodeHoek) {
         this.kijkDodeHoek = kijkDodeHoek;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKijkVer() {
@@ -416,6 +443,7 @@ public class EvaluatieFormulier
 
     public void setKijkVer(Evaluatie kijkVer) {
         this.kijkVer = kijkVer;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKijkSelecteren() {
@@ -424,6 +452,7 @@ public class EvaluatieFormulier
 
     public void setKijkSelecteren(Evaluatie kijkSelecteren) {
         this.kijkSelecteren = kijkSelecteren;
+        leerling.notifyViews();
     }
 
     public List<String> getKijkAndere() {
@@ -432,6 +461,7 @@ public class EvaluatieFormulier
 
     public void setKijkAndere(List<String> kijkAndere) {
         this.kijkAndere = kijkAndere;
+        leerling.notifyViews();
     }
 
     public char getHellingType() {
@@ -440,6 +470,7 @@ public class EvaluatieFormulier
 
     public void setHellingType(char hellingType) {
         this.hellingType = hellingType;
+        leerling.notifyViews();
     }
 
     public Evaluatie getHelling() {
@@ -448,6 +479,7 @@ public class EvaluatieFormulier
 
     public void setHelling(Evaluatie helling) {
         this.helling = helling;
+        leerling.notifyViews();
     }
 
     public Evaluatie getParkerenTussen() {
@@ -456,6 +488,7 @@ public class EvaluatieFormulier
 
     public void setParkerenTussen(Evaluatie parkerenTussen) {
         this.parkerenTussen = parkerenTussen;
+        leerling.notifyViews();
     }
 
     public Evaluatie getParkerenAchter() {
@@ -464,6 +497,7 @@ public class EvaluatieFormulier
 
     public void setParkerenAchter(Evaluatie parkerenAchter) {
         this.parkerenAchter = parkerenAchter;
+        leerling.notifyViews();
     }
 
     public Evaluatie getParkerenLinks() {
@@ -472,6 +506,7 @@ public class EvaluatieFormulier
 
     public void setParkerenLinks(Evaluatie parkerenLinks) {
         this.parkerenLinks = parkerenLinks;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKeren() {
@@ -480,6 +515,7 @@ public class EvaluatieFormulier
 
     public void setKeren(Evaluatie keren) {
         this.keren = keren;
+        leerling.notifyViews();
     }
 
     public Evaluatie getGarageEen() {
@@ -488,6 +524,7 @@ public class EvaluatieFormulier
 
     public void setGarageEen(Evaluatie garageEen) {
         this.garageEen = garageEen;
+        leerling.notifyViews();
     }
 
     public Evaluatie getGarageDrie() {
@@ -496,6 +533,7 @@ public class EvaluatieFormulier
 
     public void setGarageDrie(Evaluatie garageDrie) {
         this.garageDrie = garageDrie;
+        leerling.notifyViews();
     }
 
     public Evaluatie getGarageAchterwaarts() {
@@ -504,6 +542,7 @@ public class EvaluatieFormulier
 
     public void setGarageAchterwaarts(Evaluatie garageAchterwaarts) {
         this.garageAchterwaarts = garageAchterwaarts;
+        leerling.notifyViews();
     }
 
     public Evaluatie getAchteruit() {
@@ -512,6 +551,7 @@ public class EvaluatieFormulier
 
     public void setAchteruit(Evaluatie achteruit) {
         this.achteruit = achteruit;
+        leerling.notifyViews();
     }
 
     public Evaluatie getStuurOefeningen() {
@@ -520,6 +560,7 @@ public class EvaluatieFormulier
 
     public void setStuurOefeningen(Evaluatie stuurOefeningen) {
         this.stuurOefeningen = stuurOefeningen;
+        leerling.notifyViews();
     }
 
     public Evaluatie getRichtingAanwijzers() {
@@ -528,6 +569,7 @@ public class EvaluatieFormulier
 
     public void setRichtingAanwijzers(Evaluatie richtingAanwijzers) {
         this.richtingAanwijzers = richtingAanwijzers;
+        leerling.notifyViews();
     }
 
     public Evaluatie getOpenbareWeg() {
@@ -536,6 +578,7 @@ public class EvaluatieFormulier
 
     public void setOpenbareWeg(Evaluatie openbareWeg) {
         this.openbareWeg = openbareWeg;
+        leerling.notifyViews();
     }
 
     public Evaluatie getVoorrang() {
@@ -544,6 +587,7 @@ public class EvaluatieFormulier
 
     public void setVoorrang(Evaluatie voorrang) {
         this.voorrang = voorrang;
+        leerling.notifyViews();
     }
 
     public Evaluatie getVerkeerstekens() {
@@ -552,6 +596,7 @@ public class EvaluatieFormulier
 
     public void setVerkeerstekens(Evaluatie verkeerstekens) {
         this.verkeerstekens = verkeerstekens;
+        leerling.notifyViews();
     }
 
     public Evaluatie getSnelheid() {
@@ -560,6 +605,7 @@ public class EvaluatieFormulier
 
     public void setSnelheid(Evaluatie snelheid) {
         this.snelheid = snelheid;
+        leerling.notifyViews();
     }
 
     public Evaluatie getVolgafstand() {
@@ -568,6 +614,7 @@ public class EvaluatieFormulier
 
     public void setVolgafstand(Evaluatie volgafstand) {
         this.volgafstand = volgafstand;
+        leerling.notifyViews();
     }
 
     public Evaluatie getInhalen() {
@@ -576,6 +623,7 @@ public class EvaluatieFormulier
 
     public void setInhalen(Evaluatie inhalen) {
         this.inhalen = inhalen;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKruisen() {
@@ -584,6 +632,7 @@ public class EvaluatieFormulier
 
     public void setKruisen(Evaluatie kruisen) {
         this.kruisen = kruisen;
+        leerling.notifyViews();
     }
 
     public Evaluatie getLinksaf() {
@@ -592,6 +641,7 @@ public class EvaluatieFormulier
 
     public void setLinksaf(Evaluatie linksaf) {
         this.linksaf = linksaf;
+        leerling.notifyViews();
     }
 
     public Evaluatie getRechtsaf() {
@@ -600,6 +650,7 @@ public class EvaluatieFormulier
 
     public void setRechtsaf(Evaluatie rechtsaf) {
         this.rechtsaf = rechtsaf;
+        leerling.notifyViews();
     }
 
     public List<String> getRichtingAanwijzersAndere() {
@@ -608,6 +659,7 @@ public class EvaluatieFormulier
 
     public void setRichtingAanwijzersAndere(List<String> richtingAanwijzersAndere) {
         this.richtingAanwijzersAndere = richtingAanwijzersAndere;
+        leerling.notifyViews();
     }
 
     public List<String> getOpenbareWegAndere() {
@@ -616,6 +668,7 @@ public class EvaluatieFormulier
 
     public void setOpenbareWegAndere(List<String> openbareWegAndere) {
         this.openbareWegAndere = openbareWegAndere;
+        leerling.notifyViews();
     }
 
     public List<String> getVoorrangAndere() {
@@ -624,6 +677,7 @@ public class EvaluatieFormulier
 
     public void setVoorrangAndere(List<String> voorrangAndere) {
         this.voorrangAndere = voorrangAndere;
+        leerling.notifyViews();
     }
 
     public List<String> getVerkeerstekensAndere() {
@@ -632,6 +686,7 @@ public class EvaluatieFormulier
 
     public void setVerkeerstekensAndere(List<String> verkeerstekensAndere) {
         this.verkeerstekensAndere = verkeerstekensAndere;
+        leerling.notifyViews();
     }
 
     public List<String> getSnelheidAndere() {
@@ -640,6 +695,7 @@ public class EvaluatieFormulier
 
     public void setSnelheidAndere(List<String> snelheidAndere) {
         this.snelheidAndere = snelheidAndere;
+        leerling.notifyViews();
     }
 
     public List<String> getVolgafstandAndere() {
@@ -648,6 +704,7 @@ public class EvaluatieFormulier
 
     public void setVolgafstandAndere(List<String> volgafstandAndere) {
         this.volgafstandAndere = volgafstandAndere;
+        leerling.notifyViews();
     }
 
     public List<String> getInhalenAndere() {
@@ -656,6 +713,7 @@ public class EvaluatieFormulier
 
     public void setInhalenAndere(List<String> inhalenAndere) {
         this.inhalenAndere = inhalenAndere;
+        leerling.notifyViews();
     }
 
     public List<String> getKruisenAndere() {
@@ -664,6 +722,7 @@ public class EvaluatieFormulier
 
     public void setKruisenAndere(List<String> kruisenAndere) {
         this.kruisenAndere = kruisenAndere;
+        leerling.notifyViews();
     }
 
     public List<String> getLinksafAndere() {
@@ -672,6 +731,7 @@ public class EvaluatieFormulier
 
     public void setLinksafAndere(List<String> linksafAndere) {
         this.linksafAndere = linksafAndere;
+        leerling.notifyViews();
     }
 
     public List<String> getRechtsafAndere() {
@@ -680,6 +740,7 @@ public class EvaluatieFormulier
 
     public void setRechtsafAndere(List<String> rechtsafAndere) {
         this.rechtsafAndere = rechtsafAndere;
+        leerling.notifyViews();
     }
 
     public Evaluatie getRotonde() {
@@ -688,6 +749,7 @@ public class EvaluatieFormulier
 
     public void setRotonde(Evaluatie rotonde) {
         this.rotonde = rotonde;
+        leerling.notifyViews();
     }
 
     public Evaluatie getRijstroken() {
@@ -701,10 +763,12 @@ public class EvaluatieFormulier
 
     public Evaluatie getStad() {
         return stad;
+
     }
 
     public void setStad(Evaluatie stad) {
         this.stad = stad;
+        leerling.notifyViews();
     }
 
     public Evaluatie getAutosnelweg() {
@@ -713,6 +777,7 @@ public class EvaluatieFormulier
 
     public void setAutosnelweg(Evaluatie autosnelweg) {
         this.autosnelweg = autosnelweg;
+        leerling.notifyViews();
     }
 
     public Evaluatie getSchakelaars() {
@@ -721,6 +786,7 @@ public class EvaluatieFormulier
 
     public void setSchakelaars(Evaluatie schakelaars) {
         this.schakelaars = schakelaars;
+        leerling.notifyViews();
     }
 
     public Evaluatie getVloeistoffen() {
@@ -729,6 +795,7 @@ public class EvaluatieFormulier
 
     public void setVloeistoffen(Evaluatie vloeistoffen) {
         this.vloeistoffen = vloeistoffen;
+        leerling.notifyViews();
     }
 
     public Evaluatie getBanden() {
@@ -737,6 +804,7 @@ public class EvaluatieFormulier
 
     public void setBanden(Evaluatie banden) {
         this.banden = banden;
+        leerling.notifyViews();
     }
 
     public Evaluatie getTanken() {
@@ -745,6 +813,7 @@ public class EvaluatieFormulier
 
     public void setTanken(Evaluatie tanken) {
         this.tanken = tanken;
+        leerling.notifyViews();
     }
 
     public Evaluatie getGps() {
@@ -753,6 +822,7 @@ public class EvaluatieFormulier
 
     public void setGps(Evaluatie gps) {
         this.gps = gps;
+        leerling.notifyViews();
     }
 
     public Evaluatie getStop() {
@@ -761,6 +831,7 @@ public class EvaluatieFormulier
 
     public void setStop(Evaluatie stop) {
         this.stop = stop;
+        leerling.notifyViews();
     }
 
     public int getNiveau() {
@@ -769,6 +840,7 @@ public class EvaluatieFormulier
 
     public void setNiveau(int niveau) {
         this.niveau = niveau;
+        leerling.notifyViews();
     }
 
     public List<String> getAttitude() {
@@ -777,6 +849,7 @@ public class EvaluatieFormulier
 
     public void setAttitude(List<String> attitude) {
         this.attitude = attitude;
+        leerling.notifyViews();
     }
 
     public List<String> getOpmerkingen() {
@@ -785,6 +858,7 @@ public class EvaluatieFormulier
 
     public void setOpmerkingen(List<String> opmerkingen) {
         this.opmerkingen = opmerkingen;
+        leerling.notifyViews();
     }
 
 }

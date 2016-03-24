@@ -24,29 +24,31 @@ import javafx.stage.Screen;
  */
 public class VerkeersTechniekBase extends GridPane
 {
-    
+
     HBox contentBox;
-    
+    HoofdPaneel hoofdpanel;
+
     public VerkeersTechniekBase(HoofdPaneel hoofdPanel) {
         //grid indeling
+        this.hoofdpanel = hoofdPanel;
         setId("hoofdPaneelBG");
         gridLinesVisibleProperty().set(false);
-        
+
         ColumnConstraints kolom0 = new ColumnConstraints();
         kolom0.setPercentWidth(35);
         ColumnConstraints kolom1 = new ColumnConstraints();
         kolom1.setPercentWidth(65);
         kolom1.setHalignment(HPos.CENTER);
-        
+
         getColumnConstraints().addAll(kolom0, kolom1);
-        
+
         RowConstraints rij0 = new RowConstraints();
         rij0.setPercentHeight(25);
         RowConstraints rij1 = new RowConstraints();
         rij1.setPercentHeight(50);
         RowConstraints rij2 = new RowConstraints();
         rij2.setPercentHeight(25);
-        
+
         getRowConstraints().addAll(rij0, rij1, rij2);
 
         //einde grid indeling
@@ -74,13 +76,13 @@ public class VerkeersTechniekBase extends GridPane
         wijzerStack.setAlignment(Pos.CENTER_LEFT);
         Image center = new Image("Images/center2Half.png", Math.ceil(schermformaat.getWidth() * 0.14), USE_PREF_SIZE, true, true);
         ImageView centerView = new ImageView(center);
-        
+
         Image wijzerplaat = new Image("Images/Wijzerplaat.png", Math.ceil(schermformaat.getWidth() * 0.30), USE_PREF_SIZE, true, true);
         ImageView wijzerplaatView = new ImageView(wijzerplaat);
-        
+
         Image wijzerStand = new Image("Images/WijzerStand1.png", Math.ceil(schermformaat.getWidth() * 0.3), USE_PREF_SIZE, true, true);
         ImageView wijzerplaatStandView = new ImageView(wijzerStand);
-        
+
         wijzerStack.getChildren().addAll(centerView, wijzerplaatView, wijzerplaatStandView);
         add(wijzerStack, 0, 1);
         //einde center wijzerplaat
@@ -93,11 +95,11 @@ public class VerkeersTechniekBase extends GridPane
 //        ImageView returnKnopView = new ImageView(returnKnopImg);
         bottomKnoppenBox.getChildren().addAll(homeKnopView);
         add(bottomKnoppenBox, 0, 2);
-        
+
         homeKnopView.setOnMouseClicked(event -> {
             hoofdPanel.setSceneRoot(hoofdPanel);
         });
-        
+
 //        returnKnopView.setOnMouseClicked(event -> {
 //        });
         rijTechKnopView.setOnMouseClicked(event -> {
@@ -107,11 +109,20 @@ public class VerkeersTechniekBase extends GridPane
             hoofdPanel.setSceneRoot(new AttitudePaneel(hoofdPanel));
         });
         //einde box met knoppen
-        setContent(new verkeerstechniekHoofdscherm());
+        setContent(new verkeerstechniekHoofdscherm(this));
     }
-    
+
     public void setContent(GridPane grid) {
         this.contentBox.getChildren().clear();
         this.contentBox.getChildren().add(grid);
     }
+
+    public HoofdPaneel getHoofdpanel() {
+        return hoofdpanel;
+    }
+
+    public void setHoofdpanel(HoofdPaneel hoofdpanel) {
+        this.hoofdpanel = hoofdpanel;
+    }
+
 }
