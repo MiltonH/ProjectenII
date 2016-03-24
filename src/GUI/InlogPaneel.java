@@ -1,6 +1,11 @@
 package GUI;
 
+import domain.Leerling;
+import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -17,11 +22,21 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Screen;
 
-public class InlogPaneel extends GridPane {
+public class InlogPaneel extends GridPane
+{
 
     Scene scene;
 
+    List<Leerling> leerlingen;
+
     public InlogPaneel() {
+
+        leerlingen = new ArrayList<>();
+        leerlingen.add(new Leerling("Hooft", "Milton", "rij0001"));
+        leerlingen.add(new Leerling("Meert", "Dries", "rij0002"));
+        leerlingen.add(new Leerling("Lanneer", "Robin", "rij0003"));
+        leerlingen.add(new Leerling("Debot", "Cédric", "rij0004"));
+
         setId("inlogPaneelBG");
         //schermformaat
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
@@ -141,8 +156,10 @@ public class InlogPaneel extends GridPane {
         InlogSchermPane.add(gebruikersImage, 1, 0);
 
         //ListView
-        ObservableList<String> namen = FXCollections.observableArrayList();;
-        namen.addAll("Dries", "Milton", "Robin", "Cedric");
+        ObservableList<String> namen = FXCollections.observableArrayList();
+        List<String> llnamen = leerlingen.stream().map(l -> l.getFamilienaam() + " " + l.getVoornaam()).collect(Collectors.toList());
+
+        namen.addAll(llnamen);
         Collections.sort(namen);
         ListView<String> zoekView = new ListView<String>(namen);
         listViewGrid.add(zoekView, 0, 0);
@@ -150,24 +167,53 @@ public class InlogPaneel extends GridPane {
 
         //knoppen
         openKnop.setOnMouseClicked(event -> {
-            if(naamTextField.getText().isEmpty()){
+            if (naamTextField.getText().isEmpty()) {
                 naamTextField.setPromptText("Geen naam ingevult");
                 naamTextField.setId("inlogGeenNaamIngevult");
             } else {
-            HoofdPaneel hoofdPanel = new HoofdPaneel(zoekView.getSelectionModel().getSelectedItem());
-            hoofdPanel.setScene(scene);
-            scene.setRoot(hoofdPanel);
+                Leerling geselecteerdeLeerling = null;
+
+                for (Leerling lin : leerlingen) {
+                    if ((lin.getFamilienaam() + " " + lin.getVoornaam()).equals(zoekView.getSelectionModel().getSelectedItem())) {
+                        geselecteerdeLeerling = lin;
+                        break;
+                    }
+                }
+
+                HoofdPaneel hoofdPanel = new HoofdPaneel(geselecteerdeLeerling); //HoofdPaneel(zoekView.getSelectionModel().getSelectedItem());
+                hoofdPanel.setInlogPaneel(this);
+                hoofdPanel.setScene(scene);
+                scene.setRoot(hoofdPanel);
             }
         });
 
         zoekView.setOnMouseClicked(event -> {
-            naamTextField.setText(zoekView.getSelectionModel().getSelectedItem());
-            nummerTextField.setText(String.valueOf(zoekView.getSelectionModel().getSelectedIndex() + 1));
+            Leerling geselecteerdeLeerling = null;
+
+            for (Leerling lin : leerlingen) {
+                if ((lin.getFamilienaam() + " " + lin.getVoornaam()).equals(zoekView.getSelectionModel().getSelectedItem())) {
+                    geselecteerdeLeerling = lin;
+                    break;
+                }
+            }
+            naamTextField.setText(geselecteerdeLeerling.getFamilienaam() + " " + geselecteerdeLeerling.getVoornaam());
+            nummerTextField.setText(String.valueOf(geselecteerdeLeerling.getInschrijvingsNummer()));
             nummerTextField.setEditable(false);
         });
 
         voegToeKnop.setOnMouseClicked(event -> {
-            namen.add(naamTextField.getText());
+            String famNaam;
+            String voornaam;
+            String inschrijvingsNr;
+            String[] naam;
+            naam = naamTextField.getText().split(" ");
+            famNaam = naam[0];
+            voornaam = naam[1];
+            SecureRandom rand = new SecureRandom();
+            inschrijvingsNr = "rij00" + rand.nextInt(100);
+
+            leerlingen.add(new Leerling(famNaam, voornaam, inschrijvingsNr));
+            namen.add(famNaam+" "+voornaam);
         });
     }
 

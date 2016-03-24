@@ -1,6 +1,11 @@
 package GUI;
 
+import domain.Evaluatie;
+import domain.EvaluatieFormulier;
+import domain.Leerling;
+import domain.View;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -17,14 +22,28 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 
-public class HoofdPaneel extends GridPane
+public class HoofdPaneel extends GridPane implements View
 {
 
     private Scene scene;
+    InlogPaneel inlogPaneel;
     private int niveau = 1;//dit is testcode
+    private Leerling huidigeLeerling;
 
-    public HoofdPaneel(String studNaam) {
+    Hashtable<String, ImageView> iconViewsTable;
+    Hashtable<String, List> imageListTable;
+    ImageView niveauCenterView;
+    List<Image> niveauImages;
+
+    public HoofdPaneel(Leerling leerling) {
         //maingrid indelen
+        huidigeLeerling = leerling;
+        huidigeLeerling.addView(this);
+
+        iconViewsTable = new Hashtable<>();
+        imageListTable = new Hashtable<>();
+        EvaluatieFormulier HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
+
         setId("hoofdPaneelBG");
         gridLinesVisibleProperty().set(false);
 
@@ -72,7 +91,7 @@ public class HoofdPaneel extends GridPane
         });//debug
 
         //student naam
-        Label studentNaam = new Label(studNaam);
+        Label studentNaam = new Label(huidigeLeerling.getVoornaam());
         studentNaam.setId("naamLabel");
         setHalignment(studentNaam, HPos.CENTER);
         add(studentNaam, 4, 0);
@@ -140,9 +159,11 @@ public class HoofdPaneel extends GridPane
         rijstrokenImages.add(new Image("Images/rijstrokenRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         rijstrokenImages.add(new Image("Images/rijstrokenGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         ImageView rijstrokenView = new ImageView(rijstrokenImages.get(0));
+        iconViewsTable.put("rijstroken", rijstrokenView);
+        imageListTable.put("rijstroken", rijstrokenImages);
 
         rijstrokenView.setOnMouseClicked(event -> {
-            toggleImg(rijstrokenView, rijstrokenImages);
+            HuidigFormulier.setRijstroken(toggleTopIcoon(HuidigFormulier.getRijstroken()));
         });//debug
 
         List<Image> rotondeImages = new ArrayList<>();
@@ -150,9 +171,11 @@ public class HoofdPaneel extends GridPane
         rotondeImages.add(new Image("Images/rotondeRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         rotondeImages.add(new Image("Images/rotondeGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         ImageView rotondeView = new ImageView(rotondeImages.get(0));
+        iconViewsTable.put("rotonde", rotondeView);
+        imageListTable.put("rotonde", rotondeImages);
 
         rotondeView.setOnMouseClicked(event -> {
-            toggleImg(rotondeView, rotondeImages);
+            HuidigFormulier.setRotonde(toggleTopIcoon(HuidigFormulier.getRotonde()));
         });//debug
 
         List<Image> snelwegImages = new ArrayList<>();
@@ -160,9 +183,11 @@ public class HoofdPaneel extends GridPane
         snelwegImages.add(new Image("Images/snelwegRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         snelwegImages.add(new Image("Images/snelwegGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         ImageView snelwegView = new ImageView(snelwegImages.get(0));
+        iconViewsTable.put("snelweg", snelwegView);
+        imageListTable.put("snelweg", snelwegImages);
 
         snelwegView.setOnMouseClicked(event -> {
-            toggleImg(snelwegView, snelwegImages);
+            HuidigFormulier.setAutosnelweg(toggleTopIcoon(HuidigFormulier.getAutosnelweg()));
         });//debug
 
         List<Image> stadImages = new ArrayList<>();
@@ -170,9 +195,11 @@ public class HoofdPaneel extends GridPane
         stadImages.add(new Image("Images/stadRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         stadImages.add(new Image("Images/stadGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         ImageView stadView = new ImageView(stadImages.get(0));
+        iconViewsTable.put("stad", stadView);
+        imageListTable.put("stad", stadImages);
 
         stadView.setOnMouseClicked(event -> {
-            toggleImg(stadView, stadImages);
+            HuidigFormulier.setStad(toggleTopIcoon(HuidigFormulier.getStad()));
         });//debug
 
         centerTopKnoppen.getChildren().addAll(rotondeView, rijstrokenView, stadView, snelwegView);
@@ -240,7 +267,7 @@ public class HoofdPaneel extends GridPane
 
         Image niveauPlusImg = new Image("Images/niveauplus.png", Math.ceil(schermformaat.getWidth() * 0.02), USE_PREF_SIZE, true, true);
         ImageView niveauPlusView = new ImageView(niveauPlusImg);
-        List<Image> niveauImages = new ArrayList<>();
+        niveauImages = new ArrayList<>();
         niveauImages.add(new Image("Images/niveau1.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
         niveauImages.add(new Image("Images/niveau2.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
         niveauImages.add(new Image("Images/niveau3.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
@@ -248,7 +275,7 @@ public class HoofdPaneel extends GridPane
         niveauImages.add(new Image("Images/niveau5.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
         niveauImages.add(new Image("Images/niveau6.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
         niveauImages.add(new Image("Images/niveau7.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
-        ImageView niveauCenterView = new ImageView(niveauImages.get(niveau - 1));
+        niveauCenterView = new ImageView(niveauImages.get(niveau - 1));
 
         niveauHbox.getChildren().addAll(niveauMinView, niveauCenterView, niveauPlusView);
 
@@ -257,12 +284,12 @@ public class HoofdPaneel extends GridPane
 
         niveauMinView.setOnMouseClicked(event -> {
             niveauMin();
-            niveauCenterView.setImage(niveauImages.get(niveau - 1));
+//            niveauCenterView.setImage(niveauImages.get(niveau - 1));
 
         });
         niveauPlusView.setOnMouseClicked(event -> {
             niveauPlus();
-            niveauCenterView.setImage(niveauImages.get(niveau - 1));
+//            niveauCenterView.setImage(niveauImages.get(niveau - 1));
         });
         //eind niveau
         bottomStack.getChildren().addAll(bottomBoxView, bottomBoxGrid);
@@ -314,9 +341,11 @@ public class HoofdPaneel extends GridPane
         lampImages.add(new Image("Images/lampIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         lampImages.add(new Image("Images/lampGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         ImageView lampView = new ImageView(lampImages.get(0));
+        iconViewsTable.put("lamp", lampView);
+        imageListTable.put("lamp", lampImages);
 
         lampView.setOnMouseClicked(event -> {
-            toggleImgRand(lampView, lampImages);
+            HuidigFormulier.setSchakelaars(toggleRandIcoon(HuidigFormulier.getSchakelaars()));
         });//debug
         linksKnoppenGrid.add(lampView, 2, 1, 2, 1);
 
@@ -324,8 +353,11 @@ public class HoofdPaneel extends GridPane
         druppelImages.add(new Image("Images/druppelIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         druppelImages.add(new Image("Images/druppelGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         ImageView druppelView = new ImageView(druppelImages.get(0));
+        iconViewsTable.put("druppel", druppelView);
+        imageListTable.put("druppel", druppelImages);
+
         druppelView.setOnMouseClicked(event -> {
-            toggleImgRand(druppelView, druppelImages);
+            HuidigFormulier.setVloeistoffen(toggleRandIcoon(HuidigFormulier.getVloeistoffen()));
         });//debug
         linksKnoppenGrid.add(druppelView, 1, 3, 2, 1);
 
@@ -333,8 +365,11 @@ public class HoofdPaneel extends GridPane
         bandImages.add(new Image("Images/bandIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         bandImages.add(new Image("Images/bandGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         ImageView bandView = new ImageView(bandImages.get(0));
+        iconViewsTable.put("band", bandView);
+        imageListTable.put("band", bandImages);
+
         bandView.setOnMouseClicked(event -> {
-            toggleImgRand(bandView, bandImages);
+            HuidigFormulier.setBanden(toggleRandIcoon(HuidigFormulier.getBanden()));
         });//debug
         linksKnoppenGrid.add(bandView, 2, 5, 2, 1);
 
@@ -382,8 +417,11 @@ public class HoofdPaneel extends GridPane
         tankImages.add(new Image("Images/tankIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         tankImages.add(new Image("Images/tankGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         ImageView tankView = new ImageView(tankImages.get(0));
+        iconViewsTable.put("tank", tankView);
+        imageListTable.put("tank", tankImages);
+
         tankView.setOnMouseClicked(event -> {
-            toggleImgRand(tankView, tankImages);
+            HuidigFormulier.setTanken(toggleRandIcoon(HuidigFormulier.getTanken()));
         });//debug
 
         rechtsKnoppenGrid.add(tankView, 0, 1, 2, 1);
@@ -392,8 +430,11 @@ public class HoofdPaneel extends GridPane
         gpsImages.add(new Image("Images/gpsIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         gpsImages.add(new Image("Images/gpsGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         ImageView gpsView = new ImageView(gpsImages.get(0));
+        iconViewsTable.put("gps", gpsView);
+        imageListTable.put("gps", gpsImages);
+
         gpsView.setOnMouseClicked(event -> {
-            toggleImgRand(gpsView, gpsImages);
+            HuidigFormulier.setGps(toggleRandIcoon(HuidigFormulier.getGps()));
         });//debug
 
         rechtsKnoppenGrid.add(gpsView, 1, 3, 2, 1);
@@ -402,8 +443,11 @@ public class HoofdPaneel extends GridPane
         stopImages.add(new Image("Images/stopIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         stopImages.add(new Image("Images/stopGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
         ImageView stopView = new ImageView(stopImages.get(0));
+        iconViewsTable.put("stop", stopView);
+        imageListTable.put("stop", stopImages);
+
         stopView.setOnMouseClicked(event -> {
-            toggleImgRand(stopView, stopImages);
+            HuidigFormulier.setStop(toggleRandIcoon(HuidigFormulier.getStop()));
         });//debug
         rechtsKnoppenGrid.add(stopView, 0, 5, 2, 1);
 
@@ -424,9 +468,7 @@ public class HoofdPaneel extends GridPane
         add(homeBox, 4, 3);
         homeKnopView.setOnMouseClicked(event -> {
 //            System.exit(0);
-            InlogPaneel inlog = new InlogPaneel();
-            inlog.setScene(scene);
-            scene.setRoot(inlog);
+            scene.setRoot(inlogPaneel);
         });
 
         HBox opmerkingBox = new HBox();
@@ -441,18 +483,24 @@ public class HoofdPaneel extends GridPane
             scene.setRoot(opmerkingPaneel);
         });
         //einde home en opmerkingen
-
+        update();
     }
 
     private void niveauMin() {
-        if (niveau > 1) {
-            niveau -= 1;
+        EvaluatieFormulier HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
+        int huidigNiveau = HuidigFormulier.getNiveau();
+
+        if (huidigNiveau > 0) {
+            HuidigFormulier.setNiveau(huidigNiveau - 1);
         }
     }
 
     private void niveauPlus() {
-        if (niveau < 7) {
-            niveau += 1;
+        EvaluatieFormulier HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
+        int huidigNiveau = HuidigFormulier.getNiveau();
+
+        if (huidigNiveau < 6) {
+            HuidigFormulier.setNiveau(huidigNiveau + 1);
         }
     }
 
@@ -466,13 +514,57 @@ public class HoofdPaneel extends GridPane
             view.setImage(imgList.get(0));
         }
     }
-    
+
     private void toggleImgRand(ImageView view, List<Image> imgList) {
         int currentIndex = imgList.indexOf(view.getImage());
         if (currentIndex == 0) {
             view.setImage(imgList.get(1));
         } else {
             view.setImage(imgList.get(0));
+        }
+    }
+
+    private Evaluatie toggleRandIcoon(Evaluatie eval) {
+        if (Evaluatie.WIT.equals(eval)) {
+            return Evaluatie.GROEN;
+        } else {
+            return Evaluatie.WIT;
+        }
+    }
+
+    private Evaluatie toggleTopIcoon(Evaluatie eval) {
+        if (Evaluatie.WIT.equals(eval)) {
+            return Evaluatie.ROOD;
+        } else if (Evaluatie.ROOD.equals(eval)) {
+            return Evaluatie.GROEN;
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            return Evaluatie.WIT;
+        } else {
+            return Evaluatie.WIT;
+        }
+    }
+
+    private void PasTopKleurAan(String key, Evaluatie eval) {
+        ImageView view = iconViewsTable.get(key);
+        List<Image> lijst = imageListTable.get(key);
+
+        if (Evaluatie.WIT.equals(eval)) {
+            view.setImage(lijst.get(0));
+        } else if (Evaluatie.ROOD.equals(eval)) {
+            view.setImage(lijst.get(1));
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            view.setImage(lijst.get(2));
+        }
+    }
+
+    private void PasRandKleurAan(String key, Evaluatie eval) {
+        ImageView view = iconViewsTable.get(key);
+        List<Image> lijst = imageListTable.get(key);
+
+        if (Evaluatie.WIT.equals(eval)) {
+            view.setImage(lijst.get(0));
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            view.setImage(lijst.get(1));
         }
     }
 
@@ -483,4 +575,42 @@ public class HoofdPaneel extends GridPane
     public void setSceneRoot(Parent par) {
         this.scene.setRoot(par);
     }
+
+    @Override
+    public void update() {
+        EvaluatieFormulier formulier = huidigeLeerling.getHuidigEvaluatieFormulier();
+        //top
+        PasTopKleurAan("stad", formulier.getStad());
+        PasTopKleurAan("rotonde", formulier.getRotonde());
+        PasTopKleurAan("rijstroken", formulier.getRijstroken());
+        PasTopKleurAan("snelweg", formulier.getAutosnelweg());
+        //links
+        PasRandKleurAan("lamp", formulier.getSchakelaars());
+        PasRandKleurAan("druppel", formulier.getVloeistoffen());
+        PasRandKleurAan("band", formulier.getBanden());
+
+        //rechts
+        PasRandKleurAan("gps", formulier.getGps());
+        PasRandKleurAan("stop", formulier.getStop());
+        PasRandKleurAan("tank", formulier.getTanken());
+        //niveau
+        niveauCenterView.setImage(niveauImages.get(formulier.getNiveau()));
+    }
+
+    public InlogPaneel getInlogPaneel() {
+        return inlogPaneel;
+    }
+
+    public void setInlogPaneel(InlogPaneel inlogPaneel) {
+        this.inlogPaneel = inlogPaneel;
+    }
+
+    public Leerling getHuidigeLeerling() {
+        return huidigeLeerling;
+    }
+
+    public void setHuidigeLeerling(Leerling huidigeLeerling) {
+        this.huidigeLeerling = huidigeLeerling;
+    }
+
 }
