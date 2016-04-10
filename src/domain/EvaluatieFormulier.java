@@ -193,6 +193,81 @@ public class EvaluatieFormulier
     //opmerkingen
     private List<String> opmerkingen;
 
+    public void kopieerFormulier(EvaluatieFormulier formulier) {
+        this.achteruit = formulier.getAchteruit();
+        this.attitude = formulier.getAttitude();
+        this.autosnelweg = formulier.getAutosnelweg();
+        this.banden = formulier.getBanden();
+        this.garageAchterwaarts = formulier.garageAchterwaarts;
+        this.garageDrie = formulier.garageDrie;
+        this.garageEen = formulier.garageEen;
+        this.gps = formulier.getGps();
+        this.helling = formulier.getHelling();
+        this.inhalen = formulier.getInhalen();
+        this.inhalenAndere = formulier.inhalenAndere;
+        this.keren = formulier.getKeren();
+        this.kijkAndere = formulier.getKijkAndere();
+        this.kijkDodeHoek = formulier.getKijkDodeHoek();
+        this.kijkSelecteren = formulier.getKijkSelecteren();
+        this.kijkVer = formulier.getKijkVer();
+        this.kijkVergewis = formulier.getKijkVergewis();
+        this.kijksSpiegels = formulier.kijksSpiegels;
+        this.koppelingBedieningAndere = formulier.getKoppelingBedieningAndere();
+        this.koppelingBocht = formulier.getKoppelingBocht();
+        this.koppelingDosering = formulier.koppelingDosering;
+        this.koppelingGebruikAndere = formulier.getKoppelingGebruikAndere();
+        this.koppelingOnnodig = formulier.getKoppelingOnnodig();
+        this.koppelingVoetaf = formulier.getKoppelingVoetaf();
+        this.koppelingVolledig = formulier.getKoppelingVolledig();
+        this.kruisen = formulier.getKruisen();
+        this.kruisenAndere = formulier.getKruisenAndere();
+        this.linksaf = formulier.getLinksaf();
+        this.linksafAndere = formulier.getLinksafAndere();
+        this.niveau = formulier.getNiveau();
+        this.openbareWeg = formulier.getOpenbareWeg();
+        this.openbareWegAndere = formulier.getOpenbareWegAndere();
+        this.opmerkingen = formulier.getOpmerkingen();
+        this.parkerenAchter = formulier.getParkerenAchter();
+        this.parkerenLinks = formulier.getParkerenLinks();
+        this.parkerenTussen = formulier.getParkerenTussen();
+        this.rechtsaf = formulier.getRechtsaf();
+        this.rechtsafAndere = formulier.getRechtsafAndere();
+        this.remDosering = formulier.getRemDosering();
+        this.remGebruikAndere = formulier.getRemGebruikAndere();
+        this.remTeLaat = formulier.getRemTeLaat();
+        this.remVolgorde = formulier.getRemVolgorde();
+        this.richtingAanwijzers = formulier.getRichtingAanwijzers();
+        this.richtingAanwijzersAndere = formulier.getRichtingAanwijzersAndere();
+        this.rotonde = formulier.getRotonde();
+        this.schakelAangepast = formulier.getSchakelAangepast();
+        this.schakelBedieningAndere = formulier.getSchakelBedieningAndere();
+        this.schakelDosering = formulier.getSchakelDosering();
+        this.schakelGebruikAndere = formulier.getSchakelGebruikAndere();
+        this.schakelMotorRem = formulier.getSchakelMotorRem();
+        this.schakelaars = formulier.getSchakelaars();
+        this.snelheid = formulier.getSnelheid();
+        this.snelheidAndere = formulier.getSnelheidAndere();
+        this.stad = formulier.getStad();
+        this.stop = formulier.getStop();
+        this.stuurAndere = formulier.getStuurAndere();
+        this.stuurDosering = formulier.getStuurDosering();
+        this.stuurHouding = formulier.getStuurHouding();
+        this.stuurOefeningen = formulier.getStuurOefeningen();
+        this.tanken = formulier.getTanken();
+        this.verkeerstekens = formulier.getVerkeerstekens();
+        this.verkeerstekensAndere = formulier.getVerkeerstekensAndere();
+        this.vloeistoffen = formulier.getVloeistoffen();
+        this.volgafstand = formulier.getVolgafstand();
+        this.volgafstandAndere = formulier.getVolgafstandAndere();
+        this.voorrang = formulier.getVoorrang();
+        this.voorrangAndere = formulier.getVoorrangAndere();
+        this.zithoudingAndere = formulier.getZithoudingAndere();
+        this.zithoudingGordel = formulier.getZithoudingGordel();
+        this.zithoudingHandrem = formulier.getZithoudingHandrem();
+        this.zithoudingSpiegels = formulier.getZithoudingSpiegels();
+        this.zithoudingZithouding = formulier.getZithoudingZithouding();
+    }
+
     //massief aantal getter en setters
     public Evaluatie getZithoudingZithouding() {
         return zithoudingZithouding;

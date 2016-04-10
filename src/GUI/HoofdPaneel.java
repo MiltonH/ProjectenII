@@ -34,6 +34,7 @@ public class HoofdPaneel extends GridPane implements View
     Hashtable<String, List> imageListTable;
     ImageView niveauCenterView;
     List<Image> niveauImages;
+    EvaluatieFormulier HuidigFormulier;
 
     public HoofdPaneel(Leerling leerling) {
         //maingrid indelen
@@ -42,7 +43,7 @@ public class HoofdPaneel extends GridPane implements View
 
         iconViewsTable = new Hashtable<>();
         imageListTable = new Hashtable<>();
-        EvaluatieFormulier HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
+        HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
 
         setId("hoofdPaneelBG");
         gridLinesVisibleProperty().set(false);
@@ -221,18 +222,19 @@ public class HoofdPaneel extends GridPane implements View
         Image bottomTest = new Image("Images/BottomTest.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
         ImageView bottomTest1View = new ImageView(bottomTest);
         bottomTest1View.setOnMouseClicked(event -> {
-            wijzeplaat1Stand.setImage(wijzerStand2);
-            wijzeplaat2Stand.setImage(wijzerStand2);
+            //
         });
         ImageView bottomTest2View = new ImageView(bottomTest);
         bottomTest2View.setOnMouseClicked(event -> {
-            wijzeplaat1Stand.setImage(wijzerStand3);
-            wijzeplaat2Stand.setImage(wijzerStand3);
+            if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 0) {
+                huidigeLeerling.volgendFormulier();
+            }
         });
         ImageView bottomTest3View = new ImageView(bottomTest);
         bottomTest3View.setOnMouseClicked(event -> {
-            wijzeplaat1Stand.setImage(wijzerStand1);
-            wijzeplaat2Stand.setImage(wijzerStand1);
+            if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 1) {
+                huidigeLeerling.volgendFormulier();
+            }
         });
 
         GridPane bottomBoxGrid = new GridPane();
@@ -578,6 +580,7 @@ public class HoofdPaneel extends GridPane implements View
 
     @Override
     public void update() {
+        HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
         EvaluatieFormulier formulier = huidigeLeerling.getHuidigEvaluatieFormulier();
         //top
         PasTopKleurAan("stad", formulier.getStad());

@@ -14,19 +14,19 @@ import java.util.List;
  */
 public class Leerling
 {
-
+    
     private String familienaam;
-
+    
     private String voornaam;
-
+    
     private List<EvaluatieFormulier> evaluatieFormulieren;
-
+    
     private String inschrijvingsNummer;
-
+    
     private int huidigEvaluatieFormulierNr;
-
+    
     private EvaluatieFormulier huidigEvaluatieFormulier;
-
+    
     private List<View> views;
 
     //constructor voor nieuwe leerling
@@ -40,55 +40,65 @@ public class Leerling
         this.views = new ArrayList<>();
         this.huidigEvaluatieFormulier = evaluatieFormulieren.get(huidigEvaluatieFormulierNr);
     }
-
+    
+    public void volgendFormulier() {
+        if (huidigEvaluatieFormulierNr < 2) {
+            EvaluatieFormulier form = new EvaluatieFormulier(this);           
+            form.kopieerFormulier(huidigEvaluatieFormulier);         
+            evaluatieFormulieren.add(form);
+            huidigEvaluatieFormulierNr++;
+            huidigEvaluatieFormulier = evaluatieFormulieren.get(huidigEvaluatieFormulierNr);
+        }
+    }
+    
     public String getInschrijvingsNummer() {
         return inschrijvingsNummer;
     }
-
+    
     public void setInschrijvingsNummer(String inschrijvingsNummer) {
         this.inschrijvingsNummer = inschrijvingsNummer;
     }
-
+    
     public String getFamilienaam() {
-        return familienaam;        
+        return familienaam;
     }
-
+    
     public void setFamilienaam(String familienaam) {
         this.familienaam = familienaam;
     }
-
+    
     public String getVoornaam() {
         return voornaam;
     }
-
+    
     public void setVoornaam(String voornaam) {
         this.voornaam = voornaam;
     }
-
+    
     public List<EvaluatieFormulier> getEvaluatieFormulieren() {
         return evaluatieFormulieren;
     }
-
+    
     public EvaluatieFormulier getHuidigEvaluatieFormulier() {
         return huidigEvaluatieFormulier;
     }
-
+    
     public int getHuidigEvaluatieFormulierNr() {
         return huidigEvaluatieFormulierNr;
     }
-
+    
     public List<View> getViews() {
         return views;
     }
-
+    
     public void addView(View view) {
         views.add(view);
     }
-
+    
     public void removeView(View view) {
         views.remove(view);
     }
-
+    
     public void notifyViews() {
         for (View v : views) {
             v.update();
