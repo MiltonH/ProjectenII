@@ -5,9 +5,11 @@
  */
 package GUI;
 
+import domain.Evaluatie;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -16,6 +18,8 @@ import javafx.scene.layout.HBox;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
 /**
@@ -123,5 +127,78 @@ public class RijTechniekBase extends GridPane
 
     public HoofdPaneel getHoofdpanel() {
         return hoofdPanel;
+    }
+    
+    public Evaluatie berekenComboKleur(Evaluatie[] evals) {
+        int tot = evals.length * 3;
+        int aantal = 0;
+
+        for (Evaluatie ev : evals) {
+            if (Evaluatie.WIT.equals(ev)) {
+                aantal += 0;
+            } else if (Evaluatie.ROOD.equals(ev)) {
+                aantal += 1;
+            } else if (Evaluatie.ORANJE.equals(ev)) {
+                aantal += 2;
+            } else if (Evaluatie.GROEN.equals(ev)) {
+                aantal += 3;
+            } else {
+                aantal += 0;
+            }
+        }
+
+        if (aantal == 0) {
+            return Evaluatie.WIT;
+        } else if (aantal == tot) {
+            return Evaluatie.GROEN;
+        } else if (aantal > (tot / 2) && aantal < tot) {
+            return Evaluatie.ORANJE;
+        } else if (aantal > 0 && aantal <= (tot / 2)) {
+            return Evaluatie.ROOD;
+        } else {
+            return Evaluatie.WIT;
+        }
+    }
+    public Evaluatie toggleKleur(Evaluatie eval) {
+        if (Evaluatie.WIT.equals(eval)) {
+            return Evaluatie.ROOD;
+        } else if (Evaluatie.ROOD.equals(eval)) {
+            return Evaluatie.ORANJE;
+        } else if (Evaluatie.ORANJE.equals(eval)) {
+            return Evaluatie.GROEN;
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            return Evaluatie.WIT;
+        } else {
+            return Evaluatie.WIT;
+        }
+    }
+
+    public void kleurButton(Button button, Evaluatie eval) {
+        if (Evaluatie.WIT.equals(eval)) {
+            button.setId("buttons");
+        } else if (Evaluatie.ROOD.equals(eval)) {
+            button.setId("buttonKleurRood");
+        } else if (Evaluatie.ORANJE.equals(eval)) {
+            button.setId("buttonKleurOranje");
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            button.setId("buttonKleurGroen");
+        } else {
+            button.setId("buttons");
+        }
+    }
+
+
+    public void kleurKotje(Rectangle rect, Evaluatie eval) {
+        if (Evaluatie.WIT.equals(eval)) {
+            rect.setFill(Color.WHITE);
+        } else if (Evaluatie.ROOD.equals(eval)) {
+            rect.setFill(Color.RED);
+        } else if (Evaluatie.ORANJE.equals(eval)) {
+            rect.setFill(Color.ORANGE);
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            rect.setFill(Color.LIME);
+        } else {
+            rect.setFill(Color.WHITE);
+        }
     }
 }

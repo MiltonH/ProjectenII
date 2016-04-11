@@ -95,7 +95,7 @@ public class RijTechniekHoofdscherm extends GridPane  implements View{
         Image afbZithouding = new Image("Images/zithouding.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
         
         //rem ----
-        RijTechniekRemKnop rijTechniekRemKnop = new RijTechniekRemKnop();
+        RijTechniekRemKnop rijTechniekRemKnop = new RijTechniekRemKnop(this.base);
         imageDropperBoven(afbRem, 1, 1, rijTechniekRemKnop);
 
         //koppeling ----
