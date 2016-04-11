@@ -1,6 +1,11 @@
 package GUI;
 
+import domain.Evaluatie;
+import domain.EvaluatieFormulier;
+import domain.Leerling;
+import domain.View;
 import java.util.Collections;
+import java.util.Hashtable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,7 +14,6 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -25,13 +29,24 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
-public class RijTechniekStuurKnop extends GridPane {
+public class RijTechniekStuurKnop extends GridPane implements View
+{
 
-    int doseringInt = 0;
-    int houdingsInt = 0;
+    RijTechniekBase base;
+    EvaluatieFormulier huidigformulier;
+    ObservableList<String> opmerkingenList;
+    Rectangle kotje1;
+    Rectangle kotje2;
+    Rectangle kotje3;
+    Hashtable<String, Button> buttons;
 
-    public RijTechniekStuurKnop() {
+    public RijTechniekStuurKnop(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");
+
+        this.base = base;
+        base.getHoofdpanel().getHuidigeLeerling().addView(this);
+        huidigformulier = base.getHoofdpanel().getHuidigeLeerling().getHuidigEvaluatieFormulier();
+        buttons = new Hashtable<>();
 
         //einde grid indeling
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
@@ -93,20 +108,24 @@ public class RijTechniekStuurKnop extends GridPane {
         ImageView stuurView = new ImageView(knopVierkant);
         gridKnopPane.add(stuurView, 0, 0);
 
+        Image afbknop = new Image("Images/Stuur.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        ImageView knopView = new ImageView(afbknop);
+        gridKnopPane.add(knopView, 0, 0);
+
         HBox stuurBox = new HBox();
         stuurBox.setAlignment(Pos.CENTER);
         stuurBox.setId("rijTechniekHoofdschermBox");
 
         double grootte = Math.ceil(maxWidth * 0.03);
-        Rectangle kotje1 = new Rectangle(grootte, grootte, Color.WHITE);
-        Rectangle kotje2 = new Rectangle(grootte, grootte, Color.WHITE);
-        Rectangle kotje3 = new Rectangle(grootte, grootte, Color.WHITE);
+        kotje1 = new Rectangle(grootte, grootte, Color.WHITE);
+        kotje2 = new Rectangle(grootte, grootte, Color.WHITE);
+        kotje3 = new Rectangle(grootte, grootte, Color.WHITE);
 
         stuurBox.getChildren().addAll(kotje1, kotje2, kotje3);
         gridKnopPane.add(stuurBox, 0, 1);
 
         //Listview
-        ObservableList<String> opmerkingenList = FXCollections.observableArrayList();;
+        opmerkingenList = FXCollections.observableArrayList();;
         Collections.sort(opmerkingenList);
         ListView<String> opmerkingenView = new ListView<String>(opmerkingenList);
 
@@ -115,12 +134,14 @@ public class RijTechniekStuurKnop extends GridPane {
         invulTextField.setId("inlogTexfield");
         invulTextField.setPromptText("Geef een opmerking");
         invulTextField.setId("attitudeTextField");
-        invulTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        invulTextField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    opmerkingenList.add(invulTextField.getText());
+                    huidigformulier.getStuurAndere().add(invulTextField.getText());
                     invulTextField.clear();
+                    update();
                 }
             }
         });
@@ -129,36 +150,20 @@ public class RijTechniekStuurKnop extends GridPane {
         Button dosering = new Button("Dosering");
         dosering.setId("buttons");
         add(dosering, 2, 1);
-        dosering.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                if (doseringInt != 3) {
-                    doseringInt++;
-                    toggleColor(dosering, doseringInt);
-                } else {
-                    doseringInt = 0;
-                    toggleColor(dosering, doseringInt);
-                }
-                kleurtjes(kotje1);
-            }
+        dosering.setOnAction(event -> {
+            huidigformulier.setStuurDosering(base.toggleKleur(huidigformulier.getStuurDosering()));
+            update();
         });
+        buttons.put("dosering", dosering);
 
         Button houding = new Button("Houding");
         houding.setId("buttons");
         add(houding, 2, 2);
-        houding.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                if (houdingsInt != 3) {
-                    houdingsInt++;
-                    toggleColor(houding, houdingsInt);
-                } else {
-                    houdingsInt = 0;
-                    toggleColor(houding, houdingsInt);
-                }
-                kleurtjes(kotje1);
-            }
+        houding.setOnAction(event -> {
+            huidigformulier.setStuurHouding(base.toggleKleur(huidigformulier.getStuurHouding()));
+            update();
         });
+        buttons.put("houding", houding);
 
         Button andere = new Button("Andere");
         andere.setId("buttons");
@@ -167,30 +172,36 @@ public class RijTechniekStuurKnop extends GridPane {
             add(invulTextField, 3, 3);
             add(opmerkingenView, 3, 2);
         });
+        update();
     }
 
-    private void toggleColor(Button button, int integer) {
-        if (integer == 1) {
-            button.setId("buttonKleurRood");
-        } else if (integer == 2) {
-            button.setId("buttonKleurOranje");
-        } else if (integer == 3) {
-            button.setId("buttonKleurGroen");
-        } else if (integer == 0) {
-            button.setId("buttons");
-        }
-    }
+    @Override
+    public void update() {
+        huidigformulier = base.getHoofdpanel().getHuidigeLeerling().getHuidigEvaluatieFormulier();
+        opmerkingenList.clear();
+        opmerkingenList.addAll(huidigformulier.getStuurAndere());
 
-    private void kleurtjes(Rectangle rect) {
-        int vakInt = houdingsInt + doseringInt;
-        if (houdingsInt == 0 || doseringInt == 0) {
-            rect.setFill(Color.WHITE);
-        } else if (vakInt == 2 || vakInt == 3) {
-            rect.setFill(Color.RED);
-        } else if (vakInt == 4 || vakInt == 5) {
-            rect.setFill(Color.ORANGE);
-        } else if (vakInt == 6) {
-            rect.setFill(Color.LIMEGREEN);
+        //buttons
+        base.kleurButton(buttons.get("dosering"), huidigformulier.getStuurDosering());
+        base.kleurButton(buttons.get("houding"), huidigformulier.getStuurHouding());
+
+        Leerling leerling = base.getHoofdpanel().getHuidigeLeerling();
+
+        for (int i = 0; i < leerling.getEvaluatieFormulieren().size(); i++) {
+            EvaluatieFormulier formulier = leerling.getEvaluatieFormulieren().get(i);
+
+            Evaluatie[] kotjeArr = {
+                huidigformulier.getStuurDosering(), huidigformulier.getStuurHouding()
+            };
+            if (i == 0) {
+                base.kleurKotje(kotje1, base.berekenComboKleur(kotjeArr));
+            }
+            if (i == 1) {
+                base.kleurKotje(kotje2, base.berekenComboKleur(kotjeArr));
+            }
+            if (i == 2) {
+                base.kleurKotje(kotje3, base.berekenComboKleur(kotjeArr));
+            }
         }
     }
 }

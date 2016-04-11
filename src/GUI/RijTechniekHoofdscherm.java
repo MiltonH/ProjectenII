@@ -103,11 +103,11 @@ public class RijTechniekHoofdscherm extends GridPane  implements View{
         imageDropperBoven(afbKoppeling, 2, 1, rijTechniekKoppelingKnop);
 
         //stuur ----
-        RijTechniekStuurKnop rijTechniekStuurKnop = new RijTechniekStuurKnop();
+        RijTechniekStuurKnop rijTechniekStuurKnop = new RijTechniekStuurKnop(this.base);
         imageDropperBoven(afbStuur, 3, 1, rijTechniekStuurKnop);
 
         //versnelling ----
-        RijTechniekVersnellingKnop rijTechniekVersnellingKnop = new RijTechniekVersnellingKnop();
+        RijTechniekVersnellingKnop rijTechniekVersnellingKnop = new RijTechniekVersnellingKnop(this.base);
         imageDropperBoven(afbVersnelling, 4, 1, rijTechniekVersnellingKnop);
         
 
@@ -119,7 +119,7 @@ public class RijTechniekHoofdscherm extends GridPane  implements View{
         imageDropperBoven(afbPijl, 6, 1, this);
 
         //zithouding ----
-        RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop();
+        RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop(this.base);
         imageDropperBoven(afbZithouding, 7, 1, rijTechniekZithoudingKnop);
 
         //knoppen onder
