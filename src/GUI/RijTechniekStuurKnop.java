@@ -191,7 +191,7 @@ public class RijTechniekStuurKnop extends GridPane implements View
             EvaluatieFormulier formulier = leerling.getEvaluatieFormulieren().get(i);
 
             Evaluatie[] kotjeArr = {
-                huidigformulier.getStuurDosering(), huidigformulier.getStuurHouding()
+                formulier.getStuurDosering(), formulier.getStuurHouding()
             };
             if (i == 0) {
                 base.kleurKotje(kotje1, base.berekenComboKleur(kotjeArr));

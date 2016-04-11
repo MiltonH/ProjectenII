@@ -27,7 +27,9 @@ public class EvaluatieFormulier
         this.garageDrie = Evaluatie.WIT;;
         this.garageEen = Evaluatie.WIT;;
         this.gps = Evaluatie.WIT;;
-        this.helling = Evaluatie.WIT;
+        this.hellingB = Evaluatie.WIT;
+        this.hellingH = Evaluatie.WIT;
+        this.hellingV = Evaluatie.WIT;
         this.inhalen = Evaluatie.WIT;
         this.inhalenAndere = new ArrayList<>();
         this.keren = Evaluatie.WIT;
@@ -134,8 +136,9 @@ public class EvaluatieFormulier
     private Evaluatie kijkSelecteren;
     private List<String> kijkAndere;
 
-    private char hellingType;
-    private Evaluatie helling;
+    private Evaluatie hellingB;
+    private Evaluatie hellingH;
+    private Evaluatie hellingV;
 
     private Evaluatie parkerenTussen;
     private Evaluatie parkerenAchter;
@@ -202,7 +205,9 @@ public class EvaluatieFormulier
         this.garageDrie = formulier.garageDrie;
         this.garageEen = formulier.garageEen;
         this.gps = formulier.getGps();
-        this.helling = formulier.getHelling();
+        this.hellingB = formulier.getHellingB();
+        this.hellingH = formulier.getHellingH();
+        this.hellingV = formulier.getHellingV();
         this.inhalen = formulier.getInhalen();
         this.inhalenAndere = formulier.inhalenAndere;
         this.keren = formulier.getKeren();
@@ -269,6 +274,33 @@ public class EvaluatieFormulier
     }
 
     //massief aantal getter en setters
+    public Evaluatie getHellingB() {
+        return hellingB;
+    }
+
+    public void setHellingB(Evaluatie hellingB) {
+        this.hellingB = hellingB;
+        leerling.notifyViews();
+    }
+
+    public Evaluatie getHellingH() {
+        return hellingH;
+    }
+
+    public void setHellingH(Evaluatie hellingH) {
+        this.hellingH = hellingH;
+        leerling.notifyViews();
+    }
+
+    public Evaluatie getHellingV() {
+        return hellingV;
+    }
+
+    public void setHellingV(Evaluatie hellingV) {
+        this.hellingV = hellingV;
+        leerling.notifyViews();
+    }
+
     public Evaluatie getZithoudingZithouding() {
         return zithoudingZithouding;
     }
@@ -536,24 +568,6 @@ public class EvaluatieFormulier
 
     public void setKijkAndere(List<String> kijkAndere) {
         this.kijkAndere = kijkAndere;
-        leerling.notifyViews();
-    }
-
-    public char getHellingType() {
-        return hellingType;
-    }
-
-    public void setHellingType(char hellingType) {
-        this.hellingType = hellingType;
-        leerling.notifyViews();
-    }
-
-    public Evaluatie getHelling() {
-        return helling;
-    }
-
-    public void setHelling(Evaluatie helling) {
-        this.helling = helling;
         leerling.notifyViews();
     }
 

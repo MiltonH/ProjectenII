@@ -226,7 +226,7 @@ public class RijTechniekKijkenKnop extends GridPane implements View
             EvaluatieFormulier formulier = leerling.getEvaluatieFormulieren().get(i);
 
             Evaluatie[] kotjeArr = {
-                huidigformulier.getKijkVergewis(), huidigformulier.getKijksSpiegels(), huidigformulier.getKijkDodeHoek(), huidigformulier.getKijkVer(), huidigformulier.getKijkSelecteren()
+                formulier.getKijkVergewis(), formulier.getKijksSpiegels(), formulier.getKijkDodeHoek(), formulier.getKijkVer(), formulier.getKijkSelecteren()
             };
             if (i == 0) {
                 base.kleurKotje(kotje1, base.berekenComboKleur(kotjeArr));

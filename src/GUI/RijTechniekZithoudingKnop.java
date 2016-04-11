@@ -224,7 +224,7 @@ public class RijTechniekZithoudingKnop extends GridPane implements View
             EvaluatieFormulier formulier = leerling.getEvaluatieFormulieren().get(i);
 
             Evaluatie[] kotjeArr = {
-                huidigformulier.getZithoudingZithouding(), huidigformulier.getZithoudingGordel(), huidigformulier.getZithoudingSpiegels(), huidigformulier.getZithoudingHandrem()
+                formulier.getZithoudingZithouding(), formulier.getZithoudingGordel(), formulier.getZithoudingSpiegels(), formulier.getZithoudingHandrem()
             };
             if (i == 0) {
                 base.kleurKotje(kotje1, base.berekenComboKleur(kotjeArr));

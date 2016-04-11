@@ -256,7 +256,7 @@ public class RijTechniekVersnellingKnop extends GridPane implements View
             EvaluatieFormulier formulier = leerling.getEvaluatieFormulieren().get(i);
 
             Evaluatie[] kotjeArr = {
-                huidigformulier.getSchakelDosering(), huidigformulier.getSchakelAangepast(), huidigformulier.getSchakelMotorRem()
+                formulier.getSchakelDosering(), formulier.getSchakelAangepast(), formulier.getSchakelMotorRem()
             };
             if (i == 0) {
                 base.kleurKotje(kotje1, base.berekenComboKleur(kotjeArr));
