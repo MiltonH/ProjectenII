@@ -299,7 +299,7 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
         kruisenHBox.getChildren().addAll(kruisenRec1, kruisenRec2, kruisenRec3);
         add(kruisenHBox, 1, 4);
 
-        Rectangle[] kruisenRecs = {kruisenRec1, kruisenRec1, kruisenRec1};
+        Rectangle[] kruisenRecs = {kruisenRec1, kruisenRec2, kruisenRec3};
         rectangles.put("kruisen", kruisenRecs);
 
         //linksaf ----
@@ -331,7 +331,7 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
         rechtsafHBox.getChildren().addAll(rechtsafRec1, rechtsafRec2, rechtsafRec3);
         add(rechtsafHBox, 3, 4);
 
-        Rectangle[] rechtsafRecs = {rechtsafRec1, rechtsafRec1, rechtsafRec1};
+        Rectangle[] rechtsafRecs = {rechtsafRec1, rechtsafRec2, rechtsafRec3};
         rectangles.put("rechtsaf", rechtsafRecs);
 
         //richtingsaanwijzers ----
@@ -480,7 +480,7 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
 
     @Override
     public void update() {
-
+        huidigformulier = base.getHoofdpanel().getHuidigeLeerling().getHuidigEvaluatieFormulier();
         Leerling leerling = base.getHoofdpanel().getHuidigeLeerling();
 
         EvaluatieFormulier formulierHuidig = leerling.getHuidigEvaluatieFormulier();

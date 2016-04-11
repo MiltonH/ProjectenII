@@ -1,6 +1,11 @@
 package GUI;
 
+import domain.Evaluatie;
+import domain.EvaluatieFormulier;
+import domain.Leerling;
+import domain.View;
 import java.util.Collections;
+import java.util.Hashtable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +30,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
-public class RijTechniekKoppelingKnop extends GridPane {
+public class RijTechniekKoppelingKnop extends GridPane implements View
+{
 
     int bedieningInt = 0;
     int gebruikInt = 0;
@@ -35,9 +41,21 @@ public class RijTechniekKoppelingKnop extends GridPane {
     int onnodigInt = 0;
     int bochtInt = 0;
 
-    public RijTechniekKoppelingKnop() {
-        setId("rijTechniekHoofdschermPaneel");
+    RijTechniekBase base;
+    EvaluatieFormulier huidigformulier;
+    ObservableList<String> opmerkingenList;
+    ObservableList<String> opmerkingenList2;
+    Rectangle kotje1;
+    Rectangle kotje2;
+    Rectangle kotje3;
+    Hashtable<String, Button> buttons;
 
+    public RijTechniekKoppelingKnop(RijTechniekBase base) {
+        setId("rijTechniekHoofdschermPaneel");
+        this.base = base;
+        base.getHoofdpanel().getHuidigeLeerling().addView(this);
+        huidigformulier = base.getHoofdpanel().getHuidigeLeerling().getHuidigEvaluatieFormulier();
+        buttons = new Hashtable<>();
         //einde grid indeling
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
         double maxWidth = schermformaat.getWidth() * 0.62;
@@ -113,15 +131,15 @@ public class RijTechniekKoppelingKnop extends GridPane {
         remBox.setId("rijTechniekHoofdschermBox");
 
         double grootte = Math.ceil(maxWidth * 0.03);
-        Rectangle kotje1 = new Rectangle(grootte, grootte, Color.WHITE);
-        Rectangle kotje2 = new Rectangle(grootte, grootte, Color.WHITE);
-        Rectangle kotje3 = new Rectangle(grootte, grootte, Color.WHITE);
+        kotje1 = new Rectangle(grootte, grootte, Color.WHITE);
+        kotje2 = new Rectangle(grootte, grootte, Color.WHITE);
+        kotje3 = new Rectangle(grootte, grootte, Color.WHITE);
 
         remBox.getChildren().addAll(kotje1, kotje2, kotje3);
         gridKnopPane.add(remBox, 0, 1);
 
         //Listview
-        ObservableList<String> opmerkingenList = FXCollections.observableArrayList();;
+        opmerkingenList = FXCollections.observableArrayList();;
         Collections.sort(opmerkingenList);
         ListView<String> opmerkingenView = new ListView<String>(opmerkingenList);
 
@@ -130,18 +148,20 @@ public class RijTechniekKoppelingKnop extends GridPane {
         invulTextField.setId("inlogTexfield");
         invulTextField.setPromptText("Geef een opmerking");
         invulTextField.setId("attitudeTextField");
-        invulTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        invulTextField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    opmerkingenList.add(invulTextField.getText());
+                    huidigformulier.getKoppelingBedieningAndere().add(invulTextField.getText());
                     invulTextField.clear();
+                    update();
                 }
             }
         });
 
         //Listview
-        ObservableList<String> opmerkingenList2 = FXCollections.observableArrayList();;
+        opmerkingenList2 = FXCollections.observableArrayList();;
         Collections.sort(opmerkingenList2);
         ListView<String> opmerkingenView2 = new ListView<String>(opmerkingenList2);
 
@@ -150,12 +170,14 @@ public class RijTechniekKoppelingKnop extends GridPane {
         invulTextField2.setId("inlogTexfield");
         invulTextField2.setPromptText("Geef een opmerking");
         invulTextField2.setId("attitudeTextField");
-        invulTextField2.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        invulTextField2.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    opmerkingenList2.add(invulTextField2.getText());
+                    huidigformulier.getKoppelingGebruikAndere().add(invulTextField2.getText());
                     invulTextField2.clear();
+                    update();
                 }
             }
         });
@@ -164,61 +186,39 @@ public class RijTechniekKoppelingKnop extends GridPane {
         Button bediening = new Button("Bediening");
         bediening.setId("buttons");
         add(bediening, 2, 1);
+        buttons.put("bediening", bediening);
 
         Button gebruik = new Button("Gebruik");
         gebruik.setId("buttons");
         add(gebruik, 2, 5);
+        buttons.put("gebruik", gebruik);
 
         Button dosering = new Button("Dosering");
         dosering.setId("buttons");
         add(dosering, 3, 1);
-        dosering.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                if (doseringInt != 3) {
-                    doseringInt++;
-                    toggleColor(dosering, doseringInt);
-                } else {
-                    doseringInt = 0;
-                    toggleColor(dosering, doseringInt);
-                }
-                kleurtjesBediening(bediening, bedieningInt);
-            }
+        dosering.setOnAction(event -> {
+            huidigformulier.setKoppelingDosering(toggleKleur(huidigformulier.getKoppelingDosering()));
+            update();
         });
+        buttons.put("dosering", dosering);
 
         Button volledig = new Button("Volledig");
         volledig.setId("buttons");
         add(volledig, 3, 2);
-        volledig.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                if (volledigInt != 3) {
-                    volledigInt++;
-                    toggleColor(volledig, volledigInt);
-                } else {
-                    volledigInt = 0;
-                    toggleColor(volledig, volledigInt);
-                }
-                kleurtjesBediening(bediening, bedieningInt);
-            }
+        volledig.setOnAction(event -> {
+            huidigformulier.setKoppelingVolledig(toggleKleur(huidigformulier.getKoppelingVolledig()));
+            update();
         });
+        buttons.put("volledig", volledig);
 
         Button voetAf = new Button("Voet af");
         voetAf.setId("buttons");
         add(voetAf, 3, 3);
-        voetAf.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                if (voetAfInt != 3) {
-                    voetAfInt++;
-                    toggleColor(voetAf, voetAfInt);
-                } else {
-                    voetAfInt = 0;
-                    toggleColor(voetAf, voetAfInt);
-                }
-                kleurtjesBediening(bediening, bedieningInt);
-            }
+        voetAf.setOnAction(event -> {
+            huidigformulier.setKoppelingVoetaf(toggleKleur(huidigformulier.getKoppelingVoetaf()));
+            update();
         });
+        buttons.put("voetaf", voetAf);
 
         Button andere1 = new Button("Andere");
         andere1.setId("buttons");
@@ -231,36 +231,20 @@ public class RijTechniekKoppelingKnop extends GridPane {
         Button onNodig = new Button("Onnodig");
         onNodig.setId("buttons");
         add(onNodig, 3, 5);
-        onNodig.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                if (onnodigInt != 3) {
-                    onnodigInt++;
-                    toggleColor(onNodig, onnodigInt);
-                } else {
-                    onnodigInt = 0;
-                    toggleColor(onNodig, onnodigInt);
-                }
-                kleurtjesGebruik(gebruik, gebruikInt);
-            }
+        onNodig.setOnAction(event -> {
+            huidigformulier.setKoppelingOnnodig(toggleKleur(huidigformulier.getKoppelingOnnodig()));
+            update();
         });
+        buttons.put("onnodig", onNodig);
 
-        Button Bocht = new Button("Bocht");
-        Bocht.setId("buttons");
-        add(Bocht, 3, 6);
-        Bocht.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                if (bochtInt != 3) {
-                    bochtInt++;
-                    toggleColor(Bocht, bochtInt);
-                } else {
-                    bochtInt = 0;
-                    toggleColor(Bocht, bochtInt);
-                }
-                kleurtjesGebruik(gebruik, gebruikInt);
-            }
+        Button bocht = new Button("Bocht");
+        bocht.setId("buttons");
+        add(bocht, 3, 6);
+        bocht.setOnAction(event -> {
+            huidigformulier.setKoppelingBocht(toggleKleur(huidigformulier.getKoppelingBocht()));
+            update();
         });
+        buttons.put("bocht", bocht);
 
         Button andere2 = new Button("Andere");
         andere2.setId("buttons");
@@ -269,75 +253,163 @@ public class RijTechniekKoppelingKnop extends GridPane {
             add(invulTextField2, 4, 7);
             add(opmerkingenView2, 4, 5, 1, 2);
         });
-        
-        int vakInt = gebruikInt + bedieningInt;
-        if (gebruikInt == 0 || bedieningInt == 0) {
-            kotje1.setFill(Color.WHITE);
-        } else if (vakInt == 2 || vakInt == 3) {
-            kotje1.setFill(Color.RED);
-        } else if (vakInt == 4 || vakInt == 5) {
-            kotje1.setFill(Color.ORANGE);
-        } else if (vakInt == 6) {
-            kotje1.setFill(Color.GREENYELLOW);
-        }
+
+        update();
     }
 
-    private void toggleColor(Button button, int integer) {
-        if (integer == 1) {
-            button.setId("buttonKleurRood");
-        } else if (integer == 2) {
-            button.setId("buttonKleurOranje");
-        } else if (integer == 3) {
-            button.setId("buttonKleurGroen");
-        } else if (integer == 0) {
-            button.setId("buttons");
-        }
-    }
-    
-    private void kleurtjesGebruik(Button button, int integer) {
-        int buttonInt = onnodigInt + bochtInt;
-        if (onnodigInt == 0 || bochtInt == 0) {
-            button.setId("buttons");
-            integer = 0;
-        } else if (buttonInt == 2 || buttonInt == 3) {
-            button.setId("buttonKleurRood");
-            integer = 1;
-        } else if (buttonInt == 4 || buttonInt == 5) {
-            button.setId("buttonKleurOranje");
-            integer = 2;
-        } else if (buttonInt == 6) {
-            button.setId("buttonKleurGroen");
-            integer = 3;
-        }
-    }
-
-    private void kleurtjesBediening(Button button, int integer) {
-        int buttonInt = doseringInt + volledigInt + voetAfInt;
-        if (doseringInt == 0 || volledigInt == 0 || voetAfInt == 0) {
-            button.setId("buttons");
-            integer = 0;
-        } else if (buttonInt == 3 || buttonInt == 4 || buttonInt == 5) {
-            button.setId("buttonKleurRood");
-            integer = 1;
-        } else if (buttonInt == 5 || buttonInt == 6 || buttonInt == 7 || buttonInt == 8) {
-            button.setId("buttonKleurOranje");
-            integer = 2;
-        } else if (buttonInt == 9) {
-            button.setId("buttonKleurGroen");
-            integer = 3;
-        }
-    }
-    
-//    private void kleurtjes(Rectangle rect) {
-//        int vakInt = gebruikInt + bedieningInt;
-//        if (gebruikInt == 0 || bedieningInt == 0) {
-//            rect.setFill(Color.WHITE);
-//        } else if (vakInt == 2 || vakInt == 3) {
-//            rect.setFill(Color.RED);
-//        } else if (vakInt == 4 || vakInt == 5) {
-//            rect.setFill(Color.ORANGE);
-//        } else if (vakInt == 6) {
-//            rect.setFill(Color.GREENYELLOW);
+//    private void toggleColor(Button button, int integer) {
+//        if (integer == 1) {
+//            button.setId("buttonKleurRood");
+//        } else if (integer == 2) {
+//            button.setId("buttonKleurOranje");
+//        } else if (integer == 3) {
+//            button.setId("buttonKleurGroen");
+//        } else if (integer == 0) {
+//            button.setId("buttons");
 //        }
 //    }
+    private Evaluatie toggleKleur(Evaluatie eval) {
+        if (Evaluatie.WIT.equals(eval)) {
+            return Evaluatie.ROOD;
+        } else if (Evaluatie.ROOD.equals(eval)) {
+            return Evaluatie.ORANJE;
+        } else if (Evaluatie.ORANJE.equals(eval)) {
+            return Evaluatie.GROEN;
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            return Evaluatie.WIT;
+        } else {
+            return Evaluatie.WIT;
+        }
+    }
+
+//    private void kleurtjesGebruik(Button button, int integer) {
+//        int buttonInt = onnodigInt + bochtInt;
+//        if (onnodigInt == 0 || bochtInt == 0) {
+//            button.setId("buttons");
+//            integer = 0;
+//        } else if (buttonInt == 2 || buttonInt == 3) {
+//            button.setId("buttonKleurRood");
+//            integer = 1;
+//        } else if (buttonInt == 4 || buttonInt == 5) {
+//            button.setId("buttonKleurOranje");
+//            integer = 2;
+//        } else if (buttonInt == 6) {
+//            button.setId("buttonKleurGroen");
+//            integer = 3;
+//        }
+//    }
+//
+//    private void kleurtjesBediening(Button button, int integer) {
+//        int buttonInt = doseringInt + volledigInt + voetAfInt;
+//        if (doseringInt == 0 || volledigInt == 0 || voetAfInt == 0) {
+//            button.setId("buttons");
+//            integer = 0;
+//        } else if (buttonInt == 3 || buttonInt == 4 || buttonInt == 5) {
+//            button.setId("buttonKleurRood");
+//            integer = 1;
+//        } else if (buttonInt == 5 || buttonInt == 6 || buttonInt == 7 || buttonInt == 8) {
+//            button.setId("buttonKleurOranje");
+//            integer = 2;
+//        } else if (buttonInt == 9) {
+//            button.setId("buttonKleurGroen");
+//            integer = 3;
+//        }
+//    }
+    private void kleurButton(Button button, Evaluatie eval) {
+        if (Evaluatie.WIT.equals(eval)) {
+            button.setId("buttons");
+        } else if (Evaluatie.ROOD.equals(eval)) {
+            button.setId("buttonKleurRood");
+        } else if (Evaluatie.ORANJE.equals(eval)) {
+            button.setId("buttonKleurOranje");
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            button.setId("buttonKleurGroen");
+        } else {
+            button.setId("buttons");
+        }
+    }
+
+    public Evaluatie berekenComboKleur(Evaluatie[] evals) {
+        int tot = evals.length * 3;
+        int aantal = 0;
+
+        for (Evaluatie ev : evals) {
+            if (Evaluatie.WIT.equals(ev)) {
+                aantal += 0;
+            } else if (Evaluatie.ROOD.equals(ev)) {
+                aantal += 1;
+            } else if (Evaluatie.ORANJE.equals(ev)) {
+                aantal += 2;
+            } else if (Evaluatie.GROEN.equals(ev)) {
+                aantal += 3;
+            } else {
+                aantal += 0;
+            }
+        }
+
+        if (aantal == 0) {
+            return Evaluatie.WIT;
+        } else if (aantal == tot) {
+            return Evaluatie.GROEN;
+        } else if (aantal > (tot / 2) && aantal < tot) {
+            return Evaluatie.ORANJE;
+        } else if (aantal > 0 && aantal <= (tot / 2)) {
+            return Evaluatie.ROOD;
+        } else {
+            return Evaluatie.WIT;
+        }
+    }
+
+    private void kleurKotje(Rectangle rect, Evaluatie eval) {
+        if (Evaluatie.WIT.equals(eval)) {
+            rect.setFill(Color.WHITE);
+        } else if (Evaluatie.ROOD.equals(eval)) {
+            rect.setFill(Color.RED);
+        } else if (Evaluatie.ORANJE.equals(eval)) {
+            rect.setFill(Color.ORANGE);
+        } else if (Evaluatie.GROEN.equals(eval)) {
+            rect.setFill(Color.LIME);
+        } else {
+            rect.setFill(Color.WHITE);
+        }
+    }
+
+    @Override
+    public void update() {
+        huidigformulier = base.getHoofdpanel().getHuidigeLeerling().getHuidigEvaluatieFormulier();
+        opmerkingenList.clear();
+        opmerkingenList.addAll(huidigformulier.getKoppelingBedieningAndere());
+        opmerkingenList2.clear();
+        opmerkingenList2.addAll(huidigformulier.getKoppelingGebruikAndere());
+
+        //buttons
+        kleurButton(buttons.get("dosering"), huidigformulier.getKoppelingDosering());
+        kleurButton(buttons.get("volledig"), huidigformulier.getKoppelingVolledig());
+        kleurButton(buttons.get("voetaf"), huidigformulier.getKoppelingVoetaf());
+        kleurButton(buttons.get("onnodig"), huidigformulier.getKoppelingOnnodig());
+        kleurButton(buttons.get("bocht"), huidigformulier.getKoppelingBocht());
+        Evaluatie[] bedieningArr = {huidigformulier.getKoppelingDosering(), huidigformulier.getKoppelingVoetaf(), huidigformulier.getKoppelingVolledig()};
+        kleurButton(buttons.get("bediening"), berekenComboKleur(bedieningArr));
+        Evaluatie[] gebruikArr = {huidigformulier.getKoppelingOnnodig(), huidigformulier.getKoppelingBocht()};
+        kleurButton(buttons.get("gebruik"), berekenComboKleur(gebruikArr));
+
+        Leerling leerling = base.getHoofdpanel().getHuidigeLeerling();
+
+        for (int i = 0; i < leerling.getEvaluatieFormulieren().size(); i++) {
+            EvaluatieFormulier formulier = leerling.getEvaluatieFormulieren().get(i);
+
+            Evaluatie[] kotjeArr = {
+                formulier.getKoppelingDosering(), formulier.getKoppelingVoetaf(), formulier.getKoppelingVolledig(), formulier.getKoppelingOnnodig(), formulier.getKoppelingBocht()
+            };
+            if (i == 0) {
+                kleurKotje(kotje1, berekenComboKleur(kotjeArr));
+            }
+            if (i == 1) {
+                kleurKotje(kotje2, berekenComboKleur(kotjeArr));
+            }
+            if (i == 2) {
+                kleurKotje(kotje3, berekenComboKleur(kotjeArr));
+            }
+        }
+    }
 }

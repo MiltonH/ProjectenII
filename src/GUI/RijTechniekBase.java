@@ -26,8 +26,10 @@ public class RijTechniekBase extends GridPane
 {
 
     HBox contentBox;
+    HoofdPaneel hoofdPanel;
 
     public RijTechniekBase(HoofdPaneel hoofdPanel) {
+        this.hoofdPanel = hoofdPanel;
         //grid indeling
         setId("hoofdPaneelBG");
         gridLinesVisibleProperty().set(false);
@@ -67,7 +69,7 @@ public class RijTechniekBase extends GridPane
         ImageView verkeerTechKnopView = new ImageView(verkeerTechImg);
         Image attitudeKnopImg = new Image("Images/attitudeKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView attitudeKnopView = new ImageView(attitudeKnopImg);
-        topKnoppenBox.getChildren().addAll(attitudeKnopView,verkeerTechKnopView);
+        topKnoppenBox.getChildren().addAll(attitudeKnopView, verkeerTechKnopView);
         add(topKnoppenBox, 1, 0);
         //center wijzerplaat
         StackPane wijzerStack = new StackPane();
@@ -91,25 +93,25 @@ public class RijTechniekBase extends GridPane
         ImageView homeKnopView = new ImageView(homeKnopImg);
         Image returnKnopImg = new Image("Images/returnKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView returnKnopView = new ImageView(returnKnopImg);
-        bottomKnoppenBox.getChildren().addAll(returnKnopView,homeKnopView);
+        bottomKnoppenBox.getChildren().addAll(returnKnopView, homeKnopView);
         add(bottomKnoppenBox, 1, 2);
 
         homeKnopView.setOnMouseClicked(event -> {
             hoofdPanel.setSceneRoot(hoofdPanel);
         });
-        
+
         returnKnopView.setOnMouseClicked(event -> {
             setContent(new RijTechniekHoofdscherm(this));
         });
-        
+
         verkeerTechKnopView.setOnMouseClicked(event -> {
             hoofdPanel.setSceneRoot(new VerkeersTechniekBase(hoofdPanel));
         });
-        
+
         attitudeKnopView.setOnMouseClicked(event -> {
             hoofdPanel.setSceneRoot(new AttitudePaneel(hoofdPanel));
         });
-        
+
         //einde box met knoppen
         setContent(new RijTechniekHoofdscherm(this));
     }
@@ -117,5 +119,9 @@ public class RijTechniekBase extends GridPane
     public void setContent(GridPane grid) {
         this.contentBox.getChildren().clear();
         this.contentBox.getChildren().add(grid);
+    }
+
+    public HoofdPaneel getHoofdpanel() {
+        return hoofdPanel;
     }
 }

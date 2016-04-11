@@ -1,9 +1,8 @@
 package GUI;
 
+import domain.View;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -21,7 +20,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
-public class RijTechniekHoofdscherm extends GridPane {
+public class RijTechniekHoofdscherm extends GridPane  implements View{
 
     RijTechniekBase base;
     int integer = 0;
@@ -31,6 +30,7 @@ public class RijTechniekHoofdscherm extends GridPane {
     public RijTechniekHoofdscherm(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");
         this.base = base;
+        base.getHoofdpanel().getHuidigeLeerling().addView(this);
         //einde grid indeling
 //        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
 //        double maxWidth = schermformaat.getWidth() * 0.62;
@@ -99,7 +99,7 @@ public class RijTechniekHoofdscherm extends GridPane {
         imageDropperBoven(afbRem, 1, 1, rijTechniekRemKnop);
 
         //koppeling ----
-        RijTechniekKoppelingKnop rijTechniekKoppelingKnop = new RijTechniekKoppelingKnop();
+        RijTechniekKoppelingKnop rijTechniekKoppelingKnop = new RijTechniekKoppelingKnop(this.base);
         imageDropperBoven(afbKoppeling, 2, 1, rijTechniekKoppelingKnop);
 
         //stuur ----
@@ -349,5 +349,10 @@ public class RijTechniekHoofdscherm extends GridPane {
         } else if (integer == 0) {
             rect.setFill(Color.WHITE);
         }
+    }
+
+    @Override
+    public void update() {
+        
     }
 }
