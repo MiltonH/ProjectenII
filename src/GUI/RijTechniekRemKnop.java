@@ -109,7 +109,10 @@ public class RijTechniekRemKnop extends GridPane implements View
         //rem
         Image knopVierkant = new Image("Images/knopVierkant.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true);
         ImageView remView = new ImageView(knopVierkant);
+        Image afbRem = new Image("Images/rem.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        ImageView remAfbView = new ImageView(afbRem);
         gridKnopPane.add(remView, 0, 0);
+        gridKnopPane.add(remAfbView, 0, 0);
 
         HBox remBox = new HBox();
         remBox.setAlignment(Pos.CENTER);

@@ -112,7 +112,7 @@ public class RijTechniekHoofdscherm extends GridPane  implements View{
         
 
         //kijken ----
-        RijTechniekKijkenKnop rijTechniekKijkenKnop = new RijTechniekKijkenKnop();
+        RijTechniekKijkenKnop rijTechniekKijkenKnop = new RijTechniekKijkenKnop(this.base);
         imageDropperBoven(afbKijken, 5, 1, rijTechniekKijkenKnop);
 
         //helling ----
