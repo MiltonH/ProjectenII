@@ -12,6 +12,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -79,6 +80,7 @@ public class RijTechniekHoofdscherm extends GridPane implements View
         Images.add(new Image("Images/knopVierkantW.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
         Images.add(new Image("Images/knopVierkantO.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
         Images.add(new Image("Images/knopVierkantG.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
+
         //einde grid indeling
 
         //GridPane
@@ -335,7 +337,7 @@ public class RijTechniekHoofdscherm extends GridPane implements View
         } else if (Evaluatie.ORANJE.equals(eval)) {
             return Evaluatie.GROEN;
         } else if (Evaluatie.GROEN.equals(eval)) {
-            return Evaluatie.ORANJE;
+            return Evaluatie.WIT;
         } else {
             return Evaluatie.WIT;
         }
@@ -368,8 +370,7 @@ public class RijTechniekHoofdscherm extends GridPane implements View
     }
 
     private void PasKleurAan(String key, Evaluatie eval) {
-        ImageView view = knopViews.get(key);;
-
+        ImageView view = knopViews.get(key);
         if (Evaluatie.WIT.equals(eval)) {
             view.setImage(Images.get(0));
         } else if (Evaluatie.ORANJE.equals(eval)) {

@@ -98,7 +98,7 @@ public class HoofdPaneel extends GridPane implements View
         studentNaam.setId("naamLabel");
         setHalignment(studentNaam, HPos.CENTER);
         add(studentNaam, 4, 0);
-        //einde studnet naam
+        //einde studnet naam       
         //einde kap       
         //centerBox
         HBox centerBox = new HBox();

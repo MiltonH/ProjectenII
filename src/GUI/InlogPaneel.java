@@ -157,7 +157,10 @@ public class InlogPaneel extends GridPane
 
         //ListView
         ObservableList<String> namen = FXCollections.observableArrayList();
-        List<String> llnamen = leerlingen.stream().map(l -> l.getFamilienaam() + " " + l.getVoornaam()).collect(Collectors.toList());
+        List<String> llnamen =  new ArrayList<>();//leerlingen.stream().map(l -> l.getFamilienaam() + " " + l.getVoornaam()).collect(Collectors.toList());
+        for(Leerling ll : leerlingen){
+            llnamen.add(ll.getFamilienaam() + " "+ ll.getVoornaam());
+        }
 
         namen.addAll(llnamen);
         Collections.sort(namen);
