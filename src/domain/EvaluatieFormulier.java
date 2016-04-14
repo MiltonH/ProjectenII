@@ -27,7 +27,9 @@ public class EvaluatieFormulier
         this.garageDrie = Evaluatie.WIT;;
         this.garageEen = Evaluatie.WIT;;
         this.gps = Evaluatie.WIT;;
-        this.helling = Evaluatie.WIT;
+        this.hellingB = Evaluatie.WIT;
+        this.hellingH = Evaluatie.WIT;
+        this.hellingV = Evaluatie.WIT;
         this.inhalen = Evaluatie.WIT;
         this.inhalenAndere = new ArrayList<>();
         this.keren = Evaluatie.WIT;
@@ -134,8 +136,9 @@ public class EvaluatieFormulier
     private Evaluatie kijkSelecteren;
     private List<String> kijkAndere;
 
-    private char hellingType;
-    private Evaluatie helling;
+    private Evaluatie hellingB;
+    private Evaluatie hellingH;
+    private Evaluatie hellingV;
 
     private Evaluatie parkerenTussen;
     private Evaluatie parkerenAchter;
@@ -193,7 +196,111 @@ public class EvaluatieFormulier
     //opmerkingen
     private List<String> opmerkingen;
 
+    public void kopieerFormulier(EvaluatieFormulier formulier) {
+        this.achteruit = formulier.getAchteruit();
+        this.attitude = formulier.getAttitude();
+        this.autosnelweg = formulier.getAutosnelweg();
+        this.banden = formulier.getBanden();
+        this.garageAchterwaarts = formulier.garageAchterwaarts;
+        this.garageDrie = formulier.garageDrie;
+        this.garageEen = formulier.garageEen;
+        this.gps = formulier.getGps();
+        this.hellingB = formulier.getHellingB();
+        this.hellingH = formulier.getHellingH();
+        this.hellingV = formulier.getHellingV();
+        this.inhalen = formulier.getInhalen();
+        this.inhalenAndere = formulier.inhalenAndere;
+        this.keren = formulier.getKeren();
+        this.kijkAndere = formulier.getKijkAndere();
+        this.kijkDodeHoek = formulier.getKijkDodeHoek();
+        this.kijkSelecteren = formulier.getKijkSelecteren();
+        this.kijkVer = formulier.getKijkVer();
+        this.kijkVergewis = formulier.getKijkVergewis();
+        this.kijksSpiegels = formulier.kijksSpiegels;
+        this.koppelingBedieningAndere = formulier.getKoppelingBedieningAndere();
+        this.koppelingBocht = formulier.getKoppelingBocht();
+        this.koppelingDosering = formulier.koppelingDosering;
+        this.koppelingGebruikAndere = formulier.getKoppelingGebruikAndere();
+        this.koppelingOnnodig = formulier.getKoppelingOnnodig();
+        this.koppelingVoetaf = formulier.getKoppelingVoetaf();
+        this.koppelingVolledig = formulier.getKoppelingVolledig();
+        this.kruisen = formulier.getKruisen();
+        this.kruisenAndere = formulier.getKruisenAndere();
+        this.linksaf = formulier.getLinksaf();
+        this.linksafAndere = formulier.getLinksafAndere();
+        this.niveau = formulier.getNiveau();
+        this.openbareWeg = formulier.getOpenbareWeg();
+        this.openbareWegAndere = formulier.getOpenbareWegAndere();
+        this.opmerkingen = formulier.getOpmerkingen();
+        this.parkerenAchter = formulier.getParkerenAchter();
+        this.parkerenLinks = formulier.getParkerenLinks();
+        this.parkerenTussen = formulier.getParkerenTussen();
+        this.rechtsaf = formulier.getRechtsaf();
+        this.rechtsafAndere = formulier.getRechtsafAndere();
+        this.remDosering = formulier.getRemDosering();
+        this.remGebruikAndere = formulier.getRemGebruikAndere();
+        this.remTeLaat = formulier.getRemTeLaat();
+        this.remVolgorde = formulier.getRemVolgorde();
+        this.richtingAanwijzers = formulier.getRichtingAanwijzers();
+        this.richtingAanwijzersAndere = formulier.getRichtingAanwijzersAndere();
+        this.rotonde = formulier.getRotonde();
+        this.schakelAangepast = formulier.getSchakelAangepast();
+        this.schakelBedieningAndere = formulier.getSchakelBedieningAndere();
+        this.schakelDosering = formulier.getSchakelDosering();
+        this.schakelGebruikAndere = formulier.getSchakelGebruikAndere();
+        this.schakelMotorRem = formulier.getSchakelMotorRem();
+        this.schakelaars = formulier.getSchakelaars();
+        this.snelheid = formulier.getSnelheid();
+        this.snelheidAndere = formulier.getSnelheidAndere();
+        this.stad = formulier.getStad();
+        this.stop = formulier.getStop();
+        this.stuurAndere = formulier.getStuurAndere();
+        this.stuurDosering = formulier.getStuurDosering();
+        this.stuurHouding = formulier.getStuurHouding();
+        this.stuurOefeningen = formulier.getStuurOefeningen();
+        this.tanken = formulier.getTanken();
+        this.verkeerstekens = formulier.getVerkeerstekens();
+        this.verkeerstekensAndere = formulier.getVerkeerstekensAndere();
+        this.vloeistoffen = formulier.getVloeistoffen();
+        this.volgafstand = formulier.getVolgafstand();
+        this.volgafstandAndere = formulier.getVolgafstandAndere();
+        this.voorrang = formulier.getVoorrang();
+        this.voorrangAndere = formulier.getVoorrangAndere();
+        this.zithoudingAndere = formulier.getZithoudingAndere();
+        this.zithoudingGordel = formulier.getZithoudingGordel();
+        this.zithoudingHandrem = formulier.getZithoudingHandrem();
+        this.zithoudingSpiegels = formulier.getZithoudingSpiegels();
+        this.zithoudingZithouding = formulier.getZithoudingZithouding();
+    }
+
     //massief aantal getter en setters
+    public Evaluatie getHellingB() {
+        return hellingB;
+    }
+
+    public void setHellingB(Evaluatie hellingB) {
+        this.hellingB = hellingB;
+        leerling.notifyViews();
+    }
+
+    public Evaluatie getHellingH() {
+        return hellingH;
+    }
+
+    public void setHellingH(Evaluatie hellingH) {
+        this.hellingH = hellingH;
+        leerling.notifyViews();
+    }
+
+    public Evaluatie getHellingV() {
+        return hellingV;
+    }
+
+    public void setHellingV(Evaluatie hellingV) {
+        this.hellingV = hellingV;
+        leerling.notifyViews();
+    }
+
     public Evaluatie getZithoudingZithouding() {
         return zithoudingZithouding;
     }
@@ -461,24 +568,6 @@ public class EvaluatieFormulier
 
     public void setKijkAndere(List<String> kijkAndere) {
         this.kijkAndere = kijkAndere;
-        leerling.notifyViews();
-    }
-
-    public char getHellingType() {
-        return hellingType;
-    }
-
-    public void setHellingType(char hellingType) {
-        this.hellingType = hellingType;
-        leerling.notifyViews();
-    }
-
-    public Evaluatie getHelling() {
-        return helling;
-    }
-
-    public void setHelling(Evaluatie helling) {
-        this.helling = helling;
         leerling.notifyViews();
     }
 

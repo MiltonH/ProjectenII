@@ -27,13 +27,15 @@ public class HoofdPaneel extends GridPane implements View
 
     private Scene scene;
     InlogPaneel inlogPaneel;
-    private int niveau = 1;//dit is testcode
     private Leerling huidigeLeerling;
+    Rectangle2D schermformaat;
 
     Hashtable<String, ImageView> iconViewsTable;
     Hashtable<String, List> imageListTable;
+    List<ImageView> testImageViews;
     ImageView niveauCenterView;
     List<Image> niveauImages;
+    EvaluatieFormulier HuidigFormulier;
 
     public HoofdPaneel(Leerling leerling) {
         //maingrid indelen
@@ -42,7 +44,8 @@ public class HoofdPaneel extends GridPane implements View
 
         iconViewsTable = new Hashtable<>();
         imageListTable = new Hashtable<>();
-        EvaluatieFormulier HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
+        testImageViews = new ArrayList<>();
+        HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
 
         setId("hoofdPaneelBG");
         gridLinesVisibleProperty().set(false);
@@ -72,7 +75,7 @@ public class HoofdPaneel extends GridPane implements View
         getRowConstraints().addAll(rij0, rij1, rij2, rij3);
 
         //einde grid indeling
-        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+        schermformaat = Screen.getPrimary().getVisualBounds();
 
         //kap
         HBox kapBox = new HBox();
@@ -95,7 +98,7 @@ public class HoofdPaneel extends GridPane implements View
         studentNaam.setId("naamLabel");
         setHalignment(studentNaam, HPos.CENTER);
         add(studentNaam, 4, 0);
-        //einde studnet naam
+        //einde studnet naam       
         //einde kap       
         //centerBox
         HBox centerBox = new HBox();
@@ -221,19 +224,25 @@ public class HoofdPaneel extends GridPane implements View
         Image bottomTest = new Image("Images/BottomTest.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
         ImageView bottomTest1View = new ImageView(bottomTest);
         bottomTest1View.setOnMouseClicked(event -> {
-            wijzeplaat1Stand.setImage(wijzerStand2);
-            wijzeplaat2Stand.setImage(wijzerStand2);
+            //
         });
         ImageView bottomTest2View = new ImageView(bottomTest);
         bottomTest2View.setOnMouseClicked(event -> {
-            wijzeplaat1Stand.setImage(wijzerStand3);
-            wijzeplaat2Stand.setImage(wijzerStand3);
+            if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 0) {
+                huidigeLeerling.volgendFormulier();
+            }
+            update();
         });
         ImageView bottomTest3View = new ImageView(bottomTest);
         bottomTest3View.setOnMouseClicked(event -> {
-            wijzeplaat1Stand.setImage(wijzerStand1);
-            wijzeplaat2Stand.setImage(wijzerStand1);
+            if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 1) {
+                huidigeLeerling.volgendFormulier();
+            }
+            update();
         });
+        testImageViews.add(bottomTest1View);
+        testImageViews.add(bottomTest2View);
+        testImageViews.add(bottomTest3View);
 
         GridPane bottomBoxGrid = new GridPane();
         bottomBoxGrid.setAlignment(Pos.BOTTOM_CENTER);
@@ -275,7 +284,7 @@ public class HoofdPaneel extends GridPane implements View
         niveauImages.add(new Image("Images/niveau5.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
         niveauImages.add(new Image("Images/niveau6.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
         niveauImages.add(new Image("Images/niveau7.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
-        niveauCenterView = new ImageView(niveauImages.get(niveau - 1));
+        niveauCenterView = new ImageView(niveauImages.get(0));
 
         niveauHbox.getChildren().addAll(niveauMinView, niveauCenterView, niveauPlusView);
 
@@ -578,6 +587,7 @@ public class HoofdPaneel extends GridPane implements View
 
     @Override
     public void update() {
+        HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
         EvaluatieFormulier formulier = huidigeLeerling.getHuidigEvaluatieFormulier();
         //top
         PasTopKleurAan("stad", formulier.getStad());
@@ -595,6 +605,19 @@ public class HoofdPaneel extends GridPane implements View
         PasRandKleurAan("tank", formulier.getTanken());
         //niveau
         niveauCenterView.setImage(niveauImages.get(formulier.getNiveau()));
+
+        //testen
+        Image bottomTestBezig = new Image("Images/BottomTestCompleted.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        Image bottomTestDone = new Image("Images/BottomTestDone.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+
+        for (int i = 0; i < 3; i++) {
+            if (huidigeLeerling.getHuidigEvaluatieFormulierNr() > i) {
+                testImageViews.get(i).setImage(bottomTestDone);
+            }
+            if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == i) {
+                testImageViews.get(i).setImage(bottomTestBezig);
+            }
+        }
     }
 
     public InlogPaneel getInlogPaneel() {

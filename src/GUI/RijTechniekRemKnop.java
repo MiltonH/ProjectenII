@@ -1,9 +1,13 @@
 package GUI;
 
+import domain.Evaluatie;
+import domain.EvaluatieFormulier;
+import domain.Leerling;
+import domain.View;
 import java.util.Collections;
+import java.util.Hashtable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -25,11 +29,24 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
-public class RijTechniekRemKnop extends GridPane {
+public class RijTechniekRemKnop extends GridPane implements View
+{
 
-    public RijTechniekRemKnop() {
+    RijTechniekBase base;
+    EvaluatieFormulier huidigformulier;
+    ObservableList<String> opmerkingenList;
+    Rectangle kotje1;
+    Rectangle kotje2;
+    Rectangle kotje3;
+    Hashtable<String, Button> buttons;
+
+    public RijTechniekRemKnop(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");
 
+        this.base = base;
+        base.getHoofdpanel().getHuidigeLeerling().addView(this);
+        huidigformulier = base.getHoofdpanel().getHuidigeLeerling().getHuidigEvaluatieFormulier();
+        buttons = new Hashtable<>();
         //einde grid indeling
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
         double maxWidth = schermformaat.getWidth() * 0.62;
@@ -92,56 +109,41 @@ public class RijTechniekRemKnop extends GridPane {
         //rem
         Image knopVierkant = new Image("Images/knopVierkant.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true);
         ImageView remView = new ImageView(knopVierkant);
+        Image afbRem = new Image("Images/rem.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
+        ImageView remAfbView = new ImageView(afbRem);
         gridKnopPane.add(remView, 0, 0);
+        gridKnopPane.add(remAfbView, 0, 0);
 
         HBox remBox = new HBox();
         remBox.setAlignment(Pos.CENTER);
         remBox.setId("rijTechniekHoofdschermBox");
 
         double grootte = Math.ceil(maxWidth * 0.03);
-        Rectangle kotje1 = new Rectangle(grootte, grootte, Color.WHITE);
-        Rectangle kotje2 = new Rectangle(grootte, grootte, Color.WHITE);
-        Rectangle kotje3 = new Rectangle(grootte, grootte, Color.WHITE);
+        kotje1 = new Rectangle(grootte, grootte, Color.WHITE);
+        kotje2 = new Rectangle(grootte, grootte, Color.WHITE);
+        kotje3 = new Rectangle(grootte, grootte, Color.WHITE);
 
         remBox.getChildren().addAll(kotje1, kotje2, kotje3);
         gridKnopPane.add(remBox, 0, 1);
 
         //Listview
-        ObservableList<String> opmerkingenList = FXCollections.observableArrayList();;
+        opmerkingenList = FXCollections.observableArrayList();
         Collections.sort(opmerkingenList);
-        ListView<String> opmerkingenView = new ListView<String>(opmerkingenList);
+        ListView<String> opmerkingenView = new ListView<>(opmerkingenList);
 
         //Tekst
         TextField invulTextField = new TextField();
         invulTextField.setId("inlogTexfield");
         invulTextField.setPromptText("Geef een opmerking");
         invulTextField.setId("attitudeTextField");
-        invulTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        invulTextField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    opmerkingenList.add(invulTextField.getText());
+                    huidigformulier.getRemGebruikAndere().add(invulTextField.getText());
                     invulTextField.clear();
-                }
-            }
-        });
-
-        //Listview
-        ObservableList<String> opmerkingenList2 = FXCollections.observableArrayList();;
-        Collections.sort(opmerkingenList2);
-        ListView<String> opmerkingenView2 = new ListView<String>(opmerkingenList2);
-
-        //Tekst
-        TextField invulTextField2 = new TextField();
-        invulTextField2.setId("inlogTexfield");
-        invulTextField2.setPromptText("Geef een opmerking");
-        invulTextField2.setId("attitudeTextField");
-        invulTextField2.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent ke) {
-                if (ke.getCode().equals(KeyCode.ENTER)) {
-                    opmerkingenList2.add(invulTextField2.getText());
-                    invulTextField2.clear();
+                    update();
                 }
             }
         });
@@ -150,29 +152,83 @@ public class RijTechniekRemKnop extends GridPane {
         Button bediening = new Button("Bediening");
         bediening.setId("buttons");
         add(bediening, 2, 1);
+        buttons.put("bediening", bediening);
 
         Button gebruik = new Button("Gebruik");
         gebruik.setId("buttons");
         add(gebruik, 2, 3);
+        buttons.put("gebruik", gebruik);
 
         Button dosering = new Button("Dosering");
         dosering.setId("buttons");
+        dosering.setOnAction(event -> {
+            huidigformulier.setRemDosering(base.toggleKleur(huidigformulier.getRemDosering()));
+            update();
+        });
         add(dosering, 3, 1);
+        buttons.put("dosering", dosering);
 
         Button volgorde = new Button("Volledig");
         volgorde.setId("buttons");
+        volgorde.setOnAction(event -> {
+            huidigformulier.setRemVolgorde(base.toggleKleur(huidigformulier.getRemVolgorde()));
+            update();
+        });
         add(volgorde, 3, 2);
+        buttons.put("volgorde", volgorde);
 
         Button teLaat = new Button("Te laat");
         teLaat.setId("buttons");
+        teLaat.setOnAction(event -> {
+            huidigformulier.setRemTeLaat(base.toggleKleur(huidigformulier.getRemTeLaat()));
+            update();
+        });
         add(teLaat, 3, 3);
+        buttons.put("telaat", teLaat);
 
         Button andere = new Button("Andere");
         andere.setId("buttons");
-        add(andere, 3, 4); 
+        add(andere, 3, 4);
         andere.setOnMouseClicked(event -> {
             add(invulTextField, 4, 4);
             add(opmerkingenView, 4, 3);
         });
+        update();
+    }
+
+    @Override
+    public void update() {
+        huidigformulier = base.getHoofdpanel().getHuidigeLeerling().getHuidigEvaluatieFormulier();
+        opmerkingenList.clear();
+        opmerkingenList.addAll(huidigformulier.getRemGebruikAndere());
+
+        //buttons
+        base.kleurButton(buttons.get("dosering"), huidigformulier.getRemDosering());
+        base.kleurButton(buttons.get("volgorde"), huidigformulier.getRemVolgorde());
+        base.kleurButton(buttons.get("telaat"), huidigformulier.getRemTeLaat());
+
+        Evaluatie[] bedieningArr = {huidigformulier.getRemDosering(), huidigformulier.getRemVolgorde()};
+        base.kleurButton(buttons.get("bediening"), base.berekenComboKleur(bedieningArr));
+
+        base.kleurButton(buttons.get("gebruik"), huidigformulier.getRemTeLaat());
+
+        Leerling leerling = base.getHoofdpanel().getHuidigeLeerling();
+
+        for (int i = 0; i < leerling.getEvaluatieFormulieren().size(); i++) {
+            EvaluatieFormulier formulier = leerling.getEvaluatieFormulieren().get(i);
+
+            Evaluatie[] kotjeArr = {
+                formulier.getRemDosering(), formulier.getRemVolgorde(), formulier.getRemTeLaat()
+            };
+            if (i == 0) {
+                base.kleurKotje(kotje1, base.berekenComboKleur(kotjeArr));
+            }
+            if (i == 1) {
+                base.kleurKotje(kotje2, base.berekenComboKleur(kotjeArr));
+            }
+            if (i == 2) {
+                base.kleurKotje(kotje3, base.berekenComboKleur(kotjeArr));
+            }
+        }
     }
 }

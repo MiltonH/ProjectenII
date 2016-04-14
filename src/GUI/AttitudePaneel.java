@@ -1,5 +1,7 @@
 package GUI;
 
+import domain.EvaluatieFormulier;
+import domain.View;
 import java.util.Collections;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,14 +21,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Screen;
 
-public class AttitudePaneel extends GridPane {
+public class AttitudePaneel extends GridPane implements View{
 
     Scene scene;
+    HoofdPaneel hp;
+    EvaluatieFormulier huidigformulier;
 
     public AttitudePaneel(HoofdPaneel hoofdPanel) {
         setId("inlogPaneelBG");
         //schermformaat
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+        this.hp = hoofdPanel;
+        huidigformulier = hp.getHuidigeLeerling().getHuidigEvaluatieFormulier();
 
         //aanmaak grid
         gridLinesVisibleProperty().set(false);
@@ -247,5 +253,10 @@ public class AttitudePaneel extends GridPane {
 
     public void setScene(Scene scene) {
         this.scene = scene;
+    }
+
+    @Override
+    public void update() {
+        huidigformulier = hp.getHuidigeLeerling().getHuidigEvaluatieFormulier();
     }
 }
