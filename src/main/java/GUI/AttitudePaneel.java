@@ -21,11 +21,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Screen;
 
-public class AttitudePaneel extends GridPane implements View{
+public class AttitudePaneel extends GridPane implements View
+{
 
     Scene scene;
     HoofdPaneel hp;
     EvaluatieFormulier huidigformulier;
+    ObservableList<String> opmerkingenTextAreaList;
 
     public AttitudePaneel(HoofdPaneel hoofdPanel) {
         setId("inlogPaneelBG");
@@ -161,13 +163,14 @@ public class AttitudePaneel extends GridPane implements View{
         invulSchermenPane.add(foutLabel, 0, 2);
 
         //TextArea ListView
-        ObservableList<String> opmerkingenTextAreaList = FXCollections.observableArrayList();;
+        opmerkingenTextAreaList = FXCollections.observableArrayList();
+        //
         ListView<String> opmerkingenTextAreaView = new ListView<String>(opmerkingenTextAreaList);
         opmerkingenTextAreaView.setId("attitudeListViewOpmerkingen");
         textAreaPane.add(opmerkingenTextAreaView, 0, 1);
 
         //List voor opmerkingen
-        ObservableList<String> opmerkingenDoorgeefList = FXCollections.observableArrayList();;
+        ObservableList<String> opmerkingenDoorgeefList = FXCollections.observableArrayList();
 
         //Knoppen   
         Button voegToe = new Button("Voeg Toe");
@@ -180,9 +183,10 @@ public class AttitudePaneel extends GridPane implements View{
                     foutLabel.setText("Deze opmerking is al toegevoegd");
                 } else if (invulTextField.getText().indexOf("!") == -1) {
                     opmerkingenView.getSelectionModel().clearSelection();
-                    opmerkingenTextAreaList.add(invulTextField.getText().substring(0, 1).toUpperCase() + invulTextField.getText().substring(1));
+                    huidigformulier.getAttitude().add(invulTextField.getText().substring(0, 1).toUpperCase() + invulTextField.getText().substring(1));
                     invulTextField.clear();
                     foutLabel.setText("");
+                    update();
                 } else {
                     foutLabel.setText("Een uitroepingsteken mag niet worden toegevoegd");
                 }
@@ -190,9 +194,10 @@ public class AttitudePaneel extends GridPane implements View{
                 if (opmerkingenTextAreaList.contains(opmerkingenView.getSelectionModel().getSelectedItem()) || opmerkingenTextAreaList.contains(opmerkingenView.getSelectionModel().getSelectedItem() + "!")) {
                     foutLabel.setText("Deze opmerking is al toegevoegd");
                 } else {
-                    opmerkingenTextAreaList.add(opmerkingenView.getSelectionModel().getSelectedItem());
+                    huidigformulier.getAttitude().add(opmerkingenView.getSelectionModel().getSelectedItem());
                     opmerkingenView.getSelectionModel().clearSelection();
                     foutLabel.setText("");
+                    update();
                 }
             }
         });
@@ -203,7 +208,7 @@ public class AttitudePaneel extends GridPane implements View{
         knopPane.add(verwijder, 0, 0);
 
         verwijder.setOnMouseClicked(event -> {
-            opmerkingenTextAreaList.remove(opmerkingenTextAreaView.getSelectionModel().getSelectedItem());
+            huidigformulier.getAttitude().remove(opmerkingenTextAreaView.getSelectionModel().getSelectedItem());
         });
 
         //
@@ -221,16 +226,25 @@ public class AttitudePaneel extends GridPane implements View{
         knopPane.add(aandacht, 1, 0);
 
         aandacht.setOnMouseClicked(event -> {
-            if (opmerkingenTextAreaView.getSelectionModel().getSelectedItem().indexOf('!') == -1) {
-                opmerkingenDoorgeefList.add(opmerkingenTextAreaView.getSelectionModel().getSelectedItem());
-                Collections.replaceAll(opmerkingenTextAreaList, opmerkingenTextAreaView.getSelectionModel().getSelectedItem(), opmerkingenTextAreaView.getSelectionModel().getSelectedItem() + "!");
-                foutLabel.setText("");
-            } else {
-                foutLabel.setText("U heeft meermaals aandacht aangedrukt");
+            if (opmerkingenTextAreaView.getSelectionModel().getSelectedItem() != null) {
+                if (opmerkingenTextAreaView.getSelectionModel().getSelectedItem().indexOf('!') == -1) {
+                    if (!huidigformulier.getOpmerkingen().contains(opmerkingenTextAreaView.getSelectionModel().getSelectedItem())) {
+                        huidigformulier.getOpmerkingen().add(opmerkingenTextAreaView.getSelectionModel().getSelectedItem());
+                    }
+                    huidigformulier.getAttitude().remove(opmerkingenTextAreaView.getSelectionModel().getSelectedItem());
+//                    opmerkingenDoorgeefList.add(opmerkingenTextAreaView.getSelectionModel().getSelectedItem());
+//                    Collections.replaceAll(opmerkingenTextAreaList, opmerkingenTextAreaView.getSelectionModel().getSelectedItem(), opmerkingenTextAreaView.getSelectionModel().getSelectedItem() + "!");
+                    foutLabel.setText("");
+                    update();
+
+                } else {
+                    foutLabel.setText("U heeft meermaals aandacht aangedrukt");
+                }
             }
         });
-        
-        invulTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+        invulTextField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
@@ -239,9 +253,10 @@ public class AttitudePaneel extends GridPane implements View{
                             foutLabel.setText("Deze opmerking is al toegevoegd");
                         } else if (invulTextField.getText().indexOf("!") == -1) {
                             opmerkingenView.getSelectionModel().clearSelection();
-                            opmerkingenTextAreaList.add(invulTextField.getText().substring(0, 1).toUpperCase() + invulTextField.getText().substring(1));
+                            huidigformulier.getAttitude().add(invulTextField.getText().substring(0, 1).toUpperCase() + invulTextField.getText().substring(1));
                             invulTextField.clear();
                             foutLabel.setText("");
+                            update();
                         } else {
                             foutLabel.setText("Een uitroepingsteken mag niet worden toegevoegd");
                         }
@@ -249,6 +264,7 @@ public class AttitudePaneel extends GridPane implements View{
                 }
             }
         });
+        update();
     }
 
     public void setScene(Scene scene) {
@@ -258,5 +274,8 @@ public class AttitudePaneel extends GridPane implements View{
     @Override
     public void update() {
         huidigformulier = hp.getHuidigeLeerling().getHuidigEvaluatieFormulier();
+        opmerkingenTextAreaList.clear();
+        opmerkingenTextAreaList.addAll(huidigformulier.getAttitude());
+
     }
 }

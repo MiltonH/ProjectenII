@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -48,6 +49,7 @@ public class RijTechniekZithoudingKnop extends GridPane implements View
     Rectangle kotje2;
     Rectangle kotje3;
     Hashtable<String, Button> buttons;
+    Boolean andereBool;
 
     public RijTechniekZithoudingKnop(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");
@@ -125,6 +127,15 @@ public class RijTechniekZithoudingKnop extends GridPane implements View
         ImageView knopView = new ImageView(afbknop);
         gridKnopPane.add(knopView, 0, 0);
 
+        remView.setOnMouseClicked(event -> {
+            huidigformulier.setZithoudingRec(base.toggleKleur(huidigformulier.getZithoudingRec()));
+            update();
+        });
+        knopView.setOnMouseClicked(event -> {
+            huidigformulier.setZithoudingRec(base.toggleKleur(huidigformulier.getZithoudingRec()));
+            update();
+        });
+
         HBox remBox = new HBox();
         remBox.setAlignment(Pos.CENTER);
         remBox.setId("rijTechniekHoofdschermBox");
@@ -158,6 +169,23 @@ public class RijTechniekZithoudingKnop extends GridPane implements View
                 }
             }
         });
+
+        Button aandacht = new Button("!");
+        aandacht.setId("aandachtButtons");
+        aandacht.setOnAction(event -> {
+            if (!huidigformulier.getOpmerkingen().contains(opmerkingenView.getSelectionModel().getSelectedItem())) {
+                if (opmerkingenView.getSelectionModel().getSelectedItem() != null) {
+                    huidigformulier.getOpmerkingen().add(opmerkingenView.getSelectionModel().getSelectedItem());
+                }
+            }
+            huidigformulier.getZithoudingAndere().remove(opmerkingenView.getSelectionModel().getSelectedItem());
+            update();
+        });
+
+        HBox invoer = new HBox(20);
+        setPadding(new Insets(10));
+        invoer.setAlignment(Pos.CENTER);
+        invoer.getChildren().addAll(aandacht, invulTextField);
 
         //knoppen
         Button zithouding = new Button("Zithouding");
@@ -196,12 +224,16 @@ public class RijTechniekZithoudingKnop extends GridPane implements View
         add(handrem, 2, 4);
         buttons.put("handrem", handrem);
 
+        andereBool = false;
         Button andere = new Button("Andere");
         andere.setId("buttons");
         add(andere, 2, 5);
         andere.setOnMouseClicked(event -> {
-            add(invulTextField, 3, 5);
-            add(opmerkingenView, 3, 3, 1, 2);
+            if (!andereBool) {
+                add(invoer, 3, 5);
+                add(opmerkingenView, 3, 3, 1, 2);
+                andereBool = true;
+            }
         });
         update();
     }
@@ -222,18 +254,14 @@ public class RijTechniekZithoudingKnop extends GridPane implements View
 
         for (int i = 0; i < leerling.getEvaluatieFormulieren().size(); i++) {
             EvaluatieFormulier formulier = leerling.getEvaluatieFormulieren().get(i);
-
-            Evaluatie[] kotjeArr = {
-                formulier.getZithoudingZithouding(), formulier.getZithoudingGordel(), formulier.getZithoudingSpiegels(), formulier.getZithoudingHandrem()
-            };
             if (i == 0) {
-                base.kleurKotje(kotje1, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje1, formulier.getZithoudingRec());
             }
             if (i == 1) {
-                base.kleurKotje(kotje2, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje2, formulier.getZithoudingRec());
             }
             if (i == 2) {
-                base.kleurKotje(kotje3, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje3, formulier.getZithoudingRec());
             }
         }
     }

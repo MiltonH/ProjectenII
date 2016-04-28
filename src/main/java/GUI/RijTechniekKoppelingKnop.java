@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -41,6 +42,8 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
     Rectangle kotje2;
     Rectangle kotje3;
     Hashtable<String, Button> buttons;
+    Boolean andere1Bool;
+    Boolean andere2Bool;
 
     public RijTechniekKoppelingKnop(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");
@@ -121,6 +124,15 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
         gridKnopPane.add(koppelingView, 0, 0);
         gridKnopPane.add(koppelingAfbView, 0, 0);
 
+        koppelingView.setOnMouseClicked(event -> {
+            huidigformulier.setKoppelingRec(base.toggleKleur(huidigformulier.getKoppelingRec()));
+            update();
+        });
+        koppelingAfbView.setOnMouseClicked(event -> {
+            huidigformulier.setKoppelingRec(base.toggleKleur(huidigformulier.getKoppelingRec()));
+            update();
+        });
+
         HBox remBox = new HBox();
         remBox.setAlignment(Pos.CENTER);
         remBox.setId("rijTechniekHoofdschermBox");
@@ -148,12 +160,30 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    huidigformulier.getKoppelingBedieningAndere().add(invulTextField.getText());
-                    invulTextField.clear();
-                    update();
+                    if (!invulTextField.getText().isEmpty()) {
+                        huidigformulier.getKoppelingBedieningAndere().add(invulTextField.getText());
+                        invulTextField.clear();
+                        update();
+                    }
                 }
             }
         });
+        Button aandacht1 = new Button("!");
+        aandacht1.setId("aandachtButtons");
+        aandacht1.setOnAction(event -> {
+            if (!huidigformulier.getOpmerkingen().contains(opmerkingenView.getSelectionModel().getSelectedItem())) {
+                if (opmerkingenView.getSelectionModel().getSelectedItem() != null) {
+                    huidigformulier.getOpmerkingen().add(opmerkingenView.getSelectionModel().getSelectedItem());
+                }
+            }
+            huidigformulier.getKoppelingBedieningAndere().remove(opmerkingenView.getSelectionModel().getSelectedItem());
+            update();
+        });
+
+        HBox invoer = new HBox(20);
+        setPadding(new Insets(10));
+        invoer.setAlignment(Pos.CENTER);
+        invoer.getChildren().addAll(aandacht1, invulTextField);
 
         //Listview
         opmerkingenList2 = FXCollections.observableArrayList();;
@@ -170,22 +200,49 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    huidigformulier.getKoppelingGebruikAndere().add(invulTextField2.getText());
-                    invulTextField2.clear();
-                    update();
+                    if (!invulTextField2.getText().isEmpty()) {
+                        huidigformulier.getKoppelingGebruikAndere().add(invulTextField2.getText());
+                        invulTextField2.clear();
+                        update();
+                    }
                 }
             }
         });
+
+        Button aandacht2 = new Button("!");
+        aandacht2.setId("aandachtButtons");
+        aandacht2.setOnAction(event -> {
+            if (!huidigformulier.getOpmerkingen().contains(opmerkingenView2.getSelectionModel().getSelectedItem())) {
+                if (opmerkingenView2.getSelectionModel().getSelectedItem() != null) {
+                    huidigformulier.getOpmerkingen().add(opmerkingenView2.getSelectionModel().getSelectedItem());
+                }
+            }
+            huidigformulier.getKoppelingGebruikAndere().remove(opmerkingenView2.getSelectionModel().getSelectedItem());
+            update();
+        });
+
+        HBox invoer2 = new HBox(20);
+        setPadding(new Insets(10));
+        invoer2.setAlignment(Pos.CENTER);
+        invoer2.getChildren().addAll(aandacht2, invulTextField2);
 
         //knoppen
         Button bediening = new Button("Bediening");
         bediening.setId("buttons");
         add(bediening, 2, 1);
+        bediening.setOnAction(event -> {
+            huidigformulier.setKoppelingBediening(base.toggleKleur(huidigformulier.getKoppelingBediening()));
+            update();
+        });
         buttons.put("bediening", bediening);
 
         Button gebruik = new Button("Gebruik");
         gebruik.setId("buttons");
         add(gebruik, 2, 5);
+        gebruik.setOnAction(event -> {
+            huidigformulier.setKoppelingGebruik(base.toggleKleur(huidigformulier.getKoppelingGebruik()));
+            update();
+        });
         buttons.put("gebruik", gebruik);
 
         Button dosering = new Button("Dosering");
@@ -215,12 +272,16 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
         });
         buttons.put("voetaf", voetAf);
 
+        andere1Bool = false;
         Button andere1 = new Button("Andere");
         andere1.setId("buttons");
         add(andere1, 3, 4);
         andere1.setOnMouseClicked(event -> {
-            add(invulTextField, 4, 4);
-            add(opmerkingenView, 4, 2, 1, 2);
+            if (!andere1Bool) {
+                add(invoer, 4, 4);
+                add(opmerkingenView, 4, 2, 1, 2);
+                andere1Bool = true;
+            }
         });
 
         Button onNodig = new Button("Onnodig");
@@ -241,12 +302,16 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
         });
         buttons.put("bocht", bocht);
 
+        andere2Bool = false;
         Button andere2 = new Button("Andere");
         andere2.setId("buttons");
         add(andere2, 3, 7);
         andere2.setOnMouseClicked(event -> {
-            add(invulTextField2, 4, 7);
-            add(opmerkingenView2, 4, 5, 1, 2);
+            if (!andere2Bool) {
+                add(invoer2, 4, 7);
+                add(opmerkingenView2, 4, 5, 1, 2);
+                andere2Bool = true;
+            }
         });
 
         update();
@@ -266,27 +331,22 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
         base.kleurButton(buttons.get("voetaf"), huidigformulier.getKoppelingVoetaf());
         base.kleurButton(buttons.get("onnodig"), huidigformulier.getKoppelingOnnodig());
         base.kleurButton(buttons.get("bocht"), huidigformulier.getKoppelingBocht());
-        Evaluatie[] bedieningArr = {huidigformulier.getKoppelingDosering(), huidigformulier.getKoppelingVoetaf(), huidigformulier.getKoppelingVolledig()};
-        base.kleurButton(buttons.get("bediening"), base.berekenComboKleur(bedieningArr));
-        Evaluatie[] gebruikArr = {huidigformulier.getKoppelingOnnodig(), huidigformulier.getKoppelingBocht()};
-        base.kleurButton(buttons.get("gebruik"), base.berekenComboKleur(gebruikArr));
+        base.kleurButton(buttons.get("bediening"), huidigformulier.getKoppelingBediening());
+        base.kleurButton(buttons.get("gebruik"), huidigformulier.getKoppelingGebruik());
 
         Leerling leerling = base.getHoofdpanel().getHuidigeLeerling();
 
         for (int i = 0; i < leerling.getEvaluatieFormulieren().size(); i++) {
             EvaluatieFormulier formulier = leerling.getEvaluatieFormulieren().get(i);
 
-            Evaluatie[] kotjeArr = {
-                formulier.getKoppelingDosering(), formulier.getKoppelingVoetaf(), formulier.getKoppelingVolledig(), formulier.getKoppelingOnnodig(), formulier.getKoppelingBocht()
-            };
             if (i == 0) {
-                base.kleurKotje(kotje1, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje1, formulier.getKoppelingRec());
             }
             if (i == 1) {
-                base.kleurKotje(kotje2, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje2, formulier.getKoppelingRec());
             }
             if (i == 2) {
-                base.kleurKotje(kotje3, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje3, formulier.getKoppelingRec());
             }
         }
     }

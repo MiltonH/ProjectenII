@@ -39,10 +39,10 @@
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
-    -fx-font-size: 20;
-    -fx-padding: 20 50 20 50;
+    -fx-font-size: 15;
+    -fx-padding: 15 30 15 30;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-pref-width: 185;
+    -fx-pref-width: 135;
     -fx-pref-height: 50;
 }
 
@@ -54,19 +54,24 @@
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
-    -fx-font-size: 18;
-    -fx-padding: 20 30 20 30;
+    -fx-font-size: 15;
+    -fx-padding: 15 30 15 30;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-pref-width: 185;
+    -fx-pref-width: 135;
     -fx-pref-height: 50;
 }
 
 .list-cell{
     -fx-font-size: 20;
 }
+#verkeerstechniekLabel{
+    -fx-font-size: 25;
+    -fx-text-fill:white;
+}
 
 #hoofdPaneelBG{
     -fx-background-image: url("../Images/BG.png");
+    /*-fx-background-color: dimgray;*/
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
     -fx-background-size: auto;
@@ -80,7 +85,9 @@
 
 #naamLabel{
     -fx-font-size: 40;
-    -fx-text-fill: #e6e6e6;
+    -fx-text-fill: #fcfcfc;
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
 }
 
 #opmerkingenPaneel{
@@ -128,7 +135,7 @@
 
 #attitudeLabel{
     -fx-font-size: 50;
-    -fx-text-fill: darkslategray;
+    -fx-text-fill: white;
 }
 
 #attitudeFout{
@@ -148,6 +155,21 @@
     -fx-background-size: auto;
 }
 
+#aandachtButtons{
+    -fx-background-color: 
+        linear-gradient(#f2f2f2, #d6d6d6),
+        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
+        linear-gradient(#dddddd 0%, #f6f6f6 50%);
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-font-size: 15;
+    -fx-padding: 15 30 15 30;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
+}
+
 #buttons{
     -fx-background-color: 
         linear-gradient(#f2f2f2, #d6d6d6),
@@ -156,10 +178,10 @@
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
-    -fx-font-size: 20;
-    -fx-padding: 20 50 20 50;
+    -fx-font-size: 15;
+    -fx-padding: 15 30 15 30;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-pref-width: 280;
+    -fx-pref-width: 220;
     -fx-pref-height: 50;
 }
 
@@ -168,10 +190,10 @@
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
-    -fx-font-size: 20;
-    -fx-padding: 20 50 20 50;
+    -fx-font-size: 15;
+    -fx-padding: 15 30 15 30;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-pref-width: 280;
+    -fx-pref-width: 220;
     -fx-pref-height: 50;
 }
 
@@ -180,10 +202,10 @@
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
-    -fx-font-size: 20;
-    -fx-padding: 20 50 20 50;
+    -fx-font-size: 15;
+    -fx-padding: 15 30 15 30;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-pref-width: 280;
+    -fx-pref-width: 220;
     -fx-pref-height: 50;
 }
 
@@ -192,13 +214,13 @@
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
-    -fx-font-size: 20;
-    -fx-padding: 20 50 20 50;
+    -fx-font-size: 15;
+    -fx-padding: 15 30 15 30;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-pref-width: 280;
+    -fx-pref-width: 220;
     -fx-pref-height: 50;
 }
-    
+
 #verkeersRec{
     -fx-stroke: black;
     -fx-stroke-width: 2;

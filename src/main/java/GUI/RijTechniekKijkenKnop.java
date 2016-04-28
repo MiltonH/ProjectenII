@@ -1,6 +1,5 @@
 package GUI;
 
-import domain.Evaluatie;
 import domain.EvaluatieFormulier;
 import domain.Leerling;
 import domain.View;
@@ -10,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -39,6 +39,7 @@ public class RijTechniekKijkenKnop extends GridPane implements View
     Rectangle kotje2;
     Rectangle kotje3;
     Hashtable<String, Button> buttons;
+    Boolean andereBool;
 
     public RijTechniekKijkenKnop(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");
@@ -117,6 +118,15 @@ public class RijTechniekKijkenKnop extends GridPane implements View
         gridKnopPane.add(kijkenView, 0, 0);
         gridKnopPane.add(remVersnelling, 0, 0);
 
+        kijkenView.setOnMouseClicked(event -> {
+            huidigformulier.setKijkRec(base.toggleKleur(huidigformulier.getKijkRec()));
+            update();
+        });
+        remVersnelling.setOnMouseClicked(event -> {
+            huidigformulier.setKijkRec(base.toggleKleur(huidigformulier.getKijkRec()));
+            update();
+        });
+
         HBox remBox = new HBox();
         remBox.setAlignment(Pos.CENTER);
         remBox.setId("rijTechniekHoofdschermBox");
@@ -150,6 +160,22 @@ public class RijTechniekKijkenKnop extends GridPane implements View
                 }
             }
         });
+        Button aandacht = new Button("!");
+        aandacht.setId("aandachtButtons");
+        aandacht.setOnAction(event -> {
+            if (!huidigformulier.getOpmerkingen().contains(opmerkingenView.getSelectionModel().getSelectedItem())) {
+                if (opmerkingenView.getSelectionModel().getSelectedItem() != null) {
+                    huidigformulier.getOpmerkingen().add(opmerkingenView.getSelectionModel().getSelectedItem());
+                }
+            }
+            huidigformulier.getKijkAndere().remove(opmerkingenView.getSelectionModel().getSelectedItem());
+            update();
+        });
+
+        HBox invoer = new HBox(20);
+        setPadding(new Insets(10));
+        invoer.setAlignment(Pos.CENTER);
+        invoer.getChildren().addAll(aandacht, invulTextField);
 
         //knoppen
         Button beterVergewissen = new Button("Beter Vergewissen");
@@ -197,12 +223,16 @@ public class RijTechniekKijkenKnop extends GridPane implements View
         add(selecteren, 2, 5);
         buttons.put("selecteren", selecteren);
 
+        andereBool = false;
         Button andere = new Button("Andere");
         andere.setId("buttons");
         add(andere, 2, 6);
         andere.setOnMouseClicked(event -> {
-            add(invulTextField, 3, 6);
-            add(opmerkingenView, 3, 4, 1, 2);
+            if (!andereBool) {
+                add(invoer, 3, 6);
+                add(opmerkingenView, 3, 4, 1, 2);
+                andereBool = true;
+            }
         });
         update();
     }
@@ -225,17 +255,14 @@ public class RijTechniekKijkenKnop extends GridPane implements View
         for (int i = 0; i < leerling.getEvaluatieFormulieren().size(); i++) {
             EvaluatieFormulier formulier = leerling.getEvaluatieFormulieren().get(i);
 
-            Evaluatie[] kotjeArr = {
-                formulier.getKijkVergewis(), formulier.getKijksSpiegels(), formulier.getKijkDodeHoek(), formulier.getKijkVer(), formulier.getKijkSelecteren()
-            };
             if (i == 0) {
-                base.kleurKotje(kotje1, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje1, formulier.getKijkRec());
             }
             if (i == 1) {
-                base.kleurKotje(kotje2, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje2, formulier.getKijkRec());
             }
             if (i == 2) {
-                base.kleurKotje(kotje3, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje3, formulier.getKijkRec());
             }
         }
     }
