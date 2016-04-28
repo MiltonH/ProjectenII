@@ -414,30 +414,12 @@ public class RijTechniekHoofdscherm extends GridPane implements View
             PasRecKleurAan("helling", formulier.getHellingB(), 0);
             PasRecKleurAan("helling", formulier.getHellingH(), 1);
             PasRecKleurAan("helling", formulier.getHellingV(), 2);
-            Evaluatie[] remArr = {
-                formulier.getRemDosering(), formulier.getRemVolgorde(), formulier.getRemTeLaat()
-            };
-            PasRecKleurAan("rem", base.berekenComboKleur(remArr), i);
-            Evaluatie[] koppelingArr = {
-                formulier.getKoppelingDosering(), formulier.getKoppelingVoetaf(), formulier.getKoppelingVolledig(), formulier.getKoppelingOnnodig(), formulier.getKoppelingBocht()
-            };
-            PasRecKleurAan("koppeling", base.berekenComboKleur(koppelingArr), i);
-            Evaluatie[] stuurArr = {
-                formulier.getStuurDosering(), formulier.getStuurHouding()
-            };
-            PasRecKleurAan("stuur", base.berekenComboKleur(stuurArr), i);
-            Evaluatie[] kijkenArr = {
-                formulier.getKijkVergewis(), formulier.getKijksSpiegels(), formulier.getKijkDodeHoek(), formulier.getKijkVer(), formulier.getKijkSelecteren()
-            };
-            PasRecKleurAan("kijken", base.berekenComboKleur(kijkenArr), i);
-            Evaluatie[] zithoudingArr = {
-                formulier.getZithoudingZithouding(), formulier.getZithoudingGordel(), formulier.getZithoudingSpiegels(), formulier.getZithoudingHandrem()
-            };
-            PasRecKleurAan("zithouding", base.berekenComboKleur(zithoudingArr), i);
-            Evaluatie[] versnArr = {
-                formulier.getSchakelDosering(), formulier.getSchakelAangepast(), formulier.getSchakelMotorRem()
-            };
-            PasRecKleurAan("versnelling", base.berekenComboKleur(versnArr), i);
+            PasRecKleurAan("rem", formulier.getRemRec(), i);
+            PasRecKleurAan("koppeling", formulier.getKoppelingRec(), i);
+            PasRecKleurAan("stuur", formulier.getStuurRec(), i);
+            PasRecKleurAan("kijken", formulier.getKijkRec(), i);
+            PasRecKleurAan("zithouding", formulier.getZithoudingRec(), i);
+            PasRecKleurAan("versnelling", formulier.getSchakelRec(), i);
         }
     }
 }

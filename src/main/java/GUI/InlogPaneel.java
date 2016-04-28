@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Screen;
 
@@ -45,11 +47,11 @@ public class InlogPaneel extends GridPane
         gridLinesVisibleProperty().set(false);
 
         ColumnConstraints kolom0 = new ColumnConstraints();
-        kolom0.setPercentWidth(25);
+        kolom0.setPercentWidth(20);
         ColumnConstraints kolom1 = new ColumnConstraints();
-        kolom1.setPercentWidth(50);
+        kolom1.setPercentWidth(60);
         ColumnConstraints kolom2 = new ColumnConstraints();
-        kolom2.setPercentWidth(25);
+        kolom2.setPercentWidth(20);
 
         getColumnConstraints().addAll(kolom0, kolom1, kolom2);
 
@@ -68,10 +70,10 @@ public class InlogPaneel extends GridPane
         InlogSchermPane.gridLinesVisibleProperty().set(false);
 
         ColumnConstraints kolom0InlogSchermPane = new ColumnConstraints();
-        kolom0InlogSchermPane.setPercentWidth(50);
-        kolom0InlogSchermPane.setHalignment(HPos.CENTER);
+        kolom0InlogSchermPane.setPercentWidth(70);
+        kolom0InlogSchermPane.setHalignment(HPos.LEFT);
         ColumnConstraints kolom1InlogSchermPane = new ColumnConstraints();
-        kolom1InlogSchermPane.setPercentWidth(50);
+        kolom1InlogSchermPane.setPercentWidth(30);
         kolom1InlogSchermPane.setHalignment(HPos.CENTER);
         InlogSchermPane.getColumnConstraints().addAll(kolom0InlogSchermPane, kolom1InlogSchermPane);
 
@@ -88,11 +90,11 @@ public class InlogPaneel extends GridPane
         naamNummerPane.gridLinesVisibleProperty().set(false);
 
         ColumnConstraints kolom0NaamNummerPane = new ColumnConstraints();
-        kolom0NaamNummerPane.setPercentWidth(50);
-        kolom0NaamNummerPane.setHalignment(HPos.RIGHT);
+        kolom0NaamNummerPane.setPercentWidth(30);
+        kolom0NaamNummerPane.setHalignment(HPos.LEFT);
         ColumnConstraints kolom1NaamNummerPane = new ColumnConstraints();
-        kolom1NaamNummerPane.setPercentWidth(50);
-        kolom1NaamNummerPane.setHalignment(HPos.RIGHT);
+        kolom1NaamNummerPane.setPercentWidth(70);
+        kolom1NaamNummerPane.setHalignment(HPos.LEFT);
         naamNummerPane.getColumnConstraints().addAll(kolom0NaamNummerPane, kolom1NaamNummerPane);
 
         RowConstraints rij0NaamNummerPane = new RowConstraints();
@@ -104,18 +106,17 @@ public class InlogPaneel extends GridPane
         InlogSchermPane.add(naamNummerPane, 0, 0);
 
         //aanmaak listViewGrid
-        GridPane listViewGrid = new GridPane();
-        listViewGrid.gridLinesVisibleProperty().set(false);
-
-        ColumnConstraints kolom0ListViewGrid = new ColumnConstraints();
-        kolom0ListViewGrid.setPercentWidth(50);
-        ColumnConstraints kolom1ListViewGrid = new ColumnConstraints();
-        kolom1ListViewGrid.setPercentWidth(50);
-        kolom1ListViewGrid.setHalignment(HPos.CENTER);
-        listViewGrid.getColumnConstraints().addAll(kolom0ListViewGrid, kolom1ListViewGrid);
-
-        InlogSchermPane.add(listViewGrid, 1, 1);
-
+//        GridPane listViewGrid = new GridPane();
+//        listViewGrid.gridLinesVisibleProperty().set(true);
+//
+//        ColumnConstraints kolom0ListViewGrid = new ColumnConstraints();
+//        kolom0ListViewGrid.setPercentWidth(50);
+//        ColumnConstraints kolom1ListViewGrid = new ColumnConstraints();
+//        kolom1ListViewGrid.setPercentWidth(50);
+//        kolom1ListViewGrid.setHalignment(HPos.CENTER);
+//        listViewGrid.getColumnConstraints().addAll(kolom0ListViewGrid, kolom1ListViewGrid);
+//
+//        InlogSchermPane.add(listViewGrid, 1, 1);
         //aanmaak naamLabel
         Label naamLabel = new Label("Naam: ");
         naamLabel.setId("inlognaamNummerLabel");
@@ -141,32 +142,40 @@ public class InlogPaneel extends GridPane
             nummerTextField.clear();
         });
 
+        HBox knoppenBox = new HBox();
+        knoppenBox.setSpacing(20);
+        knoppenBox.setAlignment(Pos.CENTER);
+
         //knop open
         Button openKnop = new Button("Open");
         openKnop.setId("inlogButtons");
-        InlogSchermPane.add(openKnop, 1, 1);
+//        InlogSchermPane.add(openKnop, 1, 1);
 
         //knop VoegToe
         Button voegToeKnop = new Button("Voeg Toe");
         voegToeKnop.setId("inlogButtons");
-        InlogSchermPane.add(voegToeKnop, 0, 1);
+//        InlogSchermPane.add(voegToeKnop, 0, 1);
+
+        knoppenBox.getChildren().addAll(voegToeKnop, openKnop);
+        InlogSchermPane.add(knoppenBox, 0, 1);
 
         //afbeelding
-        ImageView gebruikersImage = new ImageView(new Image("Images/unknown-user.png", Math.ceil(schermformaat.getWidth() * 0.12), USE_PREF_SIZE, true, true));
+        ImageView gebruikersImage = new ImageView(new Image("Images/unknown-user.png", Math.ceil(schermformaat.getWidth() * 0.13), USE_PREF_SIZE, true, true));
         InlogSchermPane.add(gebruikersImage, 1, 0);
 
         //ListView
         ObservableList<String> namen = FXCollections.observableArrayList();
-        List<String> llnamen =  new ArrayList<>();//leerlingen.stream().map(l -> l.getFamilienaam() + " " + l.getVoornaam()).collect(Collectors.toList());
-        for(Leerling ll : leerlingen){
-            llnamen.add(ll.getFamilienaam() + " "+ ll.getVoornaam());
+        List<String> llnamen = new ArrayList<>();//leerlingen.stream().map(l -> l.getFamilienaam() + " " + l.getVoornaam()).collect(Collectors.toList());
+        for (Leerling ll : leerlingen) {
+            llnamen.add(ll.getFamilienaam() + " " + ll.getVoornaam());
         }
 
         namen.addAll(llnamen);
         Collections.sort(namen);
         ListView<String> zoekView = new ListView<String>(namen);
-        listViewGrid.add(zoekView, 0, 0);
-        listViewGrid.add(openKnop, 1, 0);
+//        listViewGrid.add(zoekView, 0, 0);
+//        listViewGrid.add(openKnop, 1, 0);
+        InlogSchermPane.add(zoekView, 1, 1);
 
         //knoppen
         openKnop.setOnMouseClicked(event -> {
@@ -216,7 +225,7 @@ public class InlogPaneel extends GridPane
             inschrijvingsNr = "rij00" + rand.nextInt(100);
 
             leerlingen.add(new Leerling(famNaam, voornaam, inschrijvingsNr));
-            namen.add(famNaam+" "+voornaam);
+            namen.add(famNaam + " " + voornaam);
         });
     }
 

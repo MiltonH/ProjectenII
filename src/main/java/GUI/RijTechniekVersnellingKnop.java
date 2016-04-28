@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -40,6 +41,8 @@ public class RijTechniekVersnellingKnop extends GridPane implements View
     Rectangle kotje2;
     Rectangle kotje3;
     Hashtable<String, Button> buttons;
+    Boolean andere1Bool;
+    Boolean andere2Bool;
 
     public RijTechniekVersnellingKnop(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");
@@ -119,6 +122,15 @@ public class RijTechniekVersnellingKnop extends GridPane implements View
         ImageView knopView = new ImageView(afbknop);
         gridKnopPane.add(knopView, 0, 0);
 
+        versnellingView.setOnMouseClicked(event -> {
+            huidigformulier.setSchakelRec(base.toggleKleur(huidigformulier.getSchakelRec()));
+            update();
+        });
+        knopView.setOnMouseClicked(event -> {
+            huidigformulier.setSchakelRec(base.toggleKleur(huidigformulier.getSchakelRec()));
+            update();
+        });
+
         HBox remBox = new HBox();
         remBox.setAlignment(Pos.CENTER);
         remBox.setId("rijTechniekHoofdschermBox");
@@ -152,6 +164,22 @@ public class RijTechniekVersnellingKnop extends GridPane implements View
                 }
             }
         });
+        Button aandacht = new Button("!");
+        aandacht.setId("aandachtButtons");
+        aandacht.setOnAction(event -> {
+            if (!huidigformulier.getOpmerkingen().contains(opmerkingenView.getSelectionModel().getSelectedItem())) {
+                if (opmerkingenView.getSelectionModel().getSelectedItem() != null) {
+                    huidigformulier.getOpmerkingen().add(opmerkingenView.getSelectionModel().getSelectedItem());
+                }
+            }
+            huidigformulier.getSchakelBedieningAndere().remove(opmerkingenView.getSelectionModel().getSelectedItem());
+            update();
+        });
+
+        HBox invoer = new HBox(20);
+        setPadding(new Insets(10));
+        invoer.setAlignment(Pos.CENTER);
+        invoer.getChildren().addAll(aandacht, invulTextField);
 
         //Listview
         opmerkingenList2 = FXCollections.observableArrayList();;
@@ -175,14 +203,39 @@ public class RijTechniekVersnellingKnop extends GridPane implements View
             }
         });
 
+        Button aandacht2 = new Button("!");
+        aandacht2.setId("aandachtButtons");
+        aandacht2.setOnAction(event -> {
+            if (!huidigformulier.getOpmerkingen().contains(opmerkingenView.getSelectionModel().getSelectedItem())) {
+                if (opmerkingenView.getSelectionModel().getSelectedItem() != null) {
+                    huidigformulier.getOpmerkingen().add(opmerkingenView.getSelectionModel().getSelectedItem());
+                }
+            }
+            huidigformulier.getSchakelGebruikAndere().remove(opmerkingenView.getSelectionModel().getSelectedItem());
+            update();
+        });
+
+        HBox invoer2 = new HBox(20);
+        setPadding(new Insets(10));
+        invoer2.setAlignment(Pos.CENTER);
+        invoer2.getChildren().addAll(aandacht2, invulTextField2);
+
         //knoppen
         Button bediening = new Button("Bediening");
         bediening.setId("buttons");
+        bediening.setOnAction(event -> {
+            huidigformulier.setSchakelBediening(base.toggleKleur(huidigformulier.getSchakelBediening()));
+            update();
+        });
         add(bediening, 2, 1);
         buttons.put("bediening", bediening);
 
         Button gebruik = new Button("Gebruik");
         gebruik.setId("buttons");
+        gebruik.setOnAction(event -> {
+            huidigformulier.setSchakelGebruik(base.toggleKleur(huidigformulier.getSchakelGebruik()));
+            update();
+        });
         add(gebruik, 2, 3);
         buttons.put("gebruik", gebruik);
 
@@ -195,12 +248,16 @@ public class RijTechniekVersnellingKnop extends GridPane implements View
         add(dosering, 3, 1);
         buttons.put("dosering", dosering);
 
+        andere1Bool = false;
         Button andere = new Button("Andere");
         andere.setId("buttons");
         add(andere, 3, 2);
         andere.setOnMouseClicked(event -> {
-            add(invulTextField, 4, 2);
-            add(opmerkingenView, 4, 1);
+            if (!andere1Bool) {
+                add(invoer, 4, 2);
+                add(opmerkingenView, 4, 1);
+                andere1Bool = true;
+            }
         });
 
         Button aangepast = new Button("Aangepast");
@@ -221,12 +278,16 @@ public class RijTechniekVersnellingKnop extends GridPane implements View
         add(motorRem, 3, 4);
         buttons.put("motor", motorRem);
 
+        andere2Bool = false;
         Button andere2 = new Button("Andere");
         andere2.setId("buttons");
         add(andere2, 3, 5);
         andere2.setOnMouseClicked(event -> {
-            add(invulTextField2, 4, 5);
-            add(opmerkingenView2, 4, 4);
+            if (!andere2Bool) {
+                add(invoer2, 4, 5);
+                add(opmerkingenView2, 4, 4);
+                andere2Bool = true;
+            }
         });
         update();
     }
@@ -245,27 +306,22 @@ public class RijTechniekVersnellingKnop extends GridPane implements View
         base.kleurButton(buttons.get("aangepast"), huidigformulier.getSchakelAangepast());
         base.kleurButton(buttons.get("motor"), huidigformulier.getSchakelMotorRem());
 
-        base.kleurButton(buttons.get("bediening"), huidigformulier.getSchakelDosering());
+        base.kleurButton(buttons.get("bediening"), huidigformulier.getSchakelBediening());
 
-        Evaluatie[] gebruikArr = {huidigformulier.getSchakelAangepast(), huidigformulier.getSchakelMotorRem()};
-        base.kleurButton(buttons.get("gebruik"), base.berekenComboKleur(gebruikArr));
+        base.kleurButton(buttons.get("gebruik"), huidigformulier.getSchakelGebruik());
 
         Leerling leerling = base.getHoofdpanel().getHuidigeLeerling();
 
         for (int i = 0; i < leerling.getEvaluatieFormulieren().size(); i++) {
             EvaluatieFormulier formulier = leerling.getEvaluatieFormulieren().get(i);
-
-            Evaluatie[] kotjeArr = {
-                formulier.getSchakelDosering(), formulier.getSchakelAangepast(), formulier.getSchakelMotorRem()
-            };
             if (i == 0) {
-                base.kleurKotje(kotje1, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje1, formulier.getSchakelRec());
             }
             if (i == 1) {
-                base.kleurKotje(kotje2, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje2, formulier.getSchakelRec());
             }
             if (i == 2) {
-                base.kleurKotje(kotje3, base.berekenComboKleur(kotjeArr));
+                base.kleurKotje(kotje3, formulier.getSchakelRec());
             }
         }
     }

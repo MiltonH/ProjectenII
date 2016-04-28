@@ -93,6 +93,18 @@ public class EvaluatieFormulier
         this.zithoudingHandrem = Evaluatie.WIT;
         this.zithoudingSpiegels = Evaluatie.WIT;
         this.zithoudingZithouding = Evaluatie.WIT;
+        this.koppelingGebruik = Evaluatie.WIT;
+        this.koppelingBediening = Evaluatie.WIT;
+        this.koppelingRec = Evaluatie.WIT;
+        this.remRec = Evaluatie.WIT;
+        this.remGebruik = Evaluatie.WIT;
+        this.remBediening = Evaluatie.WIT;
+        this.kijkRec = Evaluatie.WIT;
+        this.stuurRec = Evaluatie.WIT;
+        this.schakelBediening = Evaluatie.WIT;
+        this.schakelGebruik = Evaluatie.WIT;
+        this.schakelRec = Evaluatie.WIT;
+        this.zithoudingRec = Evaluatie.WIT;
     }
 
     private int evaluatieId;
@@ -101,30 +113,41 @@ public class EvaluatieFormulier
     private Evaluatie zithoudingGordel;
     private Evaluatie zithoudingSpiegels;
     private Evaluatie zithoudingHandrem;
+    private Evaluatie zithoudingRec;
     private List<String> zithoudingAndere;
 
+    private Evaluatie koppelingRec;
     private Evaluatie koppelingDosering;
     private Evaluatie koppelingVolledig;
     private Evaluatie koppelingVoetaf;
+    private Evaluatie koppelingBediening;
     private List<String> koppelingBedieningAndere;
 
     private Evaluatie koppelingOnnodig;
     private Evaluatie koppelingBocht;
+    private Evaluatie koppelingGebruik;
     private List<String> koppelingGebruikAndere;
 
+    private Evaluatie remRec;
     private Evaluatie remDosering;
     private Evaluatie remVolgorde;
 
     private Evaluatie remTeLaat;
+    private Evaluatie remBediening;
+    private Evaluatie remGebruik;
     private List<String> remGebruikAndere;
 
+    private Evaluatie stuurRec;
     private Evaluatie stuurDosering;
     private Evaluatie stuurHouding;
     private List<String> stuurAndere;
 
+    private Evaluatie schakelRec;
+    private Evaluatie schakelBediening;
     private Evaluatie schakelDosering;
     private List<String> schakelBedieningAndere;
 
+    private Evaluatie schakelGebruik;
     private Evaluatie schakelAangepast;
     private Evaluatie schakelMotorRem;
     private List<String> schakelGebruikAndere;
@@ -134,6 +157,7 @@ public class EvaluatieFormulier
     private Evaluatie kijkDodeHoek;
     private Evaluatie kijkVer;
     private Evaluatie kijkSelecteren;
+    private Evaluatie kijkRec;
     private List<String> kijkAndere;
 
     private Evaluatie hellingB;
@@ -271,9 +295,120 @@ public class EvaluatieFormulier
         this.zithoudingHandrem = formulier.getZithoudingHandrem();
         this.zithoudingSpiegels = formulier.getZithoudingSpiegels();
         this.zithoudingZithouding = formulier.getZithoudingZithouding();
+        this.koppelingGebruik = formulier.getKoppelingGebruik();
+        this.koppelingBediening = formulier.getKoppelingBediening();
+        this.koppelingRec = formulier.getKoppelingRec();
+        this.remRec = formulier.getRemRec();
+        this.remGebruik = formulier.getRemGebruik();
+        this.remBediening = formulier.getRemBediening();
+        this.kijkRec = formulier.getKijkRec();
+        this.stuurRec = formulier.getStuurRec();
+        this.schakelBediening = formulier.getSchakelBediening();
+        this.schakelGebruik = formulier.getSchakelGebruik();
+        this.schakelRec = formulier.getSchakelRec();
+        this.zithoudingRec = formulier.getZithoudingRec();
     }
 
     //massief aantal getter en setters
+
+    public Evaluatie getZithoudingRec() {
+        return zithoudingRec;
+    }
+
+    public void setZithoudingRec(Evaluatie zithoudingRec) {
+        this.zithoudingRec = zithoudingRec;
+    }
+
+    
+    public Evaluatie getSchakelRec() {
+        return schakelRec;
+    }
+
+    public void setSchakelRec(Evaluatie schakelRec) {
+        this.schakelRec = schakelRec;
+    }
+
+    public Evaluatie getSchakelBediening() {
+        return schakelBediening;
+    }
+
+    public void setSchakelBediening(Evaluatie schakelBediening) {
+        this.schakelBediening = schakelBediening;
+    }
+
+    public Evaluatie getSchakelGebruik() {
+        return schakelGebruik;
+    }
+
+    public void setSchakelGebruik(Evaluatie schakelGebruik) {
+        this.schakelGebruik = schakelGebruik;
+    }
+    
+    
+    public Evaluatie getStuurRec() {
+        return stuurRec;
+    }
+
+    public void setStuurRec(Evaluatie stuurRec) {
+        this.stuurRec = stuurRec;
+    }
+
+    public Evaluatie getKijkRec() {
+        return kijkRec;
+    }
+
+    public void setKijkRec(Evaluatie kijkRec) {
+        this.kijkRec = kijkRec;
+    }
+
+    public Evaluatie getRemBediening() {
+        return remBediening;
+    }
+
+    public void setRemBediening(Evaluatie remBediening) {
+        this.remBediening = remBediening;
+    }
+
+    public Evaluatie getRemGebruik() {
+        return remGebruik;
+    }
+
+    public void setRemGebruik(Evaluatie remGebruik) {
+        this.remGebruik = remGebruik;
+    }
+
+    public Evaluatie getRemRec() {
+        return remRec;
+    }
+
+    public void setRemRec(Evaluatie remRec) {
+        this.remRec = remRec;
+    }
+
+    public Evaluatie getKoppelingRec() {
+        return koppelingRec;
+    }
+
+    public void setKoppelingRec(Evaluatie koppelingRec) {
+        this.koppelingRec = koppelingRec;
+    }
+
+    public Evaluatie getKoppelingBediening() {
+        return koppelingBediening;
+    }
+
+    public void setKoppelingBediening(Evaluatie koppelingBediening) {
+        this.koppelingBediening = koppelingBediening;
+    }
+
+    public Evaluatie getKoppelingGebruik() {
+        return koppelingGebruik;
+    }
+
+    public void setKoppelingGebruik(Evaluatie koppelingGebruik) {
+        this.koppelingGebruik = koppelingGebruik;
+    }
+
     public Evaluatie getHellingB() {
         return hellingB;
     }

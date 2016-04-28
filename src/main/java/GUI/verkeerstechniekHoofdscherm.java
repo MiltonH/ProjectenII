@@ -25,6 +25,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -55,6 +57,7 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
     Hashtable<String, ImageView> knopViews;
     Hashtable<String, EventHandler> eventToggles;
     Hashtable<String, List<String>> opmerkingLists;
+    Boolean BoxOpen;
 
     List<Image> Images;
 
@@ -72,6 +75,7 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
         knopViews = new Hashtable<>();
         eventToggles = new Hashtable<>();
         opmerkingLists = new Hashtable<>();
+        BoxOpen = false;
 
         opmerkingLists.put("voorrang", huidigformulier.getVoorrangAndere());
         opmerkingLists.put("verkeerstekens", huidigformulier.getVerkeerstekensAndere());
@@ -382,20 +386,28 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
         opmerkingBox.setAlignment(Pos.CENTER);
         opmerkingBox.setSpacing(20);
         Label opmerkingLbl = new Label("Voeg opmerking toe:");
-        opmerkingLbl.setId("naamLabel");
+        opmerkingLbl.setId("verkeerstechniekLabel");
         TextField opmerkingField = new TextField();
         opmerkingField.setId("opmerkingenTexfield");
-        Button voegtoeBtn = new Button("Voeg toe");
-        voegtoeBtn.setId("verkeersTechniekButtons");
-        voegtoeBtn.setOnAction(event -> {
-            opmerkingLists.get(key).add(opmerkingField.getText());
-            opmerkingen.clear();
-            opmerkingen.addAll(opmerkingLists.get(key));
+
+        opmerkingField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    opmerkingLists.get(key).add(opmerkingField.getText());
+                    opmerkingField.clear();
+                    opmerkingen.addAll(opmerkingLists.get(key));
+                    update();
+                }
+            }
         });
+
         Button annuleerBtn = new Button("Sluit");
         annuleerBtn.setId("verkeersTechniekButtons");
         annuleerBtn.setOnAction(event -> {
             getChildren().remove(opmerkingBox);
+            BoxOpen = false;
         });
         HBox knoppen = new HBox();
         knoppen.setAlignment(Pos.CENTER_LEFT);
@@ -416,21 +428,41 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
             opmerkingen.addAll(opmerkingLists.get(key));
         });
 
-        knoppen.getChildren().addAll(voegtoeBtn, deleteBtn, annuleerBtn);
+        Button aandachtBtn = new Button("!");
+        aandachtBtn.setId("verkeersTechniekButtons");
+        aandachtBtn.setOnAction(event -> {
+            if (!huidigformulier.getOpmerkingen().contains(opmerkingLView.getSelectionModel().getSelectedItem())) {
+                huidigformulier.getOpmerkingen().add(opmerkingLView.getSelectionModel().getSelectedItem());              
+            }
+            opmerkingLists.get(key).remove(opmerkingLView.getSelectionModel().getSelectedItem());
+            opmerkingen.clear();
+            opmerkingen.addAll(opmerkingLists.get(key));
+//            opmerkingLists.get(key).add(opmerkingField.getText());
+//            opmerkingen.clear();
+//            opmerkingen.addAll(opmerkingLists.get(key));
+        });
+
+        knoppen.getChildren().addAll(deleteBtn, annuleerBtn, aandachtBtn);
         inputBox.getChildren().addAll(opmerkingLbl, opmerkingField, knoppen);
         opmerkingBox.getChildren().addAll(inputBox, opmerkingLView);
 
         View.setOnMouseDragged(event -> {
-            opmerkingen.clear();
-            opmerkingen.addAll(opmerkingLists.get(key));
-            getChildren().remove(opmerkingBox);
-            add(opmerkingBox, 1, 3, 5, 1);
+            if (!BoxOpen) {
+                opmerkingen.clear();
+                opmerkingen.addAll(opmerkingLists.get(key));
+                getChildren().remove(opmerkingBox);
+                add(opmerkingBox, 1, 3, 5, 1);
+                BoxOpen = true;
+            }
         });
         afbView.setOnMouseDragged(event -> {
-            opmerkingen.clear();
-            opmerkingen.addAll(opmerkingLists.get(key));
-            getChildren().remove(opmerkingBox);
-            add(opmerkingBox, 1, 3, 5, 1);
+            if (!BoxOpen) {
+                opmerkingen.clear();
+                opmerkingen.addAll(opmerkingLists.get(key));
+                getChildren().remove(opmerkingBox);
+                add(opmerkingBox, 1, 3, 5, 1);
+                BoxOpen = true;
+            }
         });
 
         knopViews.put(key, afbView);

@@ -10,6 +10,7 @@ import java.util.List;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -48,51 +49,50 @@ public class HoofdPaneel extends GridPane implements View
         HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
 
         setId("hoofdPaneelBG");
-        gridLinesVisibleProperty().set(false);
+//        gridLinesVisibleProperty().set(true);
 
         ColumnConstraints kolom0 = new ColumnConstraints();
-        kolom0.setPercentWidth(17);
+        kolom0.setPercentWidth(15);
         ColumnConstraints kolom1 = new ColumnConstraints();
-        kolom1.setPercentWidth(26);
+        kolom1.setPercentWidth(28);
         ColumnConstraints kolom2 = new ColumnConstraints();
         kolom2.setPercentWidth(14);
         ColumnConstraints kolom3 = new ColumnConstraints();
-        kolom3.setPercentWidth(26);
+        kolom3.setPercentWidth(28);
         ColumnConstraints kolom4 = new ColumnConstraints();
-        kolom4.setPercentWidth(17);
+        kolom4.setPercentWidth(15);
 
         getColumnConstraints().addAll(kolom0, kolom1, kolom2, kolom3, kolom4);
 
         RowConstraints rij0 = new RowConstraints();
-        rij0.setPercentHeight(15);
+        rij0.setPercentHeight(23);
         RowConstraints rij1 = new RowConstraints();
-        rij1.setPercentHeight(15);
+        rij1.setPercentHeight(0);
         RowConstraints rij2 = new RowConstraints();
-        rij2.setPercentHeight(50);
+        rij2.setPercentHeight(57);
         RowConstraints rij3 = new RowConstraints();
         rij3.setPercentHeight(20);
 
         getRowConstraints().addAll(rij0, rij1, rij2, rij3);
 
         //einde grid indeling
-        schermformaat = Screen.getPrimary().getVisualBounds();
+        schermformaat =  Screen.getPrimary().getVisualBounds();
 
-        //kap
-        HBox kapBox = new HBox();
-        StackPane kapStack = new StackPane();
-        Image kapImg = new Image("Images/kap.png", Math.ceil(schermformaat.getWidth()), USE_PREF_SIZE, true, true);
-        ImageView kapView = new ImageView(kapImg);
-        kapBox.setAlignment(Pos.TOP_CENTER);
-        kapStack.setAlignment(Pos.TOP_CENTER);
-        kapStack.getChildren().addAll(kapView);
-        kapBox.getChildren().addAll(kapStack);
-
-        add(kapBox, 0, 0, 5, 3);
-
-        kapView.setOnMouseClicked(event -> {
-            System.out.println("kap");
-        });//debug
-
+//        //kap
+//        HBox kapBox = new HBox();
+//        StackPane kapStack = new StackPane();
+//        Image kapImg = new Image("Images/kap.png", Math.ceil(schermformaat.getWidth()), USE_PREF_SIZE, true, true);
+//        ImageView kapView = new ImageView(kapImg);
+//        kapBox.setAlignment(Pos.TOP_CENTER);
+//        kapStack.setAlignment(Pos.TOP_CENTER);
+//        kapStack.getChildren().addAll(kapView);
+//        kapBox.getChildren().addAll(kapStack);
+//
+//        add(kapBox, 0, 0, 5, 3);
+//
+//        kapView.setOnMouseClicked(event -> {
+//            System.out.println("kap");
+//        });//debug
         //student naam
         Label studentNaam = new Label(huidigeLeerling.getVoornaam());
         studentNaam.setId("naamLabel");
@@ -103,9 +103,9 @@ public class HoofdPaneel extends GridPane implements View
         //centerBox
         HBox centerBox = new HBox();
         StackPane centerStack = new StackPane();
-        Image centerImg = new Image("Images/center2.png", Math.ceil(schermformaat.getWidth() * 0.24), USE_PREF_SIZE, true, true);
+        Image centerImg = new Image("Images/center2.png", Math.ceil(schermformaat.getWidth() * 0.26), USE_PREF_SIZE, true, true);
         ImageView centerView = new ImageView(centerImg);
-        Image centerKnopImg = new Image("Images/centerKnop2.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
+        Image centerKnopImg = new Image("Images/centerKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView centerKnopView = new ImageView(centerKnopImg);
         centerBox.setAlignment(Pos.CENTER);
         centerStack.getChildren().addAll(centerView, centerKnopView);
@@ -123,10 +123,10 @@ public class HoofdPaneel extends GridPane implements View
         StackPane wijzerplaat1Stack = new StackPane();
         StackPane wijzerplaat2Stack = new StackPane();
 
-        Image wijzerplaat = new Image("Images/Wijzerplaat.png", Math.ceil(schermformaat.getWidth() * 0.26), USE_PREF_SIZE, true, true);
-        Image wijzerStand1 = new Image("Images/WijzerStand1.png", Math.ceil(schermformaat.getWidth() * 0.26), USE_PREF_SIZE, true, true);
-        Image wijzerStand2 = new Image("Images/WijzerStand2.png", Math.ceil(schermformaat.getWidth() * 0.26), USE_PREF_SIZE, true, true);
-        Image wijzerStand3 = new Image("Images/WijzerStand3.png", Math.ceil(schermformaat.getWidth() * 0.26), USE_PREF_SIZE, true, true);
+        Image wijzerplaat = new Image("Images/Wijzerplaat.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
+        Image wijzerStand1 = new Image("Images/WijzerStand1.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
+        Image wijzerStand2 = new Image("Images/WijzerStand2.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
+        Image wijzerStand3 = new Image("Images/WijzerStand3.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
         ImageView wijzeplaat1Stand = new ImageView(wijzerStand1);
         ImageView wijzeplaat2Stand = new ImageView(wijzerStand1);
         ImageView wijzerplaat1View = new ImageView(wijzerplaat);
@@ -150,17 +150,17 @@ public class HoofdPaneel extends GridPane implements View
         HBox centerTopBox = new HBox();
         StackPane centerTopStack = new StackPane();
         centerTopBox.setAlignment(Pos.CENTER);
-        Image centerTopImg = new Image("Images/CenterTop.png", Math.ceil(schermformaat.getWidth() * 0.40), USE_PREF_SIZE, true, true);
+        Image centerTopImg = new Image("Images/CenterTop2.png", Math.ceil(schermformaat.getWidth() * 0.61), USE_PREF_SIZE, true, true);
         ImageView centerTopView = new ImageView(centerTopImg);
 
         HBox centerTopKnoppen = new HBox();
         centerTopKnoppen.setAlignment(Pos.CENTER);
-        centerTopKnoppen.setSpacing(Math.ceil(schermformaat.getWidth() * 0.02));
+        centerTopKnoppen.setSpacing(Math.ceil(schermformaat.getWidth() * 0.03));
 
         List<Image> rijstrokenImages = new ArrayList<>();
-        rijstrokenImages.add(new Image("Images/rijstrokenIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        rijstrokenImages.add(new Image("Images/rijstrokenRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        rijstrokenImages.add(new Image("Images/rijstrokenGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
+        rijstrokenImages.add(new Image("Images/rijstrokenIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
+        rijstrokenImages.add(new Image("Images/rijstrokenRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
+        rijstrokenImages.add(new Image("Images/rijstrokenGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         ImageView rijstrokenView = new ImageView(rijstrokenImages.get(0));
         iconViewsTable.put("rijstroken", rijstrokenView);
         imageListTable.put("rijstroken", rijstrokenImages);
@@ -170,9 +170,9 @@ public class HoofdPaneel extends GridPane implements View
         });//debug
 
         List<Image> rotondeImages = new ArrayList<>();
-        rotondeImages.add(new Image("Images/rotondeIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        rotondeImages.add(new Image("Images/rotondeRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        rotondeImages.add(new Image("Images/rotondeGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
+        rotondeImages.add(new Image("Images/rotondeIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
+        rotondeImages.add(new Image("Images/rotondeRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
+        rotondeImages.add(new Image("Images/rotondeGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         ImageView rotondeView = new ImageView(rotondeImages.get(0));
         iconViewsTable.put("rotonde", rotondeView);
         imageListTable.put("rotonde", rotondeImages);
@@ -182,9 +182,9 @@ public class HoofdPaneel extends GridPane implements View
         });//debug
 
         List<Image> snelwegImages = new ArrayList<>();
-        snelwegImages.add(new Image("Images/snelwegIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        snelwegImages.add(new Image("Images/snelwegRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        snelwegImages.add(new Image("Images/snelwegGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
+        snelwegImages.add(new Image("Images/snelwegIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
+        snelwegImages.add(new Image("Images/snelwegRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
+        snelwegImages.add(new Image("Images/snelwegGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         ImageView snelwegView = new ImageView(snelwegImages.get(0));
         iconViewsTable.put("snelweg", snelwegView);
         imageListTable.put("snelweg", snelwegImages);
@@ -194,9 +194,9 @@ public class HoofdPaneel extends GridPane implements View
         });//debug
 
         List<Image> stadImages = new ArrayList<>();
-        stadImages.add(new Image("Images/stadIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        stadImages.add(new Image("Images/stadRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        stadImages.add(new Image("Images/stadGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
+        stadImages.add(new Image("Images/stadIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
+        stadImages.add(new Image("Images/stadRIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
+        stadImages.add(new Image("Images/stadGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.06), USE_PREF_SIZE, true, true));
         ImageView stadView = new ImageView(stadImages.get(0));
         iconViewsTable.put("stad", stadView);
         imageListTable.put("stad", stadImages);
@@ -209,7 +209,7 @@ public class HoofdPaneel extends GridPane implements View
         centerTopStack.getChildren().addAll(centerTopView, centerTopKnoppen);
         centerTopBox.getChildren().add(centerTopStack);
 
-        add(centerTopBox, 1, 1, 3, 1);
+        add(centerTopBox, 1, 0, 3, 1);
         //einde CenterTopBalk
 
         //BottomBox
@@ -217,11 +217,11 @@ public class HoofdPaneel extends GridPane implements View
         StackPane bottomStack = new StackPane();
         bottomStack.setAlignment(Pos.BOTTOM_CENTER);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
-        Image bottomBoxImg = new Image("Images/BottomBox.png", Math.ceil(schermformaat.getWidth() * 0.40), USE_PREF_SIZE, true, true);
+        Image bottomBoxImg = new Image("Images/BottomBox.png", Math.ceil(schermformaat.getWidth() * 0.50), USE_PREF_SIZE, true, true);
         ImageView bottomBoxView = new ImageView(bottomBoxImg);
         bottomBox.getChildren().add(bottomStack);
 
-        Image bottomTest = new Image("Images/BottomTest.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        Image bottomTest = new Image("Images/BottomTest.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
         ImageView bottomTest1View = new ImageView(bottomTest);
         bottomTest1View.setOnMouseClicked(event -> {
             //
@@ -263,7 +263,7 @@ public class HoofdPaneel extends GridPane implements View
         bottomBoxGrid.add(TestKnoppen, 0, 0);
         //niveau
 
-        Image niveauBoxImg = new Image("Images/niveauBox.png", Math.ceil(schermformaat.getWidth() * 0.24), USE_PREF_SIZE, true, true);
+        Image niveauBoxImg = new Image("Images/niveauBox.png", Math.ceil(schermformaat.getWidth() * 0.30), USE_PREF_SIZE, true, true);
         ImageView niveauBoxView = new ImageView(niveauBoxImg);
 
         StackPane niveauStack = new StackPane();
@@ -271,10 +271,10 @@ public class HoofdPaneel extends GridPane implements View
         niveauHbox.setAlignment(Pos.CENTER);
         niveauHbox.setSpacing(Math.ceil(schermformaat.getWidth() * 0.01));
 
-        Image niveauMinImg = new Image("Images/niveaumin.png", Math.ceil(schermformaat.getWidth() * 0.02), USE_PREF_SIZE, true, true);
+        Image niveauMinImg = new Image("Images/niveaumin.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
         ImageView niveauMinView = new ImageView(niveauMinImg);
 
-        Image niveauPlusImg = new Image("Images/niveauplus.png", Math.ceil(schermformaat.getWidth() * 0.02), USE_PREF_SIZE, true, true);
+        Image niveauPlusImg = new Image("Images/niveauplus.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
         ImageView niveauPlusView = new ImageView(niveauPlusImg);
         niveauImages = new ArrayList<>();
         niveauImages.add(new Image("Images/niveau1.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
@@ -284,6 +284,10 @@ public class HoofdPaneel extends GridPane implements View
         niveauImages.add(new Image("Images/niveau5.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
         niveauImages.add(new Image("Images/niveau6.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
         niveauImages.add(new Image("Images/niveau7.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
+        niveauImages.add(new Image("Images/niveau8.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
+        niveauImages.add(new Image("Images/niveau9.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
+        niveauImages.add(new Image("Images/niveau10.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
+        niveauImages.add(new Image("Images/niveau11.png", Math.ceil(schermformaat.getWidth() * 0.15), USE_PREF_SIZE, true, true));
         niveauCenterView = new ImageView(niveauImages.get(0));
 
         niveauHbox.getChildren().addAll(niveauMinView, niveauCenterView, niveauPlusView);
@@ -316,39 +320,41 @@ public class HoofdPaneel extends GridPane implements View
 //        linksKnoppenGrid.gridLinesVisibleProperty().setValue(Boolean.TRUE);
 
         RowConstraints linksRij0 = new RowConstraints();
-        linksRij0.setPrefHeight(schermformaat.getHeight() * 0.03);
+        linksRij0.setPercentHeight(28);
         RowConstraints linksRij1 = new RowConstraints();
-        linksRij1.setPrefHeight(schermformaat.getHeight() * 0.04);
+        linksRij1.setPercentHeight(20);
         RowConstraints linksRij2 = new RowConstraints();
-        linksRij2.setPrefHeight(schermformaat.getHeight() * HoekenratioFix);
+        linksRij2.setPercentHeight(12);
         RowConstraints linksRij3 = new RowConstraints();
-        linksRij3.setPrefHeight(schermformaat.getHeight() * 0.04);
+        linksRij3.setPercentHeight(20);
         RowConstraints linksRij4 = new RowConstraints();
-        linksRij4.setPrefHeight(schermformaat.getHeight() * HoekenratioFix);
+        linksRij4.setPercentHeight(12);
         RowConstraints linksRij5 = new RowConstraints();
-        linksRij5.setPrefHeight(schermformaat.getHeight() * 0.04);
+        linksRij5.setPercentHeight(20);
         RowConstraints linksRij6 = new RowConstraints();
-        linksRij6.setPrefHeight(schermformaat.getHeight() * 0.03);
+        linksRij6.setPercentHeight(28);
 
         linksKnoppenGrid.getRowConstraints().addAll(linksRij0, linksRij1, linksRij2, linksRij3, linksRij4, linksRij5, linksRij6);
 
         ColumnConstraints linksKolom0 = new ColumnConstraints();
-        linksKolom0.setPrefWidth(schermformaat.getWidth() * 0.05);
+        linksKolom0.setPercentWidth(16);
         ColumnConstraints linksKolom1 = new ColumnConstraints();
-        linksKolom1.setPrefWidth(schermformaat.getWidth() * 0.01);
+        linksKolom1.setPercentWidth(10);
         ColumnConstraints linksKolom2 = new ColumnConstraints();
-        linksKolom2.setPrefWidth(schermformaat.getWidth() * 0.02);
+        linksKolom2.setPercentWidth(10);
         ColumnConstraints linksKolom3 = new ColumnConstraints();
-        linksKolom3.setPrefWidth(schermformaat.getWidth() * 0.02);
-        linksKnoppenGrid.getColumnConstraints().addAll(linksKolom0, linksKolom1, linksKolom2, linksKolom3);
+        linksKolom3.setPercentWidth(30);
+        ColumnConstraints linksKolom4 = new ColumnConstraints();
+        linksKolom4.setPercentWidth(34);
+        linksKnoppenGrid.getColumnConstraints().addAll(linksKolom0, linksKolom1, linksKolom2, linksKolom3, linksKolom4);
 
         StackPane linksStack = new StackPane();
-        Image linksImg = new Image("Images/links.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
-        ImageView linksView = new ImageView(linksImg);
+        Image linksImg = new Image("Images/links2.png", Math.ceil(schermformaat.getWidth() * 0.14), USE_PREF_SIZE, true, true);
+        ImageView linksView = new ImageView(linksImg);      
 
         List<Image> lampImages = new ArrayList<>();
-        lampImages.add(new Image("Images/lampIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        lampImages.add(new Image("Images/lampGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
+        lampImages.add(new Image("Images/lampIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
+        lampImages.add(new Image("Images/lampGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
         ImageView lampView = new ImageView(lampImages.get(0));
         iconViewsTable.put("lamp", lampView);
         imageListTable.put("lamp", lampImages);
@@ -356,11 +362,11 @@ public class HoofdPaneel extends GridPane implements View
         lampView.setOnMouseClicked(event -> {
             HuidigFormulier.setSchakelaars(toggleRandIcoon(HuidigFormulier.getSchakelaars()));
         });//debug
-        linksKnoppenGrid.add(lampView, 2, 1, 2, 1);
+        linksKnoppenGrid.add(lampView, 2, 1, 3, 1);
 
         List<Image> druppelImages = new ArrayList<>();
-        druppelImages.add(new Image("Images/druppelIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        druppelImages.add(new Image("Images/druppelGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
+        druppelImages.add(new Image("Images/druppelIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
+        druppelImages.add(new Image("Images/druppelGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
         ImageView druppelView = new ImageView(druppelImages.get(0));
         iconViewsTable.put("druppel", druppelView);
         imageListTable.put("druppel", druppelImages);
@@ -368,11 +374,11 @@ public class HoofdPaneel extends GridPane implements View
         druppelView.setOnMouseClicked(event -> {
             HuidigFormulier.setVloeistoffen(toggleRandIcoon(HuidigFormulier.getVloeistoffen()));
         });//debug
-        linksKnoppenGrid.add(druppelView, 1, 3, 2, 1);
+        linksKnoppenGrid.add(druppelView, 1, 3, 3, 1);
 
         List<Image> bandImages = new ArrayList<>();
-        bandImages.add(new Image("Images/bandIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        bandImages.add(new Image("Images/bandGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
+        bandImages.add(new Image("Images/bandIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
+        bandImages.add(new Image("Images/bandGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
         ImageView bandView = new ImageView(bandImages.get(0));
         iconViewsTable.put("band", bandView);
         imageListTable.put("band", bandImages);
@@ -380,7 +386,7 @@ public class HoofdPaneel extends GridPane implements View
         bandView.setOnMouseClicked(event -> {
             HuidigFormulier.setBanden(toggleRandIcoon(HuidigFormulier.getBanden()));
         });//debug
-        linksKnoppenGrid.add(bandView, 2, 5, 2, 1);
+        linksKnoppenGrid.add(bandView, 3, 5, 3, 1);
 
         linksStack.getChildren().addAll(linksView, linksKnoppenGrid);
         linksStack.setAlignment(Pos.CENTER_RIGHT);
@@ -394,37 +400,44 @@ public class HoofdPaneel extends GridPane implements View
 
         //hoek rechts
         GridPane rechtsKnoppenGrid = new GridPane();
-        rechtsKnoppenGrid.setAlignment(Pos.CENTER);
+        rechtsKnoppenGrid.setAlignment(Pos.CENTER_RIGHT);
 //        rechtsKnoppenGrid.gridLinesVisibleProperty().setValue(Boolean.TRUE);
 
         RowConstraints rechtsRij0 = new RowConstraints();
-        rechtsRij0.setPrefHeight(schermformaat.getHeight() * 0.03);
+        rechtsRij0.setPercentHeight(28);
         RowConstraints rechtsRij1 = new RowConstraints();
-        rechtsRij1.setPrefHeight(schermformaat.getHeight() * 0.04);
+        rechtsRij1.setPercentHeight(20);
         RowConstraints rechtsRij2 = new RowConstraints();
-        rechtsRij2.setPrefHeight(schermformaat.getHeight() * HoekenratioFix);
+        rechtsRij2.setPercentHeight(12);
         RowConstraints rechtsRij3 = new RowConstraints();
-        rechtsRij3.setPrefHeight(schermformaat.getHeight() * 0.04);
+        rechtsRij3.setPercentHeight(20);
         RowConstraints rechtsRij4 = new RowConstraints();
-        rechtsRij4.setPrefHeight(schermformaat.getHeight() * HoekenratioFix);
+        rechtsRij4.setPercentHeight(12);
         RowConstraints rechtsRij5 = new RowConstraints();
-        rechtsRij5.setPrefHeight(schermformaat.getHeight() * 0.04);
+        rechtsRij5.setPercentHeight(20);
         RowConstraints rechtsRij6 = new RowConstraints();
-        rechtsRij6.setPrefHeight(schermformaat.getHeight() * 0.03);
+        rechtsRij6.setPercentHeight(28);
 
         rechtsKnoppenGrid.getRowConstraints().addAll(rechtsRij0, rechtsRij1, rechtsRij2, rechtsRij3, rechtsRij4, rechtsRij5, rechtsRij6);
 
         ColumnConstraints rechtsKolom1 = new ColumnConstraints();
-        rechtsKolom1.setPrefWidth(schermformaat.getWidth() * 0.01);
+        rechtsKolom1.setPercentWidth(34);
         ColumnConstraints rechtsKolom2 = new ColumnConstraints();
-        rechtsKolom2.setPrefWidth(schermformaat.getWidth() * 0.02);
+        rechtsKolom2.setPercentWidth(16);
+//        rechtsKolom2.setHalignment(HPos.RIGHT);
+        ColumnConstraints rechtsKolom6 = new ColumnConstraints();
+        rechtsKolom6.setPercentWidth(14);
         ColumnConstraints rechtsKolom3 = new ColumnConstraints();
-        rechtsKolom3.setPrefWidth(schermformaat.getWidth() * 0.05);
-        rechtsKnoppenGrid.getColumnConstraints().addAll(rechtsKolom1, rechtsKolom2, rechtsKolom3);
+        rechtsKolom3.setPercentWidth(10);
+        ColumnConstraints rechtsKolom4 = new ColumnConstraints();
+        rechtsKolom4.setPercentWidth(10);
+        ColumnConstraints rechtsKolom5 = new ColumnConstraints();
+        rechtsKolom5.setPercentWidth(16);
+        rechtsKnoppenGrid.getColumnConstraints().addAll(rechtsKolom1, rechtsKolom2, rechtsKolom6, rechtsKolom3, rechtsKolom4, rechtsKolom5);
 
         List<Image> tankImages = new ArrayList<>();
-        tankImages.add(new Image("Images/tankIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        tankImages.add(new Image("Images/tankGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
+        tankImages.add(new Image("Images/tankIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
+        tankImages.add(new Image("Images/tankGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
         ImageView tankView = new ImageView(tankImages.get(0));
         iconViewsTable.put("tank", tankView);
         imageListTable.put("tank", tankImages);
@@ -433,11 +446,11 @@ public class HoofdPaneel extends GridPane implements View
             HuidigFormulier.setTanken(toggleRandIcoon(HuidigFormulier.getTanken()));
         });//debug
 
-        rechtsKnoppenGrid.add(tankView, 0, 1, 2, 1);
+        rechtsKnoppenGrid.add(tankView, 1, 1, 3, 1);
 
         List<Image> gpsImages = new ArrayList<>();
-        gpsImages.add(new Image("Images/gpsIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        gpsImages.add(new Image("Images/gpsGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
+        gpsImages.add(new Image("Images/gpsIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
+        gpsImages.add(new Image("Images/gpsGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
         ImageView gpsView = new ImageView(gpsImages.get(0));
         iconViewsTable.put("gps", gpsView);
         imageListTable.put("gps", gpsImages);
@@ -446,11 +459,11 @@ public class HoofdPaneel extends GridPane implements View
             HuidigFormulier.setGps(toggleRandIcoon(HuidigFormulier.getGps()));
         });//debug
 
-        rechtsKnoppenGrid.add(gpsView, 1, 3, 2, 1);
+        rechtsKnoppenGrid.add(gpsView, 2, 3, 3, 1);
 
         List<Image> stopImages = new ArrayList<>();
-        stopImages.add(new Image("Images/stopIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
-        stopImages.add(new Image("Images/stopGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true));
+        stopImages.add(new Image("Images/stopIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
+        stopImages.add(new Image("Images/stopGIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
         ImageView stopView = new ImageView(stopImages.get(0));
         iconViewsTable.put("stop", stopView);
         imageListTable.put("stop", stopImages);
@@ -458,10 +471,11 @@ public class HoofdPaneel extends GridPane implements View
         stopView.setOnMouseClicked(event -> {
             HuidigFormulier.setStop(toggleRandIcoon(HuidigFormulier.getStop()));
         });//debug
-        rechtsKnoppenGrid.add(stopView, 0, 5, 2, 1);
+        rechtsKnoppenGrid.add(stopView, 1, 5, 4, 1);
 
         StackPane rechtsStack = new StackPane();
-        Image rechtsImg = new Image("Images/rechts.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
+        rechtsStack.setPrefWidth(schermformaat.getWidth() * 0.15);
+        Image rechtsImg = new Image("Images/rechts2.png", Math.ceil(schermformaat.getWidth() * 0.14), USE_PREF_SIZE, true, true);
         ImageView rechtsView = new ImageView(rechtsImg);
         rechtsStack.getChildren().addAll(rechtsView, rechtsKnoppenGrid);
         rechtsStack.setAlignment(Pos.CENTER_LEFT);
@@ -508,7 +522,7 @@ public class HoofdPaneel extends GridPane implements View
         EvaluatieFormulier HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
         int huidigNiveau = HuidigFormulier.getNiveau();
 
-        if (huidigNiveau < 6) {
+        if (huidigNiveau < 10) {
             HuidigFormulier.setNiveau(huidigNiveau + 1);
         }
     }
@@ -607,8 +621,8 @@ public class HoofdPaneel extends GridPane implements View
         niveauCenterView.setImage(niveauImages.get(formulier.getNiveau()));
 
         //testen
-        Image bottomTestBezig = new Image("Images/BottomTestCompleted.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
-        Image bottomTestDone = new Image("Images/BottomTestDone.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        Image bottomTestBezig = new Image("Images/BottomTestCompleted.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
+        Image bottomTestDone = new Image("Images/BottomTestDone.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
 
         for (int i = 0; i < 3; i++) {
             if (huidigeLeerling.getHuidigEvaluatieFormulierNr() > i) {
