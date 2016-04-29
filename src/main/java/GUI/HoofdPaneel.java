@@ -23,8 +23,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 
-public class HoofdPaneel extends GridPane implements View
-{
+public class HoofdPaneel extends GridPane implements View {
 
     private Scene scene;
     InlogPaneel inlogPaneel;
@@ -76,7 +75,7 @@ public class HoofdPaneel extends GridPane implements View
         getRowConstraints().addAll(rij0, rij1, rij2, rij3);
 
         //einde grid indeling
-        schermformaat =  Screen.getPrimary().getVisualBounds();
+        schermformaat = Screen.getPrimary().getVisualBounds();
 
 //        //kap
 //        HBox kapBox = new HBox();
@@ -105,7 +104,7 @@ public class HoofdPaneel extends GridPane implements View
         StackPane centerStack = new StackPane();
         Image centerImg = new Image("Images/center2.png", Math.ceil(schermformaat.getWidth() * 0.26), USE_PREF_SIZE, true, true);
         ImageView centerView = new ImageView(centerImg);
-        Image centerKnopImg = new Image("Images/centerKnop.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
+        Image centerKnopImg = new Image("Images/centerKnopHoofd.png", Math.ceil(schermformaat.getWidth() * 0.10), USE_PREF_SIZE, true, true);
         ImageView centerKnopView = new ImageView(centerKnopImg);
         centerBox.setAlignment(Pos.CENTER);
         centerStack.getChildren().addAll(centerView, centerKnopView);
@@ -127,13 +126,17 @@ public class HoofdPaneel extends GridPane implements View
         Image wijzerStand1 = new Image("Images/WijzerStand1.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
         Image wijzerStand2 = new Image("Images/WijzerStand2.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
         Image wijzerStand3 = new Image("Images/WijzerStand3.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
+        Image wijzerstuur = new Image("Images/rijTechKnopHoofd.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
+        Image verkeersTechKnop = new Image("Images/verkeersTechKnopHoofd.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
         ImageView wijzeplaat1Stand = new ImageView(wijzerStand1);
         ImageView wijzeplaat2Stand = new ImageView(wijzerStand1);
         ImageView wijzerplaat1View = new ImageView(wijzerplaat);
         ImageView wijzerplaat2View = new ImageView(wijzerplaat);
+        ImageView wijzerstuurView = new ImageView(wijzerstuur);
+        ImageView verkeersTechKnopView = new ImageView(verkeersTechKnop);
 
-        wijzerplaat1Stack.getChildren().addAll(wijzerplaat1View, wijzeplaat1Stand);
-        wijzerplaat2Stack.getChildren().addAll(wijzerplaat2View, wijzeplaat2Stand);
+        wijzerplaat1Stack.getChildren().addAll(wijzerplaat1View, wijzerstuurView, wijzeplaat1Stand);
+        wijzerplaat2Stack.getChildren().addAll(wijzerplaat2View, verkeersTechKnopView, wijzeplaat2Stand);
         add(wijzerplaat1Stack, 1, 2);
         add(wijzerplaat2Stack, 3, 2);
         wijzerplaat1View.setOnMouseClicked(event -> {
@@ -141,6 +144,14 @@ public class HoofdPaneel extends GridPane implements View
             scene.setRoot(rijtechniekenBase);
         });//debug
         wijzerplaat2View.setOnMouseClicked(event -> {
+            VerkeersTechniekBase verkeersTechniekBase = new VerkeersTechniekBase(this);
+            scene.setRoot(verkeersTechniekBase);
+        });//debug
+        wijzerstuurView.setOnMouseClicked(event -> {
+            RijTechniekBase rijtechniekenBase = new RijTechniekBase(this);
+            scene.setRoot(rijtechniekenBase);
+        });//debug
+        verkeersTechKnopView.setOnMouseClicked(event -> {
             VerkeersTechniekBase verkeersTechniekBase = new VerkeersTechniekBase(this);
             scene.setRoot(verkeersTechniekBase);
         });//debug
@@ -222,18 +233,20 @@ public class HoofdPaneel extends GridPane implements View
         bottomBox.getChildren().add(bottomStack);
 
         Image bottomTest = new Image("Images/BottomTest.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
+        Image bottomTest2 = new Image("Images/BottomTest2.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
+        Image bottomTest3 = new Image("Images/BottomTest3.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
         ImageView bottomTest1View = new ImageView(bottomTest);
         bottomTest1View.setOnMouseClicked(event -> {
             //
         });
-        ImageView bottomTest2View = new ImageView(bottomTest);
+        ImageView bottomTest2View = new ImageView(bottomTest2);
         bottomTest2View.setOnMouseClicked(event -> {
             if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 0) {
                 huidigeLeerling.volgendFormulier();
             }
             update();
         });
-        ImageView bottomTest3View = new ImageView(bottomTest);
+        ImageView bottomTest3View = new ImageView(bottomTest3);
         bottomTest3View.setOnMouseClicked(event -> {
             if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 1) {
                 huidigeLeerling.volgendFormulier();
@@ -350,7 +363,7 @@ public class HoofdPaneel extends GridPane implements View
 
         StackPane linksStack = new StackPane();
         Image linksImg = new Image("Images/links2.png", Math.ceil(schermformaat.getWidth() * 0.14), USE_PREF_SIZE, true, true);
-        ImageView linksView = new ImageView(linksImg);      
+        ImageView linksView = new ImageView(linksImg);
 
         List<Image> lampImages = new ArrayList<>();
         lampImages.add(new Image("Images/lampIcoon.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true));
@@ -623,15 +636,30 @@ public class HoofdPaneel extends GridPane implements View
         //testen
         Image bottomTestBezig = new Image("Images/BottomTestCompleted.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
         Image bottomTestDone = new Image("Images/BottomTestDone.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
+        Image bottomTestBezig2 = new Image("Images/BottomTestCompleted2.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
+        Image bottomTestDone2 = new Image("Images/BottomTestDone2.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
+        Image bottomTestBezig3 = new Image("Images/BottomTestCompleted3.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
+        Image bottomTestDone3 = new Image("Images/BottomTestDone3.png", Math.ceil(schermformaat.getWidth() * 0.05), USE_PREF_SIZE, true, true);
 
-        for (int i = 0; i < 3; i++) {
-            if (huidigeLeerling.getHuidigEvaluatieFormulierNr() > i) {
-                testImageViews.get(i).setImage(bottomTestDone);
-            }
-            if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == i) {
-                testImageViews.get(i).setImage(bottomTestBezig);
-            }
+//        for (int i = 0; i < 3; i++) {
+//            if (huidigeLeerling.getHuidigEvaluatieFormulierNr() > i) {
+//                testImageViews.get(i).setImage(bottomTestDone);
+//            }
+//            if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == i) {
+//                testImageViews.get(i).setImage(bottomTestBezig);
+//            }
+//        }
+
+        if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 0) {
+            testImageViews.get(0).setImage(bottomTestBezig);
+        } else if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 1) {
+            testImageViews.get(0).setImage(bottomTestDone);
+            testImageViews.get(1).setImage(bottomTestBezig2);
+        } else if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 2) {
+            testImageViews.get(1).setImage(bottomTestDone2);
+            testImageViews.get(2).setImage(bottomTestBezig3);
         }
+
     }
 
     public InlogPaneel getInlogPaneel() {
