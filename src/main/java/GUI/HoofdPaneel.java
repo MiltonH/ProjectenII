@@ -656,6 +656,7 @@ public class HoofdPaneel extends GridPane implements View {
             testImageViews.get(0).setImage(bottomTestDone);
             testImageViews.get(1).setImage(bottomTestBezig2);
         } else if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 2) {
+            testImageViews.get(0).setImage(bottomTestDone);
             testImageViews.get(1).setImage(bottomTestDone2);
             testImageViews.get(2).setImage(bottomTestBezig3);
         }
