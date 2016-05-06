@@ -41,8 +41,7 @@ import javafx.stage.Screen;
  *
  * @author Milton
  */
-public class verkeerstechniekHoofdscherm extends GridPane implements View
-{
+public class verkeerstechniekHoofdscherm extends GridPane implements View {
 
     Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
     double maxWidth = schermformaat.getWidth() * 0.62;
@@ -387,11 +386,12 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
         opmerkingBox.setSpacing(20);
         Label opmerkingLbl = new Label("Voeg opmerking toe:");
         opmerkingLbl.setId("verkeerstechniekLabel");
+        Label opmerkingToegevoegdLbl = new Label("Uw opmerking is toegevoegd");
+        opmerkingToegevoegdLbl.setId("opmerkingToegevoegd");
         TextField opmerkingField = new TextField();
         opmerkingField.setId("opmerkingenTexfield");
 
-        opmerkingField.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
+        opmerkingField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
@@ -403,16 +403,6 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
             }
         });
 
-        Button annuleerBtn = new Button("Sluit");
-        annuleerBtn.setId("verkeersTechniekButtons");
-        annuleerBtn.setOnAction(event -> {
-            getChildren().remove(opmerkingBox);
-            BoxOpen = false;
-        });
-        HBox knoppen = new HBox();
-        knoppen.setAlignment(Pos.CENTER_LEFT);
-        knoppen.setSpacing(20);
-
         VBox inputBox = new VBox();
         ListView<String> opmerkingLView = new ListView<>();
         opmerkingLView.setMaxHeight(maxHeight * 0.4);
@@ -420,7 +410,19 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
         inputBox.setAlignment(Pos.CENTER_LEFT);
         inputBox.setSpacing(20);
 
-        Button deleteBtn = new Button("Verwijder");
+        Button annuleerBtn = new Button("Sluit");
+        annuleerBtn.setId("verkeersTechniekButtons");
+        annuleerBtn.setOnAction(event -> {
+            afbView.setId("");
+            getChildren().remove(opmerkingBox);
+            BoxOpen = false;
+            inputBox.getChildren().remove(opmerkingToegevoegdLbl);
+        });
+        HBox knoppen = new HBox();
+        knoppen.setAlignment(Pos.CENTER_LEFT);
+        knoppen.setSpacing(20);
+
+        Button deleteBtn = new Button("X");
         deleteBtn.setId("verkeersTechniekButtons");
         deleteBtn.setOnAction(event -> {
             opmerkingLists.get(key).remove(opmerkingLView.getSelectionModel().getSelectedItem());
@@ -432,7 +434,10 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
         aandachtBtn.setId("verkeersTechniekButtons");
         aandachtBtn.setOnAction(event -> {
             if (!huidigformulier.getOpmerkingen().contains(opmerkingLView.getSelectionModel().getSelectedItem())) {
-                huidigformulier.getOpmerkingen().add(opmerkingLView.getSelectionModel().getSelectedItem());              
+                huidigformulier.getOpmerkingen().add(opmerkingLView.getSelectionModel().getSelectedItem());
+            }
+            if(!opmerkingLView.getSelectionModel().getSelectedItems().isEmpty()){
+                inputBox.getChildren().add(opmerkingToegevoegdLbl);
             }
             opmerkingLists.get(key).remove(opmerkingLView.getSelectionModel().getSelectedItem());
             opmerkingen.clear();
@@ -448,6 +453,7 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
 
         View.setOnMouseDragged(event -> {
             if (!BoxOpen) {
+                afbView.setId("imageGlow");
                 opmerkingen.clear();
                 opmerkingen.addAll(opmerkingLists.get(key));
                 getChildren().remove(opmerkingBox);
@@ -457,6 +463,7 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
         });
         afbView.setOnMouseDragged(event -> {
             if (!BoxOpen) {
+                afbView.setId("imageGlow");
                 opmerkingen.clear();
                 opmerkingen.addAll(opmerkingLists.get(key));
                 getChildren().remove(opmerkingBox);

@@ -16,6 +16,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -62,6 +63,7 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
         kolom0.setPercentWidth(2);
         ColumnConstraints kolom1 = new ColumnConstraints();
         kolom1.setPercentWidth(14);
+        kolom1.setHalignment(HPos.CENTER);
         ColumnConstraints kolom2 = new ColumnConstraints();
         kolom2.setPercentWidth(28);
         kolom2.setHalignment(HPos.CENTER);
@@ -151,6 +153,8 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
         ListView<String> opmerkingenView = new ListView<String>(opmerkingenList);
 
         //Tekst
+        Label opmerkingToegevoegdLbl = new Label("Uw opmerking\nis toegevoegd");
+        opmerkingToegevoegdLbl.setId("opmerkingToegevoegd");
         TextField invulTextField = new TextField();
         invulTextField.setId("inlogTexfield");
         invulTextField.setPromptText("Geef een opmerking");
@@ -176,6 +180,7 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
                     huidigformulier.getOpmerkingen().add(opmerkingenView.getSelectionModel().getSelectedItem());
                 }
             }
+            add(opmerkingToegevoegdLbl, 1, 2);
             huidigformulier.getKoppelingBedieningAndere().remove(opmerkingenView.getSelectionModel().getSelectedItem());
             update();
         });
@@ -217,6 +222,7 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
                     huidigformulier.getOpmerkingen().add(opmerkingenView2.getSelectionModel().getSelectedItem());
                 }
             }
+            add(opmerkingToegevoegdLbl, 1, 2);
             huidigformulier.getKoppelingGebruikAndere().remove(opmerkingenView2.getSelectionModel().getSelectedItem());
             update();
         });

@@ -240,3 +240,12 @@
     -fx-stroke: black;
     -fx-stroke-width: 2;
 }
+
+#imageGlow{
+    -fx-effect: dropshadow(three-pass-box, white, 15, 0, 0, 0);
+}
+
+#opmerkingToegevoegd{
+    -fx-font-size: 20;
+    -fx-text-fill: #ff1d8e;
+}

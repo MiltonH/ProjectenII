@@ -77,13 +77,16 @@ public class VerkeersTechniekBase extends GridPane
         Image center = new Image("Images/center2Half.png", Math.ceil(schermformaat.getWidth() * 0.14), USE_PREF_SIZE, true, true);
         ImageView centerView = new ImageView(center);
 
+        Image verkeersTechKnop = new Image("Images/verkeersTechKnopHoofd.png", Math.ceil(schermformaat.getWidth() * 0.30), USE_PREF_SIZE, true, true);
+        ImageView verkeersTechKnopView = new ImageView(verkeersTechKnop);
+        
         Image wijzerplaat = new Image("Images/Wijzerplaat.png", Math.ceil(schermformaat.getWidth() * 0.30), USE_PREF_SIZE, true, true);
         ImageView wijzerplaatView = new ImageView(wijzerplaat);
 
         Image wijzerStand = new Image("Images/WijzerStand1.png", Math.ceil(schermformaat.getWidth() * 0.3), USE_PREF_SIZE, true, true);
         ImageView wijzerplaatStandView = new ImageView(wijzerStand);
 
-        wijzerStack.getChildren().addAll(centerView, wijzerplaatView, wijzerplaatStandView);
+        wijzerStack.getChildren().addAll(centerView, wijzerplaatView, verkeersTechKnopView, wijzerplaatStandView);
         add(wijzerStack, 0, 1);
         //einde center wijzerplaat
         HBox bottomKnoppenBox = new HBox();

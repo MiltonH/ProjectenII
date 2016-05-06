@@ -81,13 +81,16 @@ public class RijTechniekBase extends GridPane
         Image center = new Image("Images/center2Half.png", Math.ceil(schermformaat.getWidth() * 0.14), USE_PREF_SIZE, true, true);
         ImageView centerView = new ImageView(center);
 
+        Image wijzerstuur = new Image("Images/rijTechKnopHoofd.png", Math.ceil(schermformaat.getWidth() * 0.30), USE_PREF_SIZE, true, true);
+        ImageView wijzerstuurView = new ImageView(wijzerstuur);
+        
         Image wijzerplaat = new Image("Images/Wijzerplaat.png", Math.ceil(schermformaat.getWidth() * 0.30), USE_PREF_SIZE, true, true);
         ImageView wijzerplaatView = new ImageView(wijzerplaat);
 
         Image wijzerStand = new Image("Images/WijzerStand1.png", Math.ceil(schermformaat.getWidth() * 0.3), USE_PREF_SIZE, true, true);
         ImageView wijzerplaatStandView = new ImageView(wijzerStand);
 
-        wijzerStack.getChildren().addAll(centerView, wijzerplaatView, wijzerplaatStandView);
+        wijzerStack.getChildren().addAll(centerView, wijzerplaatView, wijzerstuurView, wijzerplaatStandView);
         add(wijzerStack, 1, 1);
         //einde center wijzerplaat
         HBox bottomKnoppenBox = new HBox();

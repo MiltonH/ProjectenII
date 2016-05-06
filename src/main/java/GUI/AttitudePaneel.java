@@ -164,7 +164,6 @@ public class AttitudePaneel extends GridPane implements View
 
         //TextArea ListView
         opmerkingenTextAreaList = FXCollections.observableArrayList();
-        //
         ListView<String> opmerkingenTextAreaView = new ListView<String>(opmerkingenTextAreaList);
         opmerkingenTextAreaView.setId("attitudeListViewOpmerkingen");
         textAreaPane.add(opmerkingenTextAreaView, 0, 1);
@@ -209,6 +208,7 @@ public class AttitudePaneel extends GridPane implements View
 
         verwijder.setOnMouseClicked(event -> {
             huidigformulier.getAttitude().remove(opmerkingenTextAreaView.getSelectionModel().getSelectedItem());
+            update();
         });
 
         //
@@ -234,7 +234,7 @@ public class AttitudePaneel extends GridPane implements View
                     huidigformulier.getAttitude().remove(opmerkingenTextAreaView.getSelectionModel().getSelectedItem());
 //                    opmerkingenDoorgeefList.add(opmerkingenTextAreaView.getSelectionModel().getSelectedItem());
 //                    Collections.replaceAll(opmerkingenTextAreaList, opmerkingenTextAreaView.getSelectionModel().getSelectedItem(), opmerkingenTextAreaView.getSelectionModel().getSelectedItem() + "!");
-                    foutLabel.setText("");
+                    foutLabel.setText("Opmerking toegevoegd");
                     update();
 
                 } else {
