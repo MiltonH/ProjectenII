@@ -57,6 +57,7 @@ public class EvaluatieFormulier
         this.parkerenAchter = Evaluatie.WIT;
         this.parkerenLinks = Evaluatie.WIT;
         this.parkerenTussen = Evaluatie.WIT;
+        this.rijstroken = Evaluatie.WIT;
         this.rechtsaf = Evaluatie.WIT;
         this.rechtsafAndere = new ArrayList<>();
         this.remDosering = Evaluatie.WIT;

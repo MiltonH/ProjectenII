@@ -1,5 +1,6 @@
 package GUI;
 
+import domain.LeerlingRepo;
 import java.util.Stack;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -17,7 +18,8 @@ public class Main extends Application
 
     @Override
     public void start(Stage primaryStage) {
-        InlogPaneel inlog = new InlogPaneel();
+        LeerlingRepo llrepo = new LeerlingRepo();
+        InlogPaneel inlog = new InlogPaneel(llrepo);
         primaryStage.setTitle("Rijschool Applicatie");
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
 
@@ -27,6 +29,9 @@ public class Main extends Application
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setFullScreen(false);
+        primaryStage.setOnCloseRequest(event ->{
+            llrepo.shutdown();
+        });
     }
 
 }

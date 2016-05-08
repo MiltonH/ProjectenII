@@ -1,11 +1,11 @@
 package GUI;
 
 import domain.Leerling;
+import domain.LeerlingRepo;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -30,9 +30,11 @@ public class InlogPaneel extends GridPane
     Scene scene;
 
     List<Leerling> leerlingen;
+    LeerlingRepo llRepo;
 
-    public InlogPaneel() {
+    public InlogPaneel(LeerlingRepo llRepo) {
 
+        this.llRepo = llRepo;
         leerlingen = new ArrayList<>();
         leerlingen.add(new Leerling("Hooft", "Milton", "rij0001"));
         leerlingen.add(new Leerling("Meert", "Dries", "rij0002"));
@@ -171,28 +173,41 @@ public class InlogPaneel extends GridPane
         }
 
         namen.addAll(llnamen);
+
         Collections.sort(namen);
-        ListView<String> zoekView = new ListView<String>(namen);
+
+        llRepo.updateList();
+        ObservableList<Leerling> testl = llRepo.getLeerlingList();
+        llRepo.addUser(leerlingen.get(0));
+
+        ListView<Leerling> zoekView = new ListView<Leerling>(testl);
+        zoekView.setCellFactory(listView -> new LeerlingCell());
 //        listViewGrid.add(zoekView, 0, 0);
 //        listViewGrid.add(openKnop, 1, 0);
         InlogSchermPane.add(zoekView, 1, 1);
 
         //knoppen
         openKnop.setOnMouseClicked(event -> {
-            if (naamTextField.getText().isEmpty()) {
-                naamTextField.setPromptText("Geen naam ingevult");
-                naamTextField.setId("inlogGeenNaamIngevult");
-            } else {
-                Leerling geselecteerdeLeerling = null;
-
-                for (Leerling lin : leerlingen) {
-                    if ((lin.getFamilienaam() + " " + lin.getVoornaam()).equals(zoekView.getSelectionModel().getSelectedItem())) {
-                        geselecteerdeLeerling = lin;
-                        break;
-                    }
-                }
-
-                HoofdPaneel hoofdPanel = new HoofdPaneel(geselecteerdeLeerling); //HoofdPaneel(zoekView.getSelectionModel().getSelectedItem());
+//            if (naamTextField.getText().isEmpty()) {
+//                naamTextField.setPromptText("Geen naam ingevult");
+//                naamTextField.setId("inlogGeenNaamIngevult");
+//            } else {
+//                Leerling geselecteerdeLeerling = null;
+//
+//                for (Leerling lin : leerlingen) {
+//                    if ((lin.getFamilienaam() + " " + lin.getVoornaam()).equals(zoekView.getSelectionModel().getSelectedItem())) {
+//                        geselecteerdeLeerling = lin;
+//                        break;
+//                    }
+//                }
+//
+//                HoofdPaneel hoofdPanel = new HoofdPaneel(geselecteerdeLeerling); //HoofdPaneel(zoekView.getSelectionModel().getSelectedItem());
+//                hoofdPanel.setInlogPaneel(this);
+//                hoofdPanel.setScene(scene);
+//                scene.setRoot(hoofdPanel);
+//            }
+            if (zoekView.getSelectionModel().getSelectedItem() != null) {
+                HoofdPaneel hoofdPanel = new HoofdPaneel(zoekView.getSelectionModel().getSelectedItem()); //HoofdPaneel(zoekView.getSelectionModel().getSelectedItem());
                 hoofdPanel.setInlogPaneel(this);
                 hoofdPanel.setScene(scene);
                 scene.setRoot(hoofdPanel);
@@ -208,9 +223,11 @@ public class InlogPaneel extends GridPane
                     break;
                 }
             }
-            naamTextField.setText(geselecteerdeLeerling.getFamilienaam() + " " + geselecteerdeLeerling.getVoornaam());
-            nummerTextField.setText(String.valueOf(geselecteerdeLeerling.getInschrijvingsNummer()));
-            nummerTextField.setEditable(false);
+            if (geselecteerdeLeerling != null) {
+                naamTextField.setText(geselecteerdeLeerling.getFamilienaam() + " " + geselecteerdeLeerling.getVoornaam());
+                nummerTextField.setText(String.valueOf(geselecteerdeLeerling.getInschrijvingsNummer()));
+                nummerTextField.setEditable(false);
+            }
         });
 
         voegToeKnop.setOnMouseClicked(event -> {
