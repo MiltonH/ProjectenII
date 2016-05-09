@@ -13,8 +13,13 @@ import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonException;
@@ -56,13 +61,19 @@ public class LeerlingListReader implements MessageBodyReader<List<Leerling>>
         try (JsonReader in = Json.createReader(entityStream)) {
             JsonArray jsonleerlingen = in.readArray();
             List<Leerling> leerlingen = new ArrayList<>();
-            
+
             for (JsonObject jsonUser : jsonleerlingen.getValuesAs(JsonObject.class)) {
                 Leerling leerling = new Leerling();
 
                 leerling.setVoornaam(jsonUser.getString("voornaam", null));
                 leerling.setFamilienaam(jsonUser.getString("familienaam", null));
                 leerling.setInschrijvingsNummer(jsonUser.getString("inschrijvingsnr", null));
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                try {
+                    leerling.setLastEdit(df.parse(jsonUser.getString("lastEdit")));
+                } catch (ParseException ex) {
+                    Logger.getLogger(LeerlingListReader.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 List<EvaluatieFormulier> evaluatieFormulieren = new ArrayList<>();
                 JsonArray jsonForms = jsonUser.getJsonArray("evaluatieformulieren");
@@ -345,7 +356,7 @@ public class LeerlingListReader implements MessageBodyReader<List<Leerling>>
                     //
                     leerling.getEvaluatieFormulieren().add(formulier);
 
-                }   
+                }
                 leerling.setHuidigEvaluatieFormulierNr();
                 leerling.setHuidigEvaluatieFormulier();
                 leerlingen.add(leerling);

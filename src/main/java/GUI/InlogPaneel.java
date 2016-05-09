@@ -27,10 +27,10 @@ import javafx.stage.Screen;
 public class InlogPaneel extends GridPane
 {
 
-    Scene scene;
+    private Scene scene;
 
-    List<Leerling> leerlingen;
-    LeerlingRepo llRepo;
+    private List<Leerling> leerlingen;
+    private LeerlingRepo llRepo;
 
     public InlogPaneel(LeerlingRepo llRepo) {
 
@@ -176,9 +176,9 @@ public class InlogPaneel extends GridPane
 
         Collections.sort(namen);
 
-        llRepo.updateList();
+        llRepo.laadLijst();
         ObservableList<Leerling> testl = llRepo.getLeerlingList();
-        llRepo.addUser(leerlingen.get(0));
+        
 
         ListView<Leerling> zoekView = new ListView<Leerling>(testl);
         zoekView.setCellFactory(listView -> new LeerlingCell());
@@ -231,18 +231,19 @@ public class InlogPaneel extends GridPane
         });
 
         voegToeKnop.setOnMouseClicked(event -> {
-            String famNaam;
-            String voornaam;
-            String inschrijvingsNr;
-            String[] naam;
-            naam = naamTextField.getText().split(" ");
-            famNaam = naam[0];
-            voornaam = naam[1];
-            SecureRandom rand = new SecureRandom();
-            inschrijvingsNr = "rij00" + rand.nextInt(100);
-
-            leerlingen.add(new Leerling(famNaam, voornaam, inschrijvingsNr));
-            namen.add(famNaam + " " + voornaam);
+//            String famNaam;
+//            String voornaam;
+//            String inschrijvingsNr;
+//            String[] naam;
+//            naam = naamTextField.getText().split(" ");
+//            famNaam = naam[0];
+//            voornaam = naam[1];
+//            SecureRandom rand = new SecureRandom();
+//            inschrijvingsNr = "rij00" + rand.nextInt(100);
+//
+//            leerlingen.add(new Leerling(famNaam, voornaam, inschrijvingsNr));
+//            namen.add(famNaam + " " + voornaam);
+            llRepo.synchroniseer();
         });
     }
 

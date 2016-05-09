@@ -5,6 +5,7 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author Milton
  */
-public class EvaluatieFormulier
+public class EvaluatieFormulier implements Serializable
 {
 
     private Leerling leerling;

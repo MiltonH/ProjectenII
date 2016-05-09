@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
@@ -48,6 +50,8 @@ public class LeerlingWriter implements MessageBodyWriter<Leerling>
             JsonLeerling.add("familienaam", leerling.getFamilienaam());
             JsonLeerling.add("voornaam", leerling.getVoornaam());
             JsonLeerling.add("inschrijvingsnr", leerling.getInschrijvingsNummer());
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            JsonLeerling.add("lastEdit",df.format(leerling.getLastEdit()));
 
             JsonArrayBuilder jsonEvals = Json.createArrayBuilder();
 

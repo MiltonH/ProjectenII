@@ -29,7 +29,7 @@ public class Main extends Application
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setFullScreen(false);
-        primaryStage.setOnCloseRequest(event ->{
+        primaryStage.setOnCloseRequest(event -> {
             llrepo.shutdown();
         });
     }

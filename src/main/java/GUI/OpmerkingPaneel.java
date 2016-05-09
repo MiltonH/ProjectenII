@@ -24,10 +24,10 @@ import javafx.stage.Screen;
 public class OpmerkingPaneel extends GridPane implements View
 {
 
-    Scene scene;
-    HoofdPaneel hp;
-    ListView opmerkingenLV;
-    ObservableList<String> opmList;
+    private Scene scene;
+    private HoofdPaneel hp;
+    private ListView opmerkingenLV;
+    private ObservableList<String> opmList;
 
     public OpmerkingPaneel(HoofdPaneel hoofdPanel) {
         hp = hoofdPanel;

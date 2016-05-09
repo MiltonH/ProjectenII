@@ -29,17 +29,17 @@ import javafx.stage.Screen;
 public class RijTechniekHoofdscherm extends GridPane implements View
 {
 
-    RijTechniekBase base;
-    int integer = 0;
-    Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
-    double maxWidth = schermformaat.getWidth() * 0.62;
+    private RijTechniekBase base;
+    private int integer = 0;
+    private Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+    private double maxWidth = schermformaat.getWidth() * 0.62;
 
-    Hashtable<String, EventHandler> eventToggles;
-    Hashtable<String, Rectangle[]> rectangles;
-    Hashtable<String, ImageView> knopViews;
-    EvaluatieFormulier huidigformulier;
+    private Hashtable<String, EventHandler> eventToggles;
+    private Hashtable<String, Rectangle[]> rectangles;
+    private Hashtable<String, ImageView> knopViews;
+    private EvaluatieFormulier huidigformulier;
 
-    List<Image> Images;
+    private List<Image> Images;
 
     public RijTechniekHoofdscherm(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");
@@ -82,7 +82,6 @@ public class RijTechniekHoofdscherm extends GridPane implements View
         Images.add(new Image("Images/knopVierkantG.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
 
         //einde grid indeling
-
         //GridPane
         gridLinesVisibleProperty().set(false);
 
