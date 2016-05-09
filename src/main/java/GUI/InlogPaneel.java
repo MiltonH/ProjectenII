@@ -176,8 +176,9 @@ public class InlogPaneel extends GridPane
 
         Collections.sort(namen);
 
-        llRepo.laadLijst();
-        ObservableList<Leerling> testl = llRepo.getLeerlingList();
+//        llRepo.laadLijst();
+        ObservableList<Leerling> testl = FXCollections.observableArrayList();
+        testl.addAll(leerlingen);
         
 
         ListView<Leerling> zoekView = new ListView<Leerling>(testl);
