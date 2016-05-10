@@ -29,8 +29,8 @@ import javafx.stage.Screen;
 public class RijTechniekBase extends GridPane
 {
 
-    HBox contentBox;
-    HoofdPaneel hoofdPanel;
+    private HBox contentBox;
+    private HoofdPaneel hoofdPanel;
 
     public RijTechniekBase(HoofdPaneel hoofdPanel) {
         this.hoofdPanel = hoofdPanel;

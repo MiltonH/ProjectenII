@@ -41,24 +41,25 @@ import javafx.stage.Screen;
  *
  * @author Milton
  */
-public class verkeerstechniekHoofdscherm extends GridPane implements View {
+public class verkeerstechniekHoofdscherm extends GridPane implements View
+{
 
-    Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
-    double maxWidth = schermformaat.getWidth() * 0.62;
-    double maxHeight = schermformaat.getHeight() * 0.7;
-    int voorrang1Int = 0;
-    int voorrang2Int = 0;
-    int voorrang3Int = 0;
-    VerkeersTechniekBase base;
-    EvaluatieFormulier huidigformulier;
+    private Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+    private double maxWidth = schermformaat.getWidth() * 0.62;
+    private double maxHeight = schermformaat.getHeight() * 0.7;
+    private int voorrang1Int = 0;
+    private int voorrang2Int = 0;
+    private int voorrang3Int = 0;
+    private VerkeersTechniekBase base;
+    private EvaluatieFormulier huidigformulier;
 
-    Hashtable<String, Rectangle[]> rectangles;
-    Hashtable<String, ImageView> knopViews;
-    Hashtable<String, EventHandler> eventToggles;
-    Hashtable<String, List<String>> opmerkingLists;
-    Boolean BoxOpen;
+    private Hashtable<String, Rectangle[]> rectangles;
+    private Hashtable<String, ImageView> knopViews;
+    private Hashtable<String, EventHandler> eventToggles;
+    private Hashtable<String, List<String>> opmerkingLists;
+    private Boolean BoxOpen;
 
-    List<Image> Images;
+    private List<Image> Images;
 
     public verkeerstechniekHoofdscherm(VerkeersTechniekBase base) {
         this.base = base;
@@ -391,7 +392,8 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View {
         TextField opmerkingField = new TextField();
         opmerkingField.setId("opmerkingenTexfield");
 
-        opmerkingField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        opmerkingField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
@@ -436,7 +438,7 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View {
             if (!huidigformulier.getOpmerkingen().contains(opmerkingLView.getSelectionModel().getSelectedItem())) {
                 huidigformulier.getOpmerkingen().add(opmerkingLView.getSelectionModel().getSelectedItem());
             }
-            if(!opmerkingLView.getSelectionModel().getSelectedItems().isEmpty()){
+            if (!opmerkingLView.getSelectionModel().getSelectedItems().isEmpty()) {
                 inputBox.getChildren().add(opmerkingToegevoegdLbl);
             }
             opmerkingLists.get(key).remove(opmerkingLView.getSelectionModel().getSelectedItem());

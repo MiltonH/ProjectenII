@@ -17,7 +17,7 @@ import javafx.scene.shape.SVGPath;
 public class VectorBuilder
 {
 
-    Rectangle2D schermformaat;
+    private Rectangle2D schermformaat;
 
     public VectorBuilder(Rectangle2D schermformaat) {
         this.schermformaat = schermformaat;
@@ -60,15 +60,14 @@ public class VectorBuilder
 
     public Group buildHoekLinks() {
         Group out = new Group();
-        SVGPath path =new SVGPath();
+        SVGPath path = new SVGPath();
         path.setContent("m 462.52731,265.69847 -155.44094,47.23207 c -120.85661,169.50001 -98.55946,337.25424 1.01016,504.06612 L 487.49578,875.8201 C 340.43191,692.01746 310.78235,495.26462 462.52731,265.69847 Z");
         path.setFill(Color.BLACK);
 //        path.setTranslateX(0);
-        scaleVierkant(path, 1);        
+        scaleVierkant(path, 1);
         out.getChildren().add(path);
         return out;
     }
-    
 
     public void scaleVierkant(SVGPath g, double scale) {
         g.setScaleX(scale);

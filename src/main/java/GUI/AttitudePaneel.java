@@ -24,10 +24,10 @@ import javafx.stage.Screen;
 public class AttitudePaneel extends GridPane implements View
 {
 
-    Scene scene;
-    HoofdPaneel hp;
-    EvaluatieFormulier huidigformulier;
-    ObservableList<String> opmerkingenTextAreaList;
+    private Scene scene;
+    private HoofdPaneel hp;
+    private EvaluatieFormulier huidigformulier;
+    private ObservableList<String> opmerkingenTextAreaList;
 
     public AttitudePaneel(HoofdPaneel hoofdPanel) {
         setId("inlogPaneelBG");

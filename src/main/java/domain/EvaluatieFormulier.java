@@ -5,6 +5,7 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author Milton
  */
-public class EvaluatieFormulier
+public class EvaluatieFormulier implements Serializable
 {
 
     private Leerling leerling;
@@ -57,6 +58,7 @@ public class EvaluatieFormulier
         this.parkerenAchter = Evaluatie.WIT;
         this.parkerenLinks = Evaluatie.WIT;
         this.parkerenTussen = Evaluatie.WIT;
+        this.rijstroken = Evaluatie.WIT;
         this.rechtsaf = Evaluatie.WIT;
         this.rechtsafAndere = new ArrayList<>();
         this.remDosering = Evaluatie.WIT;

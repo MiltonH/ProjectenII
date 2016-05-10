@@ -35,16 +35,16 @@ import javafx.stage.Screen;
 public class RijTechniekKoppelingKnop extends GridPane implements View
 {
 
-    RijTechniekBase base;
-    EvaluatieFormulier huidigformulier;
-    ObservableList<String> opmerkingenList;
-    ObservableList<String> opmerkingenList2;
-    Rectangle kotje1;
-    Rectangle kotje2;
-    Rectangle kotje3;
-    Hashtable<String, Button> buttons;
-    Boolean andere1Bool;
-    Boolean andere2Bool;
+    private RijTechniekBase base;
+    private EvaluatieFormulier huidigformulier;
+    private ObservableList<String> opmerkingenList;
+    private ObservableList<String> opmerkingenList2;
+    private Rectangle kotje1;
+    private Rectangle kotje2;
+    private Rectangle kotje3;
+    private Hashtable<String, Button> buttons;
+    private Boolean andere1Bool;
+    private Boolean andere2Bool;
 
     public RijTechniekKoppelingKnop(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");

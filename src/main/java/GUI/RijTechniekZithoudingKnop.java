@@ -43,14 +43,14 @@ import javafx.stage.Screen;
 public class RijTechniekZithoudingKnop extends GridPane implements View
 {
 
-    RijTechniekBase base;
-    EvaluatieFormulier huidigformulier;
-    ObservableList<String> opmerkingenList;
-    Rectangle kotje1;
-    Rectangle kotje2;
-    Rectangle kotje3;
-    Hashtable<String, Button> buttons;
-    Boolean andereBool;
+    private RijTechniekBase base;
+    private EvaluatieFormulier huidigformulier;
+    private ObservableList<String> opmerkingenList;
+    private Rectangle kotje1;
+    private Rectangle kotje2;
+    private Rectangle kotje3;
+    private Hashtable<String, Button> buttons;
+    private Boolean andereBool;
 
     public RijTechniekZithoudingKnop(RijTechniekBase base) {
         setId("rijTechniekHoofdschermPaneel");

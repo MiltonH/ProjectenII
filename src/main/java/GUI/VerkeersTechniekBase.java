@@ -25,8 +25,8 @@ import javafx.stage.Screen;
 public class VerkeersTechniekBase extends GridPane
 {
 
-    HBox contentBox;
-    HoofdPaneel hoofdpanel;
+    private HBox contentBox;
+    private HoofdPaneel hoofdpanel;
 
     public VerkeersTechniekBase(HoofdPaneel hoofdPanel) {
         //grid indeling
@@ -79,7 +79,7 @@ public class VerkeersTechniekBase extends GridPane
 
         Image verkeersTechKnop = new Image("Images/verkeersTechKnopHoofd.png", Math.ceil(schermformaat.getWidth() * 0.30), USE_PREF_SIZE, true, true);
         ImageView verkeersTechKnopView = new ImageView(verkeersTechKnop);
-        
+
         Image wijzerplaat = new Image("Images/Wijzerplaat.png", Math.ceil(schermformaat.getWidth() * 0.30), USE_PREF_SIZE, true, true);
         ImageView wijzerplaatView = new ImageView(wijzerplaat);
 

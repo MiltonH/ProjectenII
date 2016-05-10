@@ -26,16 +26,16 @@ import javafx.stage.Screen;
 public class HoofdPaneel extends GridPane implements View {
 
     private Scene scene;
-    InlogPaneel inlogPaneel;
+    private InlogPaneel inlogPaneel;
     private Leerling huidigeLeerling;
-    Rectangle2D schermformaat;
+    private Rectangle2D schermformaat;
 
-    Hashtable<String, ImageView> iconViewsTable;
-    Hashtable<String, List> imageListTable;
-    List<ImageView> testImageViews;
-    ImageView niveauCenterView;
-    List<Image> niveauImages;
-    EvaluatieFormulier HuidigFormulier;
+    private Hashtable<String, ImageView> iconViewsTable;
+    private Hashtable<String, List> imageListTable;
+    private List<ImageView> testImageViews;
+    private ImageView niveauCenterView;
+    private List<Image> niveauImages;
+    private EvaluatieFormulier HuidigFormulier;
 
     public HoofdPaneel(Leerling leerling) {
         //maingrid indelen
