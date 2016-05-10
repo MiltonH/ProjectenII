@@ -2,12 +2,14 @@ package GUI;
 
 import domain.Leerling;
 import domain.LeerlingRepo;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -16,8 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -162,8 +162,8 @@ public class InlogPaneel extends GridPane
         InlogSchermPane.add(knoppenBox, 0, 1);
 
         //afbeelding
-        ImageView gebruikersImage = new ImageView(new Image("Images/unknown-user.png", Math.ceil(schermformaat.getWidth() * 0.13), USE_PREF_SIZE, true, true));
-        InlogSchermPane.add(gebruikersImage, 1, 0);
+//        ImageView gebruikersImage = new ImageView(new Image("Images/unknown-user.png", Math.ceil(schermformaat.getWidth() * 0.13), USE_PREF_SIZE, true, true));
+//        InlogSchermPane.add(gebruikersImage, 1, 0);
 
         //ListView
         ObservableList<String> namen = FXCollections.observableArrayList();
@@ -178,16 +178,57 @@ public class InlogPaneel extends GridPane
         llRepo.laadLijst();
 
 //        llRepo.laadLijst();
-//        ObservableList<Leerling> testl = FXCollections.observableArrayList();
-//        testl.addAll(llRepo.getLeerlingList());
+        ObservableList<Leerling> testl = FXCollections.observableArrayList();
+        testl.addAll(llRepo.getLeerlingList());
         
 
-        ListView<Leerling> zoekView = new ListView<Leerling>(llRepo.getLeerlingList());
+        ListView<Leerling> zoekView = new ListView<Leerling>(testl);
         zoekView.setCellFactory(listView -> new LeerlingCell());
 //        listViewGrid.add(zoekView, 0, 0);
 //        listViewGrid.add(openKnop, 1, 0);
-        InlogSchermPane.add(zoekView, 1, 1);
+        InlogSchermPane.add(zoekView, 1, 0, 1, 2);
 
+        FilteredList<Leerling> filteredLeerling = new FilteredList<>(testl, e -> true);
+        naamTextField.setOnKeyReleased(e -> {
+            naamTextField.textProperty().addListener((ObservableValue, oldValue, newValue) -> {
+                filteredLeerling.setPredicate((Predicate<? super Leerling>) leerling -> {
+                    if(newValue == null || newValue.isEmpty()){
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if(leerling.getVoornaam().toLowerCase().startsWith(lowerCaseFilter)){
+                        return true;
+                    }
+                    else if(leerling.getFamilienaam().toLowerCase().startsWith(lowerCaseFilter)){
+                        return true;
+                    }
+                    return false;
+                });
+            });
+            SortedList<Leerling> sortedData = new SortedList<>(filteredLeerling);
+//            sortedData.comparatorProperty().bind(zoekView.comparatorPropterty());
+            zoekView.setItems(sortedData);
+        });
+        
+        FilteredList<Leerling> filteredLeerlingNummer = new FilteredList<>(testl, e -> true);
+        nummerTextField.setOnKeyReleased(e -> {
+            nummerTextField.textProperty().addListener((ObservableValue, oldValue, newValue) -> {
+                filteredLeerlingNummer.setPredicate((Predicate<? super Leerling>) leerling -> {
+                    if(newValue == null || newValue.isEmpty()){
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if(leerling.getInschrijvingsNummer().toLowerCase().contains(lowerCaseFilter)){
+                        return true;
+                    }
+                    return false;
+                });
+            });
+            SortedList<Leerling> sortedData = new SortedList<>(filteredLeerlingNummer);
+//            sortedData.comparatorProperty().bind(zoekView.comparatorPropterty());
+            zoekView.setItems(sortedData);
+        });
+        
         //knoppen
         openKnop.setOnMouseClicked(event -> {
 //            if (naamTextField.getText().isEmpty()) {
@@ -245,8 +286,12 @@ public class InlogPaneel extends GridPane
 //
 //            leerlingen.add(new Leerling(famNaam, voornaam, inschrijvingsNr));
 //            namen.add(famNaam + " " + voornaam);
-//            llRepo.laadLijst();
-                llRepo.Synchroniseer();
+
+//            llRepo.synchroniseer();
+
+            VoegLeerlingToePaneel voegLeerlingToePaneel = new VoegLeerlingToePaneel();
+            voegLeerlingToePaneel.setScene(scene);
+            scene.setRoot(voegLeerlingToePaneel);
         });
     }
 
