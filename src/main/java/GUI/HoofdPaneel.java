@@ -23,7 +23,8 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 
-public class HoofdPaneel extends GridPane implements View {
+public class HoofdPaneel extends GridPane implements View
+{
 
     private Scene scene;
     private InlogPaneel inlogPaneel;
@@ -649,7 +650,6 @@ public class HoofdPaneel extends GridPane implements View {
 //                testImageViews.get(i).setImage(bottomTestBezig);
 //            }
 //        }
-
         if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 0) {
             testImageViews.get(0).setImage(bottomTestBezig);
         } else if (huidigeLeerling.getHuidigEvaluatieFormulierNr() == 1) {
@@ -660,7 +660,7 @@ public class HoofdPaneel extends GridPane implements View {
             testImageViews.get(1).setImage(bottomTestDone2);
             testImageViews.get(2).setImage(bottomTestBezig3);
         }
-
+        huidigeLeerling.updateLastEdit();
     }
 
     public InlogPaneel getInlogPaneel() {

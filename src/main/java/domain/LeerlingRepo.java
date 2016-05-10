@@ -21,9 +21,7 @@ import javafx.collections.ObservableList;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonString;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -31,6 +29,8 @@ import tasks.AddLeerlingTask;
 import tasks.GetLeerlingenTask;
 import tasks.PutLeerlingTask;
 import static java.lang.Math.toIntExact;
+import java.math.BigDecimal;
+import tasks.DeleteLeerlingTask;
 
 /**
  *
@@ -38,15 +38,15 @@ import static java.lang.Math.toIntExact;
  */
 public class LeerlingRepo
 {
-
+    
     private final ObservableList<Leerling> leerlingList = FXCollections.observableArrayList();
-
+    
     public ObservableList<Leerling> getLeerlingList() {
         return leerlingList;
     }
-
+    
     private final ExecutorService service = Executors.newSingleThreadExecutor();
-
+    
     public void laadLijst() {
         leerlingList.addAll(leesFile("Leerlingen.txt"));
     }
@@ -64,7 +64,7 @@ public class LeerlingRepo
         });
         service.submit(task);
     }
-
+    
     public void addLeerling(Leerling leerling) {
         AddLeerlingTask task = new AddLeerlingTask(leerling);
         task.setOnSucceeded(event -> {
@@ -76,7 +76,7 @@ public class LeerlingRepo
         });
         service.submit(task);
     }
-
+    
     public void updateLeerling(Leerling leerling) {
         PutLeerlingTask task = new PutLeerlingTask(leerling);
         task.setOnFailed(event -> {
@@ -85,11 +85,11 @@ public class LeerlingRepo
         });
         service.submit(task);
     }
-
+    
     public void synchroniseer() {
-
+        
     }
-
+    
     public void schrijfFile(List<Leerling> leerlingen, String fileNaam) {
         JSONObject obj = new JSONObject();
         obj.put("repo", maakJson(leerlingen));
@@ -99,30 +99,31 @@ public class LeerlingRepo
         } catch (IOException ex) {
             Logger.getLogger(LeerlingRepo.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     public List<Leerling> leesFile(String fileNaam) {
         List<Leerling> leerlingen = new ArrayList<>();
         JSONParser parser = new JSONParser();
-
+        
         try {
-
+            
             Object obj = parser.parse(new FileReader(
                     fileNaam));
-
+            
             JSONObject jsonObject = (JSONObject) obj;
-
+            
             JSONArray arr = (JSONArray) jsonObject.get("repo");
             for (int i = 0; i < arr.size(); i++) {
                 JSONObject JsonLeerling = (JSONObject) arr.get(i);
                 Leerling leerling = new Leerling();
                 leerling.setFamilienaam((String) JsonLeerling.get("familienaam"));
                 leerling.setVoornaam((String) JsonLeerling.get("voornaam"));
-                leerling.setInschrijvingsNummer((String) JsonLeerling.get("inschrijvingsnummer"));
+                leerling.setInschrijvingsNummer((String) JsonLeerling.get("inschrijvingsnr"));
+                leerling.setLocalOnly((Boolean) JsonLeerling.get("localOnly"));
                 DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 leerling.setLastEdit(df.parse((String) JsonLeerling.get("lastEdit")));
-
+                
                 JSONArray jsonForms = (JSONArray) JsonLeerling.get("evaluatieformulieren");
                 for (int j = 0; j < jsonForms.size(); j++) {
                     JSONObject jsonForm = (JSONObject) jsonForms.get(j);
@@ -134,7 +135,7 @@ public class LeerlingRepo
                     formulier.setZithoudingSpiegels(Evaluatie.values()[toIntExact((long) jsonForm.get("zithoudingSpiegels"))]);
                     formulier.setZithoudingHandrem(Evaluatie.values()[toIntExact((long) jsonForm.get("zithoudingHandrem"))]);
                     formulier.setZithoudingRec(Evaluatie.values()[toIntExact((long) jsonForm.get("zithoudingRec"))]);
-
+                    
                     JSONArray jsonzithoudingAnderee = (JSONArray) jsonForm.get("zithoudingAndere");
                     List<String> zithoudingAndere = new ArrayList<>();
                     if (jsonzithoudingAnderee != null) {
@@ -150,7 +151,7 @@ public class LeerlingRepo
                     formulier.setKoppelingVolledig(Evaluatie.values()[toIntExact((long) jsonForm.get("koppelingVolledig"))]);
                     formulier.setKoppelingBediening(Evaluatie.values()[toIntExact((long) jsonForm.get("koppelingBediening"))]);
                     formulier.setKoppelingVoetaf(Evaluatie.values()[toIntExact((long) jsonForm.get("koppelingVoetaf"))]);
-
+                    
                     JSONArray jsonkoppelingBedieningAndere = (JSONArray) jsonForm.get("koppelingBedieningAndere");
                     List<String> koppelingBedieningAndere = new ArrayList<>();
                     if (jsonkoppelingBedieningAndere != null) {
@@ -159,11 +160,11 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setKoppelingBedieningAndere(koppelingBedieningAndere);
-
+                    
                     formulier.setKoppelingOnnodig(Evaluatie.values()[toIntExact((long) jsonForm.get("koppelingOnnodig"))]);
                     formulier.setKoppelingBocht(Evaluatie.values()[toIntExact((long) jsonForm.get("koppelingBocht"))]);
                     formulier.setKoppelingGebruik(Evaluatie.values()[toIntExact((long) jsonForm.get("koppelingGebruik"))]);
-
+                    
                     JSONArray jsonkoppelingGebruikAndere = (JSONArray) jsonForm.get("koppelingGebruikAndere");
                     List<String> koppelingGebruikAndere = new ArrayList<>();
                     if (jsonkoppelingGebruikAndere != null) {
@@ -180,7 +181,7 @@ public class LeerlingRepo
                     formulier.setRemTeLaat(Evaluatie.values()[toIntExact((long) jsonForm.get("remTeLaat"))]);
                     formulier.setRemBediening(Evaluatie.values()[toIntExact((long) jsonForm.get("remBediening"))]);
                     formulier.setRemGebruik(Evaluatie.values()[toIntExact((long) jsonForm.get("remGebruik"))]);
-
+                    
                     JSONArray jsonremGebruikAndere = (JSONArray) jsonForm.get("remGebruikAndere");
                     List<String> remGebruikAndere = new ArrayList<>();
                     if (jsonremGebruikAndere != null) {
@@ -194,7 +195,7 @@ public class LeerlingRepo
                     formulier.setStuurRec(Evaluatie.values()[toIntExact((long) jsonForm.get("stuurRec"))]);
                     formulier.setStuurDosering(Evaluatie.values()[toIntExact((long) jsonForm.get("stuurDosering"))]);
                     formulier.setStuurHouding(Evaluatie.values()[toIntExact((long) jsonForm.get("stuurHouding"))]);
-
+                    
                     JSONArray jsonstuurAndere = (JSONArray) jsonForm.get("stuurAndere");
                     List<String> stuurAndere = new ArrayList<>();
                     if (jsonstuurAndere != null) {
@@ -208,7 +209,7 @@ public class LeerlingRepo
                     formulier.setSchakelRec(Evaluatie.values()[toIntExact((long) jsonForm.get("schakelRec"))]);
                     formulier.setSchakelBediening(Evaluatie.values()[toIntExact((long) jsonForm.get("schakelBediening"))]);
                     formulier.setSchakelDosering(Evaluatie.values()[toIntExact((long) jsonForm.get("schakelDosering"))]);
-
+                    
                     JSONArray jsonschakelBedieningAndere = (JSONArray) jsonForm.get("schakelBedieningAndere");
                     List<String> schakelBedieningAndere = new ArrayList<>();
                     if (jsonschakelBedieningAndere != null) {
@@ -217,11 +218,11 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setSchakelBedieningAndere(schakelBedieningAndere);
-
+                    
                     formulier.setSchakelGebruik(Evaluatie.values()[toIntExact((long) jsonForm.get("schakelGebruik"))]);
                     formulier.setSchakelAangepast(Evaluatie.values()[toIntExact((long) jsonForm.get("schakelAangepast"))]);
                     formulier.setSchakelMotorRem(Evaluatie.values()[toIntExact((long) jsonForm.get("schakelMotorRem"))]);
-
+                    
                     JSONArray jsonschakelGebruikAndere = (JSONArray) jsonForm.get("schakelGebruikAndere");
                     List<String> schakelGebruikAndere = new ArrayList<>();
                     if (jsonschakelGebruikAndere != null) {
@@ -238,7 +239,7 @@ public class LeerlingRepo
                     formulier.setKijkVer(Evaluatie.values()[toIntExact((long) jsonForm.get("kijkVer"))]);
                     formulier.setKijkSelecteren(Evaluatie.values()[toIntExact((long) jsonForm.get("kijkSelecteren"))]);
                     formulier.setKijkRec(Evaluatie.values()[toIntExact((long) jsonForm.get("kijkRec"))]);
-
+                    
                     JSONArray jsonkijkAndere = (JSONArray) jsonForm.get("kijkAndere");
                     List<String> kijkAndere = new ArrayList<>();
                     if (jsonkijkAndere != null) {
@@ -277,7 +278,7 @@ public class LeerlingRepo
                     formulier.setKruisen(Evaluatie.values()[toIntExact((long) jsonForm.get("kruisen"))]);
                     formulier.setLinksaf(Evaluatie.values()[toIntExact((long) jsonForm.get("linksaf"))]);
                     formulier.setRechtsaf(Evaluatie.values()[toIntExact((long) jsonForm.get("rechtsaf"))]);
-
+                    
                     JSONArray jsonrichtingAanwijzersAndere = (JSONArray) jsonForm.get("richtingAanwijzersAndere");
                     List<String> richtingAanwijzersAndere = new ArrayList<>();
                     if (jsonkijkAndere != null) {
@@ -286,7 +287,7 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setRichtingAanwijzersAndere(richtingAanwijzersAndere);
-
+                    
                     JSONArray jsonopenbareWegAndere = (JSONArray) jsonForm.get("openbareWegAndere");
                     List<String> openbareWegAndere = new ArrayList<>();
                     if (jsonopenbareWegAndere != null) {
@@ -295,7 +296,7 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setOpenbareWegAndere(openbareWegAndere);
-
+                    
                     JSONArray jsonvoorrangAndere = (JSONArray) jsonForm.get("voorrangAndere");
                     List<String> voorrangAndere = new ArrayList<>();
                     if (jsonvoorrangAndere != null) {
@@ -304,7 +305,7 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setVoorrangAndere(voorrangAndere);
-
+                    
                     JSONArray jsonverkeerstekensAndere = (JSONArray) jsonForm.get("verkeerstekensAndere");
                     List<String> verkeerstekensAndere = new ArrayList<>();
                     if (jsonverkeerstekensAndere != null) {
@@ -313,7 +314,7 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setVerkeerstekensAndere(verkeerstekensAndere);
-
+                    
                     JSONArray jsonsnelheidAndere = (JSONArray) jsonForm.get("snelheidAndere");
                     List<String> snelheidAndere = new ArrayList<>();
                     if (jsonsnelheidAndere != null) {
@@ -322,7 +323,7 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setSnelheidAndere(snelheidAndere);
-
+                    
                     JSONArray jsonvolgafstandAndere = (JSONArray) jsonForm.get("volgafstandAndere");
                     List<String> volgafstandAndere = new ArrayList<>();
                     if (jsonvolgafstandAndere != null) {
@@ -331,7 +332,7 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setVolgafstandAndere(volgafstandAndere);
-
+                    
                     JSONArray jsoninhalenAndere = (JSONArray) jsonForm.get("inhalenAndere");
                     List<String> inhalenAndere = new ArrayList<>();
                     if (jsoninhalenAndere != null) {
@@ -340,7 +341,7 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setInhalenAndere(inhalenAndere);
-
+                    
                     JSONArray jsonkruisenAndere = (JSONArray) jsonForm.get("kruisenAndere");
                     List<String> kruisenAndere = new ArrayList<>();
                     if (jsonkruisenAndere != null) {
@@ -349,7 +350,7 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setKruisenAndere(kruisenAndere);
-
+                    
                     JSONArray jsonlinksafAndere = (JSONArray) jsonForm.get("linksafAndere");
                     List<String> linksafAndere = new ArrayList<>();
                     if (jsonlinksafAndere != null) {
@@ -358,7 +359,7 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setLinksafAndere(linksafAndere);
-
+                    
                     JSONArray jsonrechtsafAndere = (JSONArray) jsonForm.get("rechtsafAndere");
                     List<String> rechtsafAndere = new ArrayList<>();
                     if (jsonrechtsafAndere != null) {
@@ -379,9 +380,9 @@ public class LeerlingRepo
                     formulier.setTanken(Evaluatie.values()[toIntExact((long) jsonForm.get("tanken"))]);
                     formulier.setGps(Evaluatie.values()[toIntExact((long) jsonForm.get("gps"))]);
                     formulier.setStop(Evaluatie.values()[toIntExact((long) jsonForm.get("stop"))]);
-
+                    
                     formulier.setNiveau(toIntExact((long) jsonForm.get("niveau")));
-
+                    
                     JSONArray jsonattitude = (JSONArray) jsonForm.get("attitude");
                     List<String> attitude = new ArrayList<>();
                     if (jsonattitude != null) {
@@ -390,7 +391,7 @@ public class LeerlingRepo
                         }
                     }
                     formulier.setAttitude(attitude);
-
+                    
                     JSONArray jsonopmerkingen = (JSONArray) jsonForm.get("opmerkingen");
                     List<String> opmerkingen = new ArrayList<>();
                     if (jsonopmerkingen != null) {
@@ -402,7 +403,7 @@ public class LeerlingRepo
 
                     //
                     leerling.getEvaluatieFormulieren().add(formulier);
-
+                    
                 }
                 leerling.setHuidigEvaluatieFormulierNr();
                 leerling.setHuidigEvaluatieFormulier();
@@ -414,21 +415,22 @@ public class LeerlingRepo
         }
         return null;
     }
-
+    
     public JsonArray maakJson(List<Leerling> leerlingen) {
         JsonArrayBuilder jsonLeerlingen = Json.createArrayBuilder();
-
+        
         for (Leerling l : leerlingen) {
             JsonObjectBuilder JsonLeerling = Json.createObjectBuilder();
             JsonLeerling.add("familienaam", l.getFamilienaam());
             JsonLeerling.add("voornaam", l.getVoornaam());
             JsonLeerling.add("inschrijvingsnr", l.getInschrijvingsNummer());
-
+            JsonLeerling.add("localOnly", l.isLocalOnly());
+            
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             JsonLeerling.add("lastEdit", df.format(l.getLastEdit()));
-
+            
             JsonArrayBuilder jsonEvals = Json.createArrayBuilder();
-
+            
             for (EvaluatieFormulier EvalForm : l.getEvaluatieFormulieren()) {
                 JsonObjectBuilder JsonFormulier = Json.createObjectBuilder();
 
@@ -455,7 +457,7 @@ public class LeerlingRepo
                     jsonkoppelingBedieningAndere.add(opm);
                 }
                 JsonFormulier.add("koppelingBedieningAndere", jsonkoppelingBedieningAndere);
-
+                
                 JsonFormulier.add("koppelingOnnodig", EvalForm.getKoppelingVolledig().ordinal());
                 JsonFormulier.add("koppelingBocht", EvalForm.getKoppelingBediening().ordinal());
                 JsonFormulier.add("koppelingGebruik", EvalForm.getKoppelingVoetaf().ordinal());
@@ -497,7 +499,7 @@ public class LeerlingRepo
                     jsonschakelBedieningAndere.add(opm);
                 }
                 JsonFormulier.add("schakelBedieningAndere", jsonschakelBedieningAndere);
-
+                
                 JsonFormulier.add("schakelGebruik", EvalForm.getSchakelGebruik().ordinal());
                 JsonFormulier.add("schakelAangepast", EvalForm.getSchakelAangepast().ordinal());
                 JsonFormulier.add("schakelMotorRem", EvalForm.getSchakelMotorRem().ordinal());
@@ -549,61 +551,61 @@ public class LeerlingRepo
                 JsonFormulier.add("kruisen", EvalForm.getKruisen().ordinal());
                 JsonFormulier.add("linksaf", EvalForm.getLinksaf().ordinal());
                 JsonFormulier.add("rechtsaf", EvalForm.getRechtsaf().ordinal());
-
+                
                 JsonArrayBuilder jsonrichtingAanwijzersAndere = Json.createArrayBuilder();
                 for (String opm : EvalForm.getRichtingAanwijzersAndere()) {
                     jsonrichtingAanwijzersAndere.add(opm);
                 }
                 JsonFormulier.add("richtingAanwijzersAndere", jsonrichtingAanwijzersAndere);
-
+                
                 JsonArrayBuilder jsonopenbareWegAndere = Json.createArrayBuilder();
                 for (String opm : EvalForm.getOpenbareWegAndere()) {
                     jsonopenbareWegAndere.add(opm);
                 }
                 JsonFormulier.add("openbareWegAndere", jsonopenbareWegAndere);
-
+                
                 JsonArrayBuilder jsonvoorrangAndere = Json.createArrayBuilder();
                 for (String opm : EvalForm.getVoorrangAndere()) {
                     jsonvoorrangAndere.add(opm);
                 }
                 JsonFormulier.add("voorrangAndere", jsonvoorrangAndere);
-
+                
                 JsonArrayBuilder jsonverkeerstekensAndere = Json.createArrayBuilder();
                 for (String opm : EvalForm.getVerkeerstekensAndere()) {
                     jsonverkeerstekensAndere.add(opm);
                 }
                 JsonFormulier.add("verkeerstekensAndere", jsonverkeerstekensAndere);
-
+                
                 JsonArrayBuilder jsonsnelheidAndere = Json.createArrayBuilder();
                 for (String opm : EvalForm.getSnelheidAndere()) {
                     jsonsnelheidAndere.add(opm);
                 }
                 JsonFormulier.add("snelheidAndere", jsonsnelheidAndere);
-
+                
                 JsonArrayBuilder jsonvolgafstandAndere = Json.createArrayBuilder();
                 for (String opm : EvalForm.getVolgafstandAndere()) {
                     jsonvolgafstandAndere.add(opm);
                 }
                 JsonFormulier.add("volgafstandAndere", jsonvolgafstandAndere);
-
+                
                 JsonArrayBuilder jsoninhalenAndere = Json.createArrayBuilder();
                 for (String opm : EvalForm.getInhalenAndere()) {
                     jsoninhalenAndere.add(opm);
                 }
                 JsonFormulier.add("inhalenAndere", jsoninhalenAndere);
-
+                
                 JsonArrayBuilder jsonkruisenAndere = Json.createArrayBuilder();
                 for (String opm : EvalForm.getKruisenAndere()) {
                     jsonkruisenAndere.add(opm);
                 }
                 JsonFormulier.add("kruisenAndere", jsonkruisenAndere);
-
+                
                 JsonArrayBuilder jsonlinksafAndere = Json.createArrayBuilder();
                 for (String opm : EvalForm.getLinksafAndere()) {
                     jsonlinksafAndere.add(opm);
                 }
                 JsonFormulier.add("linksafAndere", jsonlinksafAndere);
-
+                
                 JsonArrayBuilder jsonrechtsafAndere = Json.createArrayBuilder();
                 for (String opm : EvalForm.getRechtsafAndere()) {
                     jsonrechtsafAndere.add(opm);
@@ -622,13 +624,13 @@ public class LeerlingRepo
                 JsonFormulier.add("gps", EvalForm.getGps().ordinal());
                 JsonFormulier.add("stop", EvalForm.getStop().ordinal());
                 JsonFormulier.add("niveau", EvalForm.getNiveau());
-
+                
                 JsonArrayBuilder jsonattitude = Json.createArrayBuilder();
                 for (String opm : EvalForm.getAttitude()) {
                     jsonattitude.add(opm);
                 }
                 JsonFormulier.add("attitude", jsonattitude);
-
+                
                 JsonArrayBuilder jsonopmerkingen = Json.createArrayBuilder();
                 for (String opm : EvalForm.getOpmerkingen()) {
                     jsonopmerkingen.add(opm);
@@ -638,16 +640,49 @@ public class LeerlingRepo
 
                 jsonEvals.add(JsonFormulier);
             }
-
+            
             JsonLeerling.add("evaluatieformulieren", jsonEvals);
-
+            
             jsonLeerlingen.add(JsonLeerling);
         }
         return jsonLeerlingen.build();
     }
-
+    
+    public void deleteLeerling(Leerling leerling) {
+        DeleteLeerlingTask task = new DeleteLeerlingTask(leerling);
+        task.setOnSucceeded(event -> {
+            leerlingList.remove(leerling);
+        });
+        task.setOnFailed(event -> {
+            System.out.println("Delerte failed with exception: ");
+            task.getException().printStackTrace();
+        });
+        service.submit(task);
+    }
+    
+    public void Synchroniseer() {
+        List<Leerling> addList = new ArrayList<>();
+        List<Leerling> putList = new ArrayList<>();
+        
+        for (Leerling l : leerlingList) {
+            if (l.isLocalOnly()) {
+                addList.add(l);
+            } else {
+                putList.add(l);
+            }
+        }
+        for (Leerling l : addList) {
+            addLeerling(l);
+        }
+        for (Leerling l : putList) {
+            updateLeerling(l);
+        }
+        //
+        updateLeerlingList(leerlingList);
+    }
+    
     public void shutdown() {
         service.shutdown();
-//        schrijfFile(leerlingList, "Leerlingen.txt");
+        schrijfFile(leerlingList, "Leerlingen.txt");
     }
 }

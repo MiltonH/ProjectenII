@@ -355,5 +355,6 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
                 base.kleurKotje(kotje3, formulier.getKoppelingRec());
             }
         }
+        base.getHoofdpanel().getHuidigeLeerling().updateLastEdit();
     }
 }

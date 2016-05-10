@@ -420,5 +420,6 @@ public class RijTechniekHoofdscherm extends GridPane implements View
             PasRecKleurAan("zithouding", formulier.getZithoudingRec(), i);
             PasRecKleurAan("versnelling", formulier.getSchakelRec(), i);
         }
+        base.getHoofdpanel().getHuidigeLeerling().updateLastEdit();
     }
 }

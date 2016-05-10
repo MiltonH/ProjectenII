@@ -236,5 +236,6 @@ public class RijTechniekStuurKnop extends GridPane implements View
                 base.kleurKotje(kotje3, formulier.getStuurRec());
             }
         }
+        base.getHoofdpanel().getHuidigeLeerling().updateLastEdit();
     }
 }

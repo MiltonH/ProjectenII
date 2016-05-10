@@ -143,5 +143,6 @@ public class OpmerkingPaneel extends GridPane implements View
         List<String> opmerkingen = hp.getHuidigeLeerling().getHuidigEvaluatieFormulier().getOpmerkingen();
         opmList.clear();
         opmList.addAll(opmerkingen);
+        hp.getHuidigeLeerling().updateLastEdit();
     }
 }

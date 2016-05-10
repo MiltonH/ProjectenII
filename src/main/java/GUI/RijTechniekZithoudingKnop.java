@@ -269,5 +269,6 @@ public class RijTechniekZithoudingKnop extends GridPane implements View
                 base.kleurKotje(kotje3, formulier.getZithoudingRec());
             }
         }
+        base.getHoofdpanel().getHuidigeLeerling().updateLastEdit();
     }
 }

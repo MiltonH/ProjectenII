@@ -137,10 +137,12 @@ public class Leerling implements Serializable
         views.remove(view);
     }
 
+    public void updateLastEdit(){
+        lastEdit = new Date();
+    }
     public void notifyViews() {
         for (View v : views) {
             v.update();
-        }
-        lastEdit = new Date();
+        }       
     }
 }

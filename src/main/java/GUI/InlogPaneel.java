@@ -175,13 +175,14 @@ public class InlogPaneel extends GridPane
         namen.addAll(llnamen);
 
         Collections.sort(namen);
+        llRepo.laadLijst();
 
 //        llRepo.laadLijst();
-        ObservableList<Leerling> testl = FXCollections.observableArrayList();
-        testl.addAll(leerlingen);
+//        ObservableList<Leerling> testl = FXCollections.observableArrayList();
+//        testl.addAll(llRepo.getLeerlingList());
         
 
-        ListView<Leerling> zoekView = new ListView<Leerling>(testl);
+        ListView<Leerling> zoekView = new ListView<Leerling>(llRepo.getLeerlingList());
         zoekView.setCellFactory(listView -> new LeerlingCell());
 //        listViewGrid.add(zoekView, 0, 0);
 //        listViewGrid.add(openKnop, 1, 0);
@@ -244,7 +245,8 @@ public class InlogPaneel extends GridPane
 //
 //            leerlingen.add(new Leerling(famNaam, voornaam, inschrijvingsNr));
 //            namen.add(famNaam + " " + voornaam);
-            llRepo.synchroniseer();
+//            llRepo.laadLijst();
+                llRepo.Synchroniseer();
         });
     }
 
