@@ -20,6 +20,11 @@
     -fx-text-fill: lightslategrey;
 }
 
+#inlognaamNummerLabelRed{
+    -fx-font-size: 25;
+    -fx-text-fill: red;
+}
+
 #inlogGeenNaamIngevult{
     -fx-font-size: 16;
     -fx-prompt-text-fill: red;

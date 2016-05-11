@@ -17,10 +17,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Screen;
 
@@ -29,17 +33,17 @@ public class InlogPaneel extends GridPane
 
     private Scene scene;
 
-    private List<Leerling> leerlingen;
+    private ObservableList<Leerling> leerlingen;
     private LeerlingRepo llRepo;
 
     public InlogPaneel(LeerlingRepo llRepo) {
 
         this.llRepo = llRepo;
-        leerlingen = new ArrayList<>();
-        leerlingen.add(new Leerling("Hooft", "Milton", "rij0001"));
-        leerlingen.add(new Leerling("Meert", "Dries", "rij0002"));
-        leerlingen.add(new Leerling("Lanneer", "Robin", "rij0003"));
-        leerlingen.add(new Leerling("Debot", "Cédric", "rij0004"));
+        leerlingen = FXCollections.observableArrayList();
+//        leerlingen.add(new Leerling("Hooft", "Milton", "rij0001"));
+//        leerlingen.add(new Leerling("Meert", "Dries", "rij0002"));
+//        leerlingen.add(new Leerling("Lanneer", "Robin", "rij0003"));
+//        leerlingen.add(new Leerling("Debot", "Cédric", "rij0004"));
 
         setId("inlogPaneelBG");
         //schermformaat
@@ -156,9 +160,19 @@ public class InlogPaneel extends GridPane
         //knop VoegToe
         Button voegToeKnop = new Button("Voeg Toe");
         voegToeKnop.setId("inlogButtons");
+        //knop VoegToe
+        
+        Image syncImg = new Image("Images/sync.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        ImageView syncView = new ImageView(syncImg);   
+        
+        syncView.setOnMouseClicked(event ->{
+            
+        llRepo.Synchroniseer(knoppenBox,syncView);
+        });
+        
 //        InlogSchermPane.add(voegToeKnop, 0, 1);
 
-        knoppenBox.getChildren().addAll(voegToeKnop, openKnop);
+        knoppenBox.getChildren().addAll(voegToeKnop, openKnop,syncView);
         InlogSchermPane.add(knoppenBox, 0, 1);
 
         //afbeelding
@@ -166,29 +180,29 @@ public class InlogPaneel extends GridPane
 //        InlogSchermPane.add(gebruikersImage, 1, 0);
 
         //ListView
-        ObservableList<String> namen = FXCollections.observableArrayList();
-        List<String> llnamen = new ArrayList<>();//leerlingen.stream().map(l -> l.getFamilienaam() + " " + l.getVoornaam()).collect(Collectors.toList());
-        for (Leerling ll : leerlingen) {
-            llnamen.add(ll.getFamilienaam() + " " + ll.getVoornaam());
-        }
+//        ObservableList<String> namen = FXCollections.observableArrayList();
+//        List<String> llnamen = new ArrayList<>();//leerlingen.stream().map(l -> l.getFamilienaam() + " " + l.getVoornaam()).collect(Collectors.toList());
+//        for (Leerling ll : leerlingen) {
+//            llnamen.add(ll.getFamilienaam() + " " + ll.getVoornaam());
+//        }
 
-        namen.addAll(llnamen);
+//        namen.addAll(llnamen);
 
-        Collections.sort(namen);
+//        Collections.sort(namen);
         llRepo.laadLijst();
 
 //        llRepo.laadLijst();
-        ObservableList<Leerling> testl = FXCollections.observableArrayList();
-        testl.addAll(llRepo.getLeerlingList());
+//        ObservableList<Leerling> testl = FXCollections.observableArrayList();
+        leerlingen.addAll(llRepo.getLeerlingList());
         
 
-        ListView<Leerling> zoekView = new ListView<Leerling>(testl);
+        ListView<Leerling> zoekView = new ListView<Leerling>(leerlingen);
         zoekView.setCellFactory(listView -> new LeerlingCell());
 //        listViewGrid.add(zoekView, 0, 0);
 //        listViewGrid.add(openKnop, 1, 0);
         InlogSchermPane.add(zoekView, 1, 0, 1, 2);
 
-        FilteredList<Leerling> filteredLeerling = new FilteredList<>(testl, e -> true);
+        FilteredList<Leerling> filteredLeerling = new FilteredList<>(leerlingen, e -> true);
         naamTextField.setOnKeyReleased(e -> {
             naamTextField.textProperty().addListener((ObservableValue, oldValue, newValue) -> {
                 filteredLeerling.setPredicate((Predicate<? super Leerling>) leerling -> {
@@ -206,11 +220,10 @@ public class InlogPaneel extends GridPane
                 });
             });
             SortedList<Leerling> sortedData = new SortedList<>(filteredLeerling);
-//            sortedData.comparatorProperty().bind(zoekView.comparatorPropterty());
             zoekView.setItems(sortedData);
         });
         
-        FilteredList<Leerling> filteredLeerlingNummer = new FilteredList<>(testl, e -> true);
+        FilteredList<Leerling> filteredLeerlingNummer = new FilteredList<>(leerlingen, e -> true);
         nummerTextField.setOnKeyReleased(e -> {
             nummerTextField.textProperty().addListener((ObservableValue, oldValue, newValue) -> {
                 filteredLeerlingNummer.setPredicate((Predicate<? super Leerling>) leerling -> {
@@ -289,7 +302,7 @@ public class InlogPaneel extends GridPane
 
 //            llRepo.synchroniseer();
 
-            VoegLeerlingToePaneel voegLeerlingToePaneel = new VoegLeerlingToePaneel();
+            VoegLeerlingToePaneel voegLeerlingToePaneel = new VoegLeerlingToePaneel(this,this.llRepo);
             voegLeerlingToePaneel.setScene(scene);
             scene.setRoot(voegLeerlingToePaneel);
         });
@@ -297,5 +310,9 @@ public class InlogPaneel extends GridPane
 
     public void setScene(Scene scene) {
         this.scene = scene;
+    }
+    public void refreshList(){
+        leerlingen.clear();
+        leerlingen.addAll(llRepo.getLeerlingList());
     }
 }
