@@ -329,5 +329,6 @@ public class RijTechniekVersnellingKnop extends GridPane implements View
                 base.kleurKotje(kotje3, formulier.getSchakelRec());
             }
         }
+        base.getHoofdpanel().getHuidigeLeerling().updateLastEdit();
     }
 }

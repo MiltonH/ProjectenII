@@ -276,6 +276,7 @@ public class AttitudePaneel extends GridPane implements View
         huidigformulier = hp.getHuidigeLeerling().getHuidigEvaluatieFormulier();
         opmerkingenTextAreaList.clear();
         opmerkingenTextAreaList.addAll(huidigformulier.getAttitude());
+        hp.getHuidigeLeerling().updateLastEdit();
 
     }
 }

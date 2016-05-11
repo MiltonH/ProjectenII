@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import domain.Leerling;
+import domain.LeerlingRepo;
 import javafx.geometry.HPos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -21,10 +23,12 @@ import javafx.stage.Screen;
  *
  * @author Dries Meert
  */
-public class VoegLeerlingToePaneel extends GridPane{
+public class VoegLeerlingToePaneel extends GridPane
+{
+
     private Scene scene;
-    
-    public VoegLeerlingToePaneel() {
+
+    public VoegLeerlingToePaneel(InlogPaneel inlogPanel, LeerlingRepo repo) {
         setId("inlogPaneelBG");
         //schermformaat
         Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
@@ -49,7 +53,7 @@ public class VoegLeerlingToePaneel extends GridPane{
         rij2.setPercentHeight(25);
 
         getRowConstraints().addAll(rij0, rij1, rij2);
-        
+
         //aanmaak naamNummerPane
         GridPane naamNummerPane = new GridPane();
         naamNummerPane.setId("inlogPaneel");
@@ -74,12 +78,12 @@ public class VoegLeerlingToePaneel extends GridPane{
         naamNummerPane.getRowConstraints().addAll(rij0NaamNummerPane, rij1NaamNummerPane, rij2NaamNummerPane, rij3NaamNummerPane);
 
         add(naamNummerPane, 1, 1);
-        
+
         //aanmaak naamLabel
         Label naamLabel = new Label("Naam: ");
         naamLabel.setId("inlognaamNummerLabel");
         naamNummerPane.add(naamLabel, 0, 0);
-        
+
         //aanmaak VoornaamLabel
         Label voorNaamLabel = new Label("Voornaam: ");
         voorNaamLabel.setId("inlognaamNummerLabel");
@@ -95,7 +99,7 @@ public class VoegLeerlingToePaneel extends GridPane{
         naamTextField.setId("inlogTexfield");
         naamTextField.setPromptText("Voeg de naam in");
         naamNummerPane.add(naamTextField, 1, 0);
-        
+
         //aanmaak tekstfieldNaam
         TextField voorNaamTextField = new TextField();
         voorNaamTextField.setId("inlogTexfield");
@@ -107,7 +111,7 @@ public class VoegLeerlingToePaneel extends GridPane{
         nummerTextField.setId("inlogTexfield");
         nummerTextField.setPromptText("Voeg het nummer in");
         naamNummerPane.add(nummerTextField, 1, 2);
-        
+
         //GridBox knoppen
         GridPane gridKnopPane = new GridPane();
         gridKnopPane.gridLinesVisibleProperty().set(false);
@@ -128,18 +132,70 @@ public class VoegLeerlingToePaneel extends GridPane{
 
         naamNummerPane.add(gridKnopPane, 1, 3);
 
-        
         //knoppen
         Button voegToeKnop = new Button("Voeg toe");
+        voegToeKnop.setOnAction(event -> {
+            boolean naamIngevuld = false;
+            boolean voornaamIngevuld = false;
+            boolean inschrijfnrIngevuld = false;
+            boolean nummerIsUniek = true;
+            if (naamTextField.getText().isEmpty()) {
+                naamLabel.setId("inlognaamNummerLabelRed");
+                naamTextField.setId("inlogGeenNaamIngevult");
+                naamTextField.setPromptText("Naam moet ingevuld zijn!");
+            } else {
+                naamLabel.setId("inlognaamNummerLabel");
+                naamIngevuld = true;
+            }
+            if (voorNaamTextField.getText().isEmpty()) {
+                voorNaamLabel.setId("inlognaamNummerLabelRed");
+                voorNaamTextField.setId("inlogGeenNaamIngevult");
+                voorNaamTextField.setPromptText("Voornaam moet ingevuld zijn!");
+            } else {
+                voorNaamLabel.setId("inlognaamNummerLabel");
+                voornaamIngevuld = true;
+            }
+
+            for (Leerling l : repo.getLeerlingList()) {
+                if (l.getInschrijvingsNummer().equals(nummerTextField.getText())) {
+                    nummerIsUniek = false;
+                }
+            }
+
+            if (nummerTextField.getText().isEmpty()) {
+                nummerLabel.setId("inlognaamNummerLabelRed");
+                nummerTextField.setId("inlogGeenNaamIngevult");
+                nummerTextField.setPromptText("InschrijvingsNummer moet ingevuld zijn!");
+            } else if (!nummerIsUniek) {
+                nummerLabel.setId("inlognaamNummerLabelRed");
+                nummerTextField.setId("inlogGeenNaamIngevult");
+                nummerTextField.clear();
+                nummerTextField.setPromptText("Er bestaat al een leerling met dit inschrijvingsNummer!");
+                nummerIsUniek = true;
+            } else {
+                nummerLabel.setId("inlognaamNummerLabel");
+                inschrijfnrIngevuld = true;
+            }
+
+            if (naamIngevuld && voornaamIngevuld && inschrijfnrIngevuld) {
+                Leerling leerling = new Leerling(naamTextField.getText(), voorNaamTextField.getText(), nummerTextField.getText());
+                repo.getLeerlingList().add(leerling);
+                inlogPanel.refreshList();
+                scene.setRoot(inlogPanel);
+            }
+        });
         voegToeKnop.setId("inlogButtons");
 
         Button terugKnop = new Button("Terug");
+        terugKnop.setOnAction(event -> {
+            scene.setRoot(inlogPanel);
+        });
         terugKnop.setId("inlogButtons");
-        
-        gridKnopPane.add(voegToeKnop, 0,0);
-        gridKnopPane.add(terugKnop, 1,0);
+
+        gridKnopPane.add(voegToeKnop, 0, 0);
+        gridKnopPane.add(terugKnop, 1, 0);
     }
-    
+
     public void setScene(Scene scene) {
         this.scene = scene;
     }

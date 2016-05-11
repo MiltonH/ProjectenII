@@ -552,5 +552,7 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
             PasRecKleurAan("plaats", formulier.getOpenbareWeg(), i);
             PasRecKleurAan("voorrang", formulier.getVoorrang(), i);
         }
+        base.getHoofdpanel().getHuidigeLeerling().updateLastEdit();
     }
+
 }

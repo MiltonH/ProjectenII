@@ -21,9 +21,7 @@ import javafx.collections.ObservableList;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonString;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -31,6 +29,11 @@ import tasks.AddLeerlingTask;
 import tasks.GetLeerlingenTask;
 import tasks.PutLeerlingTask;
 import static java.lang.Math.toIntExact;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import tasks.DeleteLeerlingTask;
 
 /**
  *
@@ -119,7 +122,8 @@ public class LeerlingRepo
                 Leerling leerling = new Leerling();
                 leerling.setFamilienaam((String) JsonLeerling.get("familienaam"));
                 leerling.setVoornaam((String) JsonLeerling.get("voornaam"));
-                leerling.setInschrijvingsNummer((String) JsonLeerling.get("inschrijvingsnummer"));
+                leerling.setInschrijvingsNummer((String) JsonLeerling.get("inschrijvingsnr"));
+                leerling.setLocalOnly((Boolean) JsonLeerling.get("localOnly"));
                 DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 leerling.setLastEdit(df.parse((String) JsonLeerling.get("lastEdit")));
 
@@ -423,6 +427,7 @@ public class LeerlingRepo
             JsonLeerling.add("familienaam", l.getFamilienaam());
             JsonLeerling.add("voornaam", l.getVoornaam());
             JsonLeerling.add("inschrijvingsnr", l.getInschrijvingsNummer());
+            JsonLeerling.add("localOnly", l.isLocalOnly());
 
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             JsonLeerling.add("lastEdit", df.format(l.getLastEdit()));
@@ -646,8 +651,48 @@ public class LeerlingRepo
         return jsonLeerlingen.build();
     }
 
+    public void deleteLeerling(Leerling leerling) {
+        DeleteLeerlingTask task = new DeleteLeerlingTask(leerling);
+        task.setOnSucceeded(event -> {
+            leerlingList.remove(leerling);
+        });
+        task.setOnFailed(event -> {
+            System.out.println("Delerte failed with exception: ");
+            task.getException().printStackTrace();
+        });
+        service.submit(task);
+    }
+
+    public void Synchroniseer(HBox knoppen,ImageView view) {
+        ProgressIndicator pi = new ProgressIndicator();
+        knoppen.getChildren().remove(view);
+        knoppen.getChildren().add(pi);
+        List<Leerling> addList = new ArrayList<>();
+        List<Leerling> putList = new ArrayList<>();
+
+        for (Leerling l : leerlingList) {
+            if (l.isLocalOnly()) {
+                addList.add(l);
+            } else {
+                putList.add(l);
+            }
+        }
+//        System.out.println(addList.size());
+//        System.out.println(putList.size());
+        for (Leerling l : addList) {
+            addLeerling(l);
+        }
+        for (Leerling l : putList) {
+            updateLeerling(l);
+        }
+        //
+        updateLeerlingList(leerlingList);
+        knoppen.getChildren().remove(pi);
+        knoppen.getChildren().add(view);
+    }
+
     public void shutdown() {
         service.shutdown();
-//        schrijfFile(leerlingList, "Leerlingen.txt");
+        schrijfFile(leerlingList, "Leerlingen.txt");
     }
 }

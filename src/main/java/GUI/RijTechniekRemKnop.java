@@ -271,5 +271,6 @@ public class RijTechniekRemKnop extends GridPane implements View
                 base.kleurKotje(kotje3, formulier.getRemRec());
             }
         }
+        base.getHoofdpanel().getHuidigeLeerling().updateLastEdit();
     }
 }
