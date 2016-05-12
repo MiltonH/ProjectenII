@@ -26,7 +26,7 @@ public class DeleteLeerlingTask extends Task<Void>
 
     public DeleteLeerlingTask(Leerling leerling) {
         userResource = ClientBuilder.newClient()
-                .target("http://localhost:8080/rijschool/api/leerlingen")
+                .target("http://192.168.43.36:8080/rijschool/api/leerlingen")
                 .path(leerling.getInschrijvingsNummer());
     }
 

@@ -252,5 +252,5 @@
 
 #opmerkingToegevoegd{
     -fx-font-size: 20;
-    -fx-text-fill: #ff1d8e;
+    -fx-text-fill: red;
 }

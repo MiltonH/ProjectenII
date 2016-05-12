@@ -28,10 +28,10 @@ public class VoegLeerlingToePaneel extends GridPane
 
     private Scene scene;
 
-    public VoegLeerlingToePaneel(InlogPaneel inlogPanel, LeerlingRepo repo) {
+    public VoegLeerlingToePaneel(InlogPaneel inlogPanel, LeerlingRepo repo,Rectangle2D formaat) {
         setId("inlogPaneelBG");
         //schermformaat
-        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+        Rectangle2D schermformaat = formaat;
 
         //aanmaak grid
         gridLinesVisibleProperty().set(false);

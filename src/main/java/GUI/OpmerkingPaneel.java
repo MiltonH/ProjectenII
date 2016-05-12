@@ -29,11 +29,11 @@ public class OpmerkingPaneel extends GridPane implements View
     private ListView opmerkingenLV;
     private ObservableList<String> opmList;
 
-    public OpmerkingPaneel(HoofdPaneel hoofdPanel) {
+    public OpmerkingPaneel(HoofdPaneel hoofdPanel, Rectangle2D formaat) {
         hp = hoofdPanel;
         setId("inlogPaneelBG");
 
-        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+        Rectangle2D schermformaat = formaat;
         //aanmaak grid
         gridLinesVisibleProperty().set(false);
 

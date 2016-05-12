@@ -29,10 +29,10 @@ public class AttitudePaneel extends GridPane implements View
     private EvaluatieFormulier huidigformulier;
     private ObservableList<String> opmerkingenTextAreaList;
 
-    public AttitudePaneel(HoofdPaneel hoofdPanel) {
+    public AttitudePaneel(HoofdPaneel hoofdPanel, Rectangle2D formaat) {
         setId("inlogPaneelBG");
         //schermformaat
-        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+        Rectangle2D schermformaat = formaat;
         this.hp = hoofdPanel;
         huidigformulier = hp.getHuidigeLeerling().getHuidigEvaluatieFormulier();
 

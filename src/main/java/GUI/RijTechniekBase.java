@@ -32,7 +32,7 @@ public class RijTechniekBase extends GridPane
     private HBox contentBox;
     private HoofdPaneel hoofdPanel;
 
-    public RijTechniekBase(HoofdPaneel hoofdPanel) {
+    public RijTechniekBase(HoofdPaneel hoofdPanel,Rectangle2D formaat) {
         this.hoofdPanel = hoofdPanel;
         //grid indeling
         setId("hoofdPaneelBG");
@@ -56,7 +56,7 @@ public class RijTechniekBase extends GridPane
         getRowConstraints().addAll(rij0, rij1, rij2);
 
         //einde grid indeling
-        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+        Rectangle2D schermformaat = formaat;
 
         //contentBox
         contentBox = new HBox();
@@ -104,23 +104,25 @@ public class RijTechniekBase extends GridPane
         add(bottomKnoppenBox, 1, 2);
 
         homeKnopView.setOnMouseClicked(event -> {
+            hoofdPanel.update();
             hoofdPanel.setSceneRoot(hoofdPanel);
         });
 
         returnKnopView.setOnMouseClicked(event -> {
-            setContent(new RijTechniekHoofdscherm(this));
+            setContent(new RijTechniekHoofdscherm(this,schermformaat));
         });
 
         verkeerTechKnopView.setOnMouseClicked(event -> {
-            hoofdPanel.setSceneRoot(new VerkeersTechniekBase(hoofdPanel));
+            hoofdPanel.setSceneRoot(new VerkeersTechniekBase(hoofdPanel,schermformaat));
         });
 
         attitudeKnopView.setOnMouseClicked(event -> {
-            hoofdPanel.setSceneRoot(new AttitudePaneel(hoofdPanel));
+            hoofdPanel.update();
+            hoofdPanel.setSceneRoot(new AttitudePaneel(hoofdPanel,schermformaat));
         });
 
         //einde box met knoppen
-        setContent(new RijTechniekHoofdscherm(this));
+        setContent(new RijTechniekHoofdscherm(this,schermformaat));
     }
 
     public void setContent(GridPane grid) {
@@ -131,37 +133,7 @@ public class RijTechniekBase extends GridPane
     public HoofdPaneel getHoofdpanel() {
         return hoofdPanel;
     }
-    
-    public Evaluatie berekenComboKleur(Evaluatie[] evals) {
-        int tot = evals.length * 3;
-        int aantal = 0;
-
-        for (Evaluatie ev : evals) {
-            if (Evaluatie.WIT.equals(ev)) {
-                aantal += 0;
-            } else if (Evaluatie.ROOD.equals(ev)) {
-                aantal += 1;
-            } else if (Evaluatie.ORANJE.equals(ev)) {
-                aantal += 2;
-            } else if (Evaluatie.GROEN.equals(ev)) {
-                aantal += 3;
-            } else {
-                aantal += 0;
-            }
-        }
-
-        if (aantal == 0) {
-            return Evaluatie.WIT;
-        } else if (aantal == tot) {
-            return Evaluatie.GROEN;
-        } else if (aantal > (tot / 2) && aantal < tot) {
-            return Evaluatie.ORANJE;
-        } else if (aantal > 0 && aantal <= (tot / 2)) {
-            return Evaluatie.ROOD;
-        } else {
-            return Evaluatie.WIT;
-        }
-    }
+      
     public Evaluatie toggleKleur(Evaluatie eval) {
         if (Evaluatie.WIT.equals(eval)) {
             return Evaluatie.ROOD;

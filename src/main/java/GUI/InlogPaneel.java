@@ -136,13 +136,13 @@ public class InlogPaneel extends GridPane
         //aanmaak tekstfieldNaam
         TextField naamTextField = new TextField();
         naamTextField.setId("inlogTexfield");
-        naamTextField.setPromptText("Voeg de naam in");
+        naamTextField.setPromptText("zoek op naam...");
         naamNummerPane.add(naamTextField, 1, 0);
 
         //aanmaak tekstfieldNummer
         TextField nummerTextField = new TextField();
         nummerTextField.setId("inlogTexfield");
-        nummerTextField.setPromptText("Voeg het nummer in");
+        nummerTextField.setPromptText("zoek op inschrijvingsNummer...");
         naamNummerPane.add(nummerTextField, 1, 1);
         naamTextField.setOnMousePressed(event -> {
             nummerTextField.clear();
@@ -161,40 +161,44 @@ public class InlogPaneel extends GridPane
         Button voegToeKnop = new Button("Voeg Toe");
         voegToeKnop.setId("inlogButtons");
         //knop VoegToe
-        
-        Image syncImg = new Image("Images/sync.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
-        ImageView syncView = new ImageView(syncImg);   
-        
-        syncView.setOnMouseClicked(event ->{
-            
-        llRepo.Synchroniseer(knoppenBox,syncView);
-        });
-        
-//        InlogSchermPane.add(voegToeKnop, 0, 1);
 
-        knoppenBox.getChildren().addAll(voegToeKnop, openKnop,syncView);
+        Image syncImg = new Image("Images/sync.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        ImageView syncView = new ImageView(syncImg);
+
+        Image noconImg = new Image("Images/noconnection.png", Math.ceil(schermformaat.getWidth() * 0.03), USE_PREF_SIZE, true, true);
+        ImageView noconImgView = new ImageView(noconImg);
+
+        syncView.setOnMouseClicked(event -> {
+
+            llRepo.Synchroniseer(knoppenBox, syncView, this, noconImgView);
+            refreshList();
+        });
+
+        noconImgView.setOnMouseClicked(event -> {
+
+            llRepo.Synchroniseer(knoppenBox, syncView, this, noconImgView);
+            refreshList();
+        });
+
+//        InlogSchermPane.add(voegToeKnop, 0, 1);
+        knoppenBox.getChildren().addAll(voegToeKnop, openKnop, syncView);
         InlogSchermPane.add(knoppenBox, 0, 1);
 
         //afbeelding
 //        ImageView gebruikersImage = new ImageView(new Image("Images/unknown-user.png", Math.ceil(schermformaat.getWidth() * 0.13), USE_PREF_SIZE, true, true));
 //        InlogSchermPane.add(gebruikersImage, 1, 0);
-
         //ListView
 //        ObservableList<String> namen = FXCollections.observableArrayList();
 //        List<String> llnamen = new ArrayList<>();//leerlingen.stream().map(l -> l.getFamilienaam() + " " + l.getVoornaam()).collect(Collectors.toList());
 //        for (Leerling ll : leerlingen) {
 //            llnamen.add(ll.getFamilienaam() + " " + ll.getVoornaam());
 //        }
-
 //        namen.addAll(llnamen);
-
 //        Collections.sort(namen);
-        llRepo.laadLijst();
-
+//        llRepo.laadLijst();
 //        llRepo.laadLijst();
 //        ObservableList<Leerling> testl = FXCollections.observableArrayList();
         leerlingen.addAll(llRepo.getLeerlingList());
-        
 
         ListView<Leerling> zoekView = new ListView<Leerling>(leerlingen);
         zoekView.setCellFactory(listView -> new LeerlingCell());
@@ -206,14 +210,13 @@ public class InlogPaneel extends GridPane
         naamTextField.setOnKeyReleased(e -> {
             naamTextField.textProperty().addListener((ObservableValue, oldValue, newValue) -> {
                 filteredLeerling.setPredicate((Predicate<? super Leerling>) leerling -> {
-                    if(newValue == null || newValue.isEmpty()){
+                    if (newValue == null || newValue.isEmpty()) {
                         return true;
                     }
                     String lowerCaseFilter = newValue.toLowerCase();
-                    if(leerling.getVoornaam().toLowerCase().startsWith(lowerCaseFilter)){
+                    if (leerling.getVoornaam().toLowerCase().startsWith(lowerCaseFilter)) {
                         return true;
-                    }
-                    else if(leerling.getFamilienaam().toLowerCase().startsWith(lowerCaseFilter)){
+                    } else if (leerling.getFamilienaam().toLowerCase().startsWith(lowerCaseFilter)) {
                         return true;
                     }
                     return false;
@@ -222,16 +225,16 @@ public class InlogPaneel extends GridPane
             SortedList<Leerling> sortedData = new SortedList<>(filteredLeerling);
             zoekView.setItems(sortedData);
         });
-        
+
         FilteredList<Leerling> filteredLeerlingNummer = new FilteredList<>(leerlingen, e -> true);
         nummerTextField.setOnKeyReleased(e -> {
             nummerTextField.textProperty().addListener((ObservableValue, oldValue, newValue) -> {
                 filteredLeerlingNummer.setPredicate((Predicate<? super Leerling>) leerling -> {
-                    if(newValue == null || newValue.isEmpty()){
+                    if (newValue == null || newValue.isEmpty()) {
                         return true;
                     }
                     String lowerCaseFilter = newValue.toLowerCase();
-                    if(leerling.getInschrijvingsNummer().toLowerCase().contains(lowerCaseFilter)){
+                    if (leerling.getInschrijvingsNummer().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     }
                     return false;
@@ -241,7 +244,7 @@ public class InlogPaneel extends GridPane
 //            sortedData.comparatorProperty().bind(zoekView.comparatorPropterty());
             zoekView.setItems(sortedData);
         });
-        
+
         //knoppen
         openKnop.setOnMouseClicked(event -> {
 //            if (naamTextField.getText().isEmpty()) {
@@ -263,7 +266,7 @@ public class InlogPaneel extends GridPane
 //                scene.setRoot(hoofdPanel);
 //            }
             if (zoekView.getSelectionModel().getSelectedItem() != null) {
-                HoofdPaneel hoofdPanel = new HoofdPaneel(zoekView.getSelectionModel().getSelectedItem()); //HoofdPaneel(zoekView.getSelectionModel().getSelectedItem());
+                HoofdPaneel hoofdPanel = new HoofdPaneel(zoekView.getSelectionModel().getSelectedItem(), schermformaat); //HoofdPaneel(zoekView.getSelectionModel().getSelectedItem());
                 hoofdPanel.setInlogPaneel(this);
                 hoofdPanel.setScene(scene);
                 scene.setRoot(hoofdPanel);
@@ -301,8 +304,7 @@ public class InlogPaneel extends GridPane
 //            namen.add(famNaam + " " + voornaam);
 
 //            llRepo.synchroniseer();
-
-            VoegLeerlingToePaneel voegLeerlingToePaneel = new VoegLeerlingToePaneel(this,this.llRepo);
+            VoegLeerlingToePaneel voegLeerlingToePaneel = new VoegLeerlingToePaneel(this, this.llRepo, schermformaat);
             voegLeerlingToePaneel.setScene(scene);
             scene.setRoot(voegLeerlingToePaneel);
         });
@@ -311,7 +313,8 @@ public class InlogPaneel extends GridPane
     public void setScene(Scene scene) {
         this.scene = scene;
     }
-    public void refreshList(){
+
+    public void refreshList() {
         leerlingen.clear();
         leerlingen.addAll(llRepo.getLeerlingList());
     }

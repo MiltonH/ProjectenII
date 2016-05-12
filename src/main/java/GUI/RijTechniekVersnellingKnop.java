@@ -45,7 +45,7 @@ public class RijTechniekVersnellingKnop extends GridPane implements View
     private Boolean andere1Bool;
     private Boolean andere2Bool;
 
-    public RijTechniekVersnellingKnop(RijTechniekBase base) {
+    public RijTechniekVersnellingKnop(RijTechniekBase base,Rectangle2D formaat) {
         setId("rijTechniekHoofdschermPaneel");
 
         this.base = base;
@@ -54,7 +54,7 @@ public class RijTechniekVersnellingKnop extends GridPane implements View
         buttons = new Hashtable<>();
 
         //einde grid indeling
-        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+        Rectangle2D schermformaat = formaat;
         double maxWidth = schermformaat.getWidth() * 0.62;
 
         //grid

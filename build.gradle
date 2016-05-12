@@ -25,7 +25,9 @@ dependencies {
         exclude group: 'javax.inject'
     }
     compile 'org.glassfish:javax.json:1.0.4'
-    compile 'com.googlecode.json-simple:json-simple:1.1.1'
+//    compile('com.googlecode.json-simple:json-simple:1.1.1') {
+//    exclude group: 'org.hamcrest', module: 'hamcrest-core'
+//}
 
     androidRuntime 'com.gluonhq:charm-android:2.2.0'
     iosRuntime 'com.gluonhq:charm-ios:2.2.0'

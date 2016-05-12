@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Milton
  */
-public class EvaluatieFormulier implements Serializable
+public class EvaluatieFormulier
 {
 
     private Leerling leerling;
@@ -319,6 +319,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setZithoudingRec(Evaluatie zithoudingRec) {
         this.zithoudingRec = zithoudingRec;
+        leerling.notifyViews();
     }
 
     
@@ -328,6 +329,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setSchakelRec(Evaluatie schakelRec) {
         this.schakelRec = schakelRec;
+        leerling.notifyViews();
     }
 
     public Evaluatie getSchakelBediening() {
@@ -336,6 +338,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setSchakelBediening(Evaluatie schakelBediening) {
         this.schakelBediening = schakelBediening;
+        leerling.notifyViews();
     }
 
     public Evaluatie getSchakelGebruik() {
@@ -344,6 +347,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setSchakelGebruik(Evaluatie schakelGebruik) {
         this.schakelGebruik = schakelGebruik;
+        leerling.notifyViews();
     }
     
     
@@ -353,6 +357,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setStuurRec(Evaluatie stuurRec) {
         this.stuurRec = stuurRec;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKijkRec() {
@@ -361,6 +366,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setKijkRec(Evaluatie kijkRec) {
         this.kijkRec = kijkRec;
+        leerling.notifyViews();
     }
 
     public Evaluatie getRemBediening() {
@@ -369,6 +375,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setRemBediening(Evaluatie remBediening) {
         this.remBediening = remBediening;
+        leerling.notifyViews();
     }
 
     public Evaluatie getRemGebruik() {
@@ -377,6 +384,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setRemGebruik(Evaluatie remGebruik) {
         this.remGebruik = remGebruik;
+        leerling.notifyViews();
     }
 
     public Evaluatie getRemRec() {
@@ -385,6 +393,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setRemRec(Evaluatie remRec) {
         this.remRec = remRec;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKoppelingRec() {
@@ -393,6 +402,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setKoppelingRec(Evaluatie koppelingRec) {
         this.koppelingRec = koppelingRec;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKoppelingBediening() {
@@ -401,6 +411,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setKoppelingBediening(Evaluatie koppelingBediening) {
         this.koppelingBediening = koppelingBediening;
+        leerling.notifyViews();
     }
 
     public Evaluatie getKoppelingGebruik() {
@@ -409,6 +420,7 @@ public class EvaluatieFormulier implements Serializable
 
     public void setKoppelingGebruik(Evaluatie koppelingGebruik) {
         this.koppelingGebruik = koppelingGebruik;
+        leerling.notifyViews();
     }
 
     public Evaluatie getHellingB() {
