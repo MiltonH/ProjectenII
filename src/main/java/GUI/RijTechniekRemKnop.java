@@ -43,7 +43,7 @@ public class RijTechniekRemKnop extends GridPane implements View
     private Hashtable<String, Button> buttons;
     private Boolean andereBool;
 
-    public RijTechniekRemKnop(RijTechniekBase base) {
+    public RijTechniekRemKnop(RijTechniekBase base,Rectangle2D formaat) {
         setId("rijTechniekHoofdschermPaneel");
 
         this.base = base;
@@ -51,7 +51,7 @@ public class RijTechniekRemKnop extends GridPane implements View
         huidigformulier = base.getHoofdpanel().getHuidigeLeerling().getHuidigEvaluatieFormulier();
         buttons = new Hashtable<>();
         //einde grid indeling
-        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+        Rectangle2D schermformaat = formaat;
         double maxWidth = schermformaat.getWidth() * 0.62;
 
         //grid

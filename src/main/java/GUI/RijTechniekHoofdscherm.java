@@ -31,8 +31,8 @@ public class RijTechniekHoofdscherm extends GridPane implements View
 
     private RijTechniekBase base;
     private int integer = 0;
-    private Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
-    private double maxWidth = schermformaat.getWidth() * 0.62;
+    private Rectangle2D schermformaat;
+    private double maxWidth;
 
     private Hashtable<String, EventHandler> eventToggles;
     private Hashtable<String, Rectangle[]> rectangles;
@@ -41,8 +41,10 @@ public class RijTechniekHoofdscherm extends GridPane implements View
 
     private List<Image> Images;
 
-    public RijTechniekHoofdscherm(RijTechniekBase base) {
+    public RijTechniekHoofdscherm(RijTechniekBase base ,Rectangle2D formaat) {
         setId("rijTechniekHoofdschermPaneel");
+        schermformaat = formaat;
+        maxWidth = schermformaat.getWidth() * 0.62;
         this.base = base;
         base.getHoofdpanel().getHuidigeLeerling().addView(this);
         huidigformulier = base.getHoofdpanel().getHuidigeLeerling().getHuidigEvaluatieFormulier();
@@ -142,30 +144,30 @@ public class RijTechniekHoofdscherm extends GridPane implements View
         Image afbZithouding = new Image("Images/zithouding.png", Math.ceil(maxWidth * 0.07), USE_PREF_SIZE, true, true);
 
         //rem ----
-        RijTechniekRemKnop rijTechniekRemKnop = new RijTechniekRemKnop(this.base);
+        RijTechniekRemKnop rijTechniekRemKnop = new RijTechniekRemKnop(this.base,schermformaat);
         imageDropperBoven(afbRem, 1, 1, rijTechniekRemKnop);
 
         //koppeling ----
-        RijTechniekKoppelingKnop rijTechniekKoppelingKnop = new RijTechniekKoppelingKnop(this.base);
+        RijTechniekKoppelingKnop rijTechniekKoppelingKnop = new RijTechniekKoppelingKnop(this.base,schermformaat);
         imageDropperBoven(afbKoppeling, 2, 1, rijTechniekKoppelingKnop);
 
         //stuur ----
-        RijTechniekStuurKnop rijTechniekStuurKnop = new RijTechniekStuurKnop(this.base);
+        RijTechniekStuurKnop rijTechniekStuurKnop = new RijTechniekStuurKnop(this.base,schermformaat);
         imageDropperBoven(afbStuur, 3, 1, rijTechniekStuurKnop);
 
         //versnelling ----
-        RijTechniekVersnellingKnop rijTechniekVersnellingKnop = new RijTechniekVersnellingKnop(this.base);
+        RijTechniekVersnellingKnop rijTechniekVersnellingKnop = new RijTechniekVersnellingKnop(this.base,schermformaat);
         imageDropperBoven(afbVersnelling, 4, 1, rijTechniekVersnellingKnop);
 
         //kijken ----
-        RijTechniekKijkenKnop rijTechniekKijkenKnop = new RijTechniekKijkenKnop(this.base);
+        RijTechniekKijkenKnop rijTechniekKijkenKnop = new RijTechniekKijkenKnop(this.base,schermformaat);
         imageDropperBoven(afbKijken, 5, 1, rijTechniekKijkenKnop);
 
         //helling ----
         imageDropperBoven(afbPijl, 6, 1, this);
 
         //zithouding ----
-        RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop(this.base);
+        RijTechniekZithoudingKnop rijTechniekZithoudingKnop = new RijTechniekZithoudingKnop(this.base,schermformaat);
         imageDropperBoven(afbZithouding, 7, 1, rijTechniekZithoudingKnop);
 
         //knoppen onder

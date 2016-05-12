@@ -19,6 +19,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -44,14 +45,16 @@ import javafx.stage.Screen;
 public class verkeerstechniekHoofdscherm extends GridPane implements View
 {
 
-    private Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
-    private double maxWidth = schermformaat.getWidth() * 0.62;
-    private double maxHeight = schermformaat.getHeight() * 0.7;
+    private Rectangle2D schermformaat;
+    private double maxWidth;
+    private double maxHeight;
     private int voorrang1Int = 0;
     private int voorrang2Int = 0;
     private int voorrang3Int = 0;
     private VerkeersTechniekBase base;
     private EvaluatieFormulier huidigformulier;
+    VectorBuilder veccyb;
+//    private Hashtable<String, Group> knopViews;
 
     private Hashtable<String, Rectangle[]> rectangles;
     private Hashtable<String, ImageView> knopViews;
@@ -61,9 +64,13 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
 
     private List<Image> Images;
 
-    public verkeerstechniekHoofdscherm(VerkeersTechniekBase base) {
+    public verkeerstechniekHoofdscherm(VerkeersTechniekBase base, Rectangle2D formaat) {
         this.base = base;
+        schermformaat = formaat;
+        maxWidth = schermformaat.getWidth() * 0.62;
+        maxHeight = schermformaat.getHeight() * 0.7;
         base.getHoofdpanel().getHuidigeLeerling().addView(this);
+        veccyb = new VectorBuilder(schermformaat);
         Images = new ArrayList<>();
         Images.add(new Image("Images/knopVierkantW.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
         Images.add(new Image("Images/knopVierkantR.png", Math.ceil(maxWidth * 0.14), USE_PREF_SIZE, true, true));
@@ -374,6 +381,7 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
 
     private void imageDropper(Image img, int kolom, int rij, String key) {
         ImageView View = new ImageView(img);
+//        Group afbView = veccyb.buildKnop(Color.BLUE, veccyb.rijtechniekG(Color.BLUE));
         ImageView afbView = new ImageView(Images.get(0));
         add(afbView, kolom, rij);
         add(View, kolom, rij);
@@ -492,16 +500,25 @@ public class verkeerstechniekHoofdscherm extends GridPane implements View
     }
 
     private void PasKleurAan(String key, Evaluatie eval) {
-        ImageView view = knopViews.get(key);;
-
+//        Group view = knopViews.get(key);
+        ImageView view = knopViews.get(key);
         if (Evaluatie.WIT.equals(eval)) {
             view.setImage(Images.get(0));
+//            Group view2 = veccyb.buildKnop(Color.WHITE, veccyb.rijtechniekG(Color.WHITE));
+//            view.getChildren().clear();
+//            view.getChildren().addAll(view2.getChildren());
         } else if (Evaluatie.ROOD.equals(eval)) {
             view.setImage(Images.get(1));
+//            Group view2 = veccyb.buildKnop(Color.RED, veccyb.rijtechniekG(Color.RED));
+//            view.getChildren().addAll(view2.getChildren());
         } else if (Evaluatie.GROEN.equals(eval)) {
             view.setImage(Images.get(3));
+//            Group view2 = veccyb.buildKnop(Color.LIME, veccyb.rijtechniekG(Color.LIME));
+//            view.getChildren().addAll(view2.getChildren());
         } else if (Evaluatie.ORANJE.equals(eval)) {
             view.setImage(Images.get(2));
+//            Group view2 = veccyb.buildKnop(Color.ORANGE, veccyb.rijtechniekG(Color.ORANGE));
+//            view.getChildren().addAll(view2.getChildren());
         }
     }
 

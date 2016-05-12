@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Milton
  */
-public class Leerling implements Serializable
+public class Leerling
 {
 
     private String familienaam;

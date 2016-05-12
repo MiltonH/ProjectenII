@@ -37,8 +37,22 @@ public class HoofdPaneel extends GridPane implements View
     private ImageView niveauCenterView;
     private List<Image> niveauImages;
     private EvaluatieFormulier HuidigFormulier;
+    private StackPane wijzerplaat1Stack;
+    private StackPane wijzerplaat2Stack;
+    List<Image> rijtechKnopMiddenImageViews;
+    List<Image> rijtechKnopBuitenImageViews;
+    List<Image> rijtechKnopBinnenImageViews;
+    List<Image> verkeersTechKnopHoofdPijlLinksImageViews;
+    List<Image> verkeersTechKnopHoofdPijlRechtsImageViews;
+    List<Image> verkeersTechKnopHoofdPijlOnderImageViews;
+    ImageView pijlOnder;
+    ImageView pijlRechts;
+    ImageView pijlLinks;
+    ImageView stuurMidden;
+    ImageView stuurBuiten;
+    ImageView stuurBinnen;
 
-    public HoofdPaneel(Leerling leerling) {
+    public HoofdPaneel(Leerling leerling, Rectangle2D formaat) {
         //maingrid indelen
         huidigeLeerling = leerling;
         huidigeLeerling.addView(this);
@@ -76,7 +90,7 @@ public class HoofdPaneel extends GridPane implements View
         getRowConstraints().addAll(rij0, rij1, rij2, rij3);
 
         //einde grid indeling
-        schermformaat = Screen.getPrimary().getVisualBounds();
+        schermformaat = formaat;
 
 //        //kap
 //        HBox kapBox = new HBox();
@@ -113,49 +127,117 @@ public class HoofdPaneel extends GridPane implements View
         add(centerBox, 1, 2, 3, 1);
 
         centerKnopView.setOnMouseClicked(event -> {
-            AttitudePaneel attitudePaneel = new AttitudePaneel(this);
+            AttitudePaneel attitudePaneel = new AttitudePaneel(this, schermformaat);
             attitudePaneel.setScene(scene);
             scene.setRoot(attitudePaneel);
         });//debug
         //einde centerBox
 
         //wijzerplaaten
-        StackPane wijzerplaat1Stack = new StackPane();
-        StackPane wijzerplaat2Stack = new StackPane();
+        wijzerplaat1Stack = new StackPane();
+        wijzerplaat2Stack = new StackPane();
+
+        rijtechKnopMiddenImageViews = new ArrayList<>();
+        rijtechKnopBuitenImageViews = new ArrayList<>();
+        rijtechKnopBinnenImageViews = new ArrayList<>();
+
+        rijtechKnopBinnenImageViews.add(new Image("Images/rijTechKnopStuurBinnenCirkelWit.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        rijtechKnopBinnenImageViews.add(new Image("Images/rijTechKnopStuurBinnenCirkelRood.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        rijtechKnopBinnenImageViews.add(new Image("Images/rijTechKnopStuurBinnenCirkelOranje.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        rijtechKnopBinnenImageViews.add(new Image("Images/rijTechKnopStuurBinnenCirkelGroen.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+
+        rijtechKnopMiddenImageViews.add(new Image("Images/rijTechKnopStuurMiddenWit.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        rijtechKnopMiddenImageViews.add(new Image("Images/rijTechKnopStuurMiddenRood.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        rijtechKnopMiddenImageViews.add(new Image("Images/rijTechKnopStuurMiddenOranje.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        rijtechKnopMiddenImageViews.add(new Image("Images/rijTechKnopStuurMiddenGroen.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+
+        rijtechKnopBuitenImageViews.add(new Image("Images/rijTechKnopStuurBuitenCirkelWit.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        rijtechKnopBuitenImageViews.add(new Image("Images/rijTechKnopStuurBuitenCirkelRood.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        rijtechKnopBuitenImageViews.add(new Image("Images/rijTechKnopStuurBuitenCirkelOranje.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        rijtechKnopBuitenImageViews.add(new Image("Images/rijTechKnopStuurBuitenCirkelGroen.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+
+        ImageView verkcirkel = new ImageView(new Image("Images/verkeersTechKnopHoofdCirkel.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+
+        verkeersTechKnopHoofdPijlLinksImageViews = new ArrayList<>();
+        verkeersTechKnopHoofdPijlRechtsImageViews = new ArrayList<>();
+        verkeersTechKnopHoofdPijlOnderImageViews = new ArrayList<>();
+
+        verkeersTechKnopHoofdPijlLinksImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlLinksWit.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        verkeersTechKnopHoofdPijlLinksImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlLinksRood.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        verkeersTechKnopHoofdPijlLinksImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlLinksOranje.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        verkeersTechKnopHoofdPijlLinksImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlLinksGroen.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+
+        verkeersTechKnopHoofdPijlRechtsImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlRechtsWit.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        verkeersTechKnopHoofdPijlRechtsImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlRechtsRood.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        verkeersTechKnopHoofdPijlRechtsImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlRechtsOranje.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        verkeersTechKnopHoofdPijlRechtsImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlRechtsGroen.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+
+        verkeersTechKnopHoofdPijlOnderImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlOnderWit.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        verkeersTechKnopHoofdPijlOnderImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlOnderRood.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        verkeersTechKnopHoofdPijlOnderImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlOnderOranje.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
+        verkeersTechKnopHoofdPijlOnderImageViews.add(new Image("Images/verkeersTechKnopHoofdPijlOnderGroen.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true));
 
         Image wijzerplaat = new Image("Images/Wijzerplaat.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
         Image wijzerStand1 = new Image("Images/WijzerStand1.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
         Image wijzerStand2 = new Image("Images/WijzerStand2.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
         Image wijzerStand3 = new Image("Images/WijzerStand3.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
-        Image wijzerstuur = new Image("Images/rijTechKnopHoofd.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
         Image verkeersTechKnop = new Image("Images/verkeersTechKnopHoofd.png", Math.ceil(schermformaat.getWidth() * 0.28), USE_PREF_SIZE, true, true);
         ImageView wijzeplaat1Stand = new ImageView(wijzerStand1);
         ImageView wijzeplaat2Stand = new ImageView(wijzerStand1);
         ImageView wijzerplaat1View = new ImageView(wijzerplaat);
         ImageView wijzerplaat2View = new ImageView(wijzerplaat);
-        ImageView wijzerstuurView = new ImageView(wijzerstuur);
         ImageView verkeersTechKnopView = new ImageView(verkeersTechKnop);
+        pijlOnder = new ImageView(verkeersTechKnopHoofdPijlOnderImageViews.get(0));
+        pijlRechts = new ImageView(verkeersTechKnopHoofdPijlRechtsImageViews.get(0));
+        pijlLinks = new ImageView(verkeersTechKnopHoofdPijlLinksImageViews.get(0));
+        stuurMidden = new ImageView(rijtechKnopMiddenImageViews.get(0));
+        stuurBuiten = new ImageView(rijtechKnopBuitenImageViews.get(0));
+        stuurBinnen = new ImageView(rijtechKnopBinnenImageViews.get(0));
 
-        wijzerplaat1Stack.getChildren().addAll(wijzerplaat1View, wijzerstuurView, wijzeplaat1Stand);
-        wijzerplaat2Stack.getChildren().addAll(wijzerplaat2View, verkeersTechKnopView, wijzeplaat2Stand);
+        wijzerplaat1Stack.getChildren().addAll(wijzerplaat1View, stuurBinnen, stuurBuiten, stuurMidden);
+        wijzerplaat2Stack.getChildren().addAll(wijzerplaat2View, verkcirkel, pijlOnder, pijlRechts, pijlLinks);
         add(wijzerplaat1Stack, 1, 2);
         add(wijzerplaat2Stack, 3, 2);
         wijzerplaat1View.setOnMouseClicked(event -> {
-            RijTechniekBase rijtechniekenBase = new RijTechniekBase(this);
+            RijTechniekBase rijtechniekenBase = new RijTechniekBase(this, schermformaat);
             scene.setRoot(rijtechniekenBase);
-        });//debug
+        });
         wijzerplaat2View.setOnMouseClicked(event -> {
-            VerkeersTechniekBase verkeersTechniekBase = new VerkeersTechniekBase(this);
+            VerkeersTechniekBase verkeersTechniekBase = new VerkeersTechniekBase(this, schermformaat);
             scene.setRoot(verkeersTechniekBase);
-        });//debug
-        wijzerstuurView.setOnMouseClicked(event -> {
-            RijTechniekBase rijtechniekenBase = new RijTechniekBase(this);
+        });
+        verkcirkel.setOnMouseClicked(event -> {
+            VerkeersTechniekBase verkeersTechniekBase = new VerkeersTechniekBase(this, schermformaat);
+            scene.setRoot(verkeersTechniekBase);
+        });
+        pijlOnder.setOnMouseClicked(event -> {
+            VerkeersTechniekBase verkeersTechniekBase = new VerkeersTechniekBase(this, schermformaat);
+            scene.setRoot(verkeersTechniekBase);
+        });
+        pijlRechts.setOnMouseClicked(event -> {
+            VerkeersTechniekBase verkeersTechniekBase = new VerkeersTechniekBase(this, schermformaat);
+            scene.setRoot(verkeersTechniekBase);
+        });
+        pijlLinks.setOnMouseClicked(event -> {
+            VerkeersTechniekBase verkeersTechniekBase = new VerkeersTechniekBase(this, schermformaat);
+            scene.setRoot(verkeersTechniekBase);
+        });
+        stuurMidden.setOnMouseClicked(event -> {
+            RijTechniekBase rijtechniekenBase = new RijTechniekBase(this, schermformaat);
             scene.setRoot(rijtechniekenBase);
-        });//debug
+        });
+        stuurBinnen.setOnMouseClicked(event -> {
+            RijTechniekBase rijtechniekenBase = new RijTechniekBase(this, schermformaat);
+            scene.setRoot(rijtechniekenBase);
+        });
+        stuurBuiten.setOnMouseClicked(event -> {
+            RijTechniekBase rijtechniekenBase = new RijTechniekBase(this, schermformaat);
+            scene.setRoot(rijtechniekenBase);
+        });
         verkeersTechKnopView.setOnMouseClicked(event -> {
-            VerkeersTechniekBase verkeersTechniekBase = new VerkeersTechniekBase(this);
+            VerkeersTechniekBase verkeersTechniekBase = new VerkeersTechniekBase(this, schermformaat);
             scene.setRoot(verkeersTechniekBase);
-        });//debug
+        });
 
         //eind wijzerplaaten
         //CenterTopBalk
@@ -515,7 +597,7 @@ public class HoofdPaneel extends GridPane implements View
         opmerkingBox.getChildren().addAll(opmerkingKnopView);
         add(opmerkingBox, 0, 3);
         opmerkingKnopView.setOnMouseClicked(event -> {
-            OpmerkingPaneel opmerkingPaneel = new OpmerkingPaneel(this);
+            OpmerkingPaneel opmerkingPaneel = new OpmerkingPaneel(this, schermformaat);
             opmerkingPaneel.setScene(scene);
             scene.setRoot(opmerkingPaneel);
         });
@@ -613,6 +695,37 @@ public class HoofdPaneel extends GridPane implements View
         this.scene.setRoot(par);
     }
 
+    public Evaluatie berekenComboKleur(Evaluatie[] evals) {
+        int tot = evals.length * 3;
+        int aantal = 0;
+
+        for (Evaluatie ev : evals) {
+            if (Evaluatie.WIT.equals(ev)) {
+                aantal += 0;
+            } else if (Evaluatie.ROOD.equals(ev)) {
+                aantal += 1;
+            } else if (Evaluatie.ORANJE.equals(ev)) {
+                aantal += 2;
+            } else if (Evaluatie.GROEN.equals(ev)) {
+                aantal += 3;
+            } else {
+                aantal += 0;
+            }
+        }
+
+        if (aantal == 0) {
+            return Evaluatie.WIT;
+        } else if (aantal == tot) {
+            return Evaluatie.GROEN;
+        } else if (aantal > (tot / 2) && aantal < tot) {
+            return Evaluatie.ORANJE;
+        } else if (aantal > 0 && aantal <= (tot / 2)) {
+            return Evaluatie.ROOD;
+        } else {
+            return Evaluatie.WIT;
+        }
+    }
+
     @Override
     public void update() {
         HuidigFormulier = huidigeLeerling.getHuidigEvaluatieFormulier();
@@ -626,6 +739,30 @@ public class HoofdPaneel extends GridPane implements View
         PasRandKleurAan("lamp", formulier.getSchakelaars());
         PasRandKleurAan("druppel", formulier.getVloeistoffen());
         PasRandKleurAan("band", formulier.getBanden());
+        //schijven
+        Evaluatie[] stuurbovenarr = {formulier.getZithoudingRec(), formulier.getKoppelingRec(), formulier.getRemRec(), formulier.getStuurRec(), formulier.getSchakelRec(), formulier.getKijkRec()};
+        Evaluatie stuurbovenEv = berekenComboKleur(stuurbovenarr);
+        stuurBuiten.setImage(rijtechKnopBuitenImageViews.get(stuurbovenEv.ordinal()));
+
+        Evaluatie[] stuurmiddenarr = {formulier.getHellingB(), formulier.getHellingH(), formulier.getHellingV(), formulier.getStuurOefeningen(), formulier.getAchteruit(), formulier.getGarageEen()};
+        Evaluatie stuurmiddenEv = berekenComboKleur(stuurmiddenarr);
+        stuurMidden.setImage(rijtechKnopMiddenImageViews.get(stuurmiddenEv.ordinal()));
+
+        Evaluatie[] stuurbinnenarr = {formulier.getKeren(), formulier.getParkerenLinks()};
+        Evaluatie stuurbinnenEv = berekenComboKleur(stuurbinnenarr);
+        stuurBinnen.setImage(rijtechKnopBinnenImageViews.get(stuurbinnenEv.ordinal()));
+
+        Evaluatie[] verklinksarr = {formulier.getRichtingAanwijzers(), formulier.getKruisen(), formulier.getInhalen()};
+        Evaluatie verklinks = berekenComboKleur(verklinksarr);
+        pijlLinks.setImage(verkeersTechKnopHoofdPijlLinksImageViews.get(verklinks.ordinal()));
+
+        Evaluatie[] verkrechtsarr = {formulier.getOpenbareWeg(), formulier.getLinksaf(), formulier.getRechtsaf(), formulier.getVolgafstand()};
+        Evaluatie verkrechts = berekenComboKleur(verkrechtsarr);
+        pijlRechts.setImage(verkeersTechKnopHoofdPijlRechtsImageViews.get(verkrechts.ordinal()));
+
+        Evaluatie[] verkondertsarr = {formulier.getVoorrang(), formulier.getVerkeerstekens(), formulier.getSnelheid()};
+        Evaluatie verkonder = berekenComboKleur(verkondertsarr);
+        pijlOnder.setImage(verkeersTechKnopHoofdPijlOnderImageViews.get(verkonder.ordinal()));
 
         //rechts
         PasRandKleurAan("gps", formulier.getGps());

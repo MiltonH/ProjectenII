@@ -46,14 +46,14 @@ public class RijTechniekKoppelingKnop extends GridPane implements View
     private Boolean andere1Bool;
     private Boolean andere2Bool;
 
-    public RijTechniekKoppelingKnop(RijTechniekBase base) {
+    public RijTechniekKoppelingKnop(RijTechniekBase base,Rectangle2D formaat) {
         setId("rijTechniekHoofdschermPaneel");
         this.base = base;
         base.getHoofdpanel().getHuidigeLeerling().addView(this);
         huidigformulier = base.getHoofdpanel().getHuidigeLeerling().getHuidigEvaluatieFormulier();
         buttons = new Hashtable<>();
         //einde grid indeling
-        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+        Rectangle2D schermformaat = formaat;
         double maxWidth = schermformaat.getWidth() * 0.62;
 
         //grid

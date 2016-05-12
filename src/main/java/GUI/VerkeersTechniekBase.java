@@ -28,7 +28,7 @@ public class VerkeersTechniekBase extends GridPane
     private HBox contentBox;
     private HoofdPaneel hoofdpanel;
 
-    public VerkeersTechniekBase(HoofdPaneel hoofdPanel) {
+    public VerkeersTechniekBase(HoofdPaneel hoofdPanel,Rectangle2D formaat) {
         //grid indeling
         this.hoofdpanel = hoofdPanel;
         setId("hoofdPaneelBG");
@@ -52,7 +52,7 @@ public class VerkeersTechniekBase extends GridPane
         getRowConstraints().addAll(rij0, rij1, rij2);
 
         //einde grid indeling
-        Rectangle2D schermformaat = Screen.getPrimary().getVisualBounds();
+        Rectangle2D schermformaat = formaat;
 
         //contentBox
         contentBox = new HBox();
@@ -106,13 +106,13 @@ public class VerkeersTechniekBase extends GridPane
 //        returnKnopView.setOnMouseClicked(event -> {
 //        });
         rijTechKnopView.setOnMouseClicked(event -> {
-            hoofdPanel.setSceneRoot(new RijTechniekBase(hoofdPanel));
+            hoofdPanel.setSceneRoot(new RijTechniekBase(hoofdPanel,schermformaat));
         });
         attitudeKnopView.setOnMouseClicked(event -> {
-            hoofdPanel.setSceneRoot(new AttitudePaneel(hoofdPanel));
+            hoofdPanel.setSceneRoot(new AttitudePaneel(hoofdPanel,schermformaat));
         });
         //einde box met knoppen
-        setContent(new verkeerstechniekHoofdscherm(this));
+        setContent(new verkeerstechniekHoofdscherm(this,schermformaat));
     }
 
     public void setContent(GridPane grid) {
