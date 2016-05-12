@@ -28,7 +28,7 @@ public class AddLeerlingTask extends Task<Void>
     public AddLeerlingTask(Leerling leerling) {
         this.leerling = leerling;
         userListResource = ClientBuilder.newClient()
-                .target("http://192.168.43.36:8080/rijschool/api")
+                .target("http://localhost:8080/rijschool/api")
                 .path("leerlingen")
                 .register(LeerlingWriter.class);
     }

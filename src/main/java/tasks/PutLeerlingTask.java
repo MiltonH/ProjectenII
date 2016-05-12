@@ -29,7 +29,7 @@ public class PutLeerlingTask extends Task<Void>
     public PutLeerlingTask(Leerling leerling) {
         this.leerling = leerling;
         userListResource = ClientBuilder.newClient()
-                .target("http://192.168.43.36:8080/rijschool/api/leerlingen")
+                .target("http://localhost:8080/rijschool/api/leerlingen")
                 .path(leerling.getInschrijvingsNummer())
                 .register(LeerlingWriter.class);
     }
